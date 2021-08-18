@@ -108,6 +108,13 @@
   let hash, tx;
   const issue = async (ticker) => {
     let contract;
+    // @todo BRANDING
+    // what is the idea of username and different domains?
+    // let domain =
+    //     $user.username === "raretoshi"
+    //         ? "raretoshi.com"
+    //         : `${$user.username.toLowerCase()}.raretoshi.com`;
+    //
     let domain =
       $user.username === branding.superUserName
         ? branding.urls.base
