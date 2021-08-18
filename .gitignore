@@ -23,4 +23,5 @@ hasura/app/proofs.json
 hasura/app/.pnpm-store
 cypress
 **/.pnpm-debug
+.idea/
 .svelte-kit
