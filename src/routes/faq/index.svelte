@@ -1,9 +1,6 @@
 <script context="module">
-	export const prerender = true;
-</script>
-
-<script>
   import branding from '$lib/branding';
+	export const prerender = true;
 </script>
 
 <div class="container mx-auto sm:justify-between mt-10 md:mt-20">
