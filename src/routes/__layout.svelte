@@ -17,7 +17,6 @@
     Avatar,
     ProgressLinear,
     Sidebar,
-    Navbar,
     Dialog,
     Footer,
     Snack,
@@ -32,6 +31,8 @@
     titles as titlesStore,
     token,
   } from "$lib/store";
+  import Navbar from "$styleguide/components/Navbar";
+  import { show, user, password, token } from "$lib/store";
   import { onMount } from "svelte";
   import { fade } from "svelte/transition";
   import { publicPages } from "$lib/utils";
