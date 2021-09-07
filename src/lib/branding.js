@@ -15,16 +15,30 @@ const BRANDING = {
   },
   
   meta: {
-      title: 'Raretoshi',
-      keywords: "Bitcoin Liquid NFT Art",
-      description: "Upload, collect, and transact rare digital art on the Liquid Network",
-        image: 'https://raretoshi.com/splash.png',
+    general: {
+      og: {
+        title: 'Raretoshi',
+        image: 'https://raretoshi.com/branding/splash.png',
         url: 'https://raretoshi.com/',
 
       twitter: {
         card: 'summary_large_image',
         creator: '@raretoshi',
         site: '@raretoshi',
+        title: 'Raretoshi',
+        image: 'https://raretoshi.com/branding/splash.png',
+      },
+    },
+    // for art page we use art info in <header> meta
+    artPage: (art) => ({
+      og: {
+        title: `Raretoshi - ${art.title}`,
+        image: `/api/ipfs/${art.filename}`,
+        url: `https://raretoshi.com/a/${art.slug}`,
+      },
+      twitter: {
+        title: `Raretoshi - ${art.title}`,
+        image: `/api/ipfs/${art.filename}`,
       },
     
     artwork: (art) => ({
