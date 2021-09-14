@@ -19,6 +19,7 @@
   import { Activity, RecentActivityCard, LatestPiecesCard } from "$comp";
   import { err, goto } from "$lib/utils";
   import branding from "$lib/branding";
+  import Button                               from "../styleguide/components/Button.svelte";
 
   export let featured;
   export let recent;
@@ -155,12 +156,14 @@
   <div class="header text-center">
     <h1 class="text-left md:text-center md:w-full">
       {branding.projectName}
-      <br />digital art
+      <br />
     </h1>
     <h5 class="md:max-w-lg mx-auto text-left md:text-center">
-      Upload, collect, and transact rare digital art on the Liquid Network
+      The only marketplace for NFT Experiences
     </h5>
-    <a class="primary-btn" href={`/market`}>Start exploring</a>
+    <a href={`/market`}>
+      <Button primary class="max-w-md mx-auto">Start exploring</Button>
+    </a>
   </div>
 </div>
 
