@@ -8,6 +8,7 @@
   import { tick } from "svelte";
   import { keypair, singlesig, multisig } from "$lib/wallet";
   import { user } from "$lib/store";
+  import Button from '$styleguide/components/Button';
 
   let show;
   let email = "";
@@ -67,7 +68,7 @@
   }
 </style>
 
-<div class="form-container bg-lightblue px-4">
+<div class="form-container bg-black px-4">
   <form
     class="mb-6"
     on:submit|preventDefault={login}
@@ -102,7 +103,7 @@
     <a href="/forgot-password" class="block w-full text-midblue">Forgot
       password?</a>
     <div class="flex my-5 justify-end">
-      <button class="primary-btn w-full" type="submit">Sign In</button>
+      <Button primary class="w-full" type="submit">Sign In</Button>
     </div>
     <a href="/register" class="text-midblue">Don't have an account? Sign up</a>
   </form>
