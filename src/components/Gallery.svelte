@@ -1,7 +1,9 @@
 <script>
   import { browser } from "$app/env";
-  import { Card, Pagination } from "$comp";
-  import { onMount, tick } from "svelte";
+  import { Pagination } from "$comp";
+  import { tick } from "svelte";
+  import Card from "$styleguide/components/Card";
+  import {Pagination, LoadingPlaceholder } from "$comp";
 
   export let artworks;
   export let count;
