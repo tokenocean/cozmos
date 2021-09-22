@@ -65,8 +65,10 @@
 <Snack />
 
 <Sidebar bind:open />
-<div class={y > 50 ? 'sticky' : ''} in:fade>
-  <Navbar bind:sidebar={open} />
+<div class="bg-black sticky-container">
+  <div class={y > 50 ? 'sticky' : ''} in:fade>
+    <Navbar bind:sidebar={open} />
+  </div>
 </div>
 <Dialog />
 
