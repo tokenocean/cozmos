@@ -17,6 +17,7 @@ export default {
         alias: {
           $comp: path.resolve("src/components/index.js"),
           $components: path.resolve("src/components"),
+          $styleguide: path.resolve("src/styleguide"),
           $queries: path.resolve("src/queries"),
         },
       },
