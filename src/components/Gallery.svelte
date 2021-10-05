@@ -2,7 +2,7 @@
   import { browser } from "$app/env";
   import { Pagination } from "$comp";
   import { tick } from "svelte";
-  import Card from "$styleguide/components/Card";
+  import Card from "$styleguide/components/Card.svelte";
   import {Pagination, LoadingPlaceholder } from "$comp";
 
   export let artworks;

@@ -8,7 +8,7 @@
   import { tick } from "svelte";
   import { keypair, singlesig, multisig } from "$lib/wallet";
   import { user } from "$lib/store";
-  import Button from '$styleguide/components/Button';
+  import Button from '$styleguide/components/Button.svelte';
 
   let show;
   let email = "";
@@ -29,7 +29,7 @@
   }).catch(err);
 </script>
 
-<style>
+<style lang="scss">
   .form-container {
     width: 100%;
     height: 100vh;
@@ -44,7 +44,7 @@
     max-width: 450px;
     background-color: white;
     padding: 40px;
-    box-shadow: 0 1px 5px rgb(0 0 0 / 18%);
+    box-shadow: 0 1px 5px rgba(#000, 0.18);
     border-radius: 10px;
   }
 
