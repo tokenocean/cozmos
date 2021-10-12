@@ -251,7 +251,6 @@
               {#if totals[username][asset] < 0}
                 <div class="flex mb-2">
                   {#if users[username]}
-<<<<<<< HEAD
                     <div class="my-auto flex w-48">
                       <div class="flex">
                         {#if users[username]}
@@ -270,7 +269,6 @@
                           {username}
                         </a>
                       </div>
-=======
                     <Avatar
                       user={users[username]}
                       overlay={username.includes('2of2') && '/branding/logo-graphic.png'} />
@@ -287,7 +285,6 @@
                         class="secondary-color">
                         {username}
                       </a>
->>>>>>> #styleguide #BaseStyleguide Move all branding-related images to specific folder
                     </div>
                   {:else}
                     <div>{username}</div>
