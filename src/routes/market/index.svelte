@@ -78,7 +78,6 @@
 
 </style>
 
-{filtered.length}
 <Results />
 
 <div
