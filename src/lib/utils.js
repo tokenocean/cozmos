@@ -15,6 +15,11 @@ const btc = import.meta.env.VITE_BTC;
 const cad = import.meta.env.VITE_CAD;
 const usd = import.meta.env.VITE_USD;
 
+export const UPLOAD_DESTINATION = {
+  'IPFS': 'ipfs',
+  'STORAGE': 'storage',
+};
+
 const fade = (n, o) => svelteFade(n, { ...o, duration: 50 });
 
 const publicPages = [
