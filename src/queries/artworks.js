@@ -58,6 +58,8 @@ export const fields = `
   extension_interval
   max_extensions
   has_royalty
+  cover_filename,
+  package_content,
   royalty_recipients {
     id
     name
@@ -91,8 +93,8 @@ export const fields = `
     user {
       id
       username
-    } 
-    amount 
+    }
+    amount
   }
 `;
 
@@ -129,10 +131,10 @@ export const getFeatured = `query {
     id
     start_date
     end_date
-    white 
+    white
     artwork {
       ${fields}
-    } 
+    }
   }
 }`;
 
@@ -150,7 +152,7 @@ export const getArtworks = `query($where: artworks_bool_exp!, $limit: Int, $offs
     ${fields}
     tags {
       tag
-    } 
+    }
   }
 }`;
 
@@ -159,7 +161,7 @@ export const getUserArtworks = `query($id: uuid!) {
     ${fields}
     tags {
       tag
-    } 
+    }
   }
 }`;
 
@@ -168,7 +170,7 @@ export const getArtworksByOwner = (id) => `query {
     ${fields}
     tags {
       tag
-    } 
+    }
   }
 }`;
 
@@ -214,7 +216,7 @@ export const create = `mutation ($artwork: artworks_insert_input!, $tags: [tags_
     ${fields}
     tags {
       tag
-    } 
+    }
   }
   insert_tags(objects: $tags) {
     affected_rows
@@ -245,7 +247,7 @@ export const updateArtworkWithRoyaltyRecipients = `mutation update_artwork_with_
 export const updateTags = `mutation insert_tags($tags: [tags_insert_input!]!, $artwork_id: uuid!) {
   delete_tags(where: {artwork_id: {_eq: $artwork_id}}) {
     affected_rows
-  } 
+  }
   insert_tags(objects: $tags) {
     affected_rows
   }
@@ -282,8 +284,8 @@ export const getTags = `query {
     tag
     artwork {
       ${fields}
-    } 
-  } 
+    }
+  }
 }`;
 
 export const getTitles = `query {
