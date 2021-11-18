@@ -459,6 +459,19 @@
               {artwork.package_content || 'Package content of this product is empty'}
             </div>
           </div>
+
+          <div class="mt-12">
+            <div class="text-2xl font-bold">Tags</div>
+            <div class="mt-4">
+              {#if artwork && artwork.tags && !artwork.tags.length}
+                No tags
+              {/if}
+              {#each (artwork && artwork.tags || []) as tag}
+                <a href={`/tag/${tag.tag}`} class="mr-2 tag">{ tag.tag }</a>
+              {/each}
+            </div>
+          </div>
+
         </div>
       </div>
     </div>
@@ -470,6 +483,12 @@
 {/if}
 
 <style lang="scss">
+
+  .tag {
+    &:hover {
+      color: rgb(254,96,0);
+    }
+  }
 
   .disabled {
     cursor: not-allowed;
