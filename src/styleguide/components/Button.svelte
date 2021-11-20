@@ -1,7 +1,5 @@
 <script>
   export let primary = false;
-  export let secondary = false;
-  export let ghost = false;
   export let ghostWhite = false;
   export let hover = false;
   export let disabled = false;

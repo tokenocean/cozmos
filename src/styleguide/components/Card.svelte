@@ -9,10 +9,7 @@
 
   export let artwork;
   export let columns = 3;
-  export let link = true;
   export let showDetails = true;
-  export let shadow = !showDetails;
-  export let activityPage = false;
   export let loaded = false;
   export let thumb = true;
   export let popup = false;
@@ -60,14 +57,6 @@
 
 <style lang="scss">
     @import "../theme";
-
-    .card {
-        @apply shadow-md;
-    }
-
-    .price {
-        font-size: $card--price--font-size;
-    }
 
     .boxed {
         box-shadow: $card--box-shadow;

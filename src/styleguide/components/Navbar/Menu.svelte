@@ -37,10 +37,6 @@
     @apply w-auto text-left px-5;
   }
 
-  .menu .signin {
-    @apply w-32;
-  }
-
   .menu-link-button.wallet {
     // Add gradient-color to wallet text
     background: $color-primary-gradient-1;

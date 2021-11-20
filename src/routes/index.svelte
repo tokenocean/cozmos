@@ -1,41 +1,3 @@
-<script context="module">
-  export async function load({ fetch, page }) {
-    const props = await fetch(`/artworks/recent.json`).then((r) => r.json());
-
-    return {
-      maxage: 90,
-      props,
-    };
-  }
-
-</script>
-
-<script>
-  import { onDestroy } from "svelte";
-  import { query } from "$lib/api";
-  import { Summary } from "$comp";
-  import { fade } from "svelte/transition";
-  import { user } from "$lib/store";
-  import { Activity, RecentActivityCard, LatestPiecesCard } from "$comp";
-  import { err, goto } from "$lib/utils";
-  import branding from "$lib/branding";
-  import Button from "$styleguide/components/Button.svelte";
-
-  export let featured;
-  export let recent;
-  export let latest;
-
-  let interval = setInterval(() => {
-    current++;
-    if (current >= featured.length) current = 0;
-  }, 6000);
-
-  onDestroy(() => clearInterval(interval));
-
-  let current = 0;
-
-</script>
-
 <style lang="scss">
   @import "../styleguide/theme.scss";
 
@@ -72,7 +34,7 @@
     </div>
     <div class="flex flex-1 ml-20 sm:hidden xl:flex items-center">
       <div>
-        <a href="/market"> <img src="/cards.png" class="w-full max-h-96" /> </a>
+        <a href="/market"> <img src="/cards.png" class="w-full max-h-96" alt="Experiences" /> </a>
       </div>
     </div>
   </div>

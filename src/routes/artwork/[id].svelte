@@ -1,8 +1,11 @@
 <script context="module">
+  import { serverApi } from "$lib/api";
   export async function load({ fetch, page }) {
     const props = await fetch(`/artworks/${page.params.id}.json`).then((r) =>
       r.json()
     );
+
+    serverApi.url('/viewed').post().json(console.log).catch(console.log);
 
     return {
       maxage: 90,
@@ -53,7 +56,7 @@
   import { SocialShare } from "$comp";
   import branding from "$lib/branding";
 
-  export let artwork, others;
+  export let artwork;
   const { title, image, url } = branding.meta.artPage(artwork);
 
   $: disabled =
@@ -62,14 +65,9 @@
       (t) => ["purchase", "creation", "cancel"].includes(t.type) && !t.confirmed
     );
 
-  let start_counter, end_counter, now, timeout, loaded;
+  let start_counter, end_counter, now, timeout;
 
   let id = artwork ? artwork.id : $page.params.id;
-  $: init(artwork);
-  let init = () => {
-    if (!loaded) api.url("/viewed").post({ id }).json().catch(err);
-    loaded = true;
-  };
 
   let fetch = async () => {
     query(getArtwork, { id })
@@ -77,8 +75,6 @@
         artwork = res.artworks_by_pk;
 
         $art = artwork;
-        if (!loaded) api.url("/viewed").post({ id });
-        loaded = true;
       })
       .catch(err);
   };
@@ -280,19 +276,8 @@
     overflow: hidden;
   }
 
-  svelte-virtual-list-viewport {
-    overflow: hidden;
-  }
-
   :global(.description a) {
     color: #3ba5ac;
-  }
-
-  button {
-    @apply mb-2 w-full text-sm;
-    &:hover {
-      @apply border-green-700;
-    }
   }
 
   .popup {
@@ -449,7 +434,7 @@
       <div class="mt-12">
         <div class="text-2xl font-bold">History</div>
         <div class="mt-4 text-sm">
-          {#each artwork.transactions.slice(0, showActivity ? transactions.length : 3) as transaction}
+          {#each artwork.transactions.slice(0, showActivity ? artwork.transactions.length : 3) as transaction}
             <Activity {transaction} />
           {/each}
           {#if artwork.transactions.length > 3}

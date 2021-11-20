@@ -44,10 +44,6 @@
   }
 
   @mixin mobileScreen() {
-    header {
-      padding-top: 12px;
-      padding-bottom: 12px;
-    }
     .hambuger {
       display: block;
     }
@@ -70,10 +66,6 @@
     padding-top: 12px;
     padding-bottom: 12px;
     @include mobileScreen();
-
-    a img {
-      @apply w-36;
-    }
 
     nav {
       @apply hidden;

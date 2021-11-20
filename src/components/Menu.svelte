@@ -42,10 +42,6 @@
     padding: 0 20px;
   }
 
-  .menu .signin {
-    width: 120px;
-  }
-
   @media only screen and (max-width: 1023px) {
     .menu {
       flex-direction: column;
