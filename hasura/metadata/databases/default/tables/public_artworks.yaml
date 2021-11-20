@@ -128,6 +128,7 @@ select_permissions:
     - auction_tx
     - bid_id
     - bid_increment
+    - cover_filename
     - created_at
     - description
     - edition
@@ -143,6 +144,7 @@ select_permissions:
     - list_price_tx
     - max_extensions
     - owner_id
+    - package_content
     - reserve_price
     - slug
     - ticker
@@ -173,6 +175,7 @@ select_permissions:
     - auction_tx
     - bid_id
     - bid_increment
+    - cover_filename
     - created_at
     - description
     - edition
@@ -188,6 +191,7 @@ select_permissions:
     - list_price_tx
     - max_extensions
     - owner_id
+    - package_content
     - reserve_price
     - slug
     - ticker
