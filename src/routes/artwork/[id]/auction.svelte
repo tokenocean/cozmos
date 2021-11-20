@@ -76,7 +76,6 @@
   import { ProgressLinear, RoyaltyRecipientList } from "$comp";
   import Select from "svelte-select";
   import branding from "$lib/branding";
-  import { RoyaltyRecipientList } from "$comp";
 
   export let artwork, default_royalty_recipients;
 

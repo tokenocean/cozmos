@@ -9,27 +9,27 @@
   import { faHeart as solidHeart } from "@fortawesome/free-solid-svg-icons";
 
   export let artwork;
-  export let size = '1.5x';
+  export let size = "1.5x";
 
   let { favorited } = artwork;
 
   let favorite = async () => {
     try {
-    await requireLogin();
-    let { id: artwork_id } = artwork;
-    let { id: user_id } = $user;
+      await requireLogin();
+      let { id: artwork_id } = artwork;
+      let { id: user_id } = $user;
 
-    if (favorited) {
-      await query(deleteFavorite, { artwork_id, user_id });
-      artwork.num_favorites--;
-      favorited = false;
-    } else {
-      createFavorite({ artwork_id });
-      await query(createFavorite, { artwork_id });
-      artwork.num_favorites++;
-      favorited = true;
-    }
-    } catch(e) {
+      if (favorited) {
+        await query(deleteFavorite, { artwork_id, user_id });
+        artwork.num_favorites--;
+        favorited = false;
+      } else {
+        createFavorite({ artwork_id });
+        await query(createFavorite, { artwork_id });
+        artwork.num_favorites++;
+        favorited = true;
+      }
+    } catch (e) {
       err(e);
     }
   };
@@ -45,5 +45,5 @@
 </style>
 
 <div on:click={favorite} class:favorited>
-  <Fa icon={favorited ? solidHeart : faHeart} size={size} />
+  <Fa icon={favorited ? solidHeart : faHeart} {size} />
 </div>

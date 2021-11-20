@@ -1,13 +1,13 @@
 <script context="module">
   export async function load({ fetch, page }) {
-    const { subject } = await fetch(`/user/${page.params.username}.json`).then((r) =>
-      r.json()
+    const { subject } = await fetch(`/user/${page.params.username}.json`).then(
+      (r) => r.json()
     );
 
     return {
       maxage: 90,
       props: {
-        subject
+        subject,
       },
     };
   }

@@ -23,7 +23,7 @@
     animation: open $mobile-sidebar--transition-time linear forwards;
   }
 
-  .menu-container{
+  .menu-container {
     transition: $mobile-sidebar--transition-time linear;
     width: 70%;
   }
@@ -46,9 +46,9 @@
 
 <aside
   class="-left-full top-0 z-20 fixed w-full h-full shadow-lg sideBar {open ? 'open' : 'close'}"
-  on:click={() => open = false}
+  on:click={() => (open = false)}
   class:open>
-  <div class="menu-header bg-black h-14"/>
+  <div class="menu-header bg-black h-14" />
   <div class="menu-container -left-full bg-white absolute h-screen">
     <Menu bind:open />
   </div>

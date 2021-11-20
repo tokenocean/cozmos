@@ -1,6 +1,7 @@
 <script>
-  import branding from '$lib/branding';
-  import Logo from '$styleguide/components/Logo.svelte';
+  import branding from "$lib/branding";
+  import Logo from "$styleguide/components/Logo.svelte";
+
 </script>
 
 <style lang="scss">
@@ -15,9 +16,16 @@
       height: 20px;
       z-index: 10;
       background: #fa7900; /* Old browsers */
-      background: linear-gradient(90deg,  #fa7900 0%, #df36b4 43%, #0063ea 77%, #00eaaf 100%);
+      background: linear-gradient(
+        90deg,
+        #fa7900 0%,
+        #df36b4 43%,
+        #0063ea 77%,
+        #00eaaf 100%
+      );
     }
-}
+  }
+
 </style>
 
 <div class="bg-black px-2 colored-border relative">
@@ -26,12 +34,15 @@
       class="flex flex-col text-sm w-full lg:w-2/4 mb-10 order-last lg:order-first p-2">
       <div class="flex items-center">
         <div>
-          <a href="/"><Logo class="w-24"/></a>
+          <a href="/"><Logo class="w-24" /></a>
           <p class="mt-2 text-sm">&copy;2021 {branding.projectName}</p>
         </div>
-        <div class="border-l border-gray-800 pl-4 ml-4 h-full items-center flex">
+        <div
+          class="border-l border-gray-800 pl-4 ml-4 h-full items-center flex">
           <div>
-            The only marketplace for <br/><p class="font-bold">NFT experiences</p>
+            The only marketplace for
+            <br />
+            <p class="font-bold">NFT experiences</p>
           </div>
         </div>
       </div>
@@ -43,9 +54,15 @@
     <div class="w-full lg:w-1/4 mb-10">
       <h4 class="font-bold mb-4">Follow US</h4>
       <ul class="list-none">
-        <li class="mb-2"><a target="_blank" href="{branding.urls.external.twitter}">Twitter</a></li>
-        <li class="mb-2"><a target="_blank" href="{branding.urls.external.telegram}">Telegram</a></li>
-        <li class="mb-2"><a target="_blank" href="{branding.urls.external.blog}">Blog</a></li>
+        <li class="mb-2">
+          <a target="_blank" href={branding.urls.external.twitter}>Twitter</a>
+        </li>
+        <li class="mb-2">
+          <a target="_blank" href={branding.urls.external.telegram}>Telegram</a>
+        </li>
+        <li class="mb-2">
+          <a target="_blank" href={branding.urls.external.blog}>Blog</a>
+        </li>
       </ul>
     </div>
     <div class="w-full lg:w-1/4 mb-10">

@@ -32,7 +32,6 @@
     token,
   } from "$lib/store";
   import Navbar from "$styleguide/components/Navbar/Navbar.svelte";
-  import { show, user, password, token } from "$lib/store";
   import { onMount } from "svelte";
   import { fade } from "svelte/transition";
 

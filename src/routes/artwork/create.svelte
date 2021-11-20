@@ -1,14 +1,9 @@
 <script>
-  import Core from '$lib/lnft-core';
-  import FormItem from './components/_form-item.svelte';
-  import {ProgressLinear} from "$comp";
-  import {page} from "$app/stores";
-  import {query} from "$lib/api";
-  import {onMount, tick} from "svelte";
-  import Form from "./_form.svelte";
-  import {
-    prompt,
-  } from "$lib/store";
+  import Core from "$lib/lnft-core";
+  import { page } from "$app/stores";
+  import { query } from "$lib/api";
+  import { onMount, tick } from "svelte";
+  import { prompt } from "$lib/store";
   import { Dropzone, ProgressLinear } from "$comp";
   import { upload, supportedTypes } from "$lib/upload";
   import { create } from "$queries/artworks";
@@ -26,6 +21,7 @@
   import branding from "$lib/branding";
 
   import Form from "./_form.svelte";
+  import FormItem from "./components/_form-item.svelte";
   import Issuing from "./_issuing.svelte";
 
   $: requireLogin($page);
@@ -74,10 +70,43 @@
         focus(true);
       }
     };
-  }
+  };
 
-  let url;
-  const uploadFile = (imageType) => {
+  let hash, tx;
+  const issue = async (ticker) => {
+    let contract;
+    let domain =
+      $user.username === branding.superUserName
+        ? branding.urls.base
+        : `${$user.username.toLowerCase()}.${branding.urls.base}`;
+
+    let error, success;
+
+    await requirePassword();
+
+    try {
+      contract = await createIssuance(artwork, domain, tx);
+
+      await sign();
+      await broadcast(true);
+      await tick();
+    } catch (e) {
+      console.log(e, "wee", e.message.includes("Insufficient"));
+      if (e.message.includes("Insufficient")) throw e;
+      throw new Error("Issuance failed: " + e.message);
+    }
+
+    tx = $psbt.extractTransaction();
+    artwork.asset = parseAsset(
+      tx.outs.find((o) => parseAsset(o.asset) !== btc).asset
+    );
+    hash = tx.getId();
+
+    return JSON.stringify(contract);
+  };
+
+      let url;
+  const uploadFile = async (imageType) => {
     return async ({detail: file}) => {
       if (!file) return;
       if (supportedTypes.includes(type)) throw new Error("Supported file types are jpg, png, gif, mp4");
@@ -100,26 +129,11 @@
         imagePercent[imageType] = 0;
         return;
       }
-
-      url = `/api/ipfs/${artwork.filename}`;
-      await tick();
-    } catch (e) {
-      console.log(e, "wee", e.message.includes("Insufficient"));
-      if (e.message.includes("Insufficient")) throw e;
-      throw new Error("Issuance failed: " + e.message);
     }
-
-    tx = $psbt.extractTransaction();
-    artwork.asset = parseAsset(
-      tx.outs.find((o) => parseAsset(o.asset) !== btc).asset
-    );
-    hash = tx.getId();
-
-    return JSON.stringify(contract);
   };
 
   let tries;
-  let l;
+      let l;
 
   $: generateTicker(title);
   let generateTicker = (t) => {
@@ -136,7 +150,7 @@
       .toUpperCase();
 
     checkTicker();
-  };
+      };
 
   let checkTicker = async () => {
     let { data } = await hasura
@@ -174,7 +188,7 @@
     edition        : 1,
     editions       : 1,
     tags           : [],
-  };
+      };
 
   async function submit(e) {
     e.preventDefault();
@@ -224,7 +238,6 @@
       imagePercent[imageType] = 0;
     }
   }
-
 </script>
 
 <style>
@@ -284,7 +297,9 @@
     <div class="flex flex-col w-1/3">
       <div class="flex-grow-1 h-full bg-black">
         <h2 class="text-white p-14">Preview experience</h2>
-        <div style="background-image: url('/stars.png')" class="h-full bg-left mt-auto bg-repeat w-full"></div>
+        <div
+          style="background-image: url('/stars.png')"
+          class="h-full bg-left mt-auto bg-repeat w-full" />
       </div>
     </div>
     <div class="p-14">
@@ -306,16 +321,20 @@
           <FormItem title="Upload thumbnail (your NFT)">
             {#if imagePreview[IMG_TYPES.MAIN] || imagePercent[IMG_TYPES.MAIN]}
               <div class="text-black">
-                <div class="mt-4 h-44 rounded-md border-gray-300 border flex flex-col justify-center items-center relative p-4">
+                <div
+                  class="mt-4 h-44 rounded-md border-gray-300 border flex flex-col justify-center items-center relative p-4">
                   {#if imagePercent[IMG_TYPES.MAIN] && imagePercent[IMG_TYPES.MAIN] < 100}
                     Loading...
-                  {:else if (imagePercent[IMG_TYPES.MAIN] && imagePercent[IMG_TYPES.MAIN] === 100)}
-                    <ArtworkMedia {artwork} preview={imagePreview[IMG_TYPES.MAIN]} on:cancel={cancelPreview(IMG_TYPES.MAIN)}/>
+                  {:else if imagePercent[IMG_TYPES.MAIN] && imagePercent[IMG_TYPES.MAIN] === 100}
+                    <ArtworkMedia
+                      {artwork}
+                      preview={imagePreview[IMG_TYPES.MAIN]}
+                      on:cancel={cancelPreview(IMG_TYPES.MAIN)} />
                   {/if}
                 </div>
               </div>
             {:else}
-              <Dropzone on:file={uploadFile(IMG_TYPES.MAIN)}/>
+              <Dropzone on:file={uploadFile(IMG_TYPES.MAIN)} />
             {/if}
           </FormItem>
         </div>
@@ -323,29 +342,33 @@
           <FormItem title="Upload cover">
             {#if imagePreview[IMG_TYPES.COVER] || imagePercent[IMG_TYPES.COVER]}
               <div class="text-black">
-                <div class="mt-4 h-44 rounded-md border-gray-300 border flex flex-col justify-center items-center relative p-4">
+                <div
+                  class="mt-4 h-44 rounded-md border-gray-300 border flex flex-col justify-center items-center relative p-4">
                   {#if imagePercent[IMG_TYPES.COVER] && imagePercent[IMG_TYPES.COVER] < 100}
                     Loading...
-                  {:else if (imagePercent[IMG_TYPES.COVER] && imagePercent[IMG_TYPES.COVER] === 100)}
-                    <ArtworkMedia {artwork} preview={imagePreview[IMG_TYPES.COVER]} on:cancel={cancelPreview(IMG_TYPES.COVER)}/>
+                  {:else if imagePercent[IMG_TYPES.COVER] && imagePercent[IMG_TYPES.COVER] === 100}
+                    <ArtworkMedia
+                      {artwork}
+                      preview={imagePreview[IMG_TYPES.COVER]}
+                      on:cancel={cancelPreview(IMG_TYPES.COVER)} />
                   {/if}
                 </div>
               </div>
             {:else}
-              <Dropzone on:file={uploadFile(IMG_TYPES.COVER)}/>
+              <Dropzone on:file={uploadFile(IMG_TYPES.COVER)} />
             {/if}
           </FormItem>
         </div>
-<!--        <div>-->
-<!--          <FormItem title="Upload content">-->
-<!--            <Dropzone on:file={uploadFile}/>-->
-<!--          </FormItem>-->
-<!--        </div>-->
-<!--        <div>-->
-<!--          <FormItem title="Upload Video Experience Information">-->
-<!--            <Dropzone on:file={uploadFile}/>-->
-<!--          </FormItem>-->
-<!--        </div>-->
+        <!--        <div>-->
+        <!--          <FormItem title="Upload content">-->
+        <!--            <Dropzone on:file={uploadFile}/>-->
+        <!--          </FormItem>-->
+        <!--        </div>-->
+        <!--        <div>-->
+        <!--          <FormItem title="Upload Video Experience Information">-->
+        <!--            <Dropzone on:file={uploadFile}/>-->
+        <!--          </FormItem>-->
+        <!--        </div>-->
       </div>
       <div class="flex flex-wrap flex-col-reverse lg:flex-row">
         <div class="w-full">

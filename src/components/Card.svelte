@@ -14,7 +14,7 @@
   let loaded;
   let ready = (id) => {
     loaded = true;
-  } 
+  };
 
   let sats, val, ticker;
   $: if (artwork) [sats, val, ticker] = units(artwork.asking_asset);
@@ -58,7 +58,7 @@
     in:fade>
     <a href={`/a/${artwork.slug}`} sveltekit:prefetch>
       {#if !loaded}
-        <div style="height: 350px" class="bg-gray-100 w-full object-cover"></div>
+        <div style="height: 350px" class="bg-gray-100 w-full object-cover" />
       {/if}
       {#if loaded || !justScrolled}
         <ArtworkMedia {artwork} {showDetails} {popup} bind:thumb bind:ready />

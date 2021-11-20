@@ -34,34 +34,35 @@
 
 </script>
 
-
 {#if style === 'box'}
   <div
-      id="drop-area"
-      on:dragenter={start}
-      on:dragover={start}
-      on:dragleave={stop}
-      on:focus={start}
-      on:mouseover={start}
-      on:blur={stop}
-      on:mouseout={stop}
-      on:drop={drop}
-      class:highlight>
-
+    id="drop-area"
+    on:dragenter={start}
+    on:dragover={start}
+    on:dragleave={stop}
+    on:focus={start}
+    on:mouseover={start}
+    on:blur={stop}
+    on:mouseout={stop}
+    on:drop={drop}
+    class:highlight>
     <div class="text-black">
-      <div class="mt-4 h-44 rounded-md border-gray-300 border flex flex-col justify-center items-center relative p-4">
+      <div
+        class="mt-4 h-44 rounded-md border-gray-300 border flex flex-col justify-center items-center relative p-4">
         <div>PNG, GIF, MP4. Max 100mb</div>
         <input
-            bind:this={fileInput}
-            type="file"
-            id="fileElem"
-            multiple
-            accept="image/*,video/*"
-            class="absolute opacity-0 w-full h-full top-0 left-0 right-0 bottom-0 cursor-pointer"
-            on:change={(e) => dispatch('file', e.target.files[0])}
-        />
+          bind:this={fileInput}
+          type="file"
+          id="fileElem"
+          multiple
+          accept="image/*,video/*"
+          class="absolute opacity-0 w-full h-full top-0 left-0 right-0 bottom-0 cursor-pointer"
+          on:change={(e) => dispatch('file', e.target.files[0])} />
 
-        <div class="rounded-full bg-gray-200 px-4 py-2 cursor-pointer text-sm color-gray-500 mt-4">Choose file</div>
+        <div
+          class="rounded-full bg-gray-200 px-4 py-2 cursor-pointer text-sm color-gray-500 mt-4">
+          Choose file
+        </div>
       </div>
     </div>
   </div>

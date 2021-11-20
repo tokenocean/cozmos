@@ -1,33 +1,31 @@
 const BRANDING = {
-  projectName: 'Cozmos',
-  
-  superUserName: 'cozmos',
-  
+  projectName: "Cozmos",
+
+  superUserName: "cozmos",
+
   urls: {
-    base: 'cozmos.coinos.io',
-    www: 'www.cozmos.coinos.io',
-    protocol: 'https://cozmos.coinos.io',
+    base: "cozmos.coinos.io",
+    www: "www.cozmos.coinos.io",
+    protocol: "https://cozmos.coinos.io",
     external: {
-      twitter: 'https://twitter.com/cozmos',
-      telegram: 'https://t.me/cozmos',
+      twitter: "https://twitter.com/cozmos",
+      telegram: "https://t.me/cozmos",
       // blog: 'https://blog.raretoshi.com/',
-    }
+    },
   },
-  
+
   meta: {
-    general: {
-      og: {
-        title: 'Cozmos',
-        image: 'https://cozmos.coinos.io/branding/splash.png',
-        url: 'https://cozmos.coinos.io/',
-      },
-      twitter: {
-        card: 'summary_large_image',
-        creator: '@cozmos',
-        site: '@cozmos',
-        title: 'Cozmos',
-        image: 'https://cozmos.coinos.io/branding/splash.png',
-      },
+    og: {
+      title: "Cozmos",
+      image: "https://cozmos.coinos.io/branding/splash.png",
+      url: "https://cozmos.coinos.io/",
+    },
+    twitter: {
+      card: "summary_large_image",
+      creator: "@cozmos",
+      site: "@cozmos",
+      title: "Cozmos",
+      image: "https://cozmos.coinos.io/branding/splash.png",
     },
     // for art page we use art info in <header> meta
     artPage: (art) => ({
@@ -40,18 +38,12 @@ const BRANDING = {
         title: `Cozmos - ${art.title}`,
         image: `/api/ipfs/${art.filename}`,
       },
-    
-    artwork: (art) => ({
-      title: `Raretoshi - ${art.title}`,
-      image: `/api/ipfs/${art.filename}`,
-      url: `https://raretoshi.com/a/${art.slug}`,
-    })
-    
+    }),
   },
-  
+
   emails: {
-    support : 'support@cozmos.coinos.io'
-  }
+    support: "support@cozmos.coinos.io",
+  },
 };
 
 export default BRANDING;

@@ -229,7 +229,7 @@
                     <div>{username}</div>
                   {/if}
                   <div class="flex my-auto ml-auto w-48">
-                    {#if val(asset, Math.abs(totals[username][asset])) !== "1"}
+                    {#if val(asset, Math.abs(totals[username][asset])) !== '1'}
                       <div class="mr-1 ml-auto">
                         {val(asset, Math.abs(totals[username][asset]))}
                       </div>
@@ -269,9 +269,10 @@
                           {username}
                         </a>
                       </div>
-                    <Avatar
-                      user={users[username]}
-                      overlay={username.includes('2of2') && '/branding/logo-graphic.png'} />
+                      <Avatar
+                        user={users[username]}
+                        overlay={username.includes('2of2') && '/branding/logo-graphic.png'} />
+                    </div>
                   {:else}
                     <Avatar
                       src="QmcbyjMMT5fFtoiWRJiwV8xoiRWJpSRwC6qCFMqp7EXD4Z" />
@@ -290,7 +291,7 @@
                     <div>{username}</div>
                   {/if}
                   <div class="flex my-auto ml-auto w-48">
-                    {#if val(asset, Math.abs(totals[username][asset])) !== "1"}
+                    {#if val(asset, Math.abs(totals[username][asset])) !== '1'}
                       <div class="mr-1 ml-auto">
                         {val(asset, Math.abs(totals[username][asset]))}
                       </div>

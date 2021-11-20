@@ -1,11 +1,15 @@
 <script>
   import { onMount, createEventDispatcher } from "svelte";
   import Fa from "svelte-fa";
-  import { faVolumeUp, faVolumeMute, faTrashAlt } from "@fortawesome/free-solid-svg-icons";
+  import {
+    faVolumeUp,
+    faVolumeMute,
+    faTrashAlt,
+  } from "@fortawesome/free-solid-svg-icons";
   export let artwork;
   export let showDetails;
   export let thumb = true;
-  export let {preview} = false;
+  export let { preview } = false;
   export let popup = false;
   export let ready = false;
   export let loaded;
@@ -93,7 +97,7 @@
   };
 
   function cancelPreview() {
-    dispatch('cancel'); // when user clicks on a trash icon and want to re-upload a new image
+    dispatch("cancel"); // when user clicks on a trash icon and want to re-upload a new image
   }
 
 </script>
@@ -164,22 +168,24 @@
   {#if preview}
     <div class="max-h-full">
       <img
-          src={preview}
-          alt={artwork.title}
-          loading="lazy"
-          class="preview"
-          bind:this={img} />
-      <div class="absolute cursor-pointer bg-white rounded-full w-8 h-8 top-2 right-2 p-2" on:click={cancelPreview}>
-        <Fa icon={faTrashAlt}/>
+        src={preview}
+        alt={artwork.title}
+        loading="lazy"
+        class="preview"
+        bind:this={img} />
+      <div
+        class="absolute cursor-pointer bg-white rounded-full w-8 h-8 top-2 right-2 p-2"
+        on:click={cancelPreview}>
+        <Fa icon={faTrashAlt} />
       </div>
     </div>
   {:else}
     <div class="w-full" class:cover class:contain>
       <img
-          src={path ? path : '/liquid_logo.svg'}
-          alt={artwork.title}
-          loading="lazy"
-          bind:this={img} />
+        src={path ? path : '/liquid_logo.svg'}
+        alt={artwork.title}
+        loading="lazy"
+        bind:this={img} />
     </div>
   {/if}
 {/if}

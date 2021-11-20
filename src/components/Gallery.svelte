@@ -3,7 +3,6 @@
   import { Pagination } from "$comp";
   import { tick } from "svelte";
   import Card from "$styleguide/components/Card.svelte";
-  import {Pagination, LoadingPlaceholder } from "$comp";
 
   export let artworks;
   export let count;
@@ -19,14 +18,14 @@
   let st;
   let y;
 
-  let content, rh, newrows, nh, viewportHeight
+  let content, rh, newrows, nh, viewportHeight;
 
   let resize = () => {
     if (!window) return;
     st = undefined;
     window.scrollTo(0, 0);
     setTimeout(init, 50);
-  } 
+  };
 
   $: init(artworks);
   let init = async () => {
@@ -60,7 +59,7 @@
       let p = 2 * columns;
       a = Math.max(p, cr * columns);
       if (a >= 0) inview = artworks.slice(a - p, a + p);
-      let x = parseInt(((y - cr*rh)/(columns * 5)));
+      let x = parseInt((y - cr * rh) / (columns * 5));
       translate = Math.max(0, cr * rh - rh - x);
       justScrolled = true;
       setTimeout(() => (justScrolled = false), 250);
@@ -105,7 +104,7 @@
     {sf && sf.toFixed(2)}<br />
     y
     {y && y.toFixed(2)}<br />
-    {y && ((y - cr*rh)/10).toFixed(2)}<br />
+    {y && ((y - cr * rh) / 10).toFixed(2)}<br />
   </div>
 {/if}
 
@@ -113,13 +112,12 @@
   <div class="sm:grid sm:grid-cols-2 sm:gap-10 lg:grid-cols-3">
     {#each inview as artwork, i}
       {#if artwork}
-      <div
-        class="market-gallery w-full mb-20"
-        style={`transform: translateY(${translate}px)`}>
+        <div
+          class="market-gallery w-full mb-20"
+          style={`transform: translateY(${translate}px)`}>
           <Card {artwork} bind:justScrolled />
-      </div>
-    {/if}
+        </div>
+      {/if}
     {/each}
   </div>
 </div>
-
