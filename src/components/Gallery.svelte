@@ -27,9 +27,8 @@
     setTimeout(init, 50);
   };
 
-  $: init(artworks);
+  $: browser && init(artworks);
   let init = async () => {
-    if (!window) return setTimeout(init, 50);
     await tick();
 
     let el = document.querySelector(".market-gallery");

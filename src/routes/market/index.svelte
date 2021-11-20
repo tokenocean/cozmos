@@ -14,7 +14,6 @@
 </script>
 
 <script>
-  import { onMount } from "svelte";
   import { ProgressLinear } from "$comp";
   import Fa from "svelte-fa";
   import { faSlidersH } from "@fortawesome/free-solid-svg-icons";
@@ -49,12 +48,6 @@
       $artworks = initialArtworks;
     }
   };
-
-  onMount(async () => {
-    const r = await fetch("/artworks.json").then((r) => r.json());
-    $artworks = r.artworks;
-  });
-
 </script>
 
 <style>

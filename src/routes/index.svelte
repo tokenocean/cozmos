@@ -1,11 +1,7 @@
-<style lang="scss">
-  @import "../styleguide/theme.scss";
+<script>
+  import Button from "$styleguide/components/Button.svelte";
 
-  .secondary-font {
-    font-family: "Audiowide", sans-serif;
-  }
-
-</style>
+</script>
 
 <div
   class="min-h-screen flex header-container mx-auto justify-center items-center bg-black">
@@ -34,7 +30,7 @@
     </div>
     <div class="flex flex-1 ml-20 sm:hidden xl:flex items-center">
       <div>
-        <a href="/market"> <img src="/cards.png" class="w-full max-h-96" alt="Experiences" /> </a>
+        <a href="/market"> <img src="/cards.png" class="w-full max-h-96" /> </a>
       </div>
     </div>
   </div>
