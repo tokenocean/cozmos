@@ -1,5 +1,24 @@
 <script>
-  import Button from "$styleguide/components/Button.svelte";
+  import { onDestroy } from "svelte";
+  import { query } from "$lib/api";
+  import { Summary } from "$comp";
+  import { fade } from "svelte/transition";
+  import { user } from "$lib/store";
+  import { Activity, RecentActivityCard, LatestPiecesCard } from "$comp";
+  import { err } from "$lib/utils";
+  import branding from "$lib/branding";
+
+  export let featured;
+  export let recent;
+  export let latest;
+
+  let interval = setInterval(() => {
+    if (!featured) return;
+    current++;
+    if (current >= featured.length) current = 0;
+  }, 6000);
+
+  onDestroy(() => clearInterval(interval));
 
 </script>
 
