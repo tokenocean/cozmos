@@ -1,3 +1,22 @@
+<script context="module">
+  export async function load({ fetch, page, session }) {
+    const props = await fetch(`/artworks/${page.params.slug}.json`).then((r) =>
+      r.json()
+    );
+
+    if (!(session && session.user)) return {
+      status: 302,
+      redirect: '/login'
+    } 
+
+    return {
+      maxage: 90,
+      props,
+    };
+  }
+
+</script>
+
 <script>
   import { Avatar, ProgressLinear } from "$comp";
   import AutoComplete from "simple-svelte-autocomplete";
