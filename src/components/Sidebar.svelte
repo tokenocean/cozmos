@@ -5,11 +5,6 @@
 
 </script>
 
-<style lang="scss">
-  @import "../styleguide/theme";
-
-  @include mobileSidebarAnimations;
-
   aside {
     transition: $mobile-sidebar--transition-time ease;
     background-color: $mobile-sidebar--overlay-color;
@@ -42,14 +37,22 @@
     }
   }
 
+  @keyframes changeColor {
+    0% {
+      background-color: white;
+    }
+    100% {
+      background-color: rgba(3, 3, 3, 0.8);
+    }
+  }
+
 </style>
 
 <aside
-  class="-left-full top-0 z-20 fixed w-full h-full shadow-lg sideBar {open ? 'open' : 'close'}"
+  class="fixed w-full h-full border-r-2 shadow-lg sideBar"
   on:click={() => (open = false)}
   class:open>
-  <div class="menu-header bg-black h-14" />
-  <div class="menu-container -left-full bg-white absolute h-screen">
+  <div class="menu-container">
     <Menu bind:open />
   </div>
 </aside>

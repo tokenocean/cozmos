@@ -58,7 +58,6 @@
 </style>
 
 <svelte:options accessors={true} />
-
 <form on:submit|preventDefault={submit}>
   <div class="dialog-header">
     <h3 id="modal-headline">Enter password</h3>

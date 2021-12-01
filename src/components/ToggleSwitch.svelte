@@ -5,14 +5,14 @@
 
 </script>
 
-<style lang="scss">
+<style>
   .toggle-checkbox:checked {
     @apply right-0;
     border: 1px solid #6ed8e0;
     right: 0;
   }
   .toggle-checkbox:checked + .toggle-label {
-    @apply bg-blue;
+    background: #6ed8e0;
   }
 
 </style>

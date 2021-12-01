@@ -58,10 +58,7 @@
     </div>
   {:else}
     {#each items as recipient}
-      <RoyaltyRecipient
-        {askingAsset}
-        {recipient}
-        on:removerecipient={removeRecipient} />
+      <RoyaltyRecipient {recipient} on:removerecipient={removeRecipient} />
     {/each}
   {/if}
 </div>

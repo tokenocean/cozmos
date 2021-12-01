@@ -37,7 +37,19 @@
 
   export let addresses, titles;
 
-  let open = false;
+  if (browser)
+    history.pushState = new Proxy(history.pushState, {
+      apply(target, thisArg, argumentsList) {
+        Reflect.apply(target, thisArg, argumentsList);
+        scrollTo(0, 0);
+      },
+    });
+
+  $: resetMeta($page);
+  let resetMeta = () => ($meta = { ...branding.meta });
+
+  $a = addresses;
+  $t = titles;
 
   $user = $session.user;
   $token = $session.jwt;
@@ -48,8 +60,6 @@
   onMount(() => {
     if (!$password) $password = window.sessionStorage.getItem("password");
   });
-
-  let y;
 
 </script>
 
@@ -62,10 +72,8 @@
 <Snack />
 
 <Sidebar bind:open />
-<div class="bg-black sticky-container">
-  <div class={y > 50 ? 'sticky' : ''} in:fade>
-    <Navbar bind:sidebar={open} />
-  </div>
+<div class={y > 50 ? 'sticky' : ''}>
+  <Navbar bind:sidebar={open} />
 </div>
 <Dialog />
 

@@ -182,7 +182,6 @@
 </style>
 
 <svelte:options accessors={true} />
-
 <div class="mb-2 rounded-lg">
   <div class="flex w-full">
     <h3 class="text-2xl flex-grow text-left">Add funds</h3>

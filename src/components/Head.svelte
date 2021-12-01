@@ -1,5 +1,7 @@
 <script>
-  import branding from "$lib/branding";
+  import { meta as m } from "$lib/store";
+
+</script>
 
   const {
     meta: { description, keywords, title, image, url, twitter },

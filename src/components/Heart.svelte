@@ -45,5 +45,5 @@
 </style>
 
 <div on:click={favorite} class:favorited>
-  <Fa icon={favorited ? solidHeart : faHeart} {size} />
+  <Fa icon={favorited ? solidHeart : faHeart} size="1.5x" />
 </div>

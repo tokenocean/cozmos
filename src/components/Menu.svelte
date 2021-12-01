@@ -10,6 +10,8 @@
   export let open = false;
   let toggle = () => (open = !open);
 
+</script>
+
   let hovering;
   let enter = () => (hovering = true);
   let leave = () => (hovering = false);
@@ -63,36 +65,25 @@
 
 </style>
 
-<div class="flex justify-between items-center menu relative whitespace-nowrap">
-  <Search suggest={false} class="mx-4" />
-  <a class="menu-link" href="/market"><button
-      on:click={toggle}>Experiences</button></a>
-  <a class="menu-link" href="/faq"><button on:click={toggle}>FAQ</button></a>
-
+<div class="flex justify-between items-center menu relative">
+  <Search suggest={false} />
+  <a sveltekit:prefetch href="/market"><button
+      on:click={toggle}>Market</button></a>
+  <a sveltekit:prefetch href="/activity"><button
+      on:click={toggle}>Activity</button></a>
+  <!--
+  <a href="/galleries"><button on:click={toggle}>Galleries</button></a>
+  -->
+  <a href={branding.urls.external.blog}><button
+      on:click={toggle}>Blog</button></a>
+  <a href="/faq"><button on:click={toggle}>FAQ</button></a>
   {#if $user}
     {#if $user.is_admin}
-      <a class="menu-link" href="/admin"><button
-          on:click={toggle}>Admin</button></a>
+      <a href="/admin"><button on:click={toggle}>Admin</button></a>
     {/if}
-    <div class="relative flex hidden lg:flex">
-      <button
-        class="toggleWallet"
-        on:click={toggleWallet}
-        bind:this={walletToggleHandler}>
-        <Fa icon={faWallet} size="1.5x" />
-      </button>
-      <div use:clickOutside on:clickOutside={handleWalletClickOutside}>
-        {#if displayWallet}
-          <WalletPopup />
-        {/if}
-      </div>
-    </div>
-    <a href={`/u/${$user.username}`} class="hidden lg:inline-block">
+    <a href={`/u/${$user.username}`}>
       <button on:click={toggle} class="flex">
-        <Fa icon={faUser} size="1.5x" />
-      </button>
-    </a>
-  {:else}
-    <a href="/login" class="menu-link"><button on:click={toggle}>Sign In</button></a>
-  {/if}
+        <Avatar user={$user} />
+      </button></a>
+  {:else}<a href="/login"><button on:click={toggle}>Sign In</button></a>{/if}
 </div>

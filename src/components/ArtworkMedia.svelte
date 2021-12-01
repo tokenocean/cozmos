@@ -96,10 +96,6 @@
     vid.muted = muted;
   };
 
-  function cancelPreview() {
-    dispatch("cancel"); // when user clicks on a trash icon and want to re-upload a new image
-  }
-
 </script>
 
 <style>
@@ -124,10 +120,6 @@
 
   video {
     width: auto;
-  }
-
-  img.preview {
-    max-height: 100%;
   }
 
 </style>
@@ -165,27 +157,10 @@
     {/if}
   </div>
 {:else}
-  {#if preview}
-    <div class="max-h-full">
-      <img
-        src={preview}
-        alt={artwork.title}
-        loading="lazy"
-        class="preview"
-        bind:this={img} />
-      <div
-        class="absolute cursor-pointer bg-white rounded-full w-8 h-8 top-2 right-2 p-2"
-        on:click={cancelPreview}>
-        <Fa icon={faTrashAlt} />
-      </div>
-    </div>
-  {:else}
-    <div class="w-full" class:cover class:contain>
-      <img
-        src={path ? path : '/liquid_logo.svg'}
-        alt={artwork.title}
-        loading="lazy"
-        bind:this={img} />
-    </div>
-  {/if}
+  <div class="w-full" class:cover class:contain>
+    <img
+      src={preview || path ? path : '/liquid_logo.svg'}
+      alt={artwork.title}
+      bind:this={img} />
+  </div>
 {/if}

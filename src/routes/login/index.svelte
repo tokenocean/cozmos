@@ -1,3 +1,17 @@
+<script context="module">
+  export async function load({ session }) {
+    if (session && session.user) {
+      return {
+        status: 301,
+        redirect: "/",
+      };
+    }
+
+    return {};
+  }
+
+</script>
+
 <script>
   import Fa from "svelte-fa";
   import { faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
@@ -19,14 +33,16 @@
     setTimeout(() => emailInput && emailInput.select(), 50);
   $: if (emailInput) pageChange($page);
 
-  $: if ($user) {
-    if ($user.wallet_initialized) goto("/");
-    else goto("/wallet/setup");
-  }
+  let login = async () => {
+    window.sessionStorage.setItem("password", password);
+    try {
+      let res = await post("auth/login", { email, password }).json();
+      window.location.reload(true);
+    } catch (e) {
+      err(e);
+    }
+  };
 
-  let login = () => post('auth/login', { email, password }).json(() => {
-    window.location = '/';
-  }).catch(err);
 </script>
 
 <style lang="scss">
@@ -66,31 +82,27 @@
       margin-top: 50px;
     }
   }
+
 </style>
 
-<div class="form-container bg-black px-4">
-  <form
-    class="mb-6"
-    on:submit|preventDefault={login}
-    autocomplete="off">
+<div class="form-container bg-lightblue px-4">
+  <form class="mb-6" on:submit|preventDefault={login} autocomplete="off">
     <h2 class="mb-8">Sign In</h2>
     <div class="flex flex-col mb-4">
-      <label class="mb-2 font-medium" for="first_name">Email or
-        email</label>
-      <input
-        bind:value={email}
-        bind:this={emailInput}
-        autocapitalize="off" />
+      <label class="mb-2 font-medium" for="first_name">Email or username</label>
+      <input bind:value={email} bind:this={emailInput} autocapitalize="off" />
     </div>
     <div class="flex flex-col mb-4">
-      <label
-        class="mb-2 font-medium"
-        for="last_name">Password</label>
+      <label class="mb-2 font-medium" for="last_name">Password</label>
       <div class="relative">
         {#if show}
           <input class="w-full" bind:value={password} autocapitalize="off" />
         {:else}
-          <input class="w-full" type="password" bind:value={password} autocapitalize="off" />
+          <input
+            class="w-full"
+            type="password"
+            bind:value={password}
+            autocapitalize="off" />
         {/if}
         <button
           class="absolute h-full px-3 right-0 top-0 w-auto"
@@ -103,7 +115,7 @@
     <a href="/forgot-password" class="block w-full text-midblue">Forgot
       password?</a>
     <div class="flex my-5 justify-end">
-      <Button primary class="w-full" type="submit">Sign In</Button>
+      <button class="primary-btn w-full" type="submit">Sign In</button>
     </div>
     <a href="/register" class="text-midblue">Don't have an account? Sign up</a>
   </form>

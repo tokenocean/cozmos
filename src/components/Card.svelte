@@ -52,10 +52,10 @@
 
 </style>
 
-{#if artwork}
-  <div
-    class="{showDetails ? 'card' : ''} bg-white flex flex-col justify-between h-full"
-    in:fade>
+<div
+  class="{showDetails ? 'card' : ''} flex {!showDetails || $loaded[artwork.id] ? 'bg-white' : 'bg-gray-100'} flex-col justify-between h-full"
+  in:fade>
+  <div {style}>
     <a href={`/a/${artwork.slug}`} sveltekit:prefetch>
       {#if !loaded}
         <div style="height: 350px" class="bg-gray-100 w-full object-cover" />
@@ -144,6 +144,6 @@
       {:else}
         <div class="p-3 rounded-b-lg">&nbsp;</div>
       {/if}
-    {/if}
-  </div>
-{/if}
+    </div>
+  {/if}
+</div>

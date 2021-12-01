@@ -34,6 +34,47 @@
 
 </script>
 
+<style>
+  #fileElem {
+    position: fixed;
+    top: -100em;
+  }
+
+  #drop-area {
+    cursor: pointer;
+    border: 2px solid #6ed8e0;
+    border-radius: 10px;
+    width: 80%;
+    max-width: 350px;
+    max-height: 350px;
+    margin: 100px auto;
+    margin-top: 30px;
+  }
+
+  form {
+    height: 320px;
+  }
+
+  #drop-area.highlight {
+    border-color: #6ed8e0;
+  }
+
+  #fileElem {
+    position: fixed;
+    top: -100em;
+  }
+
+  @media only screen and (max-width: 800px) {
+    #drop-area {
+      width: 100%;
+      max-width: 100%;
+      margin: 0;
+      margin-top: 50px;
+    }
+  }
+
+</style>
+
 {#if style === 'box'}
   <div
     id="drop-area"
@@ -46,25 +87,21 @@
     on:mouseout={stop}
     on:drop={drop}
     class:highlight>
-    <div class="text-black">
-      <div
-        class="mt-4 h-44 rounded-md border-gray-300 border flex flex-col justify-center items-center relative p-4">
-        <div>PNG, GIF, MP4. Max 100mb</div>
-        <input
-          bind:this={fileInput}
-          type="file"
-          id="fileElem"
-          multiple
-          accept="image/*,video/*"
-          class="absolute opacity-0 w-full h-full top-0 left-0 right-0 bottom-0 cursor-pointer"
-          on:change={(e) => dispatch('file', e.target.files[0])} />
-
-        <div
-          class="rounded-full bg-gray-200 px-4 py-2 cursor-pointer text-sm color-gray-500 mt-4">
-          Choose file
-        </div>
+    <form class="text-center">
+      <div class="flex justify-center flex-col align-center h-full">
+        <span class="uppercase">{title}</span>
+        <span class="mx-auto text-center mt-4 text-5xl text-lightblue">
+          <Fa icon={faCloudUploadAlt} />
+        </span>
       </div>
-    </div>
+      <input
+        bind:this={fileInput}
+        type="file"
+        id="fileElem"
+        multiple
+        accept="image/*,video/*"
+        on:change={(e) => dispatch('file', e.target.files[0])} />
+    </form>
   </div>
 {:else}
   <a
