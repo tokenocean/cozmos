@@ -99,5 +99,5 @@
     </div>
     <Filter bind:filtered {showFilters} />
   </div>
-  <Gallery artworks={filtered} bind:count />
+  <Gallery bind:filtered bind:count />
 </div>

@@ -4,10 +4,10 @@
   import { tick } from "svelte";
   import Card from "$styleguide/components/Card.svelte";
 
-  export let artworks;
+  export let filtered;
   export let count;
 
-  let inview = artworks.slice(0, 24);
+  let inview = filtered.slice(0, 24);
   let debug;
 
   let w, h;
@@ -27,12 +27,15 @@
     setTimeout(init, 50);
   };
 
-  $: browser && init(artworks);
+  onMount(() => setTimeout(resize, 50));
+  let retry;
+
+  $: browser && init(filtered);
   let init = async () => {
     await tick();
 
     let el = document.querySelector(".market-gallery");
-    if (!el) return;
+    if (!el) return scroll(y);
 
     let { top, bottom } = el.getBoundingClientRect();
     rh = bottom - top;
@@ -57,9 +60,10 @@
       cr = Math.round((y - st) / rh);
       let p = 2 * columns;
       a = Math.max(p, cr * columns);
-      if (a >= 0) inview = artworks.slice(a - p, a + p);
-      let x = parseInt((y - cr * rh) / (columns * 5));
-      translate = Math.max(0, cr * rh - rh - x);
+      if (a >= 0) inview = filtered.slice(a - p, a + p);
+      x = cr > 1 ? parseInt((8 * rh) / (y - cr * rh)) : 0;
+
+      translate = Math.max(0, cr * rh - rh) + x;
       justScrolled = true;
       setTimeout(() => (justScrolled = false), 250);
     });
