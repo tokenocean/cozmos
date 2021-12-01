@@ -22,6 +22,6 @@ hasura/ghost-data
 hasura/app/proofs.json
 hasura/app/.pnpm-store
 cypress
-**/.pnpm-debug
-.idea/
+**/.pnpm-debug.log
 .svelte-kit
+

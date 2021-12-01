@@ -4,6 +4,7 @@
   import { requireLogin } from "$lib/auth";
   import { err } from "$lib/utils";
   import { query } from "$lib/api";
+
   import Fa from "svelte-fa";
   import { faHeart } from "@fortawesome/free-regular-svg-icons";
   import { faHeart as solidHeart } from "@fortawesome/free-solid-svg-icons";
@@ -24,7 +25,6 @@
         artwork.num_favorites--;
         favorited = false;
       } else {
-        createFavorite({ artwork_id });
         await query(createFavorite, { artwork_id });
         artwork.num_favorites++;
         favorited = true;
