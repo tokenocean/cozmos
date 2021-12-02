@@ -58,6 +58,8 @@
     if (!$password) $password = window.sessionStorage.getItem("password");
   });
 
+  let open, y;
+
 </script>
 
 <style global src="../main.css">

@@ -8,9 +8,8 @@ import { addSeconds } from "date-fns";
 export async function handle({ request, resolve }) {
   const { headers } = request;
   const cookies = cookie.parse(headers.cookie || "");
-  let { refresh_token } = cookies;
+  let { refresh_token, token: jwt } = cookies;
 
-  let jwt = sessions[refresh_token];
   let user, setCookie;
 
   try {
@@ -40,45 +39,30 @@ export async function handle({ request, resolve }) {
         }),
       ];
     } catch (e) {
-      jwt = undefined;
+      // console.log(e);
     }
   }
 
-  headers.authorization = `Bearer ${jwt}`;
-  if (!jwt || !headers.authorization) delete headers.authorization;
+  if (jwt) headers.authorization = `Bearer ${jwt}`;
+  else delete headers.authorization;
 
-  let fn = async (query, variables) => {
-    let { data, errors } = await wretch()
-      .url(import.meta.env.VITE_HASURA)
-      .headers(headers)
-      .post({ query, variables })
-      .json();
-    if (errors) throw new Error(errors[0].message);
-    return data;
-  };
-
-  let q = async (q, v) => {
-    try {
-      let r = await fn(q, v);
-      return r;
-    } catch (e) {
-      if (headers.authorization) delete headers.authorization;
-      let r = await fn(q, v);
-      return r;
-    }
-  };
-
+  let q = getQ(headers);
   request.locals = { jwt, q };
 
-  try {
-    let { currentuser } = await q(getUser);
-    user = currentuser[0];
-  } catch (e) {}
+  if (headers.authorization) {
+    try {
+      let { currentuser } = await q(getUser);
+      user = currentuser[0];
+    } catch (e) {
+      // console.log(e);
+    }
+  }
 
   request.locals.user = user;
 
   const response = await resolve(request);
-  if (setCookie && request.path !== "/login")
+
+  if (setCookie && request.path !== "/auth/login")
     response.headers["set-cookie"] = setCookie;
 
   return response;
