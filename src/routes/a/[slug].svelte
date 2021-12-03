@@ -50,7 +50,6 @@
   import {
     Activity,
     Avatar,
-    Card,
     Head,
     ProgressLinear,
     RoyaltyInfo,
@@ -71,6 +70,7 @@
   import { Psbt } from "liquidjs-lib";
   import { api, query } from "$lib/api";
   import { SocialShare } from "$comp";
+  import Card from "$styleguide/components/Card.svelte";
 
   export let artwork, others, metadata;
 

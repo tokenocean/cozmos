@@ -1,7 +1,8 @@
 <script>
+  import Fa from "svelte-fa";
+  import { faTimes } from "@fortawesome/free-solid-svg-icons";
   import { createEventDispatcher } from "svelte";
   const dispatch = createEventDispatcher();
-  export let askingAsset;
   export let recipient;
   import { tickers, royaltyRecipientIndividualType } from "$lib/utils";
   const onDelete = () => dispatch("removerecipient", recipient.name);

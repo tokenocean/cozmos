@@ -3,10 +3,11 @@
   import {
     ArtworkMedia,
     Avatar,
-    Card,
     TransactionTime,
     TransactionText,
   } from "$comp";
+  import Card from "$styleguide/components/Card.svelte";
+
   export let transaction;
 
   let { artwork } = transaction;

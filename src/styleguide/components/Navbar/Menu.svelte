@@ -37,14 +37,6 @@
     @apply w-auto text-left px-5;
   }
 
-  .menu-link-button.wallet {
-    // Add gradient-color to wallet text
-    background: $color-primary-gradient-1;
-    background: $color-primary-gradient-2;
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-  }
-
   @screen till-lg {
     .menu {
       @apply flex-col w-full mt-8;

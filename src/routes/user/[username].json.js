@@ -3,8 +3,6 @@ export async function get({ headers, locals: { q }, params: { username } }) {
   try {
     let { users } = await q(getUserByUsername, { username });
 
-    console.log("USERS", users, username);
-
     if (!users.length) throw new Error("user not found"); 
 
     return {

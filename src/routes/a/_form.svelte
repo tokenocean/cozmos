@@ -43,8 +43,8 @@
   // $: focus($page);
   // export let focus = (p) => p && tick().then(() => input && input.select());
 
-  let selectedValue;
-  $: selectedValue = artwork.tags.map(({ tag }) => ({
+  let value;
+  $: value = artwork.tags.map(({ tag }) => ({
     value: tag,
     label: tag,
   }));
@@ -88,33 +88,6 @@
       }
     }
   }
-  .tooltip {
-    cursor: pointer;
-  }
-  .tooltip .tooltip-text {
-    display: none;
-    padding: 15px;
-    position: absolute;
-    z-index: 100;
-    width: 300px;
-    font-style: normal;
-  }
-  .tooltip:hover .tooltip-text {
-    display: block;
-  }
-  input[type="checkbox"]:checked {
-    appearance: none;
-    border: 5px solid #fff;
-    outline: 2px solid #6ed8e0;
-    background-color: #6ed8e0;
-    padding: 2px;
-    border-radius: 0;
-  }
-
-  input,
-  textarea {
-    @apply rounded-lg;
-  }
 
   :global(.selectContainer) {
     background: transparent !important;
@@ -151,7 +124,7 @@
           isMulti={true}
           placeholder="Tags"
           on:select={tagsSelect}
-          {selectedValue}
+          {value}
           isCreatable={true} />
     </FormItem>
   </div>

@@ -69,7 +69,6 @@
   $: incoming && (confirming = true);
   $: newBalance(current);
   let newBalance = () => {
-    console.log("SKOO");
     if (confirming) {
       confirmed = true;
       confirming = false;

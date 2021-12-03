@@ -1,6 +1,7 @@
 <script>
-  import { AcceptOffer, ArtworkMedia, Activity, Card } from "$comp";
+  import { AcceptOffer, ArtworkMedia, Activity } from "$comp";
   import { val, ticker } from "$lib/utils";
+  import Card from "$styleguide/components/Card.svelte";
 
   export let offers;
   let comp;

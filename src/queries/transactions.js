@@ -79,15 +79,6 @@ export const getRecentActivity = (limit = 3) => `query {
   }
 }`;
 
-export const getLatestPieces = (limit = 3) => `query {
-  transactions(where: {artwork_id: {_is_null: false}, type: {_eq: "creation"}}, order_by: [{created_at: desc}], limit: ${limit}) {
-    ${fields}
-    artwork {
-      ${artworkFields}
-    } 
-  }
-}`;
-
 export const getOffers = `query($id: uuid!) {
   offers(where: { user_id: { _eq: $id }}) {
     transaction {

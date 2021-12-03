@@ -108,6 +108,7 @@
       let url;
   const uploadFile = async (imageType) => {
     return async ({detail: file}) => {
+      console.log("UPLOAD");
       if (!file) return;
       if (supportedTypes.includes(type)) throw new Error("Supported file types are jpg, png, gif, mp4");
       ({type} = file);
@@ -250,20 +251,11 @@
     max-width: 100%;
   }
 
-  .upload-button {
-    width: 100%;
-    height: 320px;
-  }
-
   .submitArtwork {
     box-shadow: 6px 5px 12px 2px #ccc;
   }
 
   @media only screen and (max-width: 1023px) {
-    .upload-button {
-      margin-top: 25px;
-    }
-
     .container {
       background: none;
     }
@@ -273,10 +265,6 @@
     font-family: "Zen Dots", cursive;
     font-size: 2em;
     line-height: 1.25em;
-  }
-
-  h3 {
-    font-size: 1em;
   }
 
 </style>

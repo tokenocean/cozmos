@@ -13,7 +13,8 @@
 </script>
 
 <script>
-  import { Avatar, Card, TransactionTime, TransactionText } from "$comp";
+  import { Avatar, TransactionTime, TransactionText } from "$comp";
+  import Card from "$styleguide/components/Card.svelte";
   import { user } from "$lib/store";
   import { formatDistanceStrict } from "date-fns";
 

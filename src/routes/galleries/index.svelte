@@ -2,9 +2,9 @@
   import { onMount } from "svelte";
   import { hasura } from "$lib/api";
   import { getTags } from "$queries/artworks";
-  import { Card } from "$comp";
   import galleries from "$lib/galleries";
   import { parseISO, compareAsc } from "date-fns";
+  import Card from "$styleguide/components/Card.svelte";
 
   let tags = [];
 
