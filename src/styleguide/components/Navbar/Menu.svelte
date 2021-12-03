@@ -65,25 +65,6 @@
 </style>
 
 <div class="flex justify-between text-center items-center menu relative whitespace-nowrap">
-  <Search suggest={false} class="mx-4"/>
-  <a class="menu-link" href="/market">
-    <button class="menu-link-button" on:click={toggle}>Experiences</button>
-  </a>
-  {#if $user}
-    <a class="menu-link lg:hidden" href={`/u/${$user.username}`}>
-      <button class="menu-link-button" on:click={toggle}>Profile</button>
-    </a>
-    <a class="menu-link lg:hidden" href="/wallet">
-      <button class="menu-link-button wallet" on:click={toggle}>Wallet</button>
-    </a>
-  {/if}
-  <a class="menu-link" href="/faq">
-    <button class="menu-link-button" on:click={toggle}>FAQ</button>
-  </a>
-  <a class="menu-link lg:hidden" href="/wallet">
-    <button class="menu-link-button" on:click={toggle}>Support</button>
-  </a>
-
   {#if $user}
     {#if $user.is_admin}
       <a class="menu-link" href="/admin"><button on:click={toggle}>Admin</button></a>

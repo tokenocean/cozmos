@@ -11,6 +11,5 @@
   on:click={() => (open = false)}
   class:open>
   <div class="menu-container">
-    <Menu bind:open />
   </div>
 </aside>

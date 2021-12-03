@@ -1,4 +1,5 @@
 <script>
+  import branding from "$lib/branding";
   import { Avatar } from "$comp";
   import Search from "$styleguide/components/Search.svelte";
   import WalletPopup from "$styleguide/components/WalletPopup.svelte";
@@ -9,8 +10,6 @@
 
   export let open = false;
   let toggle = () => (open = !open);
-
-</script>
 
   let hovering;
   let enter = () => (hovering = true);

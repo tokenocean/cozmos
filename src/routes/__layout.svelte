@@ -1,6 +1,17 @@
 <script context="module">
-  export async function load({ fetch, page }) {
+  export async function load({ fetch, page, session }) {
     const props = await fetch(`/addresses.json`).then((r) => r.json());
+
+    if (
+      session &&
+      session.user &&
+      !session.user.wallet_initialized &&
+      !["/wallet", "/logout"].find((p) => page.path.includes(p))
+    )
+      return {
+        status: 302,
+        redirect: "/wallet/setup",
+      };
 
     return {
       maxage: 90,
@@ -11,29 +22,21 @@
 </script>
 
 <script>
-  import { session } from "$app/stores";
+  import { browser } from "$app/env";
+  import { page, session } from "$app/stores";
   import decode from "jwt-decode";
+  import { Sidebar, Dialog, Footer, Snack, Head } from "$comp";
+  import Navbar from "$styleguide/components/Navbar/Navbar.svelte";
   import {
-    Avatar,
-    ProgressLinear,
-    Sidebar,
-    Dialog,
-    Footer,
-    Snack,
-    Head,
-  } from "$comp";
-  import {
-    addresses as addressesStore,
-    prompt,
-    show,
+    addresses as a,
+    meta,
+    titles as t,
     user,
     password,
-    titles as titlesStore,
     token,
   } from "$lib/store";
-  import Navbar from "$styleguide/components/Navbar/Navbar.svelte";
   import { onMount } from "svelte";
-  import { fade } from "svelte/transition";
+  import branding from "$lib/branding";
 
   export let addresses, titles;
 
@@ -51,14 +54,12 @@
   $user = $session.user;
   $token = $session.jwt;
 
-  $addressesStore = addresses;
-  $titlesStore = titles;
+  let open = false;
+  let y;
 
   onMount(() => {
     if (!$password) $password = window.sessionStorage.getItem("password");
   });
-
-  let open, y;
 
 </script>
 
@@ -73,7 +74,6 @@
 
 <Snack />
 
-<Sidebar bind:open />
 <div class={y > 50 ? 'sticky' : ''}>
   <Navbar bind:sidebar={open} />
 </div>

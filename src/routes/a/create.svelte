@@ -3,7 +3,7 @@
   import { page } from "$app/stores";
   import { query } from "$lib/api";
   import { onMount, tick } from "svelte";
-  import { prompt } from "$lib/store";
+  import { prompt, token, psbt, user } from "$lib/store";
   import { Dropzone, ProgressLinear } from "$comp";
   import { upload, supportedTypes } from "$lib/upload";
   import { create } from "$queries/artworks";
@@ -134,6 +134,8 @@
 
   let tries;
       let l;
+
+  let title;
 
   $: generateTicker(title);
   let generateTicker = (t) => {

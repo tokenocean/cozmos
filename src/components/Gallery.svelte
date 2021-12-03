@@ -1,7 +1,7 @@
 <script>
   import { browser } from "$app/env";
   import { Pagination } from "$comp";
-  import { tick } from "svelte";
+  import { onMount, tick } from "svelte";
   import Card from "$styleguide/components/Card.svelte";
 
   export let filtered;

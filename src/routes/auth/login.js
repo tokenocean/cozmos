@@ -1,13 +1,14 @@
 import { serverApi } from "$lib/api";
+import cookie from "cookie";
+import { addSeconds } from "date-fns";
 
 export async function post(request) {
-  let { body, locals } = request
-  try {
-    const res = await serverApi.url("/login").post(body).res();
+  let { locals } = request;
 
-    let headers = {};
-    let cookies = [res.headers.get('set-cookie').split(',').slice(0, 2).join("")];
-    headers['set-cookie'] = cookies;
+  try {
+    const res = await serverApi.url("/login").post(request.body).res();
+    let body = await res.json();
+    let { jwt_expires_in, jwt_token } = body;
 
     let tokenExpiry = parseInt(jwt_expires_in / 1000);
 

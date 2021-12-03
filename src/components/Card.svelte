@@ -52,6 +52,7 @@
 
 </style>
 
+<!--
 <div
   class="{showDetails ? 'card' : ''} flex {!showDetails || $loaded[artwork.id] ? 'bg-white' : 'bg-gray-100'} flex-col justify-between h-full"
   in:fade>
@@ -147,3 +148,4 @@
     </div>
   {/if}
 </div>
+-->
