@@ -91,7 +91,6 @@
       await broadcast(true);
       await tick();
     } catch (e) {
-      console.log(e, "wee", e.message.includes("Insufficient"));
       if (e.message.includes("Insufficient")) throw e;
       throw new Error("Issuance failed: " + e.message);
     }
@@ -108,7 +107,6 @@
       let url;
   const uploadFile = async (imageType) => {
     return async ({detail: file}) => {
-      console.log("UPLOAD");
       if (!file) return;
       if (supportedTypes.includes(type)) throw new Error("Supported file types are jpg, png, gif, mp4");
       ({type} = file);
@@ -232,11 +230,8 @@
     }
   }
 
-  $: console.log(imagePercent);
-
   function cancelPreview(imageType) {
     return () => {
-      console.log(`debug canceled event received`);
       imagePreview[imageType] = null;
       imagePercent[imageType] = 0;
     }

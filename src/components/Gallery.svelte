@@ -51,6 +51,7 @@
   let c = 30;
   let timeout;
   let justScrolled;
+  let x;
 
   $: browser && scroll(y, c);
   let scroll = (y) => {
