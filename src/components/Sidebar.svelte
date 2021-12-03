@@ -5,7 +5,6 @@
 
 </script>
 
-
 <aside
   class="fixed w-full h-full border-r-2 shadow-lg sideBar"
   on:click={() => (open = false)}

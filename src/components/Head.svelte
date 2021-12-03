@@ -1,5 +1,6 @@
 <script>
   export let metadata;
+
 </script>
 
 <svelte:head>

@@ -1,5 +1,6 @@
 <script>
   import Button from "$styleguide/components/Button.svelte";
+
 </script>
 
 <style lang="scss">
@@ -11,22 +12,24 @@
 
 </style>
 
-<div class="min-h-screen flex header-container mx-auto justify-center items-center bg-black">
-
+<div
+  class="min-h-screen flex header-container mx-auto justify-center items-center bg-black">
   <div class="flex justify-center mx-24 -mt-32">
     <div class="leading-normal">
       <div class="text-gray-500 text-xl font-semibold">
         WE ARE DISRUPTING THE NFT INDUSTRY.
       </div>
-      <div class="text-white text-5xl secondary-font font-bold leading-normal mt-4">
-        The First marketplace<br/>
+      <div
+        class="text-white text-5xl secondary-font font-bold leading-normal mt-4">
+        The First marketplace<br />
         for NFT-Experiences
       </div>
       <div class="text-white text-xl secondary-font font-bold mt-4">
         From creators for everyone
       </div>
       <div class="text-gray-500 text-base font-semibold mt-6">
-        An NFT marketplace with real-life experiences <br/>based on the L-BTC blockchain.
+        An NFT marketplace with real-life experiences
+        <br />based on the L-BTC blockchain.
       </div>
       <div class="mt-8">
         <a href="/market">
@@ -37,10 +40,9 @@
     <div class="flex flex-1 ml-20 sm:hidden xl:flex items-center">
       <div>
         <a href="/market">
-          <img src="/cards.png" class="w-full max-h-96" alt="Cards">
+          <img src="/cards.png" class="w-full max-h-96" alt="Cards" />
         </a>
       </div>
     </div>
   </div>
-
 </div>
