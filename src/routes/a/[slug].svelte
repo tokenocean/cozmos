@@ -405,7 +405,7 @@
       <div class="overflow-hidden rounded-2xl nft-box-shadow">
         <ArtworkMedia {artwork} />
       </div>
-      {#if $user.id === artwork.owner_id}
+      {#if $user && $user.id === artwork.owner_id}
         <div class="mt-8">
           <a href={`/a/${artwork.slug}/edit`}>
             <Button primary class="w-full">Edit</Button>
