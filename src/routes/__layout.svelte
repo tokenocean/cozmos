@@ -60,6 +60,7 @@
   onMount(() => {
     if (!$password) $password = window.sessionStorage.getItem("password");
   });
+
 </script>
 
 <style global src="../main.css">

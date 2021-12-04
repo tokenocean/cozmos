@@ -1,6 +1,11 @@
 <script>
+  import RoyaltyRecipient from "$components/RoyaltyRecipient.svelte";
   import Fa from "svelte-fa";
   import { faGem } from "@fortawesome/free-regular-svg-icons";
+  import {
+    faChevronUp,
+    faChevronDown,
+  } from "@fortawesome/free-solid-svg-icons";
   export let artwork;
   let show;
 
