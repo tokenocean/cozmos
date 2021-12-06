@@ -88,8 +88,6 @@
 
   export let artwork, default_royalty_recipients;
 
-  let { id } = $page.params;
-
   let input;
   let initialized;
   let focus = (i) => i && tick().then(() => input && input.focus());
