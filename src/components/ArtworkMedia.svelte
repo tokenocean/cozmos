@@ -1,5 +1,5 @@
 <script>
-  import { onMount, createEventDispatcher } from "svelte";
+  import { onMount } from "svelte";
   import Fa from "svelte-fa";
   import {
     faVolumeUp,
@@ -9,12 +9,10 @@
   export let artwork;
   export let showDetails;
   export let thumb = true;
-  export let { preview } = false;
   export let popup = false;
   export let ready = false;
   export let loaded;
 
-  const dispatch = createEventDispatcher();
   let img, vid;
   $: path =
     artwork &&

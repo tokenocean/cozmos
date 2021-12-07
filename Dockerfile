@@ -1,6 +1,6 @@
 FROM node:17-alpine
 
-RUN apk add git
+RUN apk add git python3 alpine-sdk
 RUN npm i -g pnpm
 
 WORKDIR /app
