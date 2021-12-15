@@ -71,7 +71,7 @@
       {/if}
       </div>
     </div>
-    <a href={`/u/${$user.username}`} class="hidden lg:inline-block">
+    <a href={`/${$user.username}`} class="hidden lg:inline-block">
       <button on:click={toggle} class="flex">
         <Fa icon={faUser} size="1.5x"/>
       </button>

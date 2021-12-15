@@ -440,7 +440,7 @@
           <!-- Avatar -->
           <div>
             <a
-              href={`/u/${artwork.artist.username}`}
+              href={`/${artwork.artist.username}`}
               class="text-gray-800 flex">
               <div>
                 <Avatar user={artwork.artist} />
@@ -457,7 +457,7 @@
           </div>
           <!-- Avatar -->
           <div class="ml-24">
-            <a href={`/u/${artwork.owner.username}`} class="text-gray-800 flex">
+            <a href={`/${artwork.owner.username}`} class="text-gray-800 flex">
               <div>
                 <Avatar user={artwork.owner} />
               </div>

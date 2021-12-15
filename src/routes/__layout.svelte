@@ -24,7 +24,7 @@
   import { browser } from "$app/env";
   import { page, session } from "$app/stores";
   import decode from "jwt-decode";
-  import { Sidebar, Navbar, Dialog, Footer, Snack, Head } from "$comp";
+  import { Sidebar, Dialog, Footer, Snack, Head } from "$comp";
   import {
     addresses as a,
     meta,
@@ -37,6 +37,7 @@
   import { onDestroy, onMount } from "svelte";
   import branding from "$lib/branding";
   import { get } from "$lib/api";
+  import Navbar from "$styleguide/components/Navbar/Navbar.svelte";
 
   export let addresses, titles;
 

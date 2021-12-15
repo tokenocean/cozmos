@@ -41,7 +41,7 @@
   import { Avatar, Offers, ProgressLinear } from "$comp";
   import { getUserArtworks } from "$queries/artworks";
   import { createFollow, deleteFollow } from "$queries/follows";
-  import Menu from "./user/_menu.svelte";
+  import Menu from "./_menu.svelte";
   import { fade } from "svelte/transition";
   import { query } from "$lib/api";
   import Card from "$styleguide/components/Card.svelte";
