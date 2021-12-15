@@ -50,6 +50,7 @@
   export let addresses, titles;
 
   let interval;
+
   let refresh = async () => {
     try {
       let { jwt_token } = await get("/auth/refresh.json", fetch).json();
