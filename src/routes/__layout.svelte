@@ -18,29 +18,29 @@
       props,
     };
   }
-
 </script>
 
 <script>
   import { browser } from "$app/env";
   import { page, session } from "$app/stores";
   import decode from "jwt-decode";
-  import { Sidebar, Dialog, Footer, Snack, Head } from "$comp";
-  import Navbar from "$styleguide/components/Navbar/Navbar.svelte";
+  import { Sidebar, Navbar, Dialog, Footer, Snack, Head } from "$comp";
   import {
     addresses as a,
     meta,
     titles as t,
     user,
     password,
+    poll,
     token,
   } from "$lib/store";
-  import { onMount } from "svelte";
+  import { onDestroy, onMount } from "svelte";
   import branding from "$lib/branding";
+  import { get } from "$lib/api";
 
   export let addresses, titles;
 
-  if (browser)
+  if (browser) {
     history.pushState = new Proxy(history.pushState, {
       apply(target, thisArg, argumentsList) {
         Reflect.apply(target, thisArg, argumentsList);
@@ -48,19 +48,35 @@
       },
     });
 
-  $a = addresses;
-  $t = titles;
+    $a = addresses;
+    $t = titles;
 
-  $user = $session.user;
-  $token = $session.jwt;
+    if ($session) {
+      $user = $session.user;
+      $token = $session.jwt;
+    }
+  }
+
+  let refresh = async () => {
+    try {
+      $token = (await get("/auth/refresh.json").json()).jwt_token;
+      if (!$token && $session) delete $session.user;
+    } catch (e) {
+      console.log(e);
+    }
+  };
+  let interval = setInterval(refresh, 60000);
 
   let open = false;
   let y;
 
+  let stopPolling = () => $poll.map(clearInterval);
+  $: stopPolling($page);
+
+  onDestroy(() => clearInterval(interval));
   onMount(() => {
     if (!$password) $password = window.sessionStorage.getItem("password");
   });
-
 </script>
 
 <style global src="../main.css">
