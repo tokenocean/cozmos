@@ -126,16 +126,16 @@
             <div class="ml-2">{currencyConversion(artwork.reserve_price)}</div>
           </div>
         </div>
-        {#if artwork.bid[0] && artwork.bid[0].user}
+        {#if artwork.bid && artwork.bid.user}
           <div class="ml-2">
             <div class="text-xs whitespace-nowrap">
-              Current bid by @{artwork.bid[0].user.username}
+              Current bid by @{artwork.bid.user.username}
             </div>
             <div class="text-sm flex justify-start font-bold">
-              <div>{val(artwork.bid[0].amount)} {ticker}</div>
+              <div>{val(artwork.bid.amount)} {ticker}</div>
               <div class="ml-2 currency-arrow-font">&#62;</div>
               <div class="ml-2">
-                {currencyConversion(artwork.bid[0].amount)}
+                {currencyConversion(artwork.bid.amount)}
               </div>
             </div>
           </div>
