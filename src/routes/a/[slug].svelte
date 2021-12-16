@@ -1,5 +1,7 @@
 <script context="module">
   import { serverApi } from "$lib/api";
+  import { browser } from "$app/env";
+  import { post } from "$lib/api";
   import branding from "$lib/branding";
 
   export async function load({ fetch, page }) {

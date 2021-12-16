@@ -68,11 +68,6 @@
     (!$fc.openBid || (a.bid && a.bid.amount)) &&
     (!$fc.ownedByCreator || a.artist_id === a.owner_id) &&
     (!$fc.hasSold || a.transferred_at);
-
-  onMount(async () => {
-    const r = await fetch("/artworks.json").then((r) => r.json());
-    $artworks = r.artworks;
-  });
 </script>
 
 <Results />

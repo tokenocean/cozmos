@@ -95,6 +95,7 @@ insert_permissions:
     - auction_end
     - auction_start
     - bid_increment
+    - cover_filename
     - description
     - edition
     - editions
@@ -108,6 +109,7 @@ insert_permissions:
     - list_price_tx
     - max_extensions
     - owner_id
+    - package_content
     - reserve_price
     - slug
     - ticker
