@@ -15,29 +15,21 @@ const BRANDING = {
   },
 
   meta: {
-    og: {
-      title: "Cozmos",
-      image: "https://cozmos.coinos.io/branding/splash.png",
-      url: "https://cozmos.coinos.io/",
-    },
+    title: "Cozmos",
+    keywords: "NFT Experiences",
+    description: "Collect NFT Experiences",
+    image: "https://cozmos.coinos.io/branding/splash.png",
+    url: "https://cozmos.coinos.io/",
     twitter: {
       card: "summary_large_image",
       creator: "@cozmos",
       site: "@cozmos",
-      title: "Cozmos",
-      image: "https://cozmos.coinos.io/branding/splash.png",
     },
     // for art page we use art info in <header> meta
-    artPage: (art) => ({
-      og: {
-        title: `Cozmos - ${art.title}`,
-        image: `/api/ipfs/${art.filename}`,
-        url: `https://cozmos.coinos.io/a/${art.slug}`,
-      },
-      twitter: {
-        title: `Cozmos - ${art.title}`,
-        image: `/api/ipfs/${art.filename}`,
-      },
+    artwork: (art) => ({
+      title: `Cozmos - ${art.title}`,
+      image: `/api/ipfs/${art.filename}`,
+      url: `https://cozmos.coinos.io/a/${art.slug}`,
     }),
   },
 
