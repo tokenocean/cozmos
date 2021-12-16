@@ -52,7 +52,6 @@
       } else {
         url = preview;
       }
-      imagePreview = imagePreview;
     };
 
     reader.readAsDataURL(file);
