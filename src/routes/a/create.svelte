@@ -24,8 +24,6 @@
   import FormItem from "./components/_form-item.svelte";
   import Issuing from "./_issuing.svelte";
 
-  $: requireLogin($page);
-
   let preview;
   let filename;
   let type;

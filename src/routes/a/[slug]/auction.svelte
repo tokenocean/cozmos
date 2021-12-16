@@ -89,7 +89,6 @@
   export let artwork, default_royalty_recipients;
 
   let { id } = $page.params;
-  $: requireLogin($page);
 
   let input;
   let initialized;

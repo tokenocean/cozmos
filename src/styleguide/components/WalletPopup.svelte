@@ -9,8 +9,6 @@
     import { requireLogin } from "$lib/auth";
     import { page } from "$app/stores";
 
-    $: requireLogin($page);
-
     if (!$asset) $asset = btc;
 
     let balance, loading;

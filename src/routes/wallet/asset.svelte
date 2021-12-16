@@ -11,7 +11,6 @@
   import { border, bg, outer } from "./_colors";
 
   $: if ($user) getBalances();
-  $: requireLogin($page);
 </script>
 
 <style lang="scss">

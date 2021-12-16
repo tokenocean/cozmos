@@ -1,5 +1,4 @@
 <script>
-  export let type = 'text';
   export let placeholder = null;
   export let value = '';
 </script>
