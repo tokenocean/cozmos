@@ -5,14 +5,14 @@
   import { loaded } from "$lib/store";
 
   export let artwork;
-  export let showDetails;
+  export let showDetails = false;
   export let thumb = true;
   export let preview = false;
   export let popup = false;
 
   let img, vid;
   $: path =
-    artwork &&
+    artwork && artwork.filename &&
     (thumb
       ? `/api/public/${artwork.filename}.${artwork.filetype.split("/")[1]}`
       : `/api/ipfs/${artwork.filename}`);
@@ -152,7 +152,7 @@
 {:else}
   <div class="w-full" class:cover class:contain>
     <img
-      src={preview || path ? path : '/liquid_logo.svg'}
+      src={preview || (path ? path : '/liquid_logo.svg')}
       alt={artwork.title}
       bind:this={img} />
   </div>

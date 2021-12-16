@@ -5,7 +5,7 @@
   import Menu       from "./Menu.svelte";
   import Logo       from "$styleguide/components/Logo.svelte";
 
-  export let mobileScreen;
+  export let mobileScreen = false;
   export let sidebar = false;
 </script>
 

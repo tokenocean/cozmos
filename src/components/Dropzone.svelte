@@ -32,6 +32,10 @@
     fileInput.click();
   };
 
+  let handle = (e) => {
+    dispatch('file', { file: e.target.files[0] });
+  } 
+
 </script>
 
 <style>
@@ -78,6 +82,7 @@
 {#if style === 'box'}
   <div
     id="drop-area"
+    on:click={open}
     on:dragenter={start}
     on:dragover={start}
     on:dragleave={stop}
@@ -100,7 +105,7 @@
         id="fileElem"
         multiple
         accept="image/*,video/*"
-        on:change={(e) => dispatch('file', e.target.files[0])} />
+        on:change={handle} />
     </form>
   </div>
 {:else}
@@ -126,6 +131,6 @@
       id="fileElem"
       multiple
       accept="image/*,video/*"
-      on:change={(e) => dispatch('file', e.target.files[0])} />
+      on:change={handle} />
   </form>
 {/if}

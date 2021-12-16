@@ -1,5 +1,6 @@
 <script>
   import Button from "$styleguide/components/Button.svelte";
+  console.log("HI");
 
 </script>
 

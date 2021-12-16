@@ -1,6 +1,6 @@
 <script>
-    export let graphic;
-    export let white;
+    export let graphic = false;
+    export let white = false;
 </script>
 
 {#if graphic}

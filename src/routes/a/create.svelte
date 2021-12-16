@@ -8,7 +8,7 @@
   import { upload, supportedTypes } from "$lib/upload";
   import { create } from "$queries/artworks";
   import { btc, fade, kebab, goto, err } from "$lib/utils";
-  import { requireLogin, requirePassword } from "$lib/auth";
+  import { requirePassword } from "$lib/auth";
   import {
     createIssuance,
     sign,
@@ -31,7 +31,6 @@
   let video;
   let hidden = true;
   let loading;
-  let focus;
 
   const IMG_TYPES = {
     MAIN: 0,
@@ -53,6 +52,7 @@
       } else {
         url = preview;
       }
+      imagePreview = imagePreview;
     };
 
     reader.readAsDataURL(file);
@@ -65,7 +65,6 @@
 
       if (imagePercent[imageType] >= 100) {
         await tick();
-        focus(true);
       }
     };
   };
@@ -102,21 +101,22 @@
     return JSON.stringify(contract);
   };
 
-      let url;
-  const uploadFile = async (imageType) => {
-    return async ({detail: file}) => {
+  let url;
+  const uploadFile = (imageType) => {
+    return async ({ detail: { file } }) => {
       if (!file) return;
-      if (supportedTypes.includes(type)) throw new Error("Supported file types are jpg, png, gif, mp4");
-      ({type} = file);
+      if (supportedTypes.includes(type))
+        throw new Error("Supported file types are jpg, png, gif, mp4");
+      ({ type } = file);
 
-      if(imageType === IMG_TYPES.MAIN) {
+      if (imageType === IMG_TYPES.MAIN) {
         artwork.filetype = type;
       }
 
       if (file.size < 100000000) previewFile(imageType, file);
 
       try {
-        if(imageType === IMG_TYPES.MAIN) {
+        if (imageType === IMG_TYPES.MAIN) {
           artwork.filename = await upload(file, progress(imageType));
         } else if (imageType === IMG_TYPES.COVER) {
           artwork.cover_filename = await upload(file, progress(imageType));
@@ -126,11 +126,11 @@
         imagePercent[imageType] = 0;
         return;
       }
-    }
+    };
   };
 
   let tries;
-      let l;
+  let l;
 
   let title;
 
@@ -149,7 +149,7 @@
       .toUpperCase();
 
     checkTicker();
-      };
+  };
 
   let checkTicker = async () => {
     let { data } = await hasura
@@ -177,34 +177,31 @@
   };
 
   let artwork = {
-    title          : "",
-    description    : "",
-    filename       : "",
-    filetype       : "",
-    ticker         : "",
+    title: "",
+    description: "",
+    filename: "",
+    filetype: "",
+    ticker: "",
     package_content: "",
-    asset          : "",
-    edition        : 1,
-    editions       : 1,
-    tags           : [],
-      };
+    asset: "",
+    edition: 1,
+    editions: 1,
+    tags: [],
+  };
 
   async function submit(e) {
     e.preventDefault();
 
     await requirePassword();
 
-    if (!artwork.title)
-      return err('Title is required');
+    if (!artwork.title) return err("Title is required");
 
-    if (!artwork.description)
-      return err('Description is required');
+    if (!artwork.description) return err("Description is required");
 
-    if (!artwork.description)
-      return err('Description is required');
+    if (!artwork.description) return err("Description is required");
 
     if (!artwork.editions || isNaN(Number(artwork.editions)))
-      return err('Editions is required and should be a number');
+      return err("Editions is required and should be a number");
 
     const core = new Core();
 
@@ -232,8 +229,9 @@
     return () => {
       imagePreview[imageType] = null;
       imagePercent[imageType] = 0;
-    }
+    };
   }
+
 </script>
 
 <style>
@@ -304,17 +302,16 @@
           <FormItem title="Upload thumbnail (your NFT)">
             {#if imagePreview[IMG_TYPES.MAIN] || imagePercent[IMG_TYPES.MAIN]}
               <div class="text-black">
-                <div
-                  class="mt-4 h-44 rounded-md border-gray-300 border flex flex-col justify-center items-center relative p-4">
-                  {#if imagePercent[IMG_TYPES.MAIN] && imagePercent[IMG_TYPES.MAIN] < 100}
-                    Loading...
-                  {:else if imagePercent[IMG_TYPES.MAIN] && imagePercent[IMG_TYPES.MAIN] === 100}
+                {#if imagePercent[IMG_TYPES.MAIN] && imagePercent[IMG_TYPES.MAIN] < 100}
+                  Loading...
+                {:else if imagePercent[IMG_TYPES.MAIN] && imagePercent[IMG_TYPES.MAIN] === 100}
+                  <div class="w-1/2">
                     <ArtworkMedia
                       {artwork}
                       preview={imagePreview[IMG_TYPES.MAIN]}
                       on:cancel={cancelPreview(IMG_TYPES.MAIN)} />
-                  {/if}
-                </div>
+                  </div>
+                {/if}
               </div>
             {:else}
               <Dropzone on:file={uploadFile(IMG_TYPES.MAIN)} />
@@ -325,17 +322,17 @@
           <FormItem title="Upload cover">
             {#if imagePreview[IMG_TYPES.COVER] || imagePercent[IMG_TYPES.COVER]}
               <div class="text-black">
-                <div
-                  class="mt-4 h-44 rounded-md border-gray-300 border flex flex-col justify-center items-center relative p-4">
-                  {#if imagePercent[IMG_TYPES.COVER] && imagePercent[IMG_TYPES.COVER] < 100}
-                    Loading...
-                  {:else if imagePercent[IMG_TYPES.COVER] && imagePercent[IMG_TYPES.COVER] === 100}
+                {#if imagePercent[IMG_TYPES.COVER] && imagePercent[IMG_TYPES.COVER] < 100}
+                  Loading...
+                {:else if imagePercent[IMG_TYPES.COVER] && imagePercent[IMG_TYPES.COVER] === 100}
+                  <div class="w-1/2">
                     <ArtworkMedia
                       {artwork}
                       preview={imagePreview[IMG_TYPES.COVER]}
                       on:cancel={cancelPreview(IMG_TYPES.COVER)} />
-                  {/if}
-                </div>
+                  </div>
+                {/if}
+
               </div>
             {:else}
               <Dropzone on:file={uploadFile(IMG_TYPES.COVER)} />
@@ -359,7 +356,7 @@
             <ProgressLinear />
           </div>
           <div class:invisible={loading}>
-            <Form bind:artwork bind:focus on:submit={submit} />
+            <Form bind:artwork on:submit={submit} />
           </div>
         </div>
       </div>
