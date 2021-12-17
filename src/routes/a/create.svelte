@@ -1,3 +1,15 @@
+<script context="module">
+  export async function load({ session }) {
+    if (!(session && session.user))
+      return {
+        status: 302,
+        redirect: "/login",
+      };
+
+    return {};
+  }
+</script>
+
 <script>
   import Card from "$styleguide/components/Card.svelte";
   import Core from "$lib/lnft-core";
@@ -253,12 +265,6 @@
 </script>
 
 <div class="container mx-auto p-20">
-  <!--
-  <div
-    class="absolute right-0 bottom-0 border-black border-r border-b w-12 h-12 mr-12">
-    &nbsp;
-  </div>
-  -->
   <div class="flex w-full mx-auto bg-gray-100 submitArtwork">
     <div
       class="absolute right-16 rounded-full border-black border-l border-t w-8 h-8 -mt-4 z-50 bg-black text-4xl text-center text-white cursor-pointer"
