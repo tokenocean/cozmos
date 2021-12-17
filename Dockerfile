@@ -1,6 +1,9 @@
 FROM node:17-alpine
 
-RUN apk add git python3 alpine-sdk
+ARG NODE_ENV=production
+ENV NODE_ENV $NODE_ENV
+
+RUN apk add git python3 build-base
 RUN npm i -g pnpm
 
 WORKDIR /app
