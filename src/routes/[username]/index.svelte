@@ -1,12 +1,12 @@
 <script context="module">
   export async function load({ fetch, page }) {
     try {
-      const { subject } = await fetch(
-        `/${page.params.username}.json`
-      ).then((r) => {
-        if (r.ok) return r.json();
-        throw new Error("not ok");
-      });
+      const { subject } = await fetch(`/${page.params.username}.json`).then(
+        (r) => {
+          if (r.ok) return r.json();
+          throw new Error("not ok");
+        }
+      );
 
       return {
         maxage: 90,
@@ -92,7 +92,6 @@
   .social-details {
     display: flex;
     flex-direction: column;
-    margin: 25px 0;
   }
   .social-details a {
     margin-top: 15px;
@@ -108,119 +107,155 @@
     color: #0f828a;
   }
 
+  #line-right {
+    border-right: 1px solid black;
+  }
+
 </style>
 
 <div class="container mx-auto lg:px-16 mt-5 md:mt-20">
   {#if subject}
     <div class="flex justify-between flex-wrap" in:fade>
       <div class="w-full xl:w-1/3 xl:max-w-xs mb-20">
-        <div>
-          <div class="flex flex-col">
-            <div class="flex items-center">
+        <div id="line-right">
+          <div>
+            <div class="flex flex-col">
               <Avatar size="large" user={subject} />
-              <div class="ml-12">
-                <h3>{subject.full_name}</h3>
-                <div class="text-gray-600">@{subject.username}</div>
+              <div class="flex items-center">
+                <div class="flex">
+                  <h3>@{subject.username}</h3>
+                  <a
+                    class="primary-btn w-1/2 mx-10"
+                    href={`/${$user.username}/edit`}>Edit Profile</a>
+                </div>
               </div>
+              {#if subject.bio}
+                <p class="mt-5">{subject.bio}</p>
+              {/if}
+            </div>
+            <div class="social-details">
+              {#if subject.instagram}
+                <a href={`https://instagram.com/${subject.instagram}`}>
+                  <div class="flex">
+                    <div class="my-auto">
+                      <Fa icon={faInstagram} />
+                    </div>
+                    <div><span>@{subject.instagram}</span></div>
+                  </div>
+                </a>
+              {/if}
+              {#if subject.twitter}
+                <a href={`https://twitter.com/${subject.twitter}`}>
+                  <div class="flex">
+                    <div class="my-auto">
+                      <Fa icon={faTwitter} />
+                    </div>
+                    <div><span>@{subject.twitter}</span></div>
+                  </div>
+                </a>
+              {/if}
+              {#if subject.email}
+                <a href={`mailto:${subject.email}`}>
+                  <div class="flex">
+                    <div class="my-auto">
+                      <Fa icon={faEnvelope} />
+                    </div>
+                    <div><span>{subject.email}</span></div>
+                  </div>
+                </a>
+              {/if}
+              {#if subject.website}
+                <a href={`https://${subject.website}`}>
+                  <div class="flex">
+                    <div class="my-auto">
+                      <Fa icon={faLink} />
+                    </div>
+                    <div><span>{subject.website}</span></div>
+                  </div>
+                </a>
+              {/if}
+              {#if subject.location}
+                <a href=".">
+                  <div class="flex">
+                    <div class="my-auto">
+                      <Fa icon={faMapMarkerAlt} />
+                    </div>
+                    <div><span>{subject.location}</span></div>
+                  </div>
+                </a>
+              {/if}
             </div>
             <div class="flex mt-5">
-              <div class="mr-8">Followers: {subject.num_followers}</div>
-              <div>Following: {subject.num_follows}</div>
+              <div
+                class="mr-2 border rounded-full py-1 px-5 border-solid border-black">
+                Followers:
+                {subject.num_followers}
+              </div>
+              <div
+                class="border rounded-full py-1 px-5 border-solid border-black">
+                Following:
+                {subject.num_follows}
+              </div>
             </div>
-          </div>
-          <div class="social-details">
-            {#if subject.instagram}
-              <a href={`https://instagram.com/${subject.instagram}`}>
-                <div class="flex">
-                  <div class="my-auto">
-                    <Fa icon={faInstagram} />
-                  </div>
-                  <div><span>@{subject.instagram}</span></div>
-                </div>
-              </a>
-            {/if}
-            {#if subject.twitter}
-              <a href={`https://twitter.com/${subject.twitter}`}>
-                <div class="flex">
-                  <div class="my-auto">
-                    <Fa icon={faTwitter} />
-                  </div>
-                  <div><span>@{subject.twitter}</span></div>
-                </div>
-              </a>
-            {/if}
-            {#if subject.email}
-              <a href={`mailto:${subject.email}`}>
-                <div class="flex">
-                  <div class="my-auto">
-                    <Fa icon={faEnvelope} />
-                  </div>
-                  <div><span>{subject.email}</span></div>
-                </div>
-              </a>
-            {/if}
-            {#if subject.website}
-              <a href={`https://${subject.website}`}>
-                <div class="flex">
-                  <div class="my-auto">
-                    <Fa icon={faLink} />
-                  </div>
-                  <div><span>{subject.website}</span></div>
-                </div>
-              </a>
-            {/if}
-            {#if subject.location}
-              <a href=".">
-                <div class="flex">
-                  <div class="my-auto">
-                    <Fa icon={faMapMarkerAlt} />
-                  </div>
-                  <div><span>{subject.location}</span></div>
-                </div>
-              </a>
-            {/if}
-          </div>
-          {#if subject.bio}
-            <p>{subject.bio}</p>
-          {/if}
-          <div>
-            {#if $user}
-              {#if $user.id === subject.id}
-                <Menu />
-              {:else}
-                <button class="p-2 primary-btn follow mt-8" on:click={follow}>
-                  {subject.followed ? 'Unfollow' : 'Follow'}</button>
+            <div class="mt-5">
+              {#if $user}
+                {#if $user.id === subject.id}
+                  <Menu />
+                {:else}
+                  <button class="p-2 primary-btn follow mt-8" on:click={follow}>
+                    {subject.followed ? 'Unfollow' : 'Follow'}</button>
+                {/if}
               {/if}
-            {/if}
+            </div>
           </div>
         </div>
       </div>
 
       <div class="w-full xl:w-2/3">
-        <div
-          class="flex justify-center text-center cursor-pointer tabs flex-wrap mb-14">
+        <div class="flex justify-center text-center tabs flex-wrap mb-14">
           {#if subject.is_artist}
-            <div
-              class:hover={tab === 'creations'}
-              on:click={() => (tab = 'creations')}>
-              Creations
+            <div class="cursor-pointer">
+              <input
+                type="radio"
+                id="creations"
+                name="radio"
+                class="cursor-pointer"
+                checked
+                class:hover={tab === 'creations'}
+                on:click={() => (tab = 'creations')} />
+              <label for="creations" class="cursor-pointer">Creations</label>
             </div>
           {/if}
-          <div
-            class:hover={tab === 'collection'}
-            on:click={() => (tab = 'collection')}>
-            Collection
+          <div class="cursor-pointer">
+            <input
+              type="radio"
+              id="collection"
+              name="radio"
+              class="cursor-pointer"
+              class:hover={tab === 'collection'}
+              on:click={() => (tab = 'collection')} />
+            <label for="collection" class="cursor-pointer">Collection</label>
           </div>
           {#if $user && $user.id === id}
-            <div
-              class:hover={tab === 'offers'}
-              on:click={() => (tab = 'offers')}>
-              Offers
+            <div class="cursor-pointer">
+              <input
+                type="radio"
+                id="offers"
+                name="radio"
+                class="cursor-pointer"
+                class:hover={tab === 'offers'}
+                on:click={() => (tab = 'offers')} />
+              <label for="offers" class="cursor-pointer">Offers</label>
             </div>
-            <div
-              class:hover={tab === 'favorites'}
-              on:click={() => (tab = 'favorites')}>
-              Favorites
+            <div class="cursor-pointer">
+              <input
+                type="radio"
+                id="favorites"
+                name="radio"
+                class="cursor-pointer"
+                class:hover={tab === 'favorites'}
+                on:click={() => (tab = 'favorites')} />
+              <label for="favorites" class="cursor-pointer">Favorites</label>
             </div>
           {/if}
         </div>

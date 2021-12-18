@@ -146,9 +146,10 @@ button {
     display: flex;
     justify-content: center;
     align-items: center;
-    color: #444444;
+    color: white;
     font-weight: bold;
-    background: #ccc;
+    background: black;
+		padding: 1rem;
 }
 
 .secondary-btn,
