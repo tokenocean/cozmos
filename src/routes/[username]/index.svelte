@@ -66,6 +66,9 @@
 
   let tab = "collection";
 
+  let createdRadio;
+  let collectedRadio;
+
 </script>
 
 <style>
@@ -108,6 +111,13 @@
     top: 50%;
     left: 48.5%;
     transform: translate(-50%, -50%);
+  }
+
+  #favorites,
+  #collection,
+  #creations,
+  #offers {
+    display: none;
   }
 
 </style>
@@ -242,7 +252,15 @@
       <div class="w-full xl:w-2/3">
         <div class="flex justify-center text-center tabs flex-wrap mb-14">
           {#if subject.is_artist}
-            <div class="cursor-pointer">
+            <div class="cursor-pointer flex" on:click={() => {
+							tab = 'creations';
+							createdRadio.src = '/svg_icons/comet.svg';
+							collectedRadio.src = 'svg_icons/comet-02.svg';
+						}}>
+              <img
+                src="/svg_icons/comet.svg"
+                alt="comet icon"
+                bind:this={createdRadio} />
               <input
                 type="radio"
                 id="creations"
@@ -250,21 +268,30 @@
                 class="cursor-pointer"
                 checked
                 class:hover={tab === 'creations'}
-                on:click={() => (tab = 'creations')} />
-              <label for="creations" class="cursor-pointer">Creations</label>
+               />
+              <label for="creations" class="cursor-pointer">Created</label>
             </div>
           {/if}
-          <div class="cursor-pointer">
+          <div class="cursor-pointer flex" on:click={() => {
+						tab = 'collection';
+						createdRadio.src = '/svg_icons/comet-02.svg';
+						collectedRadio.src = 'svg_icons/comet.svg';
+					}}>
+            <img
+              src="/svg_icons/comet-02.svg"
+              alt="comet icon"
+              bind:this={collectedRadio} />
             <input
               type="radio"
               id="collection"
               name="radio"
               class="cursor-pointer"
               class:hover={tab === 'collection'}
-              on:click={() => (tab = 'collection')} />
-            <label for="collection" class="cursor-pointer">Collection</label>
+             />
+            <label for="collection" class="cursor-pointer">Collected</label>
           </div>
-          {#if $user && $user.id === id}
+          <!--
+					{#if $user && $user.id === id}
             <div class="cursor-pointer">
               <input
                 type="radio"
@@ -286,6 +313,7 @@
               <label for="favorites" class="cursor-pointer">Favorites</label>
             </div>
           {/if}
+					-->
         </div>
         {#if tab === 'creations'}
           <div class="w-full justify-center">
