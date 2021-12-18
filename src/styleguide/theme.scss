@@ -158,7 +158,7 @@ $card--title--color: $color-white;
 $card--auction--static-background: rgb(119,157,210);
 $card--auction--gradient-background: linear-gradient(90deg, rgba(119,157,210,1) 0%, rgba(165,246,255,1) 100%);
 $card--buy-now--static-background: #ffa410;
-$card--buy-now--gradient-background: linear-gradient(90deg,  #ffa410 0%,#fc1901 100%);;
+$card--buy-now--gradient-background: linear-gradient(90deg,  #5A86CC 0%,#80F2EB 100%);;
 $card--bottom-section--background: #EDEDED;
 $card--price--font-size: 15px;
 
@@ -196,4 +196,3 @@ $button--ghost-white--disabled--border-color: rgba($button--ghost-white--border-
 // Ghost White disabled hover
 $button--ghost-white--disabled--hover--color: $color-white-50;
 $button--ghost-white--disabled--hover--border-color: rgba($button--ghost-white--border-color, 0.5);
-

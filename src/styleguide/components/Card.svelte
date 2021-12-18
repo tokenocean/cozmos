@@ -97,21 +97,20 @@
 </style>
 
 <div class="rounded-3xl overflow-hidden boxed" in:fade>
-  <div class="h-80 overflow-hidden flex justify-center items-center">
+  <div class="h-60 overflow-hidden flex justify-center items-center">
     <a href={`/a/${artwork.slug}`} class="w-full">
       <ArtworkMedia {artwork} {showDetails} {popup} bind:loaded bind:thumb />
     </a>
   </div>
   {#if showDetails}
-    <div
-      class="rounded-full overflow-hidden absolute w-24 h-24 -mt-16 ml-8 border-black border-4">
-      <Avatar user={artwork.artist} />
-    </div>
-    <div class="bg-black h-36 px-8 pt-12">
-      <div class="text-xs mb-2 font-bold username">
+    <div class="bg-black h-30 px-6 pt-2">
+      <div class="mb-1 border rounded-full w-12 border-solid border-white">
+        <Avatar user={artwork.artist} />
+      </div>
+      <div class="text-xs mb-1 font-bold username">
         @{artwork.owner.username}
       </div>
-      <div class="text-base font-bold title-font description">
+      <div class="text-base pb-1 font-bold title-font description">
         {artwork.title || 'No Name'}
       </div>
     </div>
@@ -134,9 +133,7 @@
             <div class="text-sm flex justify-start font-bold">
               <div>{val(artwork.bid.amount)} {ticker}</div>
               <div class="ml-2 currency-arrow-font">&#62;</div>
-              <div class="ml-2">
-                {currencyConversion(artwork.bid.amount)}
-              </div>
+              <div class="ml-2">{currencyConversion(artwork.bid.amount)}</div>
             </div>
           </div>
         {/if}

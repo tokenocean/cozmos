@@ -29,10 +29,8 @@
   import Fa from "svelte-fa";
   import {
     faEnvelope,
-    faLink,
     faMapMarkerAlt,
   } from "@fortawesome/free-solid-svg-icons";
-  import { faTwitter, faInstagram } from "@fortawesome/free-brands-svg-icons";
   import { page } from "$app/stores";
   import { onMount } from "svelte";
   import { user, token } from "$lib/store";
@@ -76,17 +74,8 @@
     height: 350px;
   }
 
-  .hover {
-    @apply border-b-2;
-    border-bottom: 3px solid #6ed8e0;
-  }
-
   .tabs div {
     @apply mb-auto h-10 mx-2 md:mx-4;
-    &:hover {
-      @apply border-b-2;
-      border-bottom: 3px solid #6ed8e0;
-    }
   }
 
   .social-details {
@@ -97,18 +86,28 @@
     margin-top: 15px;
   }
 
-  .social-details a:hover,
-  .social-details span:hover {
-    color: gray;
-  }
-
   .social-details span {
     margin-left: 8px;
-    color: #0f828a;
+    color: black;
   }
 
   #line-right {
     border-right: 1px solid black;
+  }
+
+  #avatar-container {
+    position: relative;
+  }
+
+  #avatar-border {
+    width: 100%;
+  }
+
+  #avatar {
+    position: absolute;
+    top: 50%;
+    left: 48.5%;
+    transform: translate(-50%, -50%);
   }
 
 </style>
@@ -119,14 +118,24 @@
       <div class="w-full xl:w-1/3 xl:max-w-xs mb-20">
         <div id="line-right">
           <div>
-            <div class="flex flex-col">
-              <Avatar size="large" user={subject} />
+            <div class="flex-auto flex-col">
+              <div id="avatar-container">
+                <img
+                  src="/svg_icons/comet-02.svg"
+                  alt="comet"
+                  id="avatar-border" />
+                <div id="avatar">
+                  <Avatar size="xl" user={subject} />
+                </div>
+              </div>
               <div class="flex items-center">
                 <div class="flex">
                   <h3>@{subject.username}</h3>
-                  <a
-                    class="primary-btn w-1/2 mx-10"
-                    href={`/${$user.username}/edit`}>Edit Profile</a>
+                  {#if $user}
+                    <a
+                      class="primary-btn w-1/2 mx-10"
+                      href={`/${$user.username}/edit`}>Edit Profile</a>
+                  {/if}
                 </div>
               </div>
               {#if subject.bio}
@@ -138,9 +147,14 @@
                 <a href={`https://instagram.com/${subject.instagram}`}>
                   <div class="flex">
                     <div class="my-auto">
-                      <Fa icon={faInstagram} />
+                      <img
+                        src="/svg_icons/Instagram-02.svg"
+                        alt="Instagram icon"
+                        class="w-12" />
                     </div>
-                    <div><span>@{subject.instagram}</span></div>
+                    <div class="self-center">
+                      <span>@{subject.instagram}</span>
+                    </div>
                   </div>
                 </a>
               {/if}
@@ -148,42 +162,56 @@
                 <a href={`https://twitter.com/${subject.twitter}`}>
                   <div class="flex">
                     <div class="my-auto">
-                      <Fa icon={faTwitter} />
+                      <img
+                        src="/svg_icons/Twitter-02.svg"
+                        alt="Twitter icon"
+                        class="w-12" />
                     </div>
-                    <div><span>@{subject.twitter}</span></div>
+                    <div class="self-center">
+                      <span>@{subject.twitter}</span>
+                    </div>
                   </div>
                 </a>
               {/if}
+              <!--
               {#if subject.email}
                 <a href={`mailto:${subject.email}`}>
                   <div class="flex">
                     <div class="my-auto">
-                      <Fa icon={faEnvelope} />
+                      <Fa icon={faEnvelope} class='w-12'/>
                     </div>
                     <div><span>{subject.email}</span></div>
                   </div>
                 </a>
               {/if}
+							-->
               {#if subject.website}
                 <a href={`https://${subject.website}`}>
                   <div class="flex">
                     <div class="my-auto">
-                      <Fa icon={faLink} />
+                      <img
+                        src="/svg_icons/Website.svg"
+                        alt="website icon"
+                        class="w-12" />
                     </div>
-                    <div><span>{subject.website}</span></div>
+                    <div class="self-center">
+                      <span>{subject.website}</span>
+                    </div>
                   </div>
                 </a>
               {/if}
+              <!--
               {#if subject.location}
                 <a href=".">
                   <div class="flex">
                     <div class="my-auto">
-                      <Fa icon={faMapMarkerAlt} />
+                      <Fa icon={faMapMarkerAlt} class='w-12'/>
                     </div>
                     <div><span>{subject.location}</span></div>
                   </div>
                 </a>
               {/if}
+							-->
             </div>
             <div class="flex mt-5">
               <div
