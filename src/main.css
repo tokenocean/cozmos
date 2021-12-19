@@ -51,6 +51,16 @@ h3 {
     font-weight: bold;
 }
 
+.black-box {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    font-weight: bold;
+    background: black;
+		padding: 0.5rem 1rem;
+}
+
 /* Mobile Phones */
 h1 {
     font-size: 48px;
@@ -217,10 +227,6 @@ label {
 button:focus,
 select:focus {
     outline: none;
-}
-
-button:hover {
-    color: rgb(84, 110, 157);
 }
 
 :global(input),

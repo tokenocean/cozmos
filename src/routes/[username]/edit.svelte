@@ -15,6 +15,8 @@
   import { upload } from "$lib/upload";
   import { updateUser } from "$queries/users";
   import { query } from "$lib/api";
+  //import { Dropzone } from "$comp";
+  import Button from "$styleguide/components/Button.svelte";
 
   let initialize = (user) => {
     if (!(form && form.id) && user) form = { ...user };
@@ -86,11 +88,11 @@
       }
     });
   };
+
 </script>
 
 <style>
   .container {
-    background-color: #ecf6f7;
     height: auto;
     min-height: 100vh;
     margin: 0;
@@ -99,7 +101,7 @@
 
   input,
   textarea {
-    @apply appearance-none border rounded py-4 px-3 text-gray-700 leading-tight;
+    @apply appearance-none border border-gray-300 rounded py-4 px-3 text-gray-700 leading-tight bg-gray-100;
   }
 
   label {
@@ -118,93 +120,127 @@
     color: #6ed8e0;
   }
 
+  .box-shadow {
+    box-shadow: 6px 5px 12px 2px #ccc;
+  }
+
   @media only screen and (max-width: 1024px) {
     .container {
       background: none;
       margin-bottom: 200px;
     }
   }
+
 </style>
 
-<div class="container mx-auto pt-5 md:pt-20">
+<div class="container mx-auto py-5 md:py-20">
   {#if form}
     <div
-      class="mb-4 w-full sm:max-w-3xl md:shadow rounded-xl md:p-10 m-auto lg:flex-row  bg-white">
-      <a class="block mb-6 text-midblue" href={`/${$user.username}`}>
+      class="mb-4 w-full sm:max-w-3xl box-shadow md:p-10 m-auto lg:flex-row bg-gray-100">
+      <a class="block mb-6 text-black" href={`/${$user.username}`}>
         <div class="flex">
           <Fa icon={faChevronLeft} class="my-auto mr-1" />
           <div>Back</div>
         </div>
       </a>
-      <h2 class="mb-10">Edit Profile</h2>
+      <h2 class="mb-10">Edit your profile</h2>
       <div class="flex mt-4 m-auto flex-col-reverse lg:flex-row">
         <form
           class="mb-6 flex-grow xl:mr-8"
           on:submit|preventDefault={submit}
           autocomplete="off">
+          <p>Enter your details*</p>
+          <div class="flex mb-4">
+            <input
+              id="name"
+              placeholder="Name"
+              bind:value={form.full_name}
+              class="mr-5" />
+            <input placeholder="@username" bind:value={form.username} />
+          </div>
+
           <div class="flex flex-col mb-4">
-            <label for="name">Name</label>
-            <input id="name" placeholder="Full Name" bind:value={form.full_name} />
+            <p>Enter your email*</p>
+            <input placeholder="Email" bind:value={form.email} />
           </div>
           <div class="flex flex-col mb-4">
-            <label for="username">Username</label>
-            <input placeholder="Username" bind:value={form.username} />
+            <p>Add a short bio.</p>
+            <textarea placeholder="Bio" bind:value={form.bio} />
+          </div>
+          <div class="flex">
+            <!--<div>
+             <Dropzone on:file={uploadFile(IMG_TYPES.MAIN)} />
+					 </div>-->
           </div>
           <div class="flex flex-col mb-4">
-            <i class="icon">
-              <Fa icon={faEnvelope} class="mt-1" />
-            </i>
-            <input placeholder="email@example.com" bind:value={form.email} />
+            <p class="mb-1">
+              Verify your profile* -
+              <span class="text-sm font-bold">Show the community that your
+                profile is authentic.</span>
+            </p>
+            <div class="flex">
+              <button
+                type="button"
+                name="button"
+                class="black-box mx-3 rounded">
+                <Fa icon={faTwitter} class="mr-3" />Verify via Twitter</button>
+              <button
+                type="button"
+                name="button"
+                class="black-box mx-3 rounded">
+                <Fa icon={faInstagram} class="mr-3" />Verify via Instagram</button>
+            </div>
           </div>
-          <div class="flex flex-col mb-4">
-            <i class="icon">
-              <Fa icon={faTwitter} class="mt-1" />
-            </i>
-            <input placeholder="@twitter" bind:value={form.twitter} />
+          <p>Add links to your social media profiles...</p>
+          <div class="flex mb-4">
+            <p class="black-box w-40 rounded">Website</p>
+            <input
+              placeholder="www.url"
+              bind:value={form.website}
+              class="w-full" />
           </div>
-          <div class="flex flex-col mb-4">
-            <i class="icon">
-              <Fa icon={faInstagram} class="mt-1" />
-            </i>
-            <input placeholder="@instagram" bind:value={form.instagram} />
+          <div class="flex mb-4">
+            <p class="black-box w-40 rounded">YouTube</p>
+            <input
+              placeholder="Channel URL"
+              bind:value={form.youtube}
+              class="w-full" />
           </div>
-          <div class="flex flex-col mb-4">
-            <i class="icon">
-              <Fa icon={faMapMarkerAlt} class="mt-1" />
-            </i>
-            <input placeholder="Vancouver, Canada" bind:value={form.location} />
+          <div class="flex mb-4">
+            <p class="black-box w-40 rounded">Facebook</p>
+            <input
+              placeholder="Facebook Username"
+              bind:value={form.facebook}
+              class="w-full" />
           </div>
-          <div class="flex flex-col mb-4">
-            <i class="icon">
-              <Fa icon={faLink} class="mt-1" />
-            </i>
-            <input placeholder="example.com" bind:value={form.website} />
+          <div class="flex mb-4">
+            <p class="black-box w-40 rounded">Discord</p>
+            <input
+              placeholder="Discord Username"
+              bind:value={form.discord}
+              class="w-full" />
           </div>
-          <div class="flex flex-col mb-4">
-            <label for="bio">Bio</label>
-            <textarea placeholder="" bind:value={form.bio} />
+          <div class="flex mb-4">
+            <p class="black-box w-40 rounded">TikTok</p>
+            <input
+              placeholder="TikTok Username"
+              bind:value={form.tiktok}
+              class="w-full" />
           </div>
+          <div class="flex mb-4">
+            <p class="black-box w-40 rounded">Twitch</p>
+            <input
+              placeholder="Twitch Username"
+              bind:value={form.twitch}
+              class="w-full" />
+          </div>
+
           <div class="flex mt-8">
-            <button on:click|preventDefault={submit} class="primary-btn ">Save
-              details</button>
+            <Button type="submit" primary class="w-full mt-8">
+              Save changes
+            </Button>
           </div>
         </form>
-        <div
-          class="text-center mx-auto lg:ml-10 mb-10"
-          on:click={() => fileInput.click()}>
-          <Avatar size="xl" src={preview || $user.avatar_url} />
-          <button class="text-lightblue mt-5">CHANGE AVATAR
-            <Fa icon={faImage} pull="right" class="mt-1 ml-2" /></button>
-
-          <input
-            class="hidden"
-            bind:this={fileInput}
-            type="file"
-            id="fileElem"
-            multiple
-            accept="image/*"
-            on:change={fileChosen} />
-        </div>
       </div>
     </div>
   {/if}

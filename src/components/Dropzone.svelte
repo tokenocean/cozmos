@@ -34,7 +34,7 @@
 
   let handle = (e) => {
     dispatch('file', { file: e.target.files[0] });
-  } 
+  }
 
 </script>
 
@@ -46,7 +46,7 @@
 
   #drop-area {
     cursor: pointer;
-    border: 2px solid #6ed8e0;
+    border: 2px solid black;
     border-radius: 10px;
     width: 80%;
     max-width: 350px;
@@ -60,7 +60,7 @@
   }
 
   #drop-area.highlight {
-    border-color: #6ed8e0;
+    border-color: black;
   }
 
   #fileElem {
@@ -96,7 +96,7 @@
       <div class="flex justify-center flex-col align-center h-full">
         <span class="uppercase">{title}</span>
         <span class="mx-auto text-center mt-4 text-5xl text-lightblue">
-          <Fa icon={faCloudUploadAlt} />
+          <Fa icon={faCloudUploadAlt} class='text-black'/>
         </span>
       </div>
       <input

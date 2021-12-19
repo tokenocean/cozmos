@@ -183,10 +183,10 @@
         </div>
       </div>
       <div>
-        <FormItem title="Start date">
+        <FormItem title="Starting Date">
           <Input placeholder="For e.g. 10.09.2021 10:40"/>
         </FormItem>
-        <FormItem title="End date" class="mt-4">
+        <FormItem title="Expiration Date" class="mt-4">
           <Input placeholder="For e.g. 10.09.2021 10:40"/>
         </FormItem>
       </div>
