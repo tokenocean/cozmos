@@ -124,6 +124,12 @@
     box-shadow: 6px 5px 12px 2px #ccc;
   }
 
+	h2 {
+		font-family: "Zen Dots", cursive;
+		font-size: 2em;
+		line-height: 1.25em;
+	}
+
   @media only screen and (max-width: 1024px) {
     .container {
       background: none;
