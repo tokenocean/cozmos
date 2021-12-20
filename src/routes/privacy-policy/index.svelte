@@ -45,7 +45,7 @@
 
 </style>
 
-<div class="max-w-4xl container mx-auto sm:justify-between mt-10 md:mt-20">
+<div class="max-w-4xl container mx-auto sm:justify-between my-10 md:my-20">
   <div class="mx-auto">
     <h2 class="mb-10">{ branding.projectName } Privacy Policy</h2>
     <div class="faq-content">
