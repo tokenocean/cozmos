@@ -65,12 +65,10 @@
   }
 
   .form-container form {
-    width: 100%;
+		width: 100%;
     max-width: 450px;
-    background-color: white;
     padding: 40px;
-    box-shadow: 0 1px 5px rgb(0 0 0 / 18%);
-    border-radius: 10px;
+    box-shadow: 6px 5px 12px 2px #ccc;
   }
 
   input {
@@ -94,8 +92,8 @@
 
 </style>
 
-<div class="form-container bg-black px-4">
-  <form class="mb-6" on:submit|preventDefault={login} autocomplete="off">
+<div class="form-container bg-white px-4">
+  <form class="mb-6 rounded bg-gray-100" on:submit|preventDefault={login} autocomplete="off">
     <h2 class="mb-8">Sign In</h2>
     <div class="flex flex-col mb-4">
       <label class="mb-2 font-medium" for="first_name">Email or username</label>
@@ -122,11 +120,11 @@
         </button>
       </div>
     </div>
-    <a href="/forgot-password" class="block w-full text-midblue">Forgot
+    <a href="/forgot-password" class="block w-full text-black">Forgot
       password?</a>
     <div class="flex my-5 justify-end">
       <button class="primary-btn w-full" type="submit">Sign In</button>
     </div>
-    <a href="/register" class="text-midblue">Don't have an account? Sign up</a>
+    <a href="/register" class="text-black">Don't have an account? Sign up</a>
   </form>
 </div>

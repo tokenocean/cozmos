@@ -57,10 +57,8 @@
   .form-container form {
     width: 100%;
     max-width: 450px;
-    background-color: white;
     padding: 40px;
-    box-shadow: 0 1px 5px rgb(0 0 0 / 18%);
-    border-radius: 10px;
+    box-shadow: 6px 5px 12px 2px #ccc;
   }
 
   input {
@@ -88,8 +86,8 @@
 
 </style>
 
-<div class="form-container bg-black px-4">
-  <form class="mb-6" on:submit|preventDefault={submit} autocomplete="off">
+<div class="form-container bg-white px-4">
+  <form class="mb-6 bg-gray-100 rounded" on:submit|preventDefault={submit} autocomplete="off">
     {#if loading}
       <ProgressLinear />
     {:else if registered}
@@ -165,7 +163,7 @@
         <Button primary class="w-full" type="submit">Register</Button>
       </div>
 
-      <a href="/login" class="text-midblue">
+      <a href="/login" class="text-black">
         Already have an account? Sign in</a>
     {/if}
   </form>
