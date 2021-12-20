@@ -92,7 +92,7 @@
       </button>
     </div>
     <div class="text-right text-sm">
-      <a href="/forgot-password" class="block w-full text-midblue">Forgot
+      <a href="/forgot-password" class="block w-full text-black">Forgot
         password?</a>
     </div>
   </div>

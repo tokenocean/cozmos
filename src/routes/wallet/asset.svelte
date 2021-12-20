@@ -50,7 +50,7 @@
 {#if $balances}
   <div class="container mx-auto">
     <div class="mb-5">
-      <a href="/wallet" class="text-midblue">        <div class="flex">
+      <a href="/wallet" class="text-black">        <div class="flex">
           <Fa icon={faChevronLeft} class="my-auto mr-1" />
           <div>Back</div>
         </div>

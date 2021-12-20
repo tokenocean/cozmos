@@ -422,7 +422,7 @@
 
 <div class="container mx-auto md:p-20">
   <div class="w-full max-w-4xl mx-auto bg-white md:p-10 rounded-xl">
-    <a class="block mb-6 text-midblue" href={`/a/${artwork.slug}`}>
+    <a class="block mb-6 text-black" href={`/a/${artwork.slug}`}>
       <div class="flex">
         <Fa icon={faChevronLeft} class="my-auto mr-1" />
         <div>Back</div>
@@ -469,7 +469,7 @@
               <label for="price"
                 >Price
                 <span class="tooltip">
-                  <i class="text-midblue text-xl tooltip">
+                  <i class="text-black text-xl tooltip">
                     <Fa icon={faQuestionCircle} pull="right" class="mt-1" />
                   </i>
                   <span class="tooltip-text bg-gray-100 shadow ml-4 rounded">
@@ -510,7 +510,7 @@
                       disabled={auction_underway} />
                     <span class="ml-3 text-xl">Royalty Recipients</span>
                     <span class="tooltip">
-                      <i class="ml-3 text-midblue text-xl tooltip">
+                      <i class="ml-3 text-black text-xl tooltip">
                         <Fa icon={faQuestionCircle} pull="right" class="mt-1" />
                       </i>
                       <span
@@ -602,7 +602,7 @@
                     <label>
                       Reserve price
                       <span class="tooltip">
-                        <i class="ml-3 text-midblue text-xl tooltip">
+                        <i class="ml-3 text-black text-xl tooltip">
                           <Fa
                             icon={faQuestionCircle}
                             pull="right"

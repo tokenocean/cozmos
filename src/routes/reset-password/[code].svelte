@@ -76,7 +76,7 @@
         bind:this={ref} />
     </div>
     <button class="primary-btn w-full mb-4" type="submit">Confirm</button>
-    <a href="/login" class="text-midblue">
+    <a href="/login" class="text-black">
       <div class="flex">
         <Fa icon={faChevronLeft} class="my-auto mr-1" />
         <div>Back to sign in</div>
