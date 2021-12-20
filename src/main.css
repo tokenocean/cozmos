@@ -43,8 +43,11 @@ body {
     }
 }
 
-h1,
-h2,
+h1, h2 {
+	font-family: "Zen Dots", Helvetica, Arial, sans-serif;
+	color: #2d2e32;
+	font-weight: bold;
+}
 h3 {
     font-family: "Raleway", Helvetica, Arial, sans-serif;
     color: #2d2e32;
@@ -104,6 +107,13 @@ h3 {
 /**
 Brand Colors
 */
+.bg-blue {
+	background: #5A86CC;
+}
+
+.text-blue {
+	color: #5A86CC;
+}
 
 /* Light blue — Primary accent color */
 .text-lightblue {
@@ -115,10 +125,6 @@ Brand Colors
 
 .border-lightblue {
     border-bottom: 1px solid #6ed8e0;
-}
-
-.text-midblue {
-    color: #0f828a;
 }
 
 /*Light blue gradient — Gradient accent color */
