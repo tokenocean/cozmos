@@ -258,7 +258,7 @@
 							collectedRadio.src = 'svg_icons/comet-02.svg';
 						}}>
               <img
-                src="/svg_icons/comet.svg"
+                src="/svg_icons/comet-02.svg"
                 alt="comet icon"
                 bind:this={createdRadio} />
               <input
@@ -278,7 +278,7 @@
 						collectedRadio.src = 'svg_icons/comet.svg';
 					}}>
             <img
-              src="/svg_icons/comet-02.svg"
+              src="/svg_icons/comet.svg"
               alt="comet icon"
               bind:this={collectedRadio} />
             <input
