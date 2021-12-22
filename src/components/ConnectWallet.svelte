@@ -27,19 +27,19 @@
       class="w-20 h-20 md:mr-20 lg:mr-32" />Create one with us</button>
   <div class="block md:flex justify-center">
     <div class="flex mt-10">
-      <a href="#">
+      <a href="https://twitter.com/cozmosnft" target='_blank' rel='noreferrer'>
         <img
           src="/static/svg_icons/Twitter-02.svg"
           alt="Twitter icon"
           class="w-52 h-52 md:w-16 md:h-16" />
       </a>
-      <a href="#">
+      <a href="https://instagram.com/cozmosnft" target='_blank' rel='noreferrer'>
         <img
           src="/static/svg_icons/Instagram-02.svg"
           alt="Instagram icon"
           class="w-52 h-52 md:w-16 md:h-16" />
       </a>
-      <a href="#">
+      <a href="https://facebook.com/cozmosnft" target='_blank' rel='noreferrer'>
         <img
           src="/static/svg_icons/Facebook-02.svg"
           alt="Facebook icon"
