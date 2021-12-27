@@ -182,10 +182,12 @@ export default class Core {
     };
   }
 
-  async createComment(comment) {
+  async createComment(artwork_id, comment) {
     let variables = {
-      comment: { comment },
+      comment: { artwork_id, comment },
     };
+
+    console.log("CREATE COMMENT", variables);
 
     let result = await hasura
       .auth(`Bearer ${this.token}`)

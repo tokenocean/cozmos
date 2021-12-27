@@ -183,6 +183,14 @@ export const getArtworkByAsset = (asset) => `query {
 export const getArtworkBySlug = `query($slug: String!) {
   artworks(where: {slug : {_eq: $slug}}, limit: 1) {
     ${fields}
+    comments {
+      created_at
+      comment
+      user {
+        username
+        avatar_url
+      } 
+    } 
     transactions(order_by: { created_at: desc }) {
       ${txFields}
     }

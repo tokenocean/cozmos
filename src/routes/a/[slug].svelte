@@ -53,7 +53,7 @@
     faShareAlt,
     faTimes,
   } from "@fortawesome/free-solid-svg-icons";
-  import { getArtwork } from "$queries/artworks";
+  import { getArtworkBySlug } from "$queries/artworks";
   import { faHeart, faImage } from "@fortawesome/free-regular-svg-icons";
   import { page } from "$app/stores";
   import { compareAsc, format, parseISO } from "date-fns";
@@ -107,20 +107,21 @@
   let id = artwork ? artwork.id : $page.params.id;
 
   let fetch = async () => {
-    query(getArtwork, { id }).then((res) => {
-      artwork = res.artworks_by_pk;
+    console.log("ARTWORK", artwork);
+    query(getArtworkBySlug, { slug: artwork.slug }).then((res) => {
+      artwork = res.artworks[0]
 
       $art = artwork;
     });
   };
 
   let actionClassName = null;
-  //let poll = setInterval(fetch, 2500);
+  //  let poll = setInterval(fetch, 2500);
 
-  //onDestroy(() => {
-    //$art = undefined;
-    //clearInterval(poll);
-  //});
+  /* onDestroy(() => { */
+  /*   $art = undefined; */
+  /*   clearInterval(poll); */
+  /* }); */
 
   $: update(artwork);
   let update = () => {
@@ -615,7 +616,7 @@
             {artwork.package_content || 'Package content of this product is empty'}
           </div>
         </div>
-				<Comments />
+				<Comments bind:artwork bind:fetch />
       </div>
     </div>
   </div>

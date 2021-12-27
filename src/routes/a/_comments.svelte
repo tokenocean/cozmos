@@ -1,25 +1,44 @@
 <script>
   import Core from "$lib/lnft-core";
-	const core = new Core();
-  let comment;
-  function createComment() {
-    core.createComment(comment);
-  }
+  import { Avatar, ProgressLinear } from "$comp";
+  import { formatDistanceStrict } from "date-fns";
+  export let artwork;
+  export let fetch;
 
+  let loading;
+
+  const core = new Core();
+  let comment;
+  async function createComment() {
+    loading = true;
+    await core.createComment(artwork.id, comment);
+    await fetch();
+    comment = "";
+    loading = false;
+  }
 </script>
 
-<div class="comment-2xl font-bold mt-12">Comments</div>
+<div class="text-2xl font-bold mt-12">Comments</div>
 <div class="border rounded-lg p-10 mt-4">
-  <div class="flex">
-    <img src="/svg_icons/profile.svg" alt="Avatar" class="w-16 mr-5" />
-    <div class="">
-      <p class="font-bold">@alice</p>
-      <p>This is my comment!</p>
-      <p class="comment-gray-400">1 day ago</p>
+  {#each artwork.comments as comment}
+    <div class="flex mb-4">
+      <Avatar user={comment.user} size="large" />
+      <div class="ml-10">
+        <div class="font-bold">@{comment.user.username}</div>
+        <div>{comment.comment}</div>
+        <div class="text-sm text-gray-400">
+          {formatDistanceStrict(new Date(comment.created_at), new Date())}
+          ago
+        </div>
+      </div>
     </div>
-  </div>
-  <form on:submit|preventDefault={createComment}>
-    <textarea name="name" rows="8" class="w-full mt-2" bind:value={comment} />
-		<button type="submit">Submit</button>
-  </form>
+  {/each}
+  {#if loading}
+    <ProgressLinear />
+  {:else}
+    <form on:submit|preventDefault={createComment}>
+      <textarea name="name" rows="8" class="w-full mt-8" bind:value={comment} />
+      <button type="submit" class="primary-btn ml-auto">Add comment</button>
+    </form>
+  {/if}
 </div>

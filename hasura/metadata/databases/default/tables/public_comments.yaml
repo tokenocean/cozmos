@@ -1,6 +1,13 @@
 table:
   name: comments
   schema: public
+object_relationships:
+- name: artwork
+  using:
+    foreign_key_constraint_on: artwork_id
+- name: user
+  using:
+    foreign_key_constraint_on: user_id
 insert_permissions:
 - permission:
     backend_only: false
@@ -8,6 +15,7 @@ insert_permissions:
       user_id:
         _eq: X-Hasura-User-Id
     columns:
+    - artwork_id
     - comment
     set:
       user_id: X-Hasura-User-Id
