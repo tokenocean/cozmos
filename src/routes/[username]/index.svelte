@@ -210,6 +210,81 @@
                   </div>
                 </a>
               {/if}
+							{#if subject.youtube}
+								<a href={`https://${subject.youtube}`}>
+									<div class="flex">
+										<div class="my-auto">
+											<img
+												src="/svg_icons/Youtube.svg"
+												alt="YouTube icon"
+												class="w-12" />
+										</div>
+										<div class="self-center">
+											<span>{subject.youtube}</span>
+										</div>
+									</div>
+								</a>
+							{/if}
+							{#if subject.facebook}
+								<a href={`https://${subject.facebook}`}>
+									<div class="flex">
+										<div class="my-auto">
+											<img
+												src="/svg_icons/Facebook-02.svg"
+												alt="Facebook icon"
+												class="w-12" />
+										</div>
+										<div class="self-center">
+											<span>{subject.facebook}</span>
+										</div>
+									</div>
+								</a>
+							{/if}
+							{#if subject.discord}
+								<a href={`https://${subject.discord}`}>
+									<div class="flex">
+										<div class="my-auto">
+											<img
+												src="/svg_icons/Discord.svg"
+												alt="Discord icon"
+												class="w-12" />
+										</div>
+										<div class="self-center">
+											<span>{subject.discord}</span>
+										</div>
+									</div>
+								</a>
+							{/if}
+							{#if subject.tiktok}
+								<a href={`https://${subject.tiktok}`}>
+									<div class="flex">
+										<div class="my-auto">
+											<img
+												src="/svg_icons/Tik-tok.svg"
+												alt="TikTok icon"
+												class="w-12" />
+										</div>
+										<div class="self-center">
+											<span>{subject.tiktok}</span>
+										</div>
+									</div>
+								</a>
+							{/if}
+							{#if subject.twitch}
+								<a href={`https://${subject.twitch}`}>
+									<div class="flex">
+										<div class="my-auto">
+											<img
+												src="/svg_icons/Twitch.svg"
+												alt="Twitch icon"
+												class="w-12" />
+										</div>
+										<div class="self-center">
+											<span>{subject.twitch}</span>
+										</div>
+									</div>
+								</a>
+							{/if}
               <!--
               {#if subject.location}
                 <a href=".">

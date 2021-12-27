@@ -57,6 +57,11 @@
 
     if (form.twitter) form.twitter = form.twitter.replace(/@/g, "");
     if (form.instagram) form.instagram = form.instagram.replace(/@/g, "");
+		if (form.twitch) form.twitch = form.twitch.replace(/@/g, "");
+		if (form.discord) form.discord = form.discord.replace(/@/g, "");
+		if (form.tiktok) form.tiktok = form.tiktok.replace(/@/g, "");
+		if (form.youtube) form.youtube = form.youtube.replace(/@/g, "");
+		if (form.facebook) form.facebook = form.facebook.replace(/@/g, "");
     if (form.website) form.website = form.website.replace(/.*:\/\//, "");
 
     update(form);

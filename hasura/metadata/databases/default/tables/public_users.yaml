@@ -114,7 +114,9 @@ select_permissions:
     - bio
     - blindkey
     - confidential
+    - discord
     - email
+    - facebook
     - full_name
     - id
     - instagram
@@ -122,9 +124,12 @@ select_permissions:
     - location
     - multisig
     - pubkey
+    - tiktok
+    - twitch
     - twitter
     - username
     - website
+    - youtube
     computed_fields:
     - followed
     - num_followers
@@ -167,7 +172,9 @@ select_permissions:
     - bio
     - blindkey
     - confidential
+    - discord
     - email
+    - facebook
     - full_name
     - id
     - instagram
@@ -175,10 +182,13 @@ select_permissions:
     - location
     - multisig
     - pubkey
+    - tiktok
+    - twitch
     - twitter
     - username
     - wallet_initialized
     - website
+    - youtube
     computed_fields:
     - followed
     - num_followers
@@ -200,8 +210,10 @@ update_permissions:
     - bio
     - blindkey
     - confidential
+    - discord
     - display_name
     - email
+    - facebook
     - full_name
     - info
     - instagram
@@ -209,10 +221,13 @@ update_permissions:
     - mnemonic
     - multisig
     - pubkey
+    - tiktok
+    - twitch
     - twitter
     - username
     - wallet_initialized
     - website
+    - youtube
     filter:
       id:
         _eq: X-Hasura-User-Id

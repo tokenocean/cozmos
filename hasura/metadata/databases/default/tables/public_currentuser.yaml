@@ -10,8 +10,10 @@ select_permissions:
     - blindkey
     - confidential
     - created_at
+    - discord
     - display_name
     - email
+    - facebook
     - full_name
     - id
     - info
@@ -22,11 +24,14 @@ select_permissions:
     - mnemonic
     - multisig
     - pubkey
+    - tiktok
+    - twitch
     - twitter
     - updated_at
     - username
     - wallet_initialized
     - website
+    - youtube
     filter:
       id:
         _eq: X-Hasura-User-Id
