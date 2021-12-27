@@ -43,7 +43,7 @@ export const requirePassword = async () => {
   await new Promise(
     (resolve) =>
       (unsub = pw.subscribe((password) =>
-        password ? resolve() : prompt.set(PasswordPrompt)
+        password ? resolve() : prompt.set({ component: PasswordPrompt })
       ))
   );
   unsub();

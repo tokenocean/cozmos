@@ -1,6 +1,8 @@
-<div class="container text-center bg-gray-100 p-20">
+<div class="container text-center p-20">
   <div class="flex justify-center">
-    <h2 class="mb-6">Congratulations!!</h2>
+<h1 class="text-5xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-orange-400 to-green-600">
+  Congratulations!
+</h1>
   </div>
   <p class="text-xl">You just purchased<br /> VIP Backstage at Tomorrowland.</p>
   <img

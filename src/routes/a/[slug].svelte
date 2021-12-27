@@ -60,6 +60,7 @@
   import {
     Activity,
     Avatar,
+    Congrats,
     Head,
     Heart,
     ArtworkMedia,
@@ -236,6 +237,13 @@
   let showMore = false;
   let showActivity = false;
 
+
+  let showCongrats = () => {
+    $prompt = {
+      component: Congrats,
+      hide: true,
+    } 
+  } 
 </script>
 
 <style lang="scss">
@@ -398,6 +406,7 @@
 
 <Head {metadata} />
 
+
 <div
   class="w-full h-96 bg-center bg-cover"
   style="background-image: url('https://blogs.esa.int/space19plus/files/2019/03/nebula.jpg');" />
@@ -436,6 +445,7 @@
     </div>
     <div class="w-3/4 ml-16">
       <!-- Artwork title -->
+      <button on:click={showCongrats} class="primary-btn">Say Congrats</button>
       <div class="font-title">{artwork.title || 'Untitled'}</div>
       <!-- Creator/Owner & controls (like,share,gift)-->
       <div class="mt-16">
