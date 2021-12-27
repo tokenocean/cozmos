@@ -220,7 +220,7 @@
 												class="w-12" />
 										</div>
 										<div class="self-center">
-											<span>{subject.youtube}</span>
+											<span>@{subject.youtube}</span>
 										</div>
 									</div>
 								</a>
@@ -235,7 +235,7 @@
 												class="w-12" />
 										</div>
 										<div class="self-center">
-											<span>{subject.facebook}</span>
+											<span>@{subject.facebook}</span>
 										</div>
 									</div>
 								</a>
@@ -250,7 +250,7 @@
 												class="w-12" />
 										</div>
 										<div class="self-center">
-											<span>{subject.discord}</span>
+											<span>@{subject.discord}</span>
 										</div>
 									</div>
 								</a>
@@ -265,7 +265,7 @@
 												class="w-12" />
 										</div>
 										<div class="self-center">
-											<span>{subject.tiktok}</span>
+											<span>@{subject.tiktok}</span>
 										</div>
 									</div>
 								</a>
@@ -280,7 +280,7 @@
 												class="w-12" />
 										</div>
 										<div class="self-center">
-											<span>{subject.twitch}</span>
+											<span>@{subject.twitch}</span>
 										</div>
 									</div>
 								</a>
