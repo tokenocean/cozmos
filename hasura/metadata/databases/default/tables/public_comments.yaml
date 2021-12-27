@@ -9,6 +9,8 @@ insert_permissions:
         _eq: X-Hasura-User-Id
     columns:
     - comment
+    set:
+      user_id: X-Hasura-User-Id
   role: user
 select_permissions:
 - permission:

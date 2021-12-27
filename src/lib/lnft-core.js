@@ -19,12 +19,7 @@ import {
 } from "$lib/store";
 import { create, createComment } from "$queries/artworks";
 import { btc, kebab } from "$lib/utils";
-import {
-  createIssuance,
-  sign,
-  broadcast,
-  parseAsset,
-} from "$lib/wallet";
+import { createIssuance, sign, broadcast, parseAsset } from "$lib/wallet";
 import branding from "$lib/branding";
 
 export default class Core {
@@ -44,7 +39,6 @@ export default class Core {
     psbt.subscribe((psbt) => {
       this.psbt = psbt;
     });
-
   }
 
   /**
@@ -56,19 +50,19 @@ export default class Core {
     const randomTicker = () => {
       let a = "ABCDEFGHIJKLMNOPQRSTUVWXYZ".split("");
       let ticker = "";
-      for(let j = 0; j < 5; j++) {
+      for (let j = 0; j < 5; j++) {
         const random = Math.floor(Math.random() * (a.length - 1));
-        ticker = `${ticker}${a[random]}`
+        ticker = `${ticker}${a[random]}`;
       }
       return ticker;
-    }
+    };
 
     let tickers = [];
-    for(let i = 0; i < count; i++) {
+    for (let i = 0; i < count; i++) {
       let randTicker = randomTicker();
 
       // check that ticker is unique in our tickers array
-      while(tickers.indexOf(randTicker) !== -1) {
+      while (tickers.indexOf(randTicker) !== -1) {
         randTicker = randomTicker();
       }
 
@@ -78,15 +72,14 @@ export default class Core {
     let tickersOK = false;
 
     // if at least one ticker exist in database we need to generate new one
-    while(!tickersOK) {
+    while (!tickersOK) {
       const result = await this.checkTickers({
-        tickers
+        tickers,
       });
 
-      if(result.success)
-        tickersOK = true;
+      if (result.success) tickersOK = true;
 
-      if(result.error && result.tickersUnavailable.length) {
+      if (result.error && result.tickersUnavailable.length) {
         result.tickersUnavailable.forEach((ticker) => {
           const index = tickers.indexOf(ticker);
           tickers[index] = randomTicker();
@@ -132,24 +125,23 @@ export default class Core {
    */
   async checkTickers({ tickers }) {
     let { data } = await hasura
-    .auth(`Bearer ${this.token}`)
-    .post({
-      query: `query { artworks(where: { ticker: { _in: ${JSON.stringify(
-        tickers
-      )} }}) { ticker }}`,
-    })
-    .json();
+      .auth(`Bearer ${this.token}`)
+      .post({
+        query: `query { artworks(where: { ticker: { _in: ${JSON.stringify(
+          tickers
+        )} }}) { ticker }}`,
+      })
+      .json();
 
     if (data.artworks && data.artworks.length)
       return {
         error: `Ticker(s) not available: ${data.artworks
-                                               .map((a) => a.ticker)
-                                               .join(", ")}`,
-        tickersUnavailable: data.artworks
-                                .map((a) => a.ticker)
-      }
+          .map((a) => a.ticker)
+          .join(", ")}`,
+        tickersUnavailable: data.artworks.map((a) => a.ticker),
+      };
 
-    return { "success": true }
+    return { success: true };
   }
 
   /**
@@ -186,29 +178,29 @@ export default class Core {
     return {
       contract: JSON.stringify(contract),
       hash: hash,
-      asset: asset
-    }
+      asset: asset,
+    };
   }
 
-	async createComment(text) {
-		let variables = {
-				comment: {text}
-			}
+  async createComment(comment) {
+    let variables = {
+      comment: { comment },
+    };
 
-		let result = await hasura
-		.auth(`Bearer ${this.token}`)
-		.post({
-			query: createComment,
-			variables,
-		})
-		.json();
+    let result = await hasura
+      .auth(`Bearer ${this.token}`)
+      .post({
+        query: createComment,
+        variables,
+      })
+      .json();
 
-		if (result.error) throw new Error(result.error.message);
-		if (result.errors) {
-			const messages = result.errors.map((error) => error.message).join('\n');
-			throw new Error(messages);
-		}
-	}
+    if (result.error) throw new Error(result.error.message);
+    if (result.errors) {
+      const messages = result.errors.map((error) => error.message).join("\n");
+      throw new Error(messages);
+    }
+  }
 
   /**
    * Creates a new artwork
@@ -218,27 +210,30 @@ export default class Core {
    * @returns {Promise<{filetype}|{filename}|*>}
    */
   async createArtwork({ artwork, generateRandomTickers = false }) {
-
     // check that artwork match expectations
 
     if (!artwork.title) throw new Error("Please enter a title");
-    if (!artwork.ticker && !generateRandomTickers) throw new Error("Please enter a ticker symbol");
+    if (!artwork.ticker && !generateRandomTickers)
+      throw new Error("Please enter a ticker symbol");
 
-    if (!artwork.filename) throw new Error("File not uploaded or hasn't finished processing");
+    if (!artwork.filename)
+      throw new Error("File not uploaded or hasn't finished processing");
     if (!artwork.filetype) throw new Error("Unrecognized file type");
 
     let { ticker } = artwork;
     let tickers = [];
 
     // if artwork has multiple editions - generate the array of tickers for each artwork
-    if(generateRandomTickers) {
+    if (generateRandomTickers) {
       tickers = await this.generateFreeTickers({ count: artwork.editions });
     } else {
-      tickers = await this.generateTickersBasedOnMainTicker({ count: artwork.editions, ticker });
+      tickers = await this.generateTickersBasedOnMainTicker({
+        count: artwork.editions,
+        ticker,
+      });
       const result = await this.checkTickers({ tickers: tickers });
 
-      if(result.error)
-        throw new Error(result.error);
+      if (result.error) throw new Error(result.error);
     }
 
     // create artworks & push to blockchain/database
@@ -247,7 +242,7 @@ export default class Core {
       // this will be used in Issuing popup
       artworkCreateEditionInProgress.set(edition);
 
-      artwork.ticker = (tickers[edition - 1]).toUpperCase();
+      artwork.ticker = tickers[edition - 1].toUpperCase();
       if (edition > 1) {
         await new Promise((r) => setTimeout(r, 5000));
       }
@@ -264,7 +259,7 @@ export default class Core {
         artwork_id: artwork.id,
       }));
 
-      let {hash, contract, asset} = await this.issueToken({ artwork });
+      let { hash, contract, asset } = await this.issueToken({ artwork });
 
       artwork.asset = asset;
 
@@ -287,16 +282,16 @@ export default class Core {
       };
 
       let result = await hasura
-      .auth(`Bearer ${this.token}`)
-      .post({
-        query: create,
-        variables,
-      })
-      .json();
+        .auth(`Bearer ${this.token}`)
+        .post({
+          query: create,
+          variables,
+        })
+        .json();
 
       if (result.error) throw new Error(result.error.message);
       if (result.errors) {
-        const messages = result.errors.map((error) => error.message).join('\n');
+        const messages = result.errors.map((error) => error.message).join("\n");
         throw new Error(messages);
       }
     }
