@@ -28,8 +28,8 @@ export const marketFields = `
     user {
       id
       username
-    } 
-    amount 
+    }
+    amount
   }
 `
 
@@ -101,7 +101,7 @@ export const fields = `
 export const txFields = `
   id
   psbt
-  amount 
+  amount
   hash
   type
   created_at
@@ -110,19 +110,19 @@ export const txFields = `
   bid {
     id
     user {
-      id 
+      id
       username
-    } 
-  } 
+    }
+  }
   user {
     id
     username
     avatar_url
-  } 
+  }
   artwork_id
   artwork {
     ${fields}
-  } 
+  }
 `;
 
 
@@ -143,7 +143,7 @@ export const getLimited = `query($where: artworks_bool_exp!, $limit: Int, $offse
     ${marketFields}
     tags {
       tag
-    } 
+    }
   }
 }`;
 
@@ -185,7 +185,7 @@ export const getArtworkBySlug = `query($slug: String!) {
     ${fields}
     transactions(order_by: { created_at: desc }) {
       ${txFields}
-    } 
+    }
     tags {
       tag
     },
@@ -223,7 +223,13 @@ export const create = `mutation ($artwork: artworks_insert_input!, $tags: [tags_
   }
   insert_transactions_one(object: $transaction) {
     ${txFields}
-  } 
+  }
+}`;
+
+export const createComment = `mutation ($comment: comments_insert_input!) {
+  insert_comments_one(object: $comment) {
+    id
+  }
 }`;
 
 export const updateArtwork = `mutation update_artwork($artwork: artworks_set_input!, $id: uuid!) {
@@ -262,7 +268,7 @@ export const getArtwork = `query($id: uuid!) {
     num_favorites,
     transactions(order_by: { created_at: desc }) {
       ${txFields}
-    } 
+    }
     favorites_aggregate(where: {artwork_id: {_eq: $id}}) {
       aggregate {
         count

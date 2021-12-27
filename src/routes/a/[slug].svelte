@@ -67,6 +67,7 @@
     RoyaltyInfo,
   } from "$comp";
   import Sidebar from "./_sidebar.svelte";
+	import Comments from "./_comments.svelte";
   import { tick, onDestroy } from "svelte";
   import { art, meta, prompt, password, user, token, psbt } from "$lib/store";
   import countdown from "$lib/countdown";
@@ -114,12 +115,12 @@
   };
 
   let actionClassName = null;
-  let poll = setInterval(fetch, 2500);
+  //let poll = setInterval(fetch, 2500);
 
-  onDestroy(() => {
-    $art = undefined;
-    clearInterval(poll);
-  });
+  //onDestroy(() => {
+    //$art = undefined;
+    //clearInterval(poll);
+  //});
 
   $: update(artwork);
   let update = () => {
@@ -614,6 +615,7 @@
             {artwork.package_content || 'Package content of this product is empty'}
           </div>
         </div>
+				<Comments />
       </div>
     </div>
   </div>

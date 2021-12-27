@@ -1,0 +1,36 @@
+table:
+  name: comments
+  schema: public
+insert_permissions:
+- permission:
+    backend_only: false
+    check:
+      user_id:
+        _eq: X-Hasura-User-Id
+    columns:
+    - comment
+  role: user
+select_permissions:
+- permission:
+    columns:
+    - comment
+    - created_at
+    - id
+    - user_id
+    filter: {}
+  role: anonymous
+- permission:
+    columns:
+    - comment
+    - created_at
+    - id
+    - user_id
+    filter: {}
+  role: user
+update_permissions:
+- permission:
+    check: null
+    columns:
+    - comment
+    filter: {}
+  role: user
