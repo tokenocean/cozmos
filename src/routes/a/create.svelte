@@ -260,9 +260,6 @@
 </style>
 
 <div class="container mx-auto p-20">
-  <div class="absolute border-black border-l border-t w-12 h-12 -ml-5 -mt-5">
-    &nbsp;
-  </div>
   <!--
   <div
     class="absolute right-0 bottom-0 border-black border-r border-b w-12 h-12 mr-12">
@@ -298,7 +295,7 @@
 
       <div class="grid grid-cols-2 gap-4 text-left">
         <div>
-          <FormItem title="Upload thumbnail (your NFT)">
+          <FormItem title="Upload thumbnail">
             {#if imagePreview[IMG_TYPES.MAIN] || imagePercent[IMG_TYPES.MAIN]}
               <div class="text-black">
                 {#if imagePercent[IMG_TYPES.MAIN] && imagePercent[IMG_TYPES.MAIN] < 100}
@@ -338,6 +335,47 @@
             {/if}
           </FormItem>
         </div>
+				<!-- need to hook these 2 new dropzones to backend and other frontend locations -->
+				<div>
+					<FormItem title="Upload Content">
+						{#if imagePreview[IMG_TYPES.MAIN] || imagePercent[IMG_TYPES.MAIN]}
+							<div class="text-black">
+								{#if imagePercent[IMG_TYPES.MAIN] && imagePercent[IMG_TYPES.MAIN] < 100}
+									Loading...
+								{:else if imagePercent[IMG_TYPES.MAIN] && imagePercent[IMG_TYPES.MAIN] === 100}
+									<div class="w-1/2">
+										<ArtworkMedia
+											{artwork}
+											preview={imagePreview[IMG_TYPES.MAIN]}
+											on:cancel={cancelPreview(IMG_TYPES.MAIN)} />
+									</div>
+								{/if}
+							</div>
+						{:else}
+							<Dropzone on:file={uploadFile(IMG_TYPES.MAIN)} />
+						{/if}
+					</FormItem>
+				</div>
+				<div>
+					<FormItem title="Upload Video Experience Information">
+						{#if imagePreview[IMG_TYPES.MAIN] || imagePercent[IMG_TYPES.MAIN]}
+							<div class="text-black">
+								{#if imagePercent[IMG_TYPES.MAIN] && imagePercent[IMG_TYPES.MAIN] < 100}
+									Loading...
+								{:else if imagePercent[IMG_TYPES.MAIN] && imagePercent[IMG_TYPES.MAIN] === 100}
+									<div class="w-1/2">
+										<ArtworkMedia
+											{artwork}
+											preview={imagePreview[IMG_TYPES.MAIN]}
+											on:cancel={cancelPreview(IMG_TYPES.MAIN)} />
+									</div>
+								{/if}
+							</div>
+						{:else}
+							<Dropzone on:file={uploadFile(IMG_TYPES.MAIN)} />
+						{/if}
+					</FormItem>
+				</div>
         <!--        <div>-->
         <!--          <FormItem title="Upload content">-->
         <!--            <Dropzone on:file={uploadFile}/>-->

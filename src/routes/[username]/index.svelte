@@ -141,11 +141,6 @@
               <div class="flex items-center">
                 <div class="flex">
                   <h3>@{subject.username}</h3>
-                  {#if $user}
-                    <a
-                      class="primary-btn w-1/2 mx-10"
-                      href={`/${$user.username}/edit`}>Edit Profile</a>
-                  {/if}
                 </div>
               </div>
               {#if subject.bio}
@@ -300,22 +295,29 @@
             </div>
             <div class="flex mt-5">
               <div
-                class="mr-2 border rounded-full py-1 px-5 border-solid border-black">
+                class="mr-3 border rounded-full py-2 px-5 border-solid border-black">
                 Followers:
                 {subject.num_followers}
               </div>
               <div
-                class="border rounded-full py-1 px-5 border-solid border-black">
+                class="border rounded-full py-2 px-5 border-solid border-black">
                 Following:
                 {subject.num_follows}
               </div>
             </div>
-            <div class="mt-5">
+						<div class='mt-3'>
+						{#if $user}
+							<a
+								class="primary-btn mr-6"
+								href={`/${$user.username}/edit`}>Edit Profile</a>
+						{/if}
+						</div>
+            <div class="mt-5 mr-6">
               {#if $user}
                 {#if $user.id === subject.id}
-                  <Menu />
+                	 <Menu />
                 {:else}
-                  <button class="p-2 primary-btn follow mt-8" on:click={follow}>
+                  <button class="p-2 primary-btn follow mt-8 w-full" on:click={follow}>
                     {subject.followed ? 'Unfollow' : 'Follow'}</button>
                 {/if}
               {/if}

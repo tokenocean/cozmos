@@ -1,26 +1,18 @@
-<div class="container text-center bg-gray-100 p-20">
-  <h2 class="mb-6">Great!!</h2>
-  <h4 class="font-bold text-2xl mb-6">
-    Thanks for submitting your experience.<br />
-    We appreciate it.
-  </h4>
-  <p class="text-xl">
-    It might take a few minutes while we review it.<br />
-    Good luck!
+<div class="container text-center bg-white p-10">
+  <h1 class="text-4xl mb-4 text-transparent bg-clip-text text-gradient">
+    Great!!
+  </h1>
+  <p class="mb-6">
+    <strong>Thanks for submitting your experience. We appreciate it.</strong>
+    It might take a few minutes while we review it. Good luck!
   </p>
   <img
-    src="/static/svg_icons/Logo.svg"
-    alt="Cozmos logo"
+    src="/static/rocket.png"
+    alt="Rocket"
     class="w-40 h-40 mx-auto" />
-  <div class="border-t-2 border-gray-400 block md:flex justify-center">
+  <div class="block md:flex justify-center">
     <div class="flex mt-5 md:mt-10">
-      <a href="https://twitter.com/cozmosnft" target="_blank" rel="noreferrer">
-        <img
-          src="/static/svg_icons/Twitter-02.svg"
-          alt="Twitter icon"
-          class="w-52 md:w-16" />
-      </a>
-      <a
+			<a
         href="https://instagram.com/cozmosnft"
         target="_blank"
         rel="noreferrer">
@@ -29,13 +21,19 @@
           alt="Instagram icon"
           class="w-52 md:w-16" />
       </a>
-      <a href="https://facebook.com/cozmosnft" target="_blank" rel="noreferrer">
+      <a href="https://discord.com/cozmosnft" target="_blank" rel="noreferrer">
         <img
-          src="/static/svg_icons/Facebook-02.svg"
-          alt="Facebook icon"
+          src="/static/svg_icons/Discord.svg"
+          alt="Discord icon"
+          class="w-52 md:w-16" />
+      </a>
+      <a href="https://twitter.com/cozmosnft" target="_blank" rel="noreferrer">
+        <img
+          src="/static/svg_icons/Twitter-02.svg"
+          alt="Twitter icon"
           class="w-52 md:w-16" />
       </a>
     </div>
-    <p class="self-center md:ml-24 text-xl md:mt-10">Follow us for updates</p>
+    <p class="self-center md:ml-16 text-sm md:mt-10">Follow us for updates</p>
   </div>
 </div>

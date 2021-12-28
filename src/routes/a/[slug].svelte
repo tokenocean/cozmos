@@ -242,8 +242,8 @@
     $prompt = {
       component: Congrats,
       hide: true,
-    } 
-  } 
+    }
+  }
 </script>
 
 <style lang="scss">

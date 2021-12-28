@@ -10,61 +10,8 @@
   $: focus($prompt);
 
   let close = () => ($prompt = undefined);
+
 </script>
-
-{#if $prompt}
-  <div class="fixed z-10 inset-0 overflow-y-auto">
-    <div
-      class="dialog-container flex items-end justify-center min-h-screen text-center sm:block sm:p-0"
-    >
-      <div
-        class="fixed inset-0 transition-opacity"
-        aria-hidden="true"
-        on:click={close}
-      >
-        <div class="absolute inset-0 bg-gray-500 opacity-75" />
-      </div>
-
-      <span
-        class="hidden sm:inline-block sm:align-middle sm:h-screen"
-        aria-hidden="true">&#8203;</span
-      >
-      <div
-        class="dialog inline-block align-bottom bg-white rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-lg sm:w-full"
-        role="dialog"
-        aria-modal="true"
-        aria-labelledby="modal-headline"
-      >
-        <div class="bg-white">
-          <div class="p-10 ml-auto cursor-pointer" on:click={close}>X</div>
-          <div class="sm:flex sm:items-start">
-            <div class="mt-3 text-center sm:mt-0 sm:text-left w-full">
-              <svelte:component this={$prompt.component} bind:this={comp} />
-            </div>
-          </div>
-        </div>
-        {#if !$prompt.hide}
-          <div class="border-t px-4 py-6 sm:px-6 sm:flex sm:flex-row-reverse">
-            <button
-              bind:this={ok}
-              on:click={comp.submit}
-              class="primary-btn mb-2 sm:mb-0 sm:ml-2"
-            >
-              Continue
-            </button>
-            <button
-              type="button"
-              class="secondary-btn"
-              on:click={() => ($prompt = undefined)}
-            >
-              Cancel
-            </button>
-          </div>
-        {/if}
-      </div>
-    </div>
-  </div>
-{/if}
 
 <style>
   .secondary-btn {
@@ -86,4 +33,59 @@
       width: 100%;
     }
   }
+
 </style>
+
+{#if $prompt}
+  <div class="fixed z-10 inset-0 overflow-y-auto">
+    <div
+      class="dialog-container flex items-end justify-center min-h-screen text-center sm:block sm:p-0">
+      <div
+        class="fixed inset-0 transition-opacity"
+        aria-hidden="true"
+        on:click={close}>
+        <div class="absolute inset-0 bg-gray-500 opacity-75" />
+      </div>
+
+      <span
+        class="hidden sm:inline-block sm:align-middle sm:h-screen"
+        aria-hidden="true">&#8203;</span>
+      <div
+        class="dialog inline-block align-bottom bg-white rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-lg sm:w-full"
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="modal-headline">
+        <div class="bg-white p-4 rounded-full">
+          <div class="flow-root p-0 m-0">
+            <div
+              class="cursor-pointer float-right bg-black text-white p-0 m-0 w-8 rounded-full flex justify-center font-bold"
+              on:click={close}>
+              X
+            </div>
+          </div>
+          <div class="sm:flex sm:items-start">
+            <div class="mt-3 text-center sm:mt-0 sm:text-left w-full">
+              <svelte:component this={$prompt.component} bind:this={comp} />
+            </div>
+          </div>
+        </div>
+        {#if !$prompt.hide}
+          <div class="border-t px-4 py-6 sm:px-6 sm:flex sm:flex-row-reverse">
+            <button
+              bind:this={ok}
+              on:click={comp.submit}
+              class="primary-btn mb-2 sm:mb-0 sm:ml-2">
+              Continue
+            </button>
+            <button
+              type="button"
+              class="secondary-btn"
+              on:click={() => ($prompt = undefined)}>
+              Cancel
+            </button>
+          </div>
+        {/if}
+      </div>
+    </div>
+  </div>
+{/if}

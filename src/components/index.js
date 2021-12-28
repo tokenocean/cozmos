@@ -26,6 +26,7 @@ export { default as Sidebar } from "./Sidebar.svelte";
 export { default as SocialShare } from "./SocialShare.svelte";
 export { default as Snack } from "./Snack.svelte";
 export { default as Summary } from "./Summary.svelte";
+export { default as ThankYou } from "./ThankYou.svelte";
 export { default as ToggleSwitch } from "./ToggleSwitch.svelte";
 export { default as Transaction } from "./Transaction.svelte";
 export { default as TransactionText } from "./TransactionText.svelte";

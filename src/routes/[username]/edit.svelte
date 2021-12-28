@@ -160,7 +160,7 @@
           class="mb-6 flex-grow xl:mr-8"
           on:submit|preventDefault={submit}
           autocomplete="off">
-          <p>Enter your details*</p>
+          <p class='font-bold'>Enter your details*</p>
           <div class="flex mb-4">
             <input
               id="name"
@@ -171,11 +171,11 @@
           </div>
 
           <div class="flex flex-col mb-4">
-            <p>Enter your email*</p>
+            <p class='font-bold'>Enter your email*</p>
             <input placeholder="Email" bind:value={form.email} />
           </div>
           <div class="flex flex-col mb-4">
-            <p>Add a short bio.</p>
+            <p class='font-bold'>Add a short bio.</p>
             <textarea placeholder="Bio" bind:value={form.bio} />
           </div>
           <div class="flex">
@@ -184,7 +184,7 @@
 					 </div>-->
           </div>
           <div class="flex flex-col mb-4">
-            <p class="mb-1">
+            <p class="mb-1 font-bold">
               Verify your profile* -
               <span class="text-sm font-bold">Show the community that your
                 profile is authentic.</span>
@@ -193,53 +193,53 @@
               <button
                 type="button"
                 name="button"
-                class="black-box mx-3 rounded">
+                class="black-box mx-3 rounded-lg">
                 <Fa icon={faTwitter} class="mr-3" />Verify via Twitter</button>
               <button
                 type="button"
                 name="button"
-                class="black-box mx-3 rounded">
+                class="black-box mx-3 rounded-lg">
                 <Fa icon={faInstagram} class="mr-3" />Verify via Instagram</button>
             </div>
           </div>
-          <p>Add links to your social media profiles...</p>
+          <p class='font-bold'>Add links to your social media profiles...</p>
           <div class="flex mb-4">
-            <p class="black-box w-40 rounded">Website</p>
+            <p class="black-box w-40 rounded-lg">Website</p>
             <input
               placeholder="www.url"
               bind:value={form.website}
               class="w-full" />
           </div>
           <div class="flex mb-4">
-            <p class="black-box w-40 rounded">YouTube</p>
+            <p class="black-box w-40 rounded-lg">YouTube</p>
             <input
               placeholder="Channel URL"
               bind:value={form.youtube}
               class="w-full" />
           </div>
           <div class="flex mb-4">
-            <p class="black-box w-40 rounded">Facebook</p>
+            <p class="black-box w-40 rounded-lg">Facebook</p>
             <input
               placeholder="Facebook Username"
               bind:value={form.facebook}
               class="w-full" />
           </div>
           <div class="flex mb-4">
-            <p class="black-box w-40 rounded">Discord</p>
+            <p class="black-box w-40 rounded-lg">Discord</p>
             <input
               placeholder="Discord Username"
               bind:value={form.discord}
               class="w-full" />
           </div>
           <div class="flex mb-4">
-            <p class="black-box w-40 rounded">TikTok</p>
+            <p class="black-box w-40 rounded-lg">TikTok</p>
             <input
               placeholder="TikTok Username"
               bind:value={form.tiktok}
               class="w-full" />
           </div>
           <div class="flex mb-4">
-            <p class="black-box w-40 rounded">Twitch</p>
+            <p class="black-box w-40 rounded-lg">Twitch</p>
             <input
               placeholder="Twitch Username"
               bind:value={form.twitch}

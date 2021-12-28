@@ -11,6 +11,8 @@
   import FormItem from './components/_form-item.svelte';
   import Input from '$styleguide/components/Input.svelte';
   import Textarea from '$styleguide/components/Textarea.svelte';
+	import { prompt } from "$lib/store";
+	import { ThankYou } from "$comp";
 
   export let artwork;
   export let title;
@@ -69,6 +71,13 @@
       listingType = type;
     }
   }
+
+	let showThanks = () => {
+		$prompt = {
+			component: ThankYou,
+			hide: true,
+		}
+	}
 
 </script>
 
@@ -206,7 +215,8 @@
     </div>
   </div>
 
-  <Button type="submit" primary class="w-full mt-8">Submit an experience</Button>
+  <Button type="submit" primary class="w-full mt-8" on:click={showThanks}>Submit an experience</Button>
+	<button type="button" name="button" on:click={showThanks} class='primary-btn w-32'>Say Thanks</button>
 <!--  <Button primary class="w-full mt-8" on:click={submit}>Submit an experience</Button>-->
 
 <!--  <div class="flex flex-col mb-6">-->
