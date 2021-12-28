@@ -60,9 +60,13 @@
       if (!st || !rh) return;
       cr = Math.round((y - st) / rh);
       let p = 2 * columns;
-      a = Math.max(p, cr * columns);
-      if (a >= 0) inview = filtered.slice(a - p, a + p);
-      x = cr > 1 ? parseInt((8 * rh) / (y - cr * rh)) : 0;
+      a = Math.max(0, cr * columns);
+      if (a >= 0) inview = filtered.slice(a >= p ? a - columns : 0, a + p);
+
+      // x is a magical smoothing factor derived by guessing and testing
+      x = cr > 1 ? parseInt((13 * rh) / (y + 40 - cr * rh)) : 0;
+      if (columns === 1)
+        x = Math.min(Math.round((5 * rh) / (y + 40 - cr * rh)), 100);
 
       translate = Math.max(0, cr * rh - rh) + x;
       justScrolled = true;
@@ -83,32 +87,8 @@
 <svelte:window bind:innerWidth={w} bind:scrollY={y} on:resize={resize} />
 
 {#if debug}
-  <div class="fixed bg-white z-50 left-2">
-    nh
-    {nh}<br />
-    w
-    {w}<br />
-    len
-    {inview.length}<br />
-    a
-    {a}<br />
-    c
-    <input bind:value={c} /><br />
-    translate
-    <input bind:value={translate} /><br />
-    st
-    {st}<br />
-    rh
-    {rh}<br />
-    cr
-    {cr}<br />
-    cr*rh
-    {cr * rh}<br />
-    sf
-    {sf && sf.toFixed(2)}<br />
-    y
-    {y && y.toFixed(2)}<br />
-    {y && ((y - cr * rh) / 10).toFixed(2)}<br />
+  <div class="fixed bg-white z-50 left-2 w-48 top-24">
+    {Math.round(x)}
   </div>
 {/if}
 
