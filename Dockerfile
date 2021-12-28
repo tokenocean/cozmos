@@ -6,13 +6,16 @@ ENV NODE_ENV $NODE_ENV
 RUN apk add git python3 build-base
 RUN npm i -g pnpm
 
+RUN apk add git
+RUN npm i -g pnpm
+
 WORKDIR /app
 
 COPY package.json .
-RUN pnpm i
+RUN NODE_ENV=development pnpm i
 
 COPY . .
-RUN pnpm i
+RUN NODE_ENV=development pnpm i
 RUN pnpm build
 
 RUN cat build/middlewares.js >> shim.js
