@@ -61,12 +61,6 @@
 <form on:submit|preventDefault={submit}>
   <div class="dialog-header">
     <h3 id="modal-headline">Enter password</h3>
-    <button
-      type="button"
-      class="closeBtn text-xl ml-auto font-thin w-10 h-10 bg-gray-100 rounded rounded-full"
-      on:click={() => ($prompt = undefined)}>
-      <Fa icon={faTimes} />
-    </button>
   </div>
   <div class="mt-2">
     <div class="relative mb-2">

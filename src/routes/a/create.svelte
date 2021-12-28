@@ -1,4 +1,5 @@
 <script>
+  import Card from "$styleguide/components/Card.svelte";
   import Core from "$lib/lnft-core";
   import { page } from "$app/stores";
   import { query } from "$lib/api";
@@ -31,6 +32,20 @@
   let video;
   let hidden = true;
   let loading;
+
+  /*
+  $: artwork = {
+    auction_start: null,
+    auction_end: null,
+    slug: "",
+    asking_asset: btc,
+    filename: "QmUj8yxqAjXFeC1ujDj2xDwSC87y3B9ZD35Ci8KW2c7TRs",
+    filetype: "image/jpeg",
+    tags: [],
+    artist: $user,
+    owner: $user,
+  };
+   */
 
   const IMG_TYPES = {
     MAIN: 0,
@@ -186,6 +201,8 @@
     edition: 1,
     editions: 1,
     tags: [],
+    owner: $user,
+    artist: $user,
   };
 
   async function submit(e) {
@@ -230,34 +247,7 @@
       imagePercent[imageType] = 0;
     };
   }
-
 </script>
-
-<style>
-  .container {
-    width: 100% !important;
-    min-height: 100vh;
-    margin: 0;
-    max-width: 100%;
-  }
-
-  .submitArtwork {
-    box-shadow: 6px 5px 12px 2px #ccc;
-  }
-
-  @media only screen and (max-width: 1023px) {
-    .container {
-      background: none;
-    }
-  }
-
-  h2 {
-    font-family: "Zen Dots", cursive;
-    font-size: 2em;
-    line-height: 1.25em;
-  }
-
-</style>
 
 <div class="container mx-auto p-20">
   <!--
@@ -268,15 +258,20 @@
   -->
   <div class="flex w-full mx-auto bg-gray-100 submitArtwork">
     <div
-      class="absolute right-16 rounded-full border-black border-l border-t w-8 h-8 -mt-4 z-50 bg-black text-4xl text-center text-white cursor-pointer">
+      class="absolute right-16 rounded-full border-black border-l border-t w-8 h-8 -mt-4 z-50 bg-black text-4xl text-center text-white cursor-pointer"
+    >
       <div class="-mt-2">&times;</div>
     </div>
     <div class="flex flex-col w-1/3">
       <div class="flex-grow-1 h-full bg-black">
         <h2 class="text-white p-14">Preview experience</h2>
+        <div class="w-2/3 mx-auto">
+          <Card {artwork} preview={imagePreview[IMG_TYPES.MAIN]} />
+        </div>
         <div
           style="background-image: url('/stars.png')"
-          class="h-full bg-left mt-auto bg-repeat w-full" />
+          class="h-full bg-left mt-auto bg-repeat w-full"
+        />
       </div>
     </div>
     <div class="p-14">
@@ -305,7 +300,8 @@
                     <ArtworkMedia
                       {artwork}
                       preview={imagePreview[IMG_TYPES.MAIN]}
-                      on:cancel={cancelPreview(IMG_TYPES.MAIN)} />
+                      on:cancel={cancelPreview(IMG_TYPES.MAIN)}
+                    />
                   </div>
                 {/if}
               </div>
@@ -325,57 +321,59 @@
                     <ArtworkMedia
                       {artwork}
                       preview={imagePreview[IMG_TYPES.COVER]}
-                      on:cancel={cancelPreview(IMG_TYPES.COVER)} />
+                      on:cancel={cancelPreview(IMG_TYPES.COVER)}
+                    />
                   </div>
                 {/if}
-
               </div>
             {:else}
               <Dropzone on:file={uploadFile(IMG_TYPES.COVER)} />
             {/if}
           </FormItem>
         </div>
-				<!-- need to hook these 2 new dropzones to backend and other frontend locations -->
-				<div>
-					<FormItem title="Upload Content">
-						{#if imagePreview[IMG_TYPES.MAIN] || imagePercent[IMG_TYPES.MAIN]}
-							<div class="text-black">
-								{#if imagePercent[IMG_TYPES.MAIN] && imagePercent[IMG_TYPES.MAIN] < 100}
-									Loading...
-								{:else if imagePercent[IMG_TYPES.MAIN] && imagePercent[IMG_TYPES.MAIN] === 100}
-									<div class="w-1/2">
-										<ArtworkMedia
-											{artwork}
-											preview={imagePreview[IMG_TYPES.MAIN]}
-											on:cancel={cancelPreview(IMG_TYPES.MAIN)} />
-									</div>
-								{/if}
-							</div>
-						{:else}
-							<Dropzone on:file={uploadFile(IMG_TYPES.MAIN)} />
-						{/if}
-					</FormItem>
-				</div>
-				<div>
-					<FormItem title="Upload Video Experience Information">
-						{#if imagePreview[IMG_TYPES.MAIN] || imagePercent[IMG_TYPES.MAIN]}
-							<div class="text-black">
-								{#if imagePercent[IMG_TYPES.MAIN] && imagePercent[IMG_TYPES.MAIN] < 100}
-									Loading...
-								{:else if imagePercent[IMG_TYPES.MAIN] && imagePercent[IMG_TYPES.MAIN] === 100}
-									<div class="w-1/2">
-										<ArtworkMedia
-											{artwork}
-											preview={imagePreview[IMG_TYPES.MAIN]}
-											on:cancel={cancelPreview(IMG_TYPES.MAIN)} />
-									</div>
-								{/if}
-							</div>
-						{:else}
-							<Dropzone on:file={uploadFile(IMG_TYPES.MAIN)} />
-						{/if}
-					</FormItem>
-				</div>
+        <!-- need to hook these 2 new dropzones to backend and other frontend locations -->
+        <div>
+          <FormItem title="Upload Content">
+            {#if imagePreview[IMG_TYPES.MAIN] || imagePercent[IMG_TYPES.MAIN]}
+              <div class="text-black">
+                {#if imagePercent[IMG_TYPES.MAIN] && imagePercent[IMG_TYPES.MAIN] < 100}
+                  Loading...
+                {:else if imagePercent[IMG_TYPES.MAIN] && imagePercent[IMG_TYPES.MAIN] === 100}
+                  <div class="w-1/2">
+                    <ArtworkMedia
+                      {artwork}
+                      preview={imagePreview[IMG_TYPES.MAIN]}
+                      on:cancel={cancelPreview(IMG_TYPES.MAIN)}
+                    />
+                  </div>
+                {/if}
+              </div>
+            {:else}
+              <Dropzone on:file={uploadFile(IMG_TYPES.MAIN)} />
+            {/if}
+          </FormItem>
+        </div>
+        <div>
+          <FormItem title="Upload Video Experience Information">
+            {#if imagePreview[IMG_TYPES.MAIN] || imagePercent[IMG_TYPES.MAIN]}
+              <div class="text-black">
+                {#if imagePercent[IMG_TYPES.MAIN] && imagePercent[IMG_TYPES.MAIN] < 100}
+                  Loading...
+                {:else if imagePercent[IMG_TYPES.MAIN] && imagePercent[IMG_TYPES.MAIN] === 100}
+                  <div class="w-1/2">
+                    <ArtworkMedia
+                      {artwork}
+                      preview={imagePreview[IMG_TYPES.MAIN]}
+                      on:cancel={cancelPreview(IMG_TYPES.MAIN)}
+                    />
+                  </div>
+                {/if}
+              </div>
+            {:else}
+              <Dropzone on:file={uploadFile(IMG_TYPES.MAIN)} />
+            {/if}
+          </FormItem>
+        </div>
         <!--        <div>-->
         <!--          <FormItem title="Upload content">-->
         <!--            <Dropzone on:file={uploadFile}/>-->
@@ -400,3 +398,28 @@
     </div>
   </div>
 </div>
+
+<style>
+  .container {
+    width: 100% !important;
+    min-height: 100vh;
+    margin: 0;
+    max-width: 100%;
+  }
+
+  .submitArtwork {
+    box-shadow: 6px 5px 12px 2px #ccc;
+  }
+
+  @media only screen and (max-width: 1023px) {
+    .container {
+      background: none;
+    }
+  }
+
+  h2 {
+    font-family: "Zen Dots", cursive;
+    font-size: 2em;
+    line-height: 1.25em;
+  }
+</style>

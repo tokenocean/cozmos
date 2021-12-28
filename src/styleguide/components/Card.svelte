@@ -13,6 +13,7 @@
   export let loaded = false;
   export let thumb = true;
   export let popup = false;
+  export let preview;
 
   let sats, val, ticker;
   $: if (artwork) [sats, val, ticker] = units(artwork.asking_asset);
@@ -99,7 +100,7 @@
 <div class="rounded-3xl overflow-hidden boxed" in:fade>
   <div class="h-60 overflow-hidden flex justify-center items-center">
     <a href={`/a/${artwork.slug}`} class="w-full">
-      <ArtworkMedia {artwork} {showDetails} {popup} bind:loaded bind:thumb />
+      <ArtworkMedia {artwork} {showDetails} {popup} bind:loaded bind:thumb {preview} />
     </a>
   </div>
   {#if showDetails}
@@ -156,14 +157,16 @@
       </div>
     {/if}
     <div class="background-gray h-20 p-4 px-6 flex justify-between">
+      {#if artwork.auction_end}
       <div>
         {#if end_counter}
           <div class="text-xs">Time left:</div>
           <div class="font-bold text-lg">{end_counter}</div>
         {/if}
       </div>
+    {/if}
 
-      <div class="flex items-center justify-center">
+      <div class="ml-auto flex items-center justify-center">
         <Heart {artwork} />
         <span on:click={() => alert('in development')}>
           <Fa
