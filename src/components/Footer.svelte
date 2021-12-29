@@ -13,7 +13,6 @@
       top: -20px;
       right: 0;
       height: 20px;
-      z-index: 10;
       background: #fa7900; /* Old browsers */
       background: linear-gradient(
         90deg,
