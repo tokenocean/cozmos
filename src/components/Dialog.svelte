@@ -9,8 +9,10 @@
   let focus = (p) => p && tick().then(() => ok && ok.focus());
   $: focus($prompt);
 
-  let close = () => ($prompt = undefined);
-
+  let close = () => {
+		comp.close && comp.close();
+		$prompt = undefined;
+	}
 </script>
 
 <style>
@@ -55,7 +57,7 @@
         role="dialog"
         aria-modal="true"
         aria-labelledby="modal-headline">
-        <div class="bg-white p-4 rounded-full">
+        <div class="bg-white p-4">
           <div class="flow-root p-0 m-0">
             <div
               class="cursor-pointer float-right bg-black text-white p-0 m-0 w-8 rounded-full flex justify-center font-bold"
@@ -69,7 +71,7 @@
             </div>
           </div>
         </div>
-        {#if !$prompt.hide}
+        {#if comp?.showButtons}
           <div class="border-t px-4 py-6 sm:px-6 sm:flex sm:flex-row-reverse">
             <button
               bind:this={ok}
