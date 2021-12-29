@@ -148,12 +148,12 @@
       <div>
 				{#if listingType === TYPES.FIXED}
 				<FormItem title="Price">
-					<Input placeholder="Price for NFT experience in L-BTC"/>
+					<Input bind:value={artwork.list_price} placeholder="Price for NFT experience in L-BTC"/>
 				</FormItem>
 				{/if}
 				{#if listingType === TYPES.AUCTION}
         <FormItem title="Minimum bid">
-          <Input placeholder="Minimum bid"/>
+          <Input bind:value={artwork.reserve_price} placeholder="Minimum bid"/>
         </FormItem>
 				{/if}
         <div class="mt-4">
@@ -171,10 +171,10 @@
       </div>
       <div>
         <FormItem title="Starting date">
-          <Input placeholder="For e.g. 10.09.2021 10:40"/>
+          <Input bind:value={artwork.auction_start} placeholder="For e.g. 10.09.2021 10:40"/>
         </FormItem>
         <FormItem title="Expiration date" class="mt-4">
-          <Input placeholder="For e.g. 10.09.2021 10:40"/>
+          <Input bind:value={artwork.auction_end} placeholder="For e.g. 10.09.2021 10:40"/>
         </FormItem>
       </div>
     </div>

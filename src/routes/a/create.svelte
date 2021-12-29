@@ -203,6 +203,10 @@
     tags: [],
     owner: $user,
     artist: $user,
+		list_price: "",
+		reserve_price: "",
+		auction_start: "",
+		auction_end: ""
   };
 
   async function submit(e) {
