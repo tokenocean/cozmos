@@ -1,51 +1,67 @@
-<style media="screen">
+<script>
+  import { goto } from "$lib/utils";
+  import { prompt } from "$lib/store";
+  let register = () => {
+    goto("/register");
+    $prompt = undefined;
+  };
+
+</script>
+
+<style>
   .marina {
     background-color: #24969c;
   }
 
 </style>
 
-<div class="container text-center bg-gray-100 p-20">
-  <h2 class="mb-6">Connect your wallet</h2>
-  <p class="text-xl">
-    By connecting your wallet, you agree to our Terms of Service and our Privacy
-    Policy.
+<div class="container text-center bg-white p-10">
+  <h2 class="mb-6 text-3xl">Connect your wallet</h2>
+  <p>
+    By connecting your wallet, you agree to our
+    <a href="/terms-and-conditions">Terms and Conditions</a>
+    and
+    <a href="/privacy-policy">Privacy Policy</a>.
   </p>
   <button
     type="button"
     name="button"
-    class="bg-black block mx-auto sm:w-full md:w-5/6 md:h-16 mt-16 mb-4 rounded text-white font-bold marina flex items-center md:text-xl"><img
+    class="bg-black block mx-auto sm:w-full md:w-5/6 md:h-16 mt-8 mb-4 rounded-lg text-white font-bold marina flex items-center md:text-xl"><img
       src="/static/svg_icons/Marina.svg"
       alt="Marina icon"
-      class="w-20 h-20 md:mr-20 lg:mr-32" />Marina - Liquid Wallet</button>
+      class="w-20 mr-4" />Marina - Liquid Wallet</button>
   <button
     type="button"
     name="button"
-    class="bg-black block mx-auto sm:w-full md:w-5/6 md:h-16 rounded text-white font-bold flex items-center md:text-xl"><img
-      src="/static/svg_icons/Coinos.svg"
+    class="bg-black block mx-auto sm:w-full md:w-5/6 md:h-16 rounded-lg text-white font-bold flex items-center md:text-xl"
+    on:click={register}><img
+      src="/static/svg_icons/Logo.svg"
       alt="coinos icon"
-      class="w-20 h-20 md:mr-20 lg:mr-32" />Create one with us</button>
-  <div class="block md:flex justify-center border-t-2 border-gray-400 mt-10">
+      class="w-20 mr-4" />Create one with us</button>
+  <div class="block md:flex justify-center">
     <div class="flex mt-10">
-      <a href="https://twitter.com/cozmosnft" target='_blank' rel='noreferrer'>
+      <a href="https://twitter.com/cozmosnft" target="_blank" rel="noreferrer">
         <img
           src="/static/svg_icons/Twitter-02.svg"
           alt="Twitter icon"
           class="w-52 md:w-16" />
       </a>
-      <a href="https://instagram.com/cozmosnft" target='_blank' rel='noreferrer'>
+      <a
+        href="https://instagram.com/cozmosnft"
+        target="_blank"
+        rel="noreferrer">
         <img
           src="/static/svg_icons/Instagram-02.svg"
           alt="Instagram icon"
           class="w-52 md:w-16" />
       </a>
-      <a href="https://facebook.com/cozmosnft" target='_blank' rel='noreferrer'>
+      <a href="https://facebook.com/cozmosnft" target="_blank" rel="noreferrer">
         <img
           src="/static/svg_icons/Facebook-02.svg"
           alt="Facebook icon"
           class="w-52 md:w-16" />
       </a>
     </div>
-    <p class="self-center md:ml-24 text-xl md:mt-10">Follow us for updates</p>
+    <p class="self-center text-sm md:ml-16 md:mt-10">Follow us for updates</p>
   </div>
 </div>
