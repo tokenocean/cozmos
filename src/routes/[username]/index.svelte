@@ -37,7 +37,6 @@
   import { err, goto } from "$lib/utils";
   import { Avatar, Offers, ProgressLinear } from "$comp";
   import { createFollow, deleteFollow } from "$queries/follows";
-  import Menu from "./_menu.svelte";
   import { fade } from "svelte/transition";
   import { query } from "$lib/api";
   import Card from "$styleguide/components/Card.svelte";
@@ -307,19 +306,17 @@
             </div>
 						<div class='mt-3'>
 						{#if $user}
+							{#if $user.id === subject.id}
 							<a
 								class="primary-btn mr-6"
 								href={`/${$user.username}/edit`}>Edit Profile</a>
+							{/if}
 						{/if}
 						</div>
             <div class="mt-5 mr-6">
               {#if $user}
-                {#if $user.id === subject.id}
-                	 <Menu />
-                {:else}
                   <button class="p-2 primary-btn follow mt-8 w-full" on:click={follow}>
                     {subject.followed ? 'Unfollow' : 'Follow'}</button>
-                {/if}
               {/if}
             </div>
           </div>
@@ -396,7 +393,7 @@
           <div class="w-full justify-center">
             <div class="w-full max-w-sm mx-auto mb-12">
               {#if $user && $user.is_artist && $user.id === subject.id}
-                <a href="/a/create" class="primary-btn">Submit a new artwork</a>
+                <a href="/a/create" class="primary-btn">Submit a new experience</a>
               {/if}
             </div>
             <div class="w-full flex flex-wrap">
