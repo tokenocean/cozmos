@@ -1,10 +1,13 @@
 <script>
   import Search from "$styleguide/components/Search.svelte";
   import WalletPopup from "$styleguide/components/WalletPopup.svelte";
+	import UserPopup from "$styleguide/components/UserPopup.svelte";
   import Fa from "svelte-fa";
   import { faWallet, faUser } from "@fortawesome/free-solid-svg-icons";
   import { user } from "$lib/store";
   import {clickOutside} from '$lib/svelte-actions';
+	import { prompt } from "$lib/store";
+	import { ConnectWallet } from "$comp";
 
   export let open = false;
   let toggle = () => (open = !open);
@@ -28,6 +31,29 @@
       }
     }
   }
+
+	// user handleUserClickOutside
+	let userToggleHandler;
+	let displayUser = false;
+	let toggleUser = () => {
+		displayUser = !displayUser;
+	};
+
+	function handleUserClickOutside(e) {
+		if(displayUser) {
+			if(userToggleHandler !== e.detail.target && !userToggleHandler.contains(e.detail.target)) {
+				displayUser = false;
+			}
+		}
+	}
+
+	let showConnect = () => {
+		$prompt = {
+			component: ConnectWallet,
+			hide: true,
+		}
+	}
+
 </script>
 
 <style lang="scss">
@@ -71,12 +97,18 @@
       {/if}
       </div>
     </div>
-    <a href={`/${$user.username}`} class="hidden lg:inline-block">
-      <button on:click={toggle} class="flex">
+    <div class="relative flex hidden lg:flex">
+      <button class='toggleUser' on:click={toggleUser} bind:this={userToggleHandler}>
         <Fa icon={faUser} size="1.5x"/>
       </button>
-    </a>
+			<div use:clickOutside on:clickOutside={handleUserClickOutside}>
+        {#if displayUser}
+        <UserPopup on:click={toggleUser}/>
+      {/if}
+      </div>
+    </div>
   {:else}
-    <a href="/login" class="menu-link"><button class="menu-link-button" on:click={toggle}>Sign In</button></a>
+    <a href="" class="menu-link"><button class="menu-link-button" on:click={showConnect}>Connect wallet</button></a>
+		<a href="/login" class="menu-link"><button class="menu-link-button">Login</button></a>
   {/if}
 </div>
