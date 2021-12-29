@@ -4,7 +4,7 @@
   import { query } from "$lib/api";
   import { onMount, tick } from "svelte";
   import { prompt, token, psbt, user } from "$lib/store";
-  import { Dropzone, ProgressLinear } from "$comp";
+  import { Dropzone, ProgressLinear, ThankYou } from "$comp";
   import { upload, supportedTypes } from "$lib/upload";
   import { create } from "$queries/artworks";
   import { btc, fade, kebab, goto, err } from "$lib/utils";
@@ -203,6 +203,12 @@
       return err("Editions is required and should be a number");
 
     const core = new Core();
+		let showThanks = () => {
+			$prompt = {
+				component: ThankYou,
+				hide: true,
+			}
+		}
 
     try {
       if (artwork.editions > 1) {
@@ -215,8 +221,7 @@
         // and check their availability
         generateRandomTickers: true,
       });
-      $prompt = undefined;
-      goto(`/a/${artwork.slug}`);
+			showThanks();
     } catch (e) {
       err(e);
       loading = false;
@@ -230,6 +235,10 @@
       imagePercent[imageType] = 0;
     };
   }
+
+	let close = () => {
+		goto("/market");
+	};
 
 </script>
 
@@ -268,7 +277,8 @@
   -->
   <div class="flex w-full mx-auto bg-gray-100 submitArtwork">
     <div
-      class="absolute right-16 rounded-full border-black border-l border-t w-8 h-8 -mt-4 z-50 bg-black text-4xl text-center text-white cursor-pointer">
+      class="absolute right-16 rounded-full border-black border-l border-t w-8 h-8 -mt-4 z-50 bg-black text-4xl text-center text-white cursor-pointer"
+			on:click={close}>
       <div class="-mt-2">&times;</div>
     </div>
     <div class="flex flex-col w-1/3">
@@ -337,42 +347,42 @@
         </div>
 				<!-- need to hook these 2 new dropzones to backend and other frontend locations -->
 				<div>
-					<FormItem title="Upload Content">
-						{#if imagePreview[IMG_TYPES.MAIN] || imagePercent[IMG_TYPES.MAIN]}
+					<FormItem title="Upload content">
+						{#if imagePreview[IMG_TYPES.CONTENT] || imagePercent[IMG_TYPES.CONTENT]}
 							<div class="text-black">
-								{#if imagePercent[IMG_TYPES.MAIN] && imagePercent[IMG_TYPES.MAIN] < 100}
+								{#if imagePercent[IMG_TYPES.CONTENT] && imagePercent[IMG_TYPES.CONTENT] < 100}
 									Loading...
-								{:else if imagePercent[IMG_TYPES.MAIN] && imagePercent[IMG_TYPES.MAIN] === 100}
+								{:else if imagePercent[IMG_TYPES.CONTENT] && imagePercent[IMG_TYPES.CONTENT] === 100}
 									<div class="w-1/2">
 										<ArtworkMedia
 											{artwork}
-											preview={imagePreview[IMG_TYPES.MAIN]}
-											on:cancel={cancelPreview(IMG_TYPES.MAIN)} />
+											preview={imagePreview[IMG_TYPES.CONTENT]}
+											on:cancel={cancelPreview(IMG_TYPES.CONTENT)} />
 									</div>
 								{/if}
 							</div>
 						{:else}
-							<Dropzone on:file={uploadFile(IMG_TYPES.MAIN)} />
+							<Dropzone on:file={uploadFile(IMG_TYPES.CONTENT)} />
 						{/if}
 					</FormItem>
 				</div>
 				<div>
-					<FormItem title="Upload Video Experience Information">
-						{#if imagePreview[IMG_TYPES.MAIN] || imagePercent[IMG_TYPES.MAIN]}
+					<FormItem title="Upload video experience information">
+						{#if imagePreview[IMG_TYPES.VIDEO] || imagePercent[IMG_TYPES.VIDEO]}
 							<div class="text-black">
-								{#if imagePercent[IMG_TYPES.MAIN] && imagePercent[IMG_TYPES.MAIN] < 100}
+								{#if imagePercent[IMG_TYPES.VIDEO] && imagePercent[IMG_TYPES.VIDEO] < 100}
 									Loading...
-								{:else if imagePercent[IMG_TYPES.MAIN] && imagePercent[IMG_TYPES.MAIN] === 100}
+								{:else if imagePercent[IMG_TYPES.VIDEO] && imagePercent[IMG_TYPES.VIDEO] === 100}
 									<div class="w-1/2">
 										<ArtworkMedia
 											{artwork}
-											preview={imagePreview[IMG_TYPES.MAIN]}
-											on:cancel={cancelPreview(IMG_TYPES.MAIN)} />
+											preview={imagePreview[IMG_TYPES.VIDEO]}
+											on:cancel={cancelPreview(IMG_TYPES.VIDEO)} />
 									</div>
 								{/if}
 							</div>
 						{:else}
-							<Dropzone on:file={uploadFile(IMG_TYPES.MAIN)} />
+							<Dropzone on:file={uploadFile(IMG_TYPES.VIDEO)} />
 						{/if}
 					</FormItem>
 				</div>
