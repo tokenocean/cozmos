@@ -315,8 +315,10 @@
 						</div>
             <div class="mt-5 mr-6">
               {#if $user}
+								{#if !($user.id === subject.id)}
                   <button class="p-2 primary-btn follow mt-8 w-full" on:click={follow}>
                     {subject.followed ? 'Unfollow' : 'Follow'}</button>
+								{/if}
               {/if}
             </div>
           </div>
