@@ -32,10 +32,6 @@
   };
   count();
 
-  let isAuctionedItem = () => {
-    return artwork && artwork.auction_start && artwork.auction_end;
-  };
-
   function currencyConversion(amount, ticker, toString = true) {
     return "$0.00";
 
@@ -115,7 +111,7 @@
         {artwork.title || 'No Name'}
       </div>
     </div>
-    {#if isAuctionedItem()}
+    {#if artwork.reserve_price}
       <div
         class="auction-item-background-gradient h-20 p-4 flex justify-between">
         <div class="flex-1 mr-2">
