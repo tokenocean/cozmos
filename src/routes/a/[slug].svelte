@@ -445,7 +445,6 @@
     </div>
     <div class="w-3/4 ml-16">
       <!-- Artwork title -->
-      <button on:click={showCongrats} class="primary-btn">Say Congrats</button>
       <div class="font-title">{artwork.title || 'Untitled'}</div>
       <!-- Creator/Owner & controls (like,share,gift)-->
       <div class="mt-16">
@@ -538,7 +537,7 @@
             <!-- @todo check button's look-->
             {#if artwork.list_price && !bidding && !offering}
               <input
-                class={`flex justify-center mb-4 items-center inline-block rounded-2xl h-14 text-white font-medium text-center cursor-pointer text-lg ${actionClassName}`}
+                class={`flex justify-center mb-4 items-center inline-block rounded-2xl h-14 font-medium text-center cursor-pointer text-lg ${actionClassName}`}
                 type="button"
                 on:click={buyNow}
                 value="Buy now"
@@ -568,19 +567,19 @@
                     </div>
                   </div>
                   <input
-                    class={`w-full flex justify-center items-center inline-block rounded-2xl h-14 text-white font-medium text-center cursor-pointer text-lg ${actionClassName}`}
+                    class={`w-full flex justify-center items-center inline-block rounded-2xl h-14 font-medium text-center cursor-pointer text-lg ${actionClassName}`}
                     type="submit"
                     value={artwork.list_price ? 'Make an offer' : 'Place bid'} />
                   <div
                     class="text-center text-sm cursor-pointer"
                     on:click={stopBidding}>
-                    cancel
+                    Cancel
                   </div>
                 </form>
               {/if}
             {:else if !artwork.auction_start || compareAsc(now, parseISO(artwork.auction_start)) === 1}
               <input
-                class={`w-full flex justify-center items-center inline-block rounded-2xl h-14 text-white font-medium text-center cursor-pointer text-lg ${actionClassName}`}
+                class={`w-full flex justify-center items-center inline-block rounded-2xl h-14 font-medium text-center cursor-pointer text-lg ${actionClassName}`}
                 type="button"
                 on:click={startBidding}
                 value={artwork.list_price ? 'Make an offer' : 'Place bid'}
