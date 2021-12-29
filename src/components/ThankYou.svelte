@@ -2,7 +2,7 @@
 
 <script>
 import { goto } from '$lib/utils';
-export let close = () => goto('/market');
+export const close = () => goto('/market');
 </script>
 
 <div class="container text-center bg-white p-10">
