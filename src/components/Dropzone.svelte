@@ -46,17 +46,13 @@
 
   #drop-area {
     cursor: pointer;
-    border: 2px solid black;
+    border: 2px solid lightgray;
     border-radius: 10px;
     width: 80%;
     max-width: 350px;
     max-height: 350px;
-    margin: 100px auto;
+    margin: 50px auto;
     margin-top: 30px;
-  }
-
-  form {
-    height: 320px;
   }
 
   #drop-area.highlight {
@@ -92,11 +88,11 @@
     on:mouseout={stop}
     on:drop={drop}
     class:highlight>
-    <form class="text-center">
+    <form class="text-center py-6 px-30">
       <div class="flex justify-center flex-col align-center h-full">
-        <span class="uppercase">{title}</span>
-        <span class="mx-auto text-center mt-4 text-5xl text-lightblue">
-          <Fa icon={faCloudUploadAlt} class='text-black'/>
+        <span class="uppercase text-gray-400">{title}</span>
+        <span class="mx-auto text-sm m-2 text-center">
+          <button type="button" name="button" class='text-gray-300 bg-black rounded-full py-2 px-6'>Choose file</button>
         </span>
       </div>
       <input
