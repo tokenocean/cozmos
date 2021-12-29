@@ -1,3 +1,10 @@
+<svelte:options accessors/>
+
+<script>
+import { goto } from '$lib/utils';
+export let close = () => goto('/market');
+</script>
+
 <div class="container text-center bg-white p-10">
   <h1 class="text-4xl mb-4 text-transparent bg-clip-text text-gradient">
     Great!!
