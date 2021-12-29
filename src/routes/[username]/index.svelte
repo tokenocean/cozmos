@@ -112,10 +112,8 @@
     transform: translate(-50%, -50%);
   }
 
-  #favorites,
   #collection,
-  #creations,
-  #offers {
+  #creations {
     display: none;
   }
 
@@ -177,18 +175,6 @@
                   </div>
                 </a>
               {/if}
-              <!--
-              {#if subject.email}
-                <a href={`mailto:${subject.email}`}>
-                  <div class="flex">
-                    <div class="my-auto">
-                      <Fa icon={faEnvelope} class='w-12'/>
-                    </div>
-                    <div><span>{subject.email}</span></div>
-                  </div>
-                </a>
-              {/if}
-							-->
               {#if subject.website}
                 <a href={`https://${subject.website}`}>
                   <div class="flex">
@@ -279,18 +265,7 @@
 									</div>
 								</a>
 							{/if}
-              <!--
-              {#if subject.location}
-                <a href=".">
-                  <div class="flex">
-                    <div class="my-auto">
-                      <Fa icon={faMapMarkerAlt} class='w-12'/>
-                    </div>
-                    <div><span>{subject.location}</span></div>
-                  </div>
-                </a>
-              {/if}
-							-->
+
             </div>
             <div class="flex mt-5">
               <div
@@ -366,30 +341,6 @@
              />
             <label for="collection" class="cursor-pointer">Collected</label>
           </div>
-          <!--
-					{#if $user && $user.id === id}
-            <div class="cursor-pointer">
-              <input
-                type="radio"
-                id="offers"
-                name="radio"
-                class="cursor-pointer"
-                class:hover={tab === 'offers'}
-                on:click={() => (tab = 'offers')} />
-              <label for="offers" class="cursor-pointer">Offers</label>
-            </div>
-            <div class="cursor-pointer">
-              <input
-                type="radio"
-                id="favorites"
-                name="radio"
-                class="cursor-pointer"
-                class:hover={tab === 'favorites'}
-                on:click={() => (tab = 'favorites')} />
-              <label for="favorites" class="cursor-pointer">Favorites</label>
-            </div>
-          {/if}
-					-->
         </div>
         {#if tab === 'creations'}
           <div class="w-full justify-center">
@@ -417,20 +368,6 @@
                 </div>
               {:else}
                 <div class="mx-auto">Nothing collected yet</div>
-              {/each}
-            </div>
-          </div>
-        {:else if tab === 'offers'}
-          <Offers offers={subject.offers} />
-        {:else}
-          <div class="w-full flex justify-center">
-            <div class="w-full flex flex-wrap">
-              {#each subject.favorites as { artwork } (artwork.id)}
-                <div class="gallery-tab w-full lg:w-1/2 px-0 md:px-5 mb-10">
-                  <Card {artwork} />
-                </div>
-              {:else}
-                <div class="mx-auto">No favorites yet</div>
               {/each}
             </div>
           </div>
