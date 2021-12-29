@@ -33,20 +33,6 @@
   let hidden = true;
   let loading;
 
-  /*
-  $: artwork = {
-    auction_start: null,
-    auction_end: null,
-    slug: "",
-    asking_asset: btc,
-    filename: "QmUj8yxqAjXFeC1ujDj2xDwSC87y3B9ZD35Ci8KW2c7TRs",
-    filetype: "image/jpeg",
-    tags: [],
-    artist: $user,
-    owner: $user,
-  };
-   */
-
   const IMG_TYPES = {
     MAIN: 0,
     COVER: 1,
@@ -280,7 +266,7 @@
     <div class="flex flex-col w-1/3">
       <div class="flex-grow-1 h-full bg-black">
         <h2 class="text-white p-14">Preview experience</h2>
-        <div class="w-2/3 mx-auto">
+        <div class="w-2/3 mx-auto bg-gray-500 rounded-3xl">
           <Card {artwork} preview={imagePreview[IMG_TYPES.MAIN]} />
         </div>
         <div
@@ -303,9 +289,9 @@
         </p>
       </div>
 
-      <div class="grid grid-cols-2 gap-4 text-left">
+      <div class="grid grid-cols-2 text-left">
         <div>
-          <FormItem title="Upload thumbnail">
+          <FormItem title="Upload NFT image" text='text-center'>
             {#if imagePreview[IMG_TYPES.MAIN] || imagePercent[IMG_TYPES.MAIN]}
               <div class="text-black">
                 {#if imagePercent[IMG_TYPES.MAIN] && imagePercent[IMG_TYPES.MAIN] < 100}
@@ -325,8 +311,29 @@
             {/if}
           </FormItem>
         </div>
+				<div>
+					<FormItem title="Upload thumbnail (optional)" text='text-center'>
+						{#if imagePreview[IMG_TYPES.THUMB] || imagePercent[IMG_TYPES.THUMB]}
+							<div class="text-black">
+								{#if imagePercent[IMG_TYPES.THUMB] && imagePercent[IMG_TYPES.THUMB] < 100}
+									Loading...
+								{:else if imagePercent[IMG_TYPES.THUMB] && imagePercent[IMG_TYPES.THUMB] === 100}
+									<div class="w-1/2">
+										<ArtworkMedia
+											{artwork}
+											preview={imagePreview[IMG_TYPES.THUMB]}
+											on:cancel={cancelPreview(IMG_TYPES.THUMB)}
+										/>
+									</div>
+								{/if}
+							</div>
+						{:else}
+							<Dropzone on:file={uploadFile(IMG_TYPES.MAIN)} />
+						{/if}
+					</FormItem>
+				</div>
         <div>
-          <FormItem title="Upload cover">
+          <FormItem title="Upload cover banner" text='text-center'>
             {#if imagePreview[IMG_TYPES.COVER] || imagePercent[IMG_TYPES.COVER]}
               <div class="text-black">
                 {#if imagePercent[IMG_TYPES.COVER] && imagePercent[IMG_TYPES.COVER] < 100}
@@ -348,7 +355,7 @@
         </div>
 				<!-- need to hook these 2 new dropzones to backend and other frontend locations -->
 				<div>
-					<FormItem title="Upload content">
+					<FormItem title="Upload gallery images" text='text-center'>
 						{#if imagePreview[IMG_TYPES.CONTENT] || imagePercent[IMG_TYPES.CONTENT]}
 							<div class="text-black">
 								{#if imagePercent[IMG_TYPES.CONTENT] && imagePercent[IMG_TYPES.CONTENT] < 100}
@@ -367,8 +374,9 @@
 						{/if}
 					</FormItem>
 				</div>
-				<div>
-					<FormItem title="Upload video experience information">
+			</div>
+				<div class="grid grid-cols-1 text-left">
+					<FormItem title="Upload video experience information" text='text-center'>
 						{#if imagePreview[IMG_TYPES.VIDEO] || imagePercent[IMG_TYPES.VIDEO]}
 							<div class="text-black">
 								{#if imagePercent[IMG_TYPES.VIDEO] && imagePercent[IMG_TYPES.VIDEO] < 100}
@@ -397,7 +405,6 @@
         <!--            <Dropzone on:file={uploadFile}/>-->
         <!--          </FormItem>-->
         <!--        </div>-->
-      </div>
       <div class="flex flex-wrap flex-col-reverse lg:flex-row">
         <div class="w-full">
           <div class:invisible={!loading}>
