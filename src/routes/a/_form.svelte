@@ -67,6 +67,10 @@
 
   function selectListingType(type) {
     return () => {
+			artwork.list_price = "";
+			artwork.reserve_price = "";
+			artwork.auction_end = "";
+			artwork.auction_start = "";
       listingType = type;
     }
   }
@@ -170,12 +174,14 @@
         </div>
       </div>
       <div>
+				{#if listingType === TYPES.AUCTION}
         <FormItem title="Starting date">
           <Input bind:value={artwork.auction_start} placeholder="For e.g. 10.09.2021 10:40"/>
         </FormItem>
         <FormItem title="Expiration date" class="mt-4">
           <Input bind:value={artwork.auction_end} placeholder="For e.g. 10.09.2021 10:40"/>
         </FormItem>
+				{/if}
       </div>
     </div>
   </div>
