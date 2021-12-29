@@ -21,8 +21,8 @@
 
 <div class="text-2xl font-bold mt-12">Comments</div>
 <div class="border rounded-lg p-10 mt-4">
-	{#if !artwork.comments}
-	<p>No comments yet.</p>
+	{#if !artwork.comments.length}
+	<p>Be the first to leave a comment!</p>
 	{/if}
   {#each artwork.comments as comment}
     <div class="flex mb-4">
