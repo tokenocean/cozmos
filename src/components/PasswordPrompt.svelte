@@ -13,6 +13,7 @@
   let attempt = dev ? "liquidart" : "";
   let input;
   let show;
+	export let showButtons = true;
 
   let focus = (p) => p && tick().then(() => input.focus());
   $: focus($prompt);
