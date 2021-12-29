@@ -4,6 +4,7 @@ export { default as Amount } from "./Amount.svelte";
 export { default as ArtworkMedia } from "./ArtworkMedia.svelte";
 export { default as Avatar } from "./Avatar.svelte";
 export { default as Congrats } from "./Congrats.svelte";
+export { default as ConnectWallet } from "./ConnectWallet.svelte";
 export { default as Dialog } from "./Dialog.svelte";
 export { default as Dropzone } from "./Dropzone.svelte";
 export { default as Eye } from "./Eye.svelte";
