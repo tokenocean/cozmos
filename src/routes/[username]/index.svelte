@@ -221,7 +221,7 @@
 								</a>
 							{/if}
 							{#if subject.discord}
-								<a href={`https://discord.com/${subject.discord}`}>
+								<a href={`https://discord.com`}>
 									<div class="flex">
 										<div class="my-auto">
 											<img
@@ -236,7 +236,7 @@
 								</a>
 							{/if}
 							{#if subject.tiktok}
-								<a href={`https://tiktok.com/${subject.tiktok}`}>
+								<a href={`https://tiktok.com/@${subject.tiktok}`}>
 									<div class="flex">
 										<div class="my-auto">
 											<img
