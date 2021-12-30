@@ -148,13 +148,13 @@
   {#if form}
     <div
       class="mb-4 w-full sm:max-w-3xl box-shadow md:p-10 m-auto lg:flex-row bg-gray-100">
-      <a class="block mb-6 text-black" href={`/${$user.username}`}>
+      <a class="block text-black" href={`/${$user.username}`}>
         <div class="flex">
           <Fa icon={faChevronLeft} class="my-auto mr-1" />
           <div>Back</div>
         </div>
       </a>
-      <h2 class="mb-10">Edit your profile</h2>
+      <h2 class="mb-10 text-center">Edit your profile</h2>
       <div class="flex mt-4 m-auto flex-col-reverse lg:flex-row">
         <form
           class="mb-6 flex-grow xl:mr-8"
