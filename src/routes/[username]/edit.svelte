@@ -142,7 +142,7 @@
           <div>Back</div>
         </div>
       </a>
-      <h2 class="mb-10 text-center">Edit your profile</h2>
+      <h2 class="mb-16 text-center">Edit your profile</h2>
       <div class="flex mt-4 m-auto flex-col-reverse lg:flex-row">
         <form
           class="mb-6 flex-grow xl:mr-8"
