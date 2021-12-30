@@ -8,11 +8,11 @@
 <style>
   .toggle-checkbox:checked {
     @apply right-0;
-    border: 1px solid #6ed8e0;
+    border: 1px solid #ef4baf;
     right: 0;
   }
   .toggle-checkbox:checked + .toggle-label {
-    background: #6ed8e0;
+    background: #ef4baf;
   }
 
 </style>
