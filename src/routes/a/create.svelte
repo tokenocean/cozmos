@@ -297,7 +297,7 @@
                 {#if imagePercent[IMG_TYPES.MAIN] && imagePercent[IMG_TYPES.MAIN] < 100}
                   Loading...
                 {:else if imagePercent[IMG_TYPES.MAIN] && imagePercent[IMG_TYPES.MAIN] === 100}
-                  <div class="w-1/2">
+                  <div class="w-1/2 mx-auto">
                     <ArtworkMedia
                       {artwork}
                       preview={imagePreview[IMG_TYPES.MAIN]}
@@ -318,7 +318,7 @@
 								{#if imagePercent[IMG_TYPES.THUMB] && imagePercent[IMG_TYPES.THUMB] < 100}
 									Loading...
 								{:else if imagePercent[IMG_TYPES.THUMB] && imagePercent[IMG_TYPES.THUMB] === 100}
-									<div class="w-1/2">
+									<div class="w-1/2 mx-auto">
 										<ArtworkMedia
 											{artwork}
 											preview={imagePreview[IMG_TYPES.THUMB]}
@@ -339,7 +339,7 @@
                 {#if imagePercent[IMG_TYPES.COVER] && imagePercent[IMG_TYPES.COVER] < 100}
                   Loading...
                 {:else if imagePercent[IMG_TYPES.COVER] && imagePercent[IMG_TYPES.COVER] === 100}
-                  <div class="w-1/2">
+                  <div class="w-1/2 mx-auto">
                     <ArtworkMedia
                       {artwork}
                       preview={imagePreview[IMG_TYPES.COVER]}
@@ -361,7 +361,7 @@
 								{#if imagePercent[IMG_TYPES.CONTENT] && imagePercent[IMG_TYPES.CONTENT] < 100}
 									Loading...
 								{:else if imagePercent[IMG_TYPES.CONTENT] && imagePercent[IMG_TYPES.CONTENT] === 100}
-									<div class="w-1/2">
+									<div class="w-1/2 mx-auto">
 										<ArtworkMedia
 											{artwork}
 											preview={imagePreview[IMG_TYPES.CONTENT]}
