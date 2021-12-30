@@ -109,20 +109,8 @@
     @apply appearance-none border border-gray-300 rounded py-4 px-3 text-gray-700 leading-tight bg-gray-100;
   }
 
-  label {
-    margin-bottom: 8px;
-  }
-
   div {
     position: relative;
-  }
-  .icon {
-    position: absolute;
-    pointer-events: none;
-    right: 15px;
-    top: 15px;
-    font-size: 20px;
-    color: #6ed8e0;
   }
 
   .box-shadow {

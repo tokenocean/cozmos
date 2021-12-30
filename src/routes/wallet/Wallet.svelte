@@ -85,10 +85,6 @@
 <style lang="scss">
     @import "../../styleguide/theme";
 
-    .active {
-        @apply border-t-2 border-b-2 border-r-2 text-white;
-    }
-
     .bg-custom-orange {
         background: $color-orange-80;
     }
