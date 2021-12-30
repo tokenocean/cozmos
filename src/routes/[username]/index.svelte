@@ -67,6 +67,10 @@
 
   let createdRadio;
   let collectedRadio;
+  let createdBold = "";
+  let collectedBold = "font-bold";
+  let createdOpacity = "opacity-60";
+  let collectedOpacity = "";
 
 </script>
 
@@ -190,82 +194,81 @@
                   </div>
                 </a>
               {/if}
-							{#if subject.youtube}
-								<a href={`https://youtube.com/${subject.youtube}`}>
-									<div class="flex">
-										<div class="my-auto">
-											<img
-												src="/svg_icons/Youtube.svg"
-												alt="YouTube icon"
-												class="w-12" />
-										</div>
-										<div class="self-center">
-											<span>@{subject.youtube}</span>
-										</div>
-									</div>
-								</a>
-							{/if}
-							{#if subject.facebook}
-								<a href={`https://facebook.com/${subject.facebook}`}>
-									<div class="flex">
-										<div class="my-auto">
-											<img
-												src="/svg_icons/Facebook-02.svg"
-												alt="Facebook icon"
-												class="w-12" />
-										</div>
-										<div class="self-center">
-											<span>@{subject.facebook}</span>
-										</div>
-									</div>
-								</a>
-							{/if}
-							{#if subject.discord}
-								<a href={`https://discord.com`}>
-									<div class="flex">
-										<div class="my-auto">
-											<img
-												src="/svg_icons/Discord.svg"
-												alt="Discord icon"
-												class="w-12" />
-										</div>
-										<div class="self-center">
-											<span>@{subject.discord}</span>
-										</div>
-									</div>
-								</a>
-							{/if}
-							{#if subject.tiktok}
-								<a href={`https://tiktok.com/@${subject.tiktok}`}>
-									<div class="flex">
-										<div class="my-auto">
-											<img
-												src="/svg_icons/Tik-tok.svg"
-												alt="TikTok icon"
-												class="w-12" />
-										</div>
-										<div class="self-center">
-											<span>@{subject.tiktok}</span>
-										</div>
-									</div>
-								</a>
-							{/if}
-							{#if subject.twitch}
-								<a href={`https://twitch.com/${subject.twitch}`}>
-									<div class="flex">
-										<div class="my-auto">
-											<img
-												src="/svg_icons/Twitch.svg"
-												alt="Twitch icon"
-												class="w-12" />
-										</div>
-										<div class="self-center">
-											<span>@{subject.twitch}</span>
-										</div>
-									</div>
-								</a>
-							{/if}
-
+              {#if subject.youtube}
+                <a href={`https://youtube.com/${subject.youtube}`}>
+                  <div class="flex">
+                    <div class="my-auto">
+                      <img
+                        src="/svg_icons/Youtube.svg"
+                        alt="YouTube icon"
+                        class="w-12" />
+                    </div>
+                    <div class="self-center">
+                      <span>@{subject.youtube}</span>
+                    </div>
+                  </div>
+                </a>
+              {/if}
+              {#if subject.facebook}
+                <a href={`https://facebook.com/${subject.facebook}`}>
+                  <div class="flex">
+                    <div class="my-auto">
+                      <img
+                        src="/svg_icons/Facebook-02.svg"
+                        alt="Facebook icon"
+                        class="w-12" />
+                    </div>
+                    <div class="self-center">
+                      <span>@{subject.facebook}</span>
+                    </div>
+                  </div>
+                </a>
+              {/if}
+              {#if subject.discord}
+                <a href={`https://discord.com`}>
+                  <div class="flex">
+                    <div class="my-auto">
+                      <img
+                        src="/svg_icons/Discord.svg"
+                        alt="Discord icon"
+                        class="w-12" />
+                    </div>
+                    <div class="self-center">
+                      <span>@{subject.discord}</span>
+                    </div>
+                  </div>
+                </a>
+              {/if}
+              {#if subject.tiktok}
+                <a href={`https://tiktok.com/@${subject.tiktok}`}>
+                  <div class="flex">
+                    <div class="my-auto">
+                      <img
+                        src="/svg_icons/Tik-tok.svg"
+                        alt="TikTok icon"
+                        class="w-12" />
+                    </div>
+                    <div class="self-center">
+                      <span>@{subject.tiktok}</span>
+                    </div>
+                  </div>
+                </a>
+              {/if}
+              {#if subject.twitch}
+                <a href={`https://twitch.com/${subject.twitch}`}>
+                  <div class="flex">
+                    <div class="my-auto">
+                      <img
+                        src="/svg_icons/Twitch.svg"
+                        alt="Twitch icon"
+                        class="w-12" />
+                    </div>
+                    <div class="self-center">
+                      <span>@{subject.twitch}</span>
+                    </div>
+                  </div>
+                </a>
+              {/if}
             </div>
             <div class="flex mt-5">
               <div
@@ -279,21 +282,23 @@
                 {subject.num_follows}
               </div>
             </div>
-						<div class='mt-3'>
-						{#if $user}
-							{#if $user.id === subject.id}
-							<a
-								class="primary-btn mr-6"
-								href={`/${$user.username}/edit`}>Edit Profile</a>
-							{/if}
-						{/if}
-						</div>
+            <div class="mt-3">
+              {#if $user}
+                {#if $user.id === subject.id}
+                  <a
+                    class="primary-btn mr-6"
+                    href={`/${$user.username}/edit`}>Edit Profile</a>
+                {/if}
+              {/if}
+            </div>
             <div class="mt-5 mr-6">
               {#if $user}
-								{#if !($user.id === subject.id)}
-                  <button class="p-2 primary-btn follow mt-8 w-full" on:click={follow}>
+                {#if !($user.id === subject.id)}
+                  <button
+                    class="p-2 primary-btn follow mt-8 w-full"
+                    on:click={follow}>
                     {subject.followed ? 'Unfollow' : 'Follow'}</button>
-								{/if}
+                {/if}
               {/if}
             </div>
           </div>
@@ -303,43 +308,46 @@
       <div class="w-full xl:w-2/3">
         <div class="flex justify-center text-center tabs flex-wrap mb-14">
           {#if subject.is_artist}
-            <div class="cursor-pointer flex" on:click={() => {
-							tab = 'creations';
-							createdRadio.src = '/svg_icons/comet.svg';
-							collectedRadio.src = 'svg_icons/comet-02.svg';
-						}}>
+            <div
+              class="cursor-pointer flex"
+              on:click={() => {
+                tab = 'creations';
+                createdRadio.src = '/svg_icons/comet.svg';
+                collectedRadio.src = 'svg_icons/comet-02.svg';
+                createdBold = 'font-bold';
+                collectedBold = '';
+                createdOpacity = '';
+                collectedOpacity = 'opacity-60';
+              }}>
               <img
                 src="/svg_icons/comet-02.svg"
                 alt="comet icon"
-                bind:this={createdRadio} />
-              <input
-                type="radio"
-                id="creations"
-                name="radio"
-                class="cursor-pointer"
-                checked
-                class:hover={tab === 'creations'}
-               />
-              <label for="creations" class="cursor-pointer">Created</label>
+                bind:this={createdRadio}
+                class={createdOpacity} />
+
+              <span
+                class="cursor-pointer self-center ml-2 {createdBold} {createdOpacity}">Created</span>
             </div>
           {/if}
-          <div class="cursor-pointer flex" on:click={() => {
-						tab = 'collection';
-						createdRadio.src = '/svg_icons/comet-02.svg';
-						collectedRadio.src = 'svg_icons/comet.svg';
-					}}>
+          <div
+            class="cursor-pointer flex"
+            on:click={() => {
+              tab = 'collection';
+              createdRadio.src = '/svg_icons/comet-02.svg';
+              collectedRadio.src = 'svg_icons/comet.svg';
+              createdBold = '';
+              collectedBold = 'font-bold';
+              createdOpacity = 'opacity-60';
+              collectedOpacity = '';
+            }}>
             <img
               src="/svg_icons/comet.svg"
               alt="comet icon"
-              bind:this={collectedRadio} />
-            <input
-              type="radio"
-              id="collection"
-              name="radio"
-              class="cursor-pointer"
-              class:hover={tab === 'collection'}
-             />
-            <label for="collection" class="cursor-pointer">Collected</label>
+              bind:this={collectedRadio}
+              class={collectedOpacity} />
+
+            <span
+              class="cursor-pointer self-center ml-2 {collectedBold} {collectedOpacity}">Collected</span>
           </div>
         </div>
         {#if tab === 'creations'}
