@@ -136,7 +136,7 @@
         <Fa icon={faSearch} />
       </div>
       <input
-        class="lg:w-1/3 border-0 border-b-2 rounded-none border-lightblue flex-1"
+        class="lg:w-1/3 border-0 border-b-2 rounded-none border-lightpink flex-1"
         placeholder="Search..."
         on:input={({ target: { value } }) => debounce(value)} />
     </div>
