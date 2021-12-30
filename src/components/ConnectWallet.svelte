@@ -39,14 +39,8 @@
       alt="coinos icon"
       class="w-20 mr-4" />Create one with us</button>
   <div class="block md:flex justify-center">
-    <div class="flex mt-10">
-      <a href="https://twitter.com/cozmosnft" target="_blank" rel="noreferrer">
-        <img
-          src="/static/svg_icons/Twitter-02.svg"
-          alt="Twitter icon"
-          class="w-52 md:w-16" />
-      </a>
-      <a
+   <div class="flex mt-5 md:mt-10">
+			<a
         href="https://instagram.com/cozmosnft"
         target="_blank"
         rel="noreferrer">
@@ -55,10 +49,16 @@
           alt="Instagram icon"
           class="w-52 md:w-16" />
       </a>
-      <a href="https://facebook.com/cozmosnft" target="_blank" rel="noreferrer">
+      <a href="https://discord.com/cozmosnft" target="_blank" rel="noreferrer">
         <img
-          src="/static/svg_icons/Facebook-02.svg"
-          alt="Facebook icon"
+          src="/static/svg_icons/Discord.svg"
+          alt="Discord icon"
+          class="w-52 md:w-16" />
+      </a>
+      <a href="https://twitter.com/cozmosnft" target="_blank" rel="noreferrer">
+        <img
+          src="/static/svg_icons/Twitter-02.svg"
+          alt="Twitter icon"
           class="w-52 md:w-16" />
       </a>
     </div>
