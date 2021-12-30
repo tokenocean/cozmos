@@ -191,7 +191,7 @@
                 </a>
               {/if}
 							{#if subject.youtube}
-								<a href={`https://${subject.youtube}`}>
+								<a href={`https://youtube.com/${subject.youtube}`}>
 									<div class="flex">
 										<div class="my-auto">
 											<img
@@ -206,7 +206,7 @@
 								</a>
 							{/if}
 							{#if subject.facebook}
-								<a href={`https://${subject.facebook}`}>
+								<a href={`https://facebook.com/${subject.facebook}`}>
 									<div class="flex">
 										<div class="my-auto">
 											<img
@@ -221,7 +221,7 @@
 								</a>
 							{/if}
 							{#if subject.discord}
-								<a href={`https://${subject.discord}`}>
+								<a href={`https://discord.com/${subject.discord}`}>
 									<div class="flex">
 										<div class="my-auto">
 											<img
@@ -236,7 +236,7 @@
 								</a>
 							{/if}
 							{#if subject.tiktok}
-								<a href={`https://${subject.tiktok}`}>
+								<a href={`https://tiktok.com/${subject.tiktok}`}>
 									<div class="flex">
 										<div class="my-auto">
 											<img
@@ -251,7 +251,7 @@
 								</a>
 							{/if}
 							{#if subject.twitch}
-								<a href={`https://${subject.twitch}`}>
+								<a href={`https://twitch.com/${subject.twitch}`}>
 									<div class="flex">
 										<div class="my-auto">
 											<img
