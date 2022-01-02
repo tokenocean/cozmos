@@ -20,11 +20,11 @@
         WE ARE DISRUPTING THE NFT INDUSTRY.
       </div>
       <div
-        class="text-white text-5xl secondary-font font-bold leading-normal mt-4">
+        class="text-white text-5xl secondary-font leading-normal mt-4">
         The First marketplace<br />
         for NFT-Experiences
       </div>
-      <div class="text-white text-xl secondary-font font-bold mt-4">
+      <div class="text-white text-xl secondary-font mt-4">
         From creators for everyone
       </div>
       <div class="text-gray-500 text-base font-semibold mt-6">
