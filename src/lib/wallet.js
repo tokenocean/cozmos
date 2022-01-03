@@ -984,6 +984,7 @@ export const createOffer = async (artwork, amount, input, f = 150) => {
     has_royalty,
     royalty_recipients,
     owner_id,
+    owner
   } = artwork;
 
   if (asset === btc && amount < DUST)
@@ -994,12 +995,12 @@ export const createOffer = async (artwork, amount, input, f = 150) => {
   let p = new Psbt().addOutput({
     asset,
     nonce,
-    script: Address.toOutputScript(artwork.owner.address, network),
+    script: Address.toOutputScript(owner.address, network),
     value: amount,
   });
 
   let total = parseInt(amount);
-  let pubkey = fromBase58(artwork.owner.pubkey, network).publicKey;
+  let pubkey = fromBase58(owner.pubkey, network).publicKey;
 
   if (has_royalty) {
     if (artist_id !== owner_id) {

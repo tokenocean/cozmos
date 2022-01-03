@@ -177,6 +177,7 @@
   };
 
   let artwork = {
+    asking_asset: btc,
     title: "",
     description: "",
     filename: "",
