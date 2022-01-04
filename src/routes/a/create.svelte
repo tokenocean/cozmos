@@ -275,9 +275,11 @@
     <div class="flex flex-col w-1/3">
       <div class="flex-grow-1 h-full bg-black">
         <h2 class="text-white p-14">Preview experience</h2>
+        {#if $user}
         <div class="w-2/3 mx-auto bg-gray-500 rounded-3xl">
           <Card {artwork} preview={imagePreview[IMG_TYPES.MAIN]} />
         </div>
+      {/if}
         <div
           style="background-image: url('/stars.png')"
           class="h-full bg-left mt-auto bg-repeat w-full"

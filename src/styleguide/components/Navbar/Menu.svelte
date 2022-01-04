@@ -108,7 +108,7 @@
       </div>
     </div>
   {:else}
-    <a href="" class="menu-link"><button class="menu-link-button" on:click={showConnect}>Connect wallet</button></a>
+    <a href="/wallet" class="menu-link"><button class="menu-link-button" on:click|preventDefault={showConnect}>Connect wallet</button></a>
 		<a href="/login" class="menu-link"><button class="menu-link-button">Login</button></a>
   {/if}
 </div>

@@ -7,7 +7,7 @@
   <p class="text-xl mt-4">You just purchased VIP Backstage at Tomorrowland.</p>
   <img
     src="/tomorrowland.jpg"
-    alt="Tomorrowland picture"
+    alt="Tomorrowland"
     class="w-120 md:w-90 md:h-60 mx-auto rounded-t-3xl mt-10" />
   <div class="border-t-2 border-gray-400 block md:flex justify-center">
     <div class="flex mt-5 md:mt-10">
@@ -17,19 +17,19 @@
         rel="noreferrer">
         <img
           src="/svg_icons/Instagram-02.svg"
-          alt="Instagram icon"
+          alt="Instagram"
           class="w-52 md:w-16" />
       </a>
       <a href="https://discord.com/cozmosnft" target="_blank" rel="noreferrer">
         <img
           src="/svg_icons/Discord.svg"
-          alt="Discord icon"
+          alt="Discord"
           class="w-52 md:w-16" />
       </a>
       <a href="https://twitter.com/cozmosnft" target="_blank" rel="noreferrer">
         <img
           src="/svg_icons/Twitter-02.svg"
-          alt="Twitter icon"
+          alt="Twitter"
           class="w-52 md:w-16" />
       </a>
     </div>
