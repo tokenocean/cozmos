@@ -27,7 +27,7 @@
     type="button"
     name="button"
     class="bg-black block mx-auto sm:w-full md:w-5/6 md:h-16 mt-8 mb-4 rounded-lg text-white font-bold marina flex items-center md:text-xl"><img
-      src="/static/svg_icons/Marina.svg"
+      src="/svg_icons/Marina.svg"
       alt="Marina icon"
       class="w-20 mr-4" />Marina - Liquid Wallet</button>
   <button
@@ -35,7 +35,7 @@
     name="button"
     class="bg-black block mx-auto sm:w-full md:w-5/6 md:h-16 rounded-lg text-white font-bold flex items-center md:text-xl"
     on:click={register}><img
-      src="/static/svg_icons/Logo.svg"
+      src="/svg_icons/Logo.svg"
       alt="coinos icon"
       class="w-20 mr-4" />Create one with us</button>
   <div class="block md:flex justify-center">
@@ -45,19 +45,19 @@
         target="_blank"
         rel="noreferrer">
         <img
-          src="/static/svg_icons/Instagram-02.svg"
+          src="/svg_icons/Instagram-02.svg"
           alt="Instagram icon"
           class="w-52 md:w-16" />
       </a>
       <a href="https://discord.com/cozmosnft" target="_blank" rel="noreferrer">
         <img
-          src="/static/svg_icons/Discord.svg"
+          src="/svg_icons/Discord.svg"
           alt="Discord icon"
           class="w-52 md:w-16" />
       </a>
       <a href="https://twitter.com/cozmosnft" target="_blank" rel="noreferrer">
         <img
-          src="/static/svg_icons/Twitter-02.svg"
+          src="/svg_icons/Twitter-02.svg"
           alt="Twitter icon"
           class="w-52 md:w-16" />
       </a>
