@@ -30,9 +30,13 @@
       metadata.keywords + " " + artwork.tags.map((t) => t.tag).join(" ");
     metadata.description = artwork.description;
 
-    if (artwork.filetype.includes("video"))
-      metadata.video = "/api/ipfs/" + artwork.filename;
-    else metadata.image = "/api/ipfs/" + artwork.filename;
+    let type = "image";
+    metadata[type] = `${host}/api/public/${artwork.filename}.png`;
+    if (artwork.filetype.includes("video")) type = "video";
+
+    metadata[type] = `${host}/api/public/${artwork.filename}.${
+      artwork.filetype.split("/")[1]
+    }`;
 
     props.metadata = metadata;
 
@@ -318,6 +322,202 @@
   let showPopup = false;
   let showMore = false;
   let showActivity = false;
+<<<<<<< HEAD
+=======
+</script>
+
+<Head {metadata} />
+
+<div class="container mx-auto mt-10 md:mt-20">
+  <div class="flex flex-wrap">
+    <div class="lg:text-left w-full lg:w-1/3 lg:max-w-xs">
+      <h1 class="text-3xl font-black primary-color break-words">
+        {artwork.title || "Untitled"}
+      </h1>
+      <div class="flex mt-4 mb-6">
+        <div class="my-auto">
+          Edition
+          {artwork.edition}
+          of
+          {artwork.editions}
+        </div>
+        {#if artwork.is_physical}
+          <div
+            class="flex ml-auto py-1 px-4 bg-gray-100 rounded rounded-full my-auto"
+          >
+            <div class="my-auto">
+              <Fa icon={faImage} class="mr-1" />
+            </div>
+            <div class="my-auto mb-1">
+              <span class="text-sm">Physical artwork</span>
+            </div>
+          </div>
+        {/if}
+      </div>
+
+      <div class="flex flex-wrap justify-between text-left">
+        <a href={`/u/${artwork.artist.username}`}>
+          <div class="flex mb-6">
+            <Avatar user={artwork.artist} />
+            <div class="ml-2 secondary-color">
+              <div>@{artwork.artist.username}</div>
+              <div class="text-xs text-gray-600">Artist</div>
+            </div>
+          </div>
+        </a>
+        {#if artwork.artist_id !== artwork.owner_id}
+        <a href={`/u/${artwork.owner.username}`}>
+          <div class="flex mb-6 secondary-color">
+            <Avatar user={artwork.owner} />
+            <div class="ml-2">
+              <div>@{artwork.owner.username}</div>
+              <div class="text-xs text-gray-600">
+                {artwork.held ? "" : "Presumed "}Owner
+              </div>
+            </div>
+          </div>
+        </a>
+      {/if}
+      </div>
+
+      <div class="mobileImage">
+        <span on:click={() => (showPopup = !showPopup)}>
+          <Card {artwork} columns={1} showDetails={false} thumb={false} />
+        </span>
+      </div>
+
+      <div class="flex justify-between mb-6">
+        {#if artwork.list_price}
+          <div class="my-2">
+            <div class="text-sm mt-auto">List Price</div>
+            <div class="text-lg">{list_price} {ticker}</div>
+          </div>
+        {/if}
+        {#if artwork.reserve_price}
+          <div class="my-2">
+            <div class="text-sm mt-auto">Reserve Price</div>
+            <div class="flex-1 text-lg">
+              {val(artwork.reserve_price)}
+              {ticker}
+            </div>
+          </div>
+        {/if}
+        {#if artwork.bid && artwork.bid.amount}
+          <div class="my-2">
+            <div class="text-sm mt-auto">Current bid</div>
+            <div class="text-lg">{val(artwork.bid.amount)} {ticker}</div>
+          </div>
+        {/if}
+      </div>
+
+      <RoyaltyInfo {artwork} />
+
+      {#if loading}
+        <ProgressLinear />
+      {:else if $user && $user.id === artwork.owner_id && artwork.held}
+        <div class="w-full mb-2">
+          <a
+            sveltekit:prefetch
+            href={disabled ? "" : `/a/${artwork.slug}/auction`}
+            class="block text-center text-sm secondary-btn w-full"
+            class:disabled>List</a
+          >
+        </div>
+        {#if artwork.held === "multisig" && !artwork.has_royalty && !artwork.auction_end}
+          <div class="w-full mb-2">
+            <a
+              href="/"
+              on:click|preventDefault={release}
+              class="block text-center text-sm secondary-btn w-full"
+              class:disabled>Release</a
+            >
+          </div>
+        {/if}
+        <div class="w-full mb-2">
+          <a
+            href={`/a/${artwork.slug}/transfer`}
+            class="block text-center text-sm secondary-btn w-full"
+            class:disabled>Transfer</a
+          >
+        </div>
+
+        {#if $user.id === artwork.artist_id}
+          <div class="w-full mb-2">
+            <a
+              href={`/a/${artwork.slug}/edit`}
+              class="block text-center text-sm secondary-btn w-full"
+              class:disabled>Edit</a
+            >
+          </div>
+        {/if}
+      {:else if artwork.asking_asset}
+        {#if artwork.list_price}
+          <button
+            on:click={buyNow}
+            class="secondary-btn"
+            {disabled}
+            class:disabled>Buy now</button
+          >
+        {/if}
+        {#if bidding}
+          {#if offering}
+            <ProgressLinear />
+          {:else}
+            <form on:submit|preventDefault={makeOffer}>
+              <div class="flex flex-col mb-4">
+                <div>
+                  <div class="mt-1 relative rounded-md shadow-sm">
+                    <input
+                      id="price"
+                      class="form-input block w-full pl-7"
+                      placeholder={val(0)}
+                      bind:value={amount}
+                      bind:this={amountInput}
+                    />
+                    <div
+                      class="absolute inset-y-0 right-0 flex items-center mr-2"
+                    >
+                      {ticker}
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <button type="submit" class="secondary-btn">Submit</button>
+            </form>
+          {/if}
+        {:else if !artwork.auction_start || compareAsc(now, parseISO(artwork.auction_start)) === 1}
+          <button
+            on:click={startBidding}
+            class="secondary-btn"
+            {disabled}
+            class:disabled>Make an offer</button
+          >
+        {/if}
+      {/if}
+
+      {#if compareAsc(parseISO(artwork.auction_start), now) === 1 && start_counter}
+        <div class="bg-gray-100 px-4 p-1 mt-6 rounded">
+          <div class="mt-auto text-sm">Auction starts in</div>
+          <div class="mt-1">{start_counter}</div>
+        </div>
+      {/if}
+
+      {#if compareAsc(parseISO(artwork.auction_end), now) === 1 && end_counter}
+        <div class="bg-gray-100 px-4 p-1 mt-6 rounded">
+          <div class="mt-auto text-sm">Auction closes in</div>
+          <div class="mt-1">{end_counter}</div>
+        </div>
+      {:else if artwork.auction_end}
+        <div class="bg-gray-100 px-4 p-1 mt-6 rounded">
+          <div class="mt-auto text-sm">Auction ended at</div>
+          <div class="mt-1">
+            {format(parseISO(artwork.auction_end), "yyyy-MM-dd HH:mm")}
+          </div>
+        </div>
+      {/if}
+
+      <Sidebar bind:artwork />
+>>>>>>> 9811292d... only show owner if not the same as artist
 
 
   let showCongrats = () => {
