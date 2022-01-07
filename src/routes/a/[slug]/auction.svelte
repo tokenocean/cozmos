@@ -29,6 +29,7 @@
 </script>
 
 <script>
+  import { browser } from "$app/env";
   import Fa from "svelte-fa";
   import { faChevronLeft } from "@fortawesome/free-solid-svg-icons";
   import { faQuestionCircle } from "@fortawesome/free-regular-svg-icons";
@@ -90,7 +91,7 @@
 
   let input;
   let initialized;
-  let focus = (i) => i && tick().then(() => input && input.focus());
+  let focus = (i) => browser && i && tick().then(() => input && input.focus());
   $: focus(initialized);
 
   let loading = true;
