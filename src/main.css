@@ -269,7 +269,7 @@ select {
     box-shadow: 1px 0px 5px 0px #cbcbcb;
 }
 
-.sticky {
+.stickyCustom {
     position: fixed;
     top: 0;
     left: 0;

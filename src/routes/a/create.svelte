@@ -250,7 +250,7 @@
 
 </script>
 
-<div class="container mx-auto p-20">
+<div class="container mx-auto p-20 pb-96">
   <!--
   <div
     class="absolute right-0 bottom-0 border-black border-r border-b w-12 h-12 mr-12">
@@ -266,7 +266,7 @@
     <div class="flex flex-col w-1/3">
       <div class="flex-grow-1 h-full bg-black">
         <h2 class="text-white p-14">Preview experience</h2>
-        <div class="w-2/3 mx-auto bg-gray-500 rounded-3xl">
+        <div class="w-2/3 mx-auto bg-gray-500 rounded-3xl sticky top-64 mb-20">
           <Card {artwork} preview={imagePreview[IMG_TYPES.MAIN]} />
         </div>
         <div

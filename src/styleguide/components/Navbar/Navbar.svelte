@@ -31,7 +31,7 @@
     }
   }
 
-  :global(.sticky) {
+  :global(.stickyCustom) {
     background-color: $header--background-color;
   }
 
