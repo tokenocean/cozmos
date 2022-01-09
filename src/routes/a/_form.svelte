@@ -130,7 +130,7 @@
 
   <div class="py-4">
     <FormItem title="Sell on marketplace">
-      <div class="grid gap-8 grid-cols-2 py-4">
+      <div class="md:grid md:gap-8 md:grid-cols-2 py-4">
         <div>
           <div
             on:click={selectListingType(TYPES.FIXED)}
@@ -186,7 +186,7 @@
   </div>
 
   <div>
-    <div class="grid gap-8 grid-cols-2 py-4">
+    <div class="md:grid md:gap-8 md:grid-cols-2 py-4">
       <div>
         {#if listingType === TYPES.FIXED}
           <FormItem title="Price">
@@ -215,7 +215,7 @@
           </ul>
         </div>
       </div>
-      <div>
+      <div class="mt-4 md:mt-0">
         {#if listingType === TYPES.AUCTION}
           <FormItem title="Starting date">
             <input
@@ -240,7 +240,7 @@
 
   <hr class="my-4" />
 
-  <div class="grid gap-8 grid-cols-2 py-4">
+  <div class="md:grid md:gap-8 md:grid-cols-2 py-4">
     <div>
       <FormItem title="Royalties">
         <Input placeholder="%" />

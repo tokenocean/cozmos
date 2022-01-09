@@ -264,15 +264,15 @@
   };
 </script>
 
-<div class="container mx-auto p-20 pb-96">
-  <div class="flex w-full mx-auto bg-gray-100 submitArtwork">
+<div class="container mx-auto p-6 md:p-20 md:pb-96">
+  <div class="flex w-full mx-auto bg-gray-100 submitArtwork mb-4 md:mb-0">
     <div
-      class="absolute right-16 rounded-full border-black border-l border-t w-8 h-8 -mt-4 z-50 bg-black text-4xl text-center text-white cursor-pointer"
+      class="absolute right-2 md:right-16 rounded-full border-black border-l border-t w-8 h-8 -mt-4 z-50 bg-black text-4xl text-center text-white cursor-pointer"
       on:click={close}
     >
       <div class="-mt-2">&times;</div>
     </div>
-    <div class="flex flex-col w-1/3">
+    <div class="hidden md:flex md:flex-col md:w-1/3">
       <div class="flex-grow-1 h-full bg-black">
         <h2 class="text-white p-14">Preview experience</h2>
         {#if $user}
@@ -286,9 +286,9 @@
         />
       </div>
     </div>
-    <div class="p-14">
-      <div class="w-3/5 mx-auto text-center mb-12">
-        <h2>Create Experience</h2>
+    <div class="md:p-14 p-2">
+      <div class="w-full md:w-3/5 mx-auto text-center mb-4 md:mb-12">
+        <h2 class="my-4 md:my-0">Create Experience</h2>
         <p>
           Here at Cozmos we value the experience more than the "Art" itself, in
           the sense that we will always put the experience given to the buyer
@@ -300,7 +300,7 @@
         </p>
       </div>
 
-      <div class="grid grid-cols-2 text-left">
+      <div class="md:grid md:grid-cols-2 md:text-left p-4">
         <div>
           <FormItem title="Upload NFT image" text="text-center">
             {#if imagePreview[IMG_TYPES.MAIN] || imagePercent[IMG_TYPES.MAIN]}

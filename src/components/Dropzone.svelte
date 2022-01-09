@@ -68,8 +68,7 @@
     #drop-area {
       width: 100%;
       max-width: 100%;
-      margin: 0;
-      margin-top: 50px;
+      margin: 10px 0 25px 0;
     }
   }
 
