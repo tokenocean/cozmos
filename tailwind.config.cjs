@@ -29,7 +29,7 @@ const COLORS = {
 
 module.exports = {
   mode: 'jit',
-  purge: [
+  content: [
     './src/**/*.{js,svelte}',
   ],
   theme: {
