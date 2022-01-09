@@ -41,7 +41,6 @@
     props.metadata = metadata;
 
     return {
-      maxage: 90,
       props,
     };
   }

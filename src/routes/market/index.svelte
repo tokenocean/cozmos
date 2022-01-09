@@ -3,7 +3,6 @@
     const r = await fetch("/artworks.json?limit=12").then((r) => r.json());
 
     return {
-      maxage: 720,
       props: {
         count: r.count,
         initialArtworks: r.artworks,
