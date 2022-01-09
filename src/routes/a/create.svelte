@@ -1,3 +1,15 @@
+<script context="module">
+  export async function load({ session }) {
+    if (!(session && session.user))
+      return {
+        status: 302,
+        redirect: "/login",
+      };
+
+    return {};
+  }
+</script>
+
 <script>
   import Card from "$styleguide/components/Card.svelte";
   import Core from "$lib/lnft-core";
@@ -177,22 +189,23 @@
   };
 
   let artwork = {
+    asking_asset: btc,
     title: "",
     description: "",
     filename: "",
     filetype: "",
     ticker: "",
     package_content: "",
-    asset: "",
+    asset: btc,
     edition: 1,
     editions: 1,
     tags: [],
     owner: $user,
     artist: $user,
-		list_price: "",
-		reserve_price: "",
-		auction_start: "",
-		auction_end: ""
+    list_price: null,
+    reserve_price: null,
+    auction_start: null,
+    auction_end: null,
   };
 
   async function submit(e) {
@@ -210,25 +223,28 @@
       return err("Editions is required and should be a number");
 
     const core = new Core();
-		let showThanks = () => {
-			$prompt = {
-				component: ThankYou,
-				hide: true,
-			}
-		}
+    let showThanks = () => {
+      $prompt = {
+        component: ThankYou,
+        hide: true,
+      };
+    };
 
     try {
       if (artwork.editions > 1) {
         $prompt = Issuing;
       }
       loading = true;
-      artwork = await core.createArtwork({
-        artwork,
+      let strippedDown = { ...artwork };
+      delete strippedDown.owner;
+      delete strippedDown.artist;
+      await core.createArtwork({
+        artwork: strippedDown,
         // for Cozmos client we should generate tickers automatically,
         // and check their availability
         generateRandomTickers: true,
       });
-			showThanks();
+      showThanks();
     } catch (e) {
       err(e);
       loading = false;
@@ -243,32 +259,27 @@
     };
   }
 
-
-	let close = () => {
-		goto("/market");
-	};
-
+  let close = () => {
+    goto("/market");
+  };
 </script>
 
 <div class="container mx-auto p-20 pb-96">
-  <!--
-  <div
-    class="absolute right-0 bottom-0 border-black border-r border-b w-12 h-12 mr-12">
-    &nbsp;
-  </div>
-  -->
   <div class="flex w-full mx-auto bg-gray-100 submitArtwork">
     <div
       class="absolute right-16 rounded-full border-black border-l border-t w-8 h-8 -mt-4 z-50 bg-black text-4xl text-center text-white cursor-pointer"
-			on:click={close}>
+      on:click={close}
+    >
       <div class="-mt-2">&times;</div>
     </div>
     <div class="flex flex-col w-1/3">
       <div class="flex-grow-1 h-full bg-black">
         <h2 class="text-white p-14">Preview experience</h2>
+        {#if $user}
         <div class="w-2/3 mx-auto bg-gray-500 rounded-3xl sticky top-64 mb-20">
           <Card {artwork} preview={imagePreview[IMG_TYPES.MAIN]} />
         </div>
+      {/if}
         <div
           style="background-image: url('/stars.png')"
           class="h-full bg-left mt-auto bg-repeat w-full"
@@ -291,7 +302,7 @@
 
       <div class="grid grid-cols-2 text-left">
         <div>
-          <FormItem title="Upload NFT image" text='text-center'>
+          <FormItem title="Upload NFT image" text="text-center">
             {#if imagePreview[IMG_TYPES.MAIN] || imagePercent[IMG_TYPES.MAIN]}
               <div class="text-black">
                 {#if imagePercent[IMG_TYPES.MAIN] && imagePercent[IMG_TYPES.MAIN] < 100}
@@ -311,29 +322,29 @@
             {/if}
           </FormItem>
         </div>
-				<div>
-					<FormItem title="Upload thumbnail (optional)" text='text-center'>
-						{#if imagePreview[IMG_TYPES.THUMB] || imagePercent[IMG_TYPES.THUMB]}
-							<div class="text-black">
-								{#if imagePercent[IMG_TYPES.THUMB] && imagePercent[IMG_TYPES.THUMB] < 100}
-									Loading...
-								{:else if imagePercent[IMG_TYPES.THUMB] && imagePercent[IMG_TYPES.THUMB] === 100}
-									<div class="w-1/2 mx-auto">
-										<ArtworkMedia
-											{artwork}
-											preview={imagePreview[IMG_TYPES.THUMB]}
-											on:cancel={cancelPreview(IMG_TYPES.THUMB)}
-										/>
-									</div>
-								{/if}
-							</div>
-						{:else}
-							<Dropzone on:file={uploadFile(IMG_TYPES.MAIN)} />
-						{/if}
-					</FormItem>
-				</div>
         <div>
-          <FormItem title="Upload cover banner" text='text-center'>
+          <FormItem title="Upload thumbnail (optional)" text="text-center">
+            {#if imagePreview[IMG_TYPES.THUMB] || imagePercent[IMG_TYPES.THUMB]}
+              <div class="text-black">
+                {#if imagePercent[IMG_TYPES.THUMB] && imagePercent[IMG_TYPES.THUMB] < 100}
+                  Loading...
+                {:else if imagePercent[IMG_TYPES.THUMB] && imagePercent[IMG_TYPES.THUMB] === 100}
+                  <div class="w-1/2 mx-auto">
+                    <ArtworkMedia
+                      {artwork}
+                      preview={imagePreview[IMG_TYPES.THUMB]}
+                      on:cancel={cancelPreview(IMG_TYPES.THUMB)}
+                    />
+                  </div>
+                {/if}
+              </div>
+            {:else}
+              <Dropzone on:file={uploadFile(IMG_TYPES.MAIN)} />
+            {/if}
+          </FormItem>
+        </div>
+        <div>
+          <FormItem title="Upload cover banner" text="text-center">
             {#if imagePreview[IMG_TYPES.COVER] || imagePercent[IMG_TYPES.COVER]}
               <div class="text-black">
                 {#if imagePercent[IMG_TYPES.COVER] && imagePercent[IMG_TYPES.COVER] < 100}
@@ -353,58 +364,63 @@
             {/if}
           </FormItem>
         </div>
-				<!-- need to hook these 2 new dropzones to backend and other frontend locations -->
-				<div>
-					<FormItem title="Upload gallery images" text='text-center'>
-						{#if imagePreview[IMG_TYPES.CONTENT] || imagePercent[IMG_TYPES.CONTENT]}
-							<div class="text-black">
-								{#if imagePercent[IMG_TYPES.CONTENT] && imagePercent[IMG_TYPES.CONTENT] < 100}
-									Loading...
-								{:else if imagePercent[IMG_TYPES.CONTENT] && imagePercent[IMG_TYPES.CONTENT] === 100}
-									<div class="w-1/2 mx-auto">
-										<ArtworkMedia
-											{artwork}
-											preview={imagePreview[IMG_TYPES.CONTENT]}
-											on:cancel={cancelPreview(IMG_TYPES.CONTENT)} />
-									</div>
-								{/if}
-							</div>
-						{:else}
-							<Dropzone on:file={uploadFile(IMG_TYPES.CONTENT)} />
-						{/if}
-					</FormItem>
-				</div>
-			</div>
-				<div class="grid grid-cols-1 text-left">
-					<FormItem title="Upload video experience information" text='text-center'>
-						{#if imagePreview[IMG_TYPES.VIDEO] || imagePercent[IMG_TYPES.VIDEO]}
-							<div class="text-black">
-								{#if imagePercent[IMG_TYPES.VIDEO] && imagePercent[IMG_TYPES.VIDEO] < 100}
-									Loading...
-								{:else if imagePercent[IMG_TYPES.VIDEO] && imagePercent[IMG_TYPES.VIDEO] === 100}
-									<div class="w-1/2">
-										<ArtworkMedia
-											{artwork}
-											preview={imagePreview[IMG_TYPES.VIDEO]}
-											on:cancel={cancelPreview(IMG_TYPES.VIDEO)} />
-									</div>
-								{/if}
-							</div>
-						{:else}
-							<Dropzone on:file={uploadFile(IMG_TYPES.VIDEO)} />
-						{/if}
-					</FormItem>
-				</div>
-        <!--        <div>-->
-        <!--          <FormItem title="Upload content">-->
-        <!--            <Dropzone on:file={uploadFile}/>-->
-        <!--          </FormItem>-->
-        <!--        </div>-->
-        <!--        <div>-->
-        <!--          <FormItem title="Upload Video Experience Information">-->
-        <!--            <Dropzone on:file={uploadFile}/>-->
-        <!--          </FormItem>-->
-        <!--        </div>-->
+        <!-- need to hook these 2 new dropzones to backend and other frontend locations -->
+        <div>
+          <FormItem title="Upload gallery images" text="text-center">
+            {#if imagePreview[IMG_TYPES.CONTENT] || imagePercent[IMG_TYPES.CONTENT]}
+              <div class="text-black">
+                {#if imagePercent[IMG_TYPES.CONTENT] && imagePercent[IMG_TYPES.CONTENT] < 100}
+                  Loading...
+                {:else if imagePercent[IMG_TYPES.CONTENT] && imagePercent[IMG_TYPES.CONTENT] === 100}
+                  <div class="w-1/2 mx-auto">
+                    <ArtworkMedia
+                      {artwork}
+                      preview={imagePreview[IMG_TYPES.CONTENT]}
+                      on:cancel={cancelPreview(IMG_TYPES.CONTENT)}
+                    />
+                  </div>
+                {/if}
+              </div>
+            {:else}
+              <Dropzone on:file={uploadFile(IMG_TYPES.CONTENT)} />
+            {/if}
+          </FormItem>
+        </div>
+      </div>
+      <div class="grid grid-cols-1 text-left">
+        <FormItem
+          title="Upload video experience information"
+          text="text-center"
+        >
+          {#if imagePreview[IMG_TYPES.VIDEO] || imagePercent[IMG_TYPES.VIDEO]}
+            <div class="text-black">
+              {#if imagePercent[IMG_TYPES.VIDEO] && imagePercent[IMG_TYPES.VIDEO] < 100}
+                Loading...
+              {:else if imagePercent[IMG_TYPES.VIDEO] && imagePercent[IMG_TYPES.VIDEO] === 100}
+                <div class="w-1/2">
+                  <ArtworkMedia
+                    {artwork}
+                    preview={imagePreview[IMG_TYPES.VIDEO]}
+                    on:cancel={cancelPreview(IMG_TYPES.VIDEO)}
+                  />
+                </div>
+              {/if}
+            </div>
+          {:else}
+            <Dropzone on:file={uploadFile(IMG_TYPES.VIDEO)} />
+          {/if}
+        </FormItem>
+      </div>
+      <!--        <div>-->
+      <!--          <FormItem title="Upload content">-->
+      <!--            <Dropzone on:file={uploadFile}/>-->
+      <!--          </FormItem>-->
+      <!--        </div>-->
+      <!--        <div>-->
+      <!--          <FormItem title="Upload Video Experience Information">-->
+      <!--            <Dropzone on:file={uploadFile}/>-->
+      <!--          </FormItem>-->
+      <!--        </div>-->
       <div class="flex flex-wrap flex-col-reverse lg:flex-row">
         <div class="w-full">
           <div class:invisible={!loading}>
