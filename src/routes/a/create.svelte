@@ -300,7 +300,7 @@
         </p>
       </div>
 
-      <div class="md:grid md:grid-cols-2 md:text-left p-4">
+      <div class="md:grid md:grid-cols-2 md:text-left md:p-4">
         <div>
           <FormItem title="Upload NFT image" text="text-center">
             {#if imagePreview[IMG_TYPES.MAIN] || imagePercent[IMG_TYPES.MAIN]}
@@ -387,7 +387,7 @@
           </FormItem>
         </div>
       </div>
-      <div class="grid grid-cols-1 text-left">
+      <div class="md:grid md:grid-cols-1 text-left">
         <FormItem
           title="Upload video experience information"
           text="text-center"
