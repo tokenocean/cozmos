@@ -152,7 +152,7 @@
 {:else}
   <div class="w-full" class:cover class:contain>
     <img
-      src={preview || (path ? path : '/liquid_logo.svg')}
+      src={preview || path}
       alt={artwork.title}
       bind:this={img} />
   </div>

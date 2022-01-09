@@ -13,8 +13,6 @@ export { default as Gallery } from "./Gallery.svelte";
 export { default as Head } from "./Head.svelte";
 export { default as Heart } from "./Heart.svelte";
 export { default as InsufficientFunds } from "./InsufficientFunds.svelte";
-export { default as Menu } from "./Menu.svelte";
-export { default as Navbar } from "./Navbar.svelte";
 export { default as Offers } from "./Offers.svelte";
 export { default as Pagination } from "./Pagination.svelte";
 export { default as PasswordPrompt } from "./PasswordPrompt.svelte";
