@@ -79,7 +79,7 @@
 
     .form-container form {
       box-shadow: none;
-      padding: 0.2rem;
+      padding: 1rem;
       margin-top: 50px;
     }
   }
