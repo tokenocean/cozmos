@@ -1,6 +1,5 @@
 <script>
   import { browser } from "$app/env";
-  import { Pagination } from "$comp";
   import { onMount, tick } from "svelte";
   import Card from "$styleguide/components/Card.svelte";
 
