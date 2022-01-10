@@ -45,6 +45,7 @@
 </script>
 
 <script>
+	import { Swipe, SwipeItem } from "svelte-swipe";
   import Fa from "svelte-fa";
   import {
     faChevronDown,
@@ -86,6 +87,14 @@
   import { SocialShare } from "$comp";
   import Button from "$styleguide/components/Button.svelte";
   import Card from "$styleguide/components/Card.svelte";
+
+	const swipeConfig = {
+		autoplay: false,
+		delay: 2000,
+		showIndicators: true,
+		transitionDuration: 1000,
+		defaultIndex: 0,
+	};
 
   export let artwork, metadata;
 
@@ -318,6 +327,15 @@
 </script>
 
 <style lang="scss">
+	.swipe-holder{
+		height: 30vh;
+		width: 100%;
+	}
+	.swipe-holder img{
+		max-width: 100%;
+		height: auto;
+	}
+
   .disabled {
     cursor: not-allowed;
     opacity: 0.8;
@@ -686,6 +704,7 @@
             {/if}
           </div>
         </div>
+
         <!-- Description -->
         <div class="mt-12">
           <div class="text-2xl font-bold">Description</div>
@@ -701,6 +720,22 @@
             {artwork.package_content || 'Package content of this product is empty'}
           </div>
         </div>
+
+				<!-- Gallery -->
+				<div class="text-2xl font-bold mt-12">Gallery</div>
+				<div class="swipe-holder mt-4 rounded">
+					<Swipe {...swipeConfig}>
+						<SwipeItem>
+							<img src="/static/atv.jpeg" alt="" class="rounded">
+						</SwipeItem>
+
+						<SwipeItem>
+							<img src="/static/tomorrowland.jpg" alt="" class="rounded">
+						</SwipeItem>
+					</Swipe>
+				</div>
+
+				<!-- Comments -->
 				<Comments bind:artwork bind:fetch />
       </div>
     </div>
