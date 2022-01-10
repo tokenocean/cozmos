@@ -87,7 +87,7 @@
     <Search />
   </div>
 </div>
-<div class="container mx-auto">
+<div class="container mx-auto px-2 md:px-0">
   <div
     class="flex flex-wrap justify-between items-center md:flex-row-reverse controls"
   >

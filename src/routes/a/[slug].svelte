@@ -479,12 +479,12 @@
 
 
 <div
-  class="w-full h-96 bg-center bg-cover"
+  class="w-full h-96 bg-center bg-cover hidden md:block"
   style="background-image: url('https://blogs.esa.int/space19plus/files/2019/03/nebula.jpg');" />
 
-<div class="nft-container mx-auto pt-24 mb-10">
-  <div class="flex">
-    <div class="w-1/3 mr-16">
+<div class="nft-container mx-auto pt-4 md:pt-24 mb-10 px-4 md:px-0">
+  <div class="md:flex">
+    <div class="md:w-1/3 md:mr-16">
       <div class="overflow-hidden rounded-2xl nft-box-shadow">
         <ArtworkMedia {artwork} />
       </div>
@@ -514,13 +514,14 @@
         </div>
       </div>
     </div>
-    <div class="w-3/4 ml-16">
+    <div class="md:w-3/4 md:ml-16">
       <!-- Artwork title -->
-      <div class="font-title">{artwork.title || 'Untitled'}</div>
+      <div class="font-title text-center md:text-left">{artwork.title || 'Untitled'}</div>
       <!-- Creator/Owner & controls (like,share,gift)-->
-      <div class="mt-16">
-        <div class="flex">
+      <div class="mt-2 md:mt-16">
+        <div class="md:flex">
           <!-- Avatar -->
+					<div class="flex justify-center md:block">
           <div>
             <a
               href={`/${artwork.artist.username}`}
@@ -538,8 +539,10 @@
               </div>
             </a>
           </div>
+				</div>
           <!-- Avatar -->
-          <div class="ml-24">
+				<div class="flex justify-center md:block my-4 md:my-0">
+          <div class="md:ml-24">
             <a href={`/${artwork.owner.username}`} class="text-gray-800 flex">
               <div>
                 <Avatar user={artwork.owner} />
@@ -554,7 +557,9 @@
               </div>
             </a>
           </div>
-          <div class="flex flex-1 justify-end items-center">
+				</div>
+
+          <div class="flex flex-1 justify-center md:justify-end items-center my-4 md:my-0">
             <div
               class="mr-1 ml-1 bg-black w-8 h-8 rounded-full flex items-center justify-center text-white cursor-pointer"
               on:click={inDevelopment}>
@@ -571,11 +576,11 @@
             </div>
           </div>
         </div>
+
         <hr class="mt-8 mb-8" />
         <!-- price & purchase/make bid -->
         <div class="flex">
           <!-- Price block-->
-
           {#if artwork.list_price || artwork.reserve_price}
             <div class="mr-8">
               <div

@@ -122,7 +122,7 @@
 <div class="container mx-auto lg:px-16 mt-5 md:mt-20">
   {#if subject}
     <div class="flex justify-between flex-wrap" in:fade>
-      <div class="w-full xl:w-1/3 xl:max-w-xs mb-20">
+      <div class="w-full xl:w-1/3 xl:max-w-xs mb-10 md:mb-20 px-2 md:px-0">
         <div id="line-right">
           <div>
             <div class="flex-auto flex-col">
@@ -266,7 +266,7 @@
                 </a>
               {/if}
             </div>
-            <div class="flex mt-5">
+            <div class="flex md:justify-start justify-center mt-5">
               <div
                 class="mr-3 border rounded-full py-2 px-5 border-solid border-black">
                 Followers:
@@ -278,20 +278,20 @@
                 {subject.num_follows}
               </div>
             </div>
-            <div class="mt-3">
+            <div class="mt-3 md:justify-start justify-center flex md:block">
               {#if $user}
                 {#if $user.id === subject.id}
                   <a
-                    class="primary-btn mr-6"
+                    class="primary-btn w-2/3 md:w-auto md:mr-6"
                     href={`/${$user.username}/edit`}>Edit Profile</a>
                 {/if}
               {/if}
             </div>
-            <div class="mt-5 mr-6">
+            <div class="mt-5 md:mr-6">
               {#if $user}
                 {#if !($user.id === subject.id)}
                   <button
-                    class="p-2 primary-btn follow mt-8 w-full"
+                    class="p-2 primary-btn follow mt-8 w-2/3 md:w-full mx-auto"
                     on:click={follow}>
                     {subject.followed ? 'Unfollow' : 'Follow'}</button>
                 {/if}
@@ -301,7 +301,7 @@
         </div>
       </div>
 
-      <div class="w-full xl:w-2/3">
+      <div class="w-full xl:w-2/3 mb-10 md:mb-0">
         <div class="flex justify-center text-center tabs flex-wrap mb-14">
           {#if subject.is_artist}
             <div
@@ -348,7 +348,7 @@
         </div>
         {#if tab === 'creations'}
           <div class="w-full justify-center">
-            <div class="w-full max-w-sm mx-auto mb-12">
+            <div class="w-2/3 md:w-full max-w-sm mx-auto mb-12">
               {#if $user && $user.is_artist && $user.id === subject.id}
                 <a href="/a/create" class="primary-btn">Submit a new experience</a>
               {/if}

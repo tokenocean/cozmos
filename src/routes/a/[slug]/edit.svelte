@@ -7,7 +7,7 @@
     if (!(session && session.user)) return {
       status: 302,
       redirect: '/login'
-    } 
+    }
 
     return {
       maxage: 90,
@@ -56,8 +56,8 @@
 
 </script>
 
-<div class="container mx-auto md:p-20">
-  <div class="w-full max-w-4xl mx-auto bg-white md:p-10 rounded-xl">
+<div class="container mx-auto p-4 md:p-20">
+  <div class="w-full max-w-4xl mx-auto bg-white p-4 md:p-10 rounded-xl">
       <a class="block mb-6 text-black" href={`/a/${artwork.slug}`}>
         <div class="flex">
           <Fa icon={faChevronLeft} class="my-auto mr-1" />

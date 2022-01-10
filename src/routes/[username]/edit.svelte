@@ -57,11 +57,11 @@
 
     if (form.twitter) form.twitter = form.twitter.replace(/@/g, "");
     if (form.instagram) form.instagram = form.instagram.replace(/@/g, "");
-		if (form.twitch) form.twitch = form.twitch.replace(/@/g, "");
-		if (form.discord) form.discord = form.discord.replace(/@/g, "");
-		if (form.tiktok) form.tiktok = form.tiktok.replace(/@/g, "");
-		if (form.youtube) form.youtube = form.youtube.replace(/@/g, "");
-		if (form.facebook) form.facebook = form.facebook.replace(/@/g, "");
+    if (form.twitch) form.twitch = form.twitch.replace(/@/g, "");
+    if (form.discord) form.discord = form.discord.replace(/@/g, "");
+    if (form.tiktok) form.tiktok = form.tiktok.replace(/@/g, "");
+    if (form.youtube) form.youtube = form.youtube.replace(/@/g, "");
+    if (form.facebook) form.facebook = form.facebook.replace(/@/g, "");
     if (form.website) form.website = form.website.replace(/.*:\/\//, "");
 
     update(form);
@@ -117,11 +117,11 @@
     box-shadow: 6px 5px 12px 2px #ccc;
   }
 
-	h2 {
-		font-family: "Zen Dots", cursive;
-		font-size: 2em;
-		line-height: 1.25em;
-	}
+  h2 {
+    font-family: "Zen Dots", cursive;
+    font-size: 2em;
+    line-height: 1.25em;
+  }
 
   @media only screen and (max-width: 1024px) {
     .container {
@@ -132,23 +132,23 @@
 
 </style>
 
-<div class="container mx-auto py-5 md:py-20">
+<div class="px-4 container mx-auto py-5 md:py-20">
   {#if form}
     <div
-      class="mb-4 w-full sm:max-w-3xl box-shadow md:p-10 m-auto lg:flex-row bg-gray-100">
+      class="mb-4 w-full sm:max-w-3xl box-shadow p-4 md:p-10 m-auto lg:flex-row bg-gray-100">
       <a class="block text-black" href={`/${$user.username}`}>
         <div class="flex">
           <Fa icon={faChevronLeft} class="my-auto mr-1" />
           <div>Back</div>
         </div>
       </a>
-      <h2 class="mb-16 text-center">Edit your profile</h2>
+      <h2 class="mb-6 md:mb-16 text-center">Edit your profile</h2>
       <div class="flex mt-4 m-auto flex-col-reverse lg:flex-row">
         <form
           class="mb-6 flex-grow xl:mr-8"
           on:submit|preventDefault={submit}
           autocomplete="off">
-          <p class='font-bold'>Enter your details*</p>
+          <p class="font-bold">Enter your details*</p>
           <div class="flex mb-4">
             <input
               id="name"
@@ -159,11 +159,11 @@
           </div>
 
           <div class="flex flex-col mb-4">
-            <p class='font-bold'>Enter your email*</p>
+            <p class="font-bold">Enter your email*</p>
             <input placeholder="Email" bind:value={form.email} />
           </div>
           <div class="flex flex-col mb-4">
-            <p class='font-bold'>Add a short bio.</p>
+            <p class="font-bold">Add a short bio.</p>
             <textarea placeholder="Bio" bind:value={form.bio} />
           </div>
           <div class="flex">
@@ -177,20 +177,20 @@
               <span class="text-sm font-bold">Show the community that your
                 profile is authentic.</span>
             </p>
-            <div class="flex">
+            <div class="md:flex">
               <button
                 type="button"
                 name="button"
-                class="black-box mx-3 rounded-lg">
+                class="black-box my-4 md:my-0 md:mx-3 rounded-lg">
                 <Fa icon={faTwitter} class="mr-3" />Verify via Twitter</button>
               <button
                 type="button"
                 name="button"
-                class="black-box mx-3 rounded-lg">
+                class="black-box md:mx-3 rounded-lg">
                 <Fa icon={faInstagram} class="mr-3" />Verify via Instagram</button>
             </div>
           </div>
-          <p class='font-bold'>Add links to your social media profiles...</p>
+          <p class="font-bold">Add links to your social media profiles...</p>
           <div class="flex mb-4">
             <p class="black-box w-40 rounded-lg">Website</p>
             <input
