@@ -738,11 +738,11 @@
 				}}>
 					<Swipe {...swipeConfig}>
 						<SwipeItem>
-							<img src="/static/atv.jpeg" alt="" class="rounded">
+							<img src="/atv.jpeg" alt="" class="rounded">
 						</SwipeItem>
 
 						<SwipeItem>
-							<img src="/static/tomorrowland.jpg" alt="" class="rounded">
+							<img src="/tomorrowland.jpg" alt="" class="rounded">
 						</SwipeItem>
 					</Swipe>
 				</div>

@@ -8,11 +8,14 @@ export async function post(request) {
   let { q } = locals;
 
   try {
+    console.log(request.body);
     const res = await serverApi.url("/login").post(request.body).res();
     let body = await res.json();
     let { jwt_expires_in, jwt_token } = body;
 
     let tokenExpiry = parseInt(jwt_expires_in / 1000);
+
+    console.log("TOKEN", jwt_token);
 
     let { currentuser } = await q(getUser, undefined, {
       authorization: `Bearer ${jwt_token}`,
