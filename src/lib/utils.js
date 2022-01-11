@@ -159,7 +159,6 @@ const err = (e) => {
   } catch {}
   if (!msg) msg = "An error occurred";
   if (msg.includes("EPIPE")) return;
-  if (msg.includes("Insufficient")) return;
   if (msg.includes("socket")) return;
   if (msg.includes("JWT")) return;
   setTimeout(() => snack.set({ msg, type: "error" }), 100);
