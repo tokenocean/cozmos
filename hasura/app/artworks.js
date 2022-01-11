@@ -127,6 +127,7 @@ app.post("/transaction", auth, async (req, res) => {
       id: transaction.artwork_id,
     });
     let {
+      bid_increment,
       auction_end,
       auction_start,
       owner,
@@ -136,12 +137,17 @@ app.post("/transaction", auth, async (req, res) => {
     } = artworks[0];
 
     if (
+      bid &&
       transaction.type === "bid" &&
-      transaction.amount < bid.amount &&
+      transaction.amount < bid.amount + bid_increment &&
       auction_end &&
       compareAsc(parseISO(auction_end), new Date()) > 0
     ) {
-      throw new Error(`Minimum bid is ${(bid.amount + 1000) / 100000000}`);
+      throw new Error(
+        `Minimum bid is ${((bid.amount + bid_increment) / 100000000).toFixed(
+          8
+        )}`
+      );
     }
 
     let locals = {
