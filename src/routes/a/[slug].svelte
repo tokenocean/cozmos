@@ -89,12 +89,14 @@
   import Card from "$styleguide/components/Card.svelte";
 
 	const swipeConfig = {
-		autoplay: false,
-		delay: 2000,
-		showIndicators: true,
+		autoplay: true,
+		delay: 3000,
+		showIndicators: false,
 		transitionDuration: 1000,
 		defaultIndex: 0,
 	};
+
+	let scale = 'scale-100';
 
   export let artwork, metadata;
 
@@ -723,7 +725,15 @@
 
 				<!-- Gallery -->
 				<div class="text-2xl font-bold mt-12">Gallery</div>
-				<div class="swipe-holder mt-4 rounded">
+				<div class="swipe-holder mt-4 rounded cursor-pointer {scale}"
+				on:click={() => {
+					if (scale == 'scale-100') {
+						scale = 'scale-150';
+					}
+					else {
+						scale = 'scale-100';
+					}
+				}}>
 					<Swipe {...swipeConfig}>
 						<SwipeItem>
 							<img src="/static/atv.jpeg" alt="" class="rounded">
