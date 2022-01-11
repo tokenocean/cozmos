@@ -3,9 +3,10 @@
   import { browser } from "$app/env";
   import { post } from "$lib/api";
   import branding from "$lib/branding";
+  import { host } from "$lib/utils";
 
-  export async function load({ fetch, page }) {
-    const props = await fetch(`/artworks/${page.params.slug}.json`).then((r) =>
+  export async function load({ fetch, params: { slug }}) {
+    const props = await fetch(`/artworks/${slug}.json`).then((r) =>
       r.json()
     );
 

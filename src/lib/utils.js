@@ -14,6 +14,7 @@ import { goto as svelteGoto } from "$app/navigation";
 const btc = import.meta.env.VITE_BTC;
 const cad = import.meta.env.VITE_CAD;
 const usd = import.meta.env.VITE_USD;
+const host = import.meta.env.VITE_HOST;
 
 export const UPLOAD_DESTINATION = {
   'IPFS': 'ipfs',
@@ -265,14 +266,14 @@ const linkify = (text) => {
 };
 
 function post(endpoint, data) {
-	return fetch(endpoint, {
-		method: 'POST',
-		credentials: 'include',
-		body: JSON.stringify(data || {}),
-		headers: {
-			'Content-Type': 'application/json'
-		}
-	});
+  return fetch(endpoint, {
+    method: "POST",
+    credentials: "include",
+    body: JSON.stringify(data || {}),
+    headers: {
+      "Content-Type": "application/json",
+    },
+  });
 }
 
 export {
@@ -291,6 +292,7 @@ export {
   fullscreen,
   goto,
   go,
+  host,
   info,
   linkify,
   pick,

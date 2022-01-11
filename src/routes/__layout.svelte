@@ -46,7 +46,6 @@
   } from "$lib/store";
   import { onDestroy, onMount } from "svelte";
   import branding from "$lib/branding";
-  import { get } from "$lib/api";
   import Navbar from "$styleguide/components/Navbar/Navbar.svelte";
 
   export let addresses, titles;
