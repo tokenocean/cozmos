@@ -52,7 +52,6 @@
 				"svelte-fa": "^2.4.0",
 				"svelte-preprocess": "^4.10.1",
 				"svelte-select": "^4.4.7",
-				"svelte-swipe": "^1.8.2",
 				"tailwindcss": "^3.0.12",
 				"uuid": "^8.3.2",
 				"vite-plugin-shim-react-pdf": "^1.0.4",

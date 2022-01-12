@@ -42,7 +42,6 @@ specifiers:
   svelte-fa: ^2.4.0
   svelte-preprocess: ^4.10.1
   svelte-select: ^4.4.7
-  svelte-swipe: ^1.8.2
   tailwindcss: ^3.0.12
   uuid: ^8.3.2
   vite-plugin-shim-react-pdf: ^1.0.4
@@ -91,7 +90,6 @@ devDependencies:
   svelte-fa: 2.4.0
   svelte-preprocess: 4.10.1_45d125ebf87ed0ef4d292111540b5da3
   svelte-select: 4.4.7
-  svelte-swipe: 1.8.2
   tailwindcss: 3.0.12_ef48b3b8837f8a23677bffe8f9cd866d
   uuid: 8.3.2
   vite-plugin-shim-react-pdf: 1.0.4
@@ -4048,10 +4046,6 @@ packages:
 
   /svelte-select/4.4.7:
     resolution: {integrity: sha512-fIf9Z8rPI6F8naHZ9wjXT0Pv5gLyhdHAFkHFJnCfVVfELE8e82uOoF0xEVQP6Kir+b4Q5yOvNAzZ61WbSU6A0A==}
-    dev: true
-
-  /svelte-swipe/1.8.2:
-    resolution: {integrity: sha512-hZDbxL23fVh0kkLZLNg0pWaITaW8SXpKplXQV/lXhO5TB7W8prBLp6OxzuQjJbgmL2LisOEX2KD1bLBejXly3A==}
     dev: true
 
   /svelte/3.45.0:
