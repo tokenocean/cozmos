@@ -83,7 +83,6 @@
   } from "$lib/wallet";
   import { Psbt } from "liquidjs-lib";
   import { api, query } from "$lib/api";
-  import { SocialShare } from "$comp";
   import Button from "$styleguide/components/Button.svelte";
   import Card from "$styleguide/components/Card.svelte";
 
