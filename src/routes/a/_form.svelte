@@ -1,5 +1,6 @@
 <script>
   import { err, goto } from "$lib/utils";
+  import { browser } from "$app/env";
   import { query } from "$lib/api";
   import Fa from "svelte-fa";
   import { faQuestionCircle } from "@fortawesome/free-regular-svg-icons";
@@ -41,8 +42,8 @@
       .catch(err);
   });
 
-  // $: focus($page);
-  // export let focus = (p) => p && tick().then(() => input && input.select());
+  $: focus($page);
+  export let focus = (p) => browser && p && tick().then(() => input && input.select());
 
   let value;
   $: value = artwork.tags.map(({ tag }) => ({

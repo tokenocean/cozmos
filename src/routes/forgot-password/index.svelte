@@ -53,7 +53,7 @@
   }
 </style>
 
-<div class="form-container bg-white" key={$page.path}>
+<div class="form-container bg-white" key={$page.url.pathname}>
   <form class="mb-6 bg-gray-100 rounded" on:submit|preventDefault={forgot} autocomplete="off">
     <h2 class="mb-8">Recover password</h2>
     {#if sending}

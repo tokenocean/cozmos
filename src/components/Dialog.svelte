@@ -1,4 +1,5 @@
 <script>
+  import { browser } from "$app/env";
   import Fa from "svelte-fa";
   import { faTimes } from "@fortawesome/free-solid-svg-icons";
   import { prompt } from "$lib/store";
@@ -6,7 +7,9 @@
   let comp;
   let ok;
 
-  let focus = (p) => p && tick().then(() => ok && ok.focus());
+  $: hideControls = comp && comp.hide;
+
+  let focus = (p) => browser && p && tick().then(() => ok && ok.focus());
   $: focus($prompt);
 
   let close = () => {
