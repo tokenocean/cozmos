@@ -5,6 +5,7 @@ specifiers:
   '@fortawesome/free-brands-svg-icons': ^5.15.4
   '@fortawesome/free-regular-svg-icons': ^5.15.4
   '@fortawesome/free-solid-svg-icons': ^5.15.4
+  '@splidejs/svelte-splide': ^0.1.15
   '@sveltejs/adapter-node': ^1.0.0-next.61
   '@sveltejs/kit': ^1.0.0-next.219
   autoprefixer: ^10.4.2
@@ -47,6 +48,9 @@ specifiers:
   vite-plugin-shim-react-pdf: ^1.0.4
   wretch: ^1.7.6
   wretch-middlewares: ^0.1.13
+
+dependencies:
+  '@splidejs/svelte-splide': 0.1.15
 
 devDependencies:
   '@fortawesome/fontawesome-free': 5.15.4
@@ -239,6 +243,16 @@ packages:
       estree-walker: 2.0.2
       picomatch: 2.3.1
     dev: true
+
+  /@splidejs/splide/3.6.9:
+    resolution: {integrity: sha512-uQXmn0NUrlOhBCYJ8Qy4ZbCOu/fY7nTkEQUIjoKpuY10UJu1pddHquI/pmMCh/oIjhxDQFVd7TnDMq5m7JDdZA==}
+    dev: false
+
+  /@splidejs/svelte-splide/0.1.15:
+    resolution: {integrity: sha512-9gb+2Gx5HvVJcBSMzGyZvrGnl4gYhQ8hXuvSF+heMex3pO6MF0ODZjKEA0kxGvShAzyJKPWFzkyB+FmLf5AjfQ==}
+    dependencies:
+      '@splidejs/splide': 3.6.9
+    dev: false
 
   /@sveltejs/adapter-node/1.0.0-next.61:
     resolution: {integrity: sha512-QiH/VBlRuQfw3x9yCrhXPqHvynqA1ai2izDlvc+ZxdWjah5vjds0P6EoP0g4VOJUFKtttQVnGNQrXMUA87T2dw==}

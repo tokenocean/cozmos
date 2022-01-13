@@ -45,6 +45,8 @@
 </script>
 
 <script>
+	import '/src/carousel.css';
+	import { Splide, SplideSlide } from '@splidejs/svelte-splide';
   import Fa from "svelte-fa";
   import {
     faChevronDown,
@@ -360,6 +362,22 @@
   :global(.description a) {
     color: #3ba5ac;
   }
+
+	.popup {
+	position: fixed;
+	z-index: 900;
+	width: 100%;
+	height: 100vh;
+	padding: 5px;
+	text-align: center;
+	top: 0;
+	left: 0;
+	bottom: 0;
+	right: 0;
+	background: white;
+	scroll-behavior: contain;
+	transform: scale(0);
+	}
 
   .showPopup {
     display: flex !important;
@@ -689,7 +707,7 @@
         <!-- Description -->
         <div class="mt-12">
           <div class="text-2xl font-bold">Description</div>
-          <div class="mt-4">
+          <div class="mt-2">
             {@html linkify(artwork.description) || 'Description of this product is empty'}
           </div>
         </div>
@@ -697,13 +715,44 @@
         <!-- Package content -->
         <div class="mt-12">
           <div class="text-2xl font-bold">Package content</div>
-          <div class="mt-4">
+          <div class="mt-2">
             {artwork.package_content || 'Package content of this product is empty'}
           </div>
         </div>
 
 				<!-- Gallery -->
-				<div class="text-2xl font-bold mt-12">Gallery</div>
+				<div class="text-2xl font-bold mt-12 mb-4">Gallery</div>
+				<Splide
+				  options={{
+				    type: "loop",
+				    perPage: 2,
+				    perMove: 1,
+				    autoplay: true,
+				    pauseOnHover: true,
+						gap: '1rem',
+						pagination: false,
+						width: '100%',
+				  }}
+				>
+				  <SplideSlide>
+				    <img src="/static/atv.jpeg" alt="Image 1" class='rounded' on:click={() => (showPopup = !showPopup)}/>
+				  </SplideSlide>
+				  <SplideSlide>
+				    <img src="/static/tomorrowland.jpg" alt="Image 2" class='rounded' />
+				  </SplideSlide>
+				  <SplideSlide>
+				    <img src="/static/atv.jpeg" alt="Image 3" class='rounded' />
+				  </SplideSlide>
+					<SplideSlide>
+						<img src="/static/tomorrowland.jpg" alt="Image 4" class='rounded' />
+					</SplideSlide>
+				</Splide>
+
+				<div on:click={() => (showPopup = !showPopup)} class:showPopup class="popup">
+				  <span class="closeButton"><Fa icon={faTimes} /></span>
+				  <img src="/static/atv.jpeg" alt="Image 1" class="rounded w-1/2" />
+				</div>
+
 
 				<!-- Comments -->
 				<Comments bind:artwork bind:fetch />
