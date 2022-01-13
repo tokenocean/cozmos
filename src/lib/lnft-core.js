@@ -218,7 +218,7 @@ export default class Core {
     if (!artwork.ticker && !generateRandomTickers)
       throw new Error("Please enter a ticker symbol");
 
-    if (!artwork.filename)
+    if (!artwork.mainfile[0].hash)
       throw new Error("File not uploaded or hasn't finished processing");
     if (!artwork.filetype) throw new Error("Unrecognized file type");
 

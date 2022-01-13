@@ -31,8 +31,8 @@
     metadata.description = artwork.description;
 
     if (artwork.filetype.includes("video"))
-      metadata.video = "/api/ipfs/" + artwork.filename;
-    else metadata.image = "/api/ipfs/" + artwork.filename;
+      metadata.video = "/api/ipfs/" + artwork.mainfile[0].hash;
+    else metadata.image = "/api/ipfs/" + artwork.mainfile[0].hash;
 
     props.metadata = metadata;
 

@@ -49,8 +49,6 @@ setInterval(async () => {
         id
         title
         slug
-        filename
-        filetype
         reserve_price
         asking_asset
         has_royalty

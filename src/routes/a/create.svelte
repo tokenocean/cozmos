@@ -11,13 +11,14 @@
 </script>
 
 <script>
+  import FileUpload from "$components/FileUpload.svelte";
   import Card from "$styleguide/components/Card.svelte";
   import Core from "$lib/lnft-core";
   import { page } from "$app/stores";
   import { query } from "$lib/api";
   import { onMount, tick } from "svelte";
   import { prompt, token, psbt, user } from "$lib/store";
-  import { Dropzone, ProgressLinear, ThankYou } from "$comp";
+  import { ProgressLinear, ThankYou } from "$comp";
   import { upload, supportedTypes } from "$lib/upload";
   import { create } from "$queries/artworks";
   import { btc, fade, kebab, goto, err } from "$lib/utils";
@@ -34,52 +35,12 @@
   import branding from "$lib/branding";
 
   import Form from "./_form.svelte";
-  import FormItem from "./components/_form-item.svelte";
   import Issuing from "./_issuing.svelte";
 
-  let preview;
-  let filename;
-  let type;
   let tags;
   let video;
   let hidden = true;
   let loading;
-
-  const IMG_TYPES = {
-    MAIN: 0,
-    COVER: 1,
-  };
-
-  const imagePreview = [null, null];
-  const imagePercent = [0, 0];
-
-  let previewFile = (imageType, file) => {
-    var reader = new FileReader();
-
-    reader.onload = async (e) => {
-      imagePercent[imageType] = 1;
-      imagePreview[imageType] = e.target.result;
-      await tick();
-      if (type.includes("video")) {
-        imagePreview[imageType] = URL.createObjectURL(file);
-      } else {
-        url = preview;
-      }
-    };
-
-    reader.readAsDataURL(file);
-  };
-
-  let percent;
-  let progress = (imageType) => {
-    return async (event) => {
-      imagePercent[imageType] = Math.round((event.loaded / event.total) * 100);
-
-      if (imagePercent[imageType] >= 100) {
-        await tick();
-      }
-    };
-  };
 
   let hash, tx;
   const issue = async (ticker) => {
@@ -108,33 +69,7 @@
     return JSON.stringify(contract);
   };
 
-  let url;
-  const uploadFile = (imageType) => {
-    return async ({ detail: { file } }) => {
-      if (!file) return;
-      if (supportedTypes.includes(type))
-        throw new Error("Supported file types are jpg, png, gif, mp4");
-      ({ type } = file);
-
-      if (imageType === IMG_TYPES.MAIN) {
-        artwork.filetype = type;
-      }
-
-      if (file.size < 100000000) previewFile(imageType, file);
-
-      try {
-        if (imageType === IMG_TYPES.MAIN) {
-          artwork.filename = await upload(file, progress(imageType));
-        } else if (imageType === IMG_TYPES.COVER) {
-          artwork.cover_filename = await upload(file, progress(imageType));
-        }
-      } catch (e) {
-        err(e);
-        imagePercent[imageType] = 0;
-        return;
-      }
-    };
-  };
+  let files = [];
 
   let tries;
   let l;
@@ -247,13 +182,6 @@
     }
   }
 
-  function cancelPreview(imageType) {
-    return () => {
-      imagePreview[imageType] = null;
-      imagePercent[imageType] = 0;
-    };
-  }
-
   let close = () => {
     goto("/market");
   };
@@ -271,10 +199,12 @@
       <div class="flex-grow-1 h-full bg-black">
         <h2 class="text-white p-14">Preview experience</h2>
         {#if $user}
-        <div class="w-2/3 mx-auto bg-gray-500 rounded-3xl sticky top-64 mb-20">
-          <Card {artwork} preview={imagePreview[IMG_TYPES.MAIN]} />
-        </div>
-      {/if}
+          <div
+            class="w-2/3 mx-auto bg-gray-500 rounded-3xl sticky top-64 mb-20"
+          >
+            <Card {artwork} preview={files.find(f => f.type === 'main').hash} />
+          </div>
+        {/if}
         <div
           style="background-image: url('/stars.png')"
           class="h-full bg-left mt-auto bg-repeat w-full"
@@ -296,126 +226,8 @@
       </div>
 
       <div class="md:grid md:grid-cols-2 md:text-left md:p-4">
-        <div>
-          <FormItem title="Upload NFT image" text="text-center">
-            {#if imagePreview[IMG_TYPES.MAIN] || imagePercent[IMG_TYPES.MAIN]}
-              <div class="text-black">
-                {#if imagePercent[IMG_TYPES.MAIN] && imagePercent[IMG_TYPES.MAIN] < 100}
-                  Loading...
-                {:else if imagePercent[IMG_TYPES.MAIN] && imagePercent[IMG_TYPES.MAIN] === 100}
-                  <div class="w-1/2 mx-auto">
-                    <ArtworkMedia
-                      {artwork}
-                      preview={imagePreview[IMG_TYPES.MAIN]}
-                      on:cancel={cancelPreview(IMG_TYPES.MAIN)}
-                    />
-                  </div>
-                {/if}
-              </div>
-            {:else}
-              <Dropzone on:file={uploadFile(IMG_TYPES.MAIN)} />
-            {/if}
-          </FormItem>
-        </div>
-        <div>
-          <FormItem title="Upload card thumbnail (optional)" text="text-center">
-            {#if imagePreview[IMG_TYPES.THUMB] || imagePercent[IMG_TYPES.THUMB]}
-              <div class="text-black">
-                {#if imagePercent[IMG_TYPES.THUMB] && imagePercent[IMG_TYPES.THUMB] < 100}
-                  Loading...
-                {:else if imagePercent[IMG_TYPES.THUMB] && imagePercent[IMG_TYPES.THUMB] === 100}
-                  <div class="w-1/2 mx-auto">
-                    <ArtworkMedia
-                      {artwork}
-                      preview={imagePreview[IMG_TYPES.THUMB]}
-                      on:cancel={cancelPreview(IMG_TYPES.THUMB)}
-                    />
-                  </div>
-                {/if}
-              </div>
-            {:else}
-              <Dropzone on:file={uploadFile(IMG_TYPES.MAIN)} />
-            {/if}
-          </FormItem>
-        </div>
-        <div>
-          <FormItem title="Upload cover banner" text="text-center">
-            {#if imagePreview[IMG_TYPES.COVER] || imagePercent[IMG_TYPES.COVER]}
-              <div class="text-black">
-                {#if imagePercent[IMG_TYPES.COVER] && imagePercent[IMG_TYPES.COVER] < 100}
-                  Loading...
-                {:else if imagePercent[IMG_TYPES.COVER] && imagePercent[IMG_TYPES.COVER] === 100}
-                  <div class="w-1/2 mx-auto">
-                    <ArtworkMedia
-                      {artwork}
-                      preview={imagePreview[IMG_TYPES.COVER]}
-                      on:cancel={cancelPreview(IMG_TYPES.COVER)}
-                    />
-                  </div>
-                {/if}
-              </div>
-            {:else}
-              <Dropzone on:file={uploadFile(IMG_TYPES.COVER)} />
-            {/if}
-          </FormItem>
-        </div>
-        <!-- need to hook these 2 new dropzones to backend and other frontend locations -->
-        <div>
-          <FormItem title="Upload gallery images" text="text-center">
-            {#if imagePreview[IMG_TYPES.CONTENT] || imagePercent[IMG_TYPES.CONTENT]}
-              <div class="text-black">
-                {#if imagePercent[IMG_TYPES.CONTENT] && imagePercent[IMG_TYPES.CONTENT] < 100}
-                  Loading...
-                {:else if imagePercent[IMG_TYPES.CONTENT] && imagePercent[IMG_TYPES.CONTENT] === 100}
-                  <div class="w-1/2 mx-auto">
-                    <ArtworkMedia
-                      {artwork}
-                      preview={imagePreview[IMG_TYPES.CONTENT]}
-                      on:cancel={cancelPreview(IMG_TYPES.CONTENT)}
-                    />
-                  </div>
-                {/if}
-              </div>
-            {:else}
-              <Dropzone on:file={uploadFile(IMG_TYPES.CONTENT)} />
-            {/if}
-          </FormItem>
-        </div>
+        <FileUpload />
       </div>
-      <div class="md:grid md:grid-cols-1 text-left">
-        <FormItem
-          title="Upload video experience information"
-          text="text-center"
-        >
-          {#if imagePreview[IMG_TYPES.VIDEO] || imagePercent[IMG_TYPES.VIDEO]}
-            <div class="text-black">
-              {#if imagePercent[IMG_TYPES.VIDEO] && imagePercent[IMG_TYPES.VIDEO] < 100}
-                Loading...
-              {:else if imagePercent[IMG_TYPES.VIDEO] && imagePercent[IMG_TYPES.VIDEO] === 100}
-                <div class="w-1/2">
-                  <ArtworkMedia
-                    {artwork}
-                    preview={imagePreview[IMG_TYPES.VIDEO]}
-                    on:cancel={cancelPreview(IMG_TYPES.VIDEO)}
-                  />
-                </div>
-              {/if}
-            </div>
-          {:else}
-            <Dropzone on:file={uploadFile(IMG_TYPES.VIDEO)} />
-          {/if}
-        </FormItem>
-      </div>
-      <!--        <div>-->
-      <!--          <FormItem title="Upload content">-->
-      <!--            <Dropzone on:file={uploadFile}/>-->
-      <!--          </FormItem>-->
-      <!--        </div>-->
-      <!--        <div>-->
-      <!--          <FormItem title="Upload Video Experience Information">-->
-      <!--            <Dropzone on:file={uploadFile}/>-->
-      <!--          </FormItem>-->
-      <!--        </div>-->
       <div class="flex flex-wrap flex-col-reverse lg:flex-row">
         <div class="w-full">
           <div class:invisible={!loading}>

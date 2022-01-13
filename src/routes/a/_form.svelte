@@ -9,7 +9,7 @@
   import Select from "svelte-select";
   import { onMount } from "svelte";
   import Button from "$styleguide/components/Button.svelte";
-  import FormItem from "./components/_form-item.svelte";
+  import FormItem from "$components/FormItem.svelte";
   import Input from "$styleguide/components/Input.svelte";
   import Textarea from "$styleguide/components/Textarea.svelte";
   import { prompt } from "$lib/store";
