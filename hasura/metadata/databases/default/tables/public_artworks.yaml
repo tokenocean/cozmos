@@ -33,6 +33,13 @@ array_relationships:
       table:
         name: featured
         schema: public
+- name: files
+  using:
+    foreign_key_constraint_on:
+      column: artwork_id
+      table:
+        name: files
+        schema: public
 - name: offers
   using:
     manual_configuration:
@@ -109,13 +116,10 @@ insert_permissions:
     - auction_end
     - auction_start
     - bid_increment
-    - cover_filename
     - description
     - edition
     - editions
     - extension_interval
-    - filename
-    - filetype
     - id
     - instagram
     - is_physical
@@ -144,14 +148,11 @@ select_permissions:
     - auction_tx
     - bid_id
     - bid_increment
-    - cover_filename
     - created_at
     - description
     - edition
     - editions
     - extension_interval
-    - filename
-    - filetype
     - held
     - id
     - instagram
@@ -191,14 +192,11 @@ select_permissions:
     - auction_tx
     - bid_id
     - bid_increment
-    - cover_filename
     - created_at
     - description
     - edition
     - editions
     - extension_interval
-    - filename
-    - filetype
     - held
     - id
     - instagram

@@ -318,7 +318,7 @@
           </FormItem>
         </div>
         <div>
-          <FormItem title="Upload thumbnail (optional)" text="text-center">
+          <FormItem title="Upload card thumbnail (optional)" text="text-center">
             {#if imagePreview[IMG_TYPES.THUMB] || imagePercent[IMG_TYPES.THUMB]}
               <div class="text-black">
                 {#if imagePercent[IMG_TYPES.THUMB] && imagePercent[IMG_TYPES.THUMB] < 100}

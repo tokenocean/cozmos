@@ -1,0 +1,58 @@
+table:
+  name: files
+  schema: public
+object_relationships:
+- name: artwork
+  using:
+    foreign_key_constraint_on: artwork_id
+insert_permissions:
+- permission:
+    backend_only: false
+    check:
+      artwork:
+        owner_id:
+          _eq: X-Hasura-User-Id
+    columns:
+    - artwork_id
+    - filetype
+    - hash
+    - type
+  role: user
+select_permissions:
+- permission:
+    columns:
+    - artwork_id
+    - filetype
+    - hash
+    - id
+    - type
+    filter: {}
+  role: anonymous
+- permission:
+    columns:
+    - artwork_id
+    - filetype
+    - hash
+    - id
+    - type
+    filter: {}
+  role: user
+update_permissions:
+- permission:
+    check: null
+    columns:
+    - filetype
+    - hash
+    - type
+    filter:
+      artwork:
+        owner_id:
+          _eq: X-Hasura-User-Id
+  role: user
+delete_permissions:
+- permission:
+    filter:
+      artwork:
+        owner_id:
+          _eq: X-Hasura-User-Id
+  role: user
