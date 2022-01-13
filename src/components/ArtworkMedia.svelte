@@ -12,7 +12,7 @@
 
   let img, vid;
   $: path =
-    artwork && artwork.mainfile[0] &&
+    artwork && artwork.mainfile && artwork.mainfile[0] &&
     (thumb
       ? `/api/public/${artwork.mainfile[0].hash}.${artwork.mainfile[0].filetype.split("/")[1]}`
       : `/api/ipfs/${artwork.mainfile[0].hash}`);
@@ -117,7 +117,8 @@
 
 </style>
 
-{#if artwork.mainfile[0].filetype && artwork.mainfile[0].filetype.includes('video')}
+
+{#if false && artwork.mainfile[0].filetype && artwork.mainfile[0].filetype.includes('video')}
   <div
     class="w-full"
     class:inline-block={!popup}

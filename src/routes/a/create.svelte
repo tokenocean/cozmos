@@ -19,7 +19,6 @@
   import { onMount, tick } from "svelte";
   import { prompt, token, psbt, user } from "$lib/store";
   import { ProgressLinear, ThankYou } from "$comp";
-  import { upload, supportedTypes } from "$lib/upload";
   import { create } from "$queries/artworks";
   import { btc, fade, kebab, goto, err } from "$lib/utils";
   import { requirePassword } from "$lib/auth";
@@ -41,6 +40,12 @@
   let video;
   let hidden = true;
   let loading;
+  $: preview = null; // console.log(files.find(f => f.type === 'main'));
+
+  const addFile = (type, { detail: file }) => {
+    files.push(file);
+    console.log(files);
+  }
 
   let hash, tx;
   const issue = async (ticker) => {
@@ -122,8 +127,7 @@
     asking_asset: btc,
     title: "",
     description: "",
-    filename: "",
-    filetype: "",
+    mainfile: [],
     ticker: "",
     package_content: "",
     asset: btc,
@@ -168,12 +172,18 @@
       let strippedDown = { ...artwork };
       delete strippedDown.owner;
       delete strippedDown.artist;
-      await core.createArtwork({
+      let savedArtwork = await core.createArtwork({
         artwork: strippedDown,
         // for Cozmos client we should generate tickers automatically,
         // and check their availability
         generateRandomTickers: true,
       });
+
+      for (let i = 0; i < files.length; i++) {
+        let file = file[i];
+        await core.createFile(file);
+     } 
+
       showThanks();
     } catch (e) {
       err(e);
@@ -202,7 +212,7 @@
           <div
             class="w-2/3 mx-auto bg-gray-500 rounded-3xl sticky top-64 mb-20"
           >
-            <Card {artwork} preview={files.find(f => f.type === 'main').hash} />
+            <Card {artwork} {preview} />
           </div>
         {/if}
         <div
@@ -226,7 +236,7 @@
       </div>
 
       <div class="md:grid md:grid-cols-2 md:text-left md:p-4">
-        <FileUpload />
+        <FileUpload {artwork} on:upload={(event) => addFile("main", event)} />
       </div>
       <div class="flex flex-wrap flex-col-reverse lg:flex-row">
         <div class="w-full">

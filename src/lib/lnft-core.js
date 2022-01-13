@@ -204,6 +204,21 @@ export default class Core {
     }
   }
 
+  async createFile(file) {
+    const query = `mutation ($file: files_insert_input!) {
+      insert_files_one(object: $file) {
+        id
+      }
+    }`;
+
+    let result = await hasura
+      .auth(`Bearer ${this.token}`)
+      .post({
+        query,
+        variables: { file },
+        er
+  }
+
   /**
    * Creates a new artwork
    * @param artwork
@@ -217,10 +232,6 @@ export default class Core {
     if (!artwork.title) throw new Error("Please enter a title");
     if (!artwork.ticker && !generateRandomTickers)
       throw new Error("Please enter a ticker symbol");
-
-    if (!artwork.mainfile[0].hash)
-      throw new Error("File not uploaded or hasn't finished processing");
-    if (!artwork.filetype) throw new Error("Unrecognized file type");
 
     let { ticker } = artwork;
     let tickers = [];
