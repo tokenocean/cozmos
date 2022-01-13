@@ -3,8 +3,6 @@ export const marketFields = `
   edition
   editions
   title
-  filename
-  filetype
   favorited
   list_price
   auction_start
@@ -34,7 +32,13 @@ export const marketFields = `
 `
 
 export const fields = `
-  id,
+  id
+	files{
+		id
+		hash
+		filetype
+		type	
+	}
   asset
   edition
   editions
@@ -58,8 +62,7 @@ export const fields = `
   extension_interval
   max_extensions
   has_royalty
-  cover_filename,
-  package_content,
+  package_content
   royalty_recipients {
     id
     name
@@ -122,7 +125,7 @@ export const txFields = `
     avatar_url
     full_name
     email
-  } 
+  }
   artwork_id
   artwork {
     ${fields}
@@ -193,8 +196,8 @@ export const getArtworkBySlug = `query($slug: String!) {
       user {
         username
         avatar_url
-      } 
-    } 
+      }
+    }
     transactions(order_by: { created_at: desc }) {
       ${txFields}
     }
