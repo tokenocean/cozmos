@@ -40,10 +40,10 @@
   let video;
   let hidden = true;
   let loading;
-  $: preview = null; // console.log(files.find(f => f.type === 'main'));
+  $: preview = files.find(f => f.type === 'main')?.preview;
 
   const addFile = (type, { detail: file }) => {
-    files.push(file);
+    files = [...files, file];
     console.log(files);
   }
 
@@ -147,11 +147,6 @@
 
     await requirePassword();
 
-    if (!artwork.title) return err("Title is required");
-
-    if (!artwork.description) return err("Description is required");
-
-    if (!artwork.description) return err("Description is required");
 
     if (!artwork.editions || isNaN(Number(artwork.editions)))
       return err("Editions is required and should be a number");
@@ -172,6 +167,8 @@
       let strippedDown = { ...artwork };
       delete strippedDown.owner;
       delete strippedDown.artist;
+      delete strippedDown.mainfile;
+
       let savedArtwork = await core.createArtwork({
         artwork: strippedDown,
         // for Cozmos client we should generate tickers automatically,
@@ -179,9 +176,10 @@
         generateRandomTickers: true,
       });
 
+      console.log("SAVED", savedArtwork);
       for (let i = 0; i < files.length; i++) {
-        let file = file[i];
-        await core.createFile(file);
+        let file = files[i];
+        await core.createFile(savedArtwork.id, file);
      } 
 
       showThanks();
@@ -236,7 +234,7 @@
       </div>
 
       <div class="md:grid md:grid-cols-2 md:text-left md:p-4">
-        <FileUpload {artwork} on:upload={(event) => addFile("main", event)} />
+        <FileUpload {artwork} type="main" on:upload={(event) => addFile("main", event)} />
       </div>
       <div class="flex flex-wrap flex-col-reverse lg:flex-row">
         <div class="w-full">

@@ -24,7 +24,6 @@
     var reader = new FileReader();
 
     reader.onload = async (e) => {
-      console.log("ONLOAD");
       percent = 1;
       preview = e.target.result;
       await tick();
@@ -51,6 +50,7 @@
       if (supportedTypes.includes(file.filetype))
         throw new Error("Supported file types are jpg, png, gif, mp4");
 
+      file.preview = preview;
       dispatch('upload', file);
     } catch (e) {
       err(e);
@@ -60,7 +60,6 @@
   };
   let progress = async (event) => {
     percent = Math.round((event.loaded / event.total) * 100);
-    console.log("PERCENT", percent)
 
     if (percent >= 100) {
       await tick();

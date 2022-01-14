@@ -9,7 +9,7 @@
  */
 
 import { v4 } from "uuid";
-import { hasura } from "$lib/api";
+import { query, hasura } from "$lib/api";
 import { tick } from "svelte";
 import {
   edition as artworkCreateEditionInProgress,
@@ -204,17 +204,20 @@ export default class Core {
     }
   }
 
-  async createFile(file) {
-    const query = `mutation ($file: files_insert_input!) {
+  async createFile(artwork_id, file) {
+    let strippedDown = { ...file, artwork_id };
+    delete strippedDown.file;
+    delete strippedDown.preview;
+    let result = await query(
+      `mutation ($file: files_insert_input!) {
       insert_files_one(object: $file) {
         id
       }
-    }`;
+    }`,
+      { file: strippedDown }
+    );
 
-    let result = await hasura.auth(`Bearer ${this.token}`).post({
-      query,
-      variables: { file },
-    });
+    console.log("RESULT", result);
   }
 
   /**
@@ -227,7 +230,8 @@ export default class Core {
   async createArtwork({ artwork, generateRandomTickers = false }) {
     // check that artwork match expectations
 
-    if (!artwork.title) throw new Error("Please enter a title");
+    // if (!artwork.title) throw new Error("Please enter a title");
+    // if (!artwork.description) return err("Description is required");
     if (!artwork.ticker && !generateRandomTickers)
       throw new Error("Please enter a ticker symbol");
 
