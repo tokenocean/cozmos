@@ -216,8 +216,6 @@ export default class Core {
     }`,
       { file: strippedDown }
     );
-
-    console.log("RESULT", result);
   }
 
   /**

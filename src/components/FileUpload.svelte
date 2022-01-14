@@ -9,6 +9,7 @@
   export let artwork;
   export let title;
   export let type;
+
   let file;
   let preview;
   let percent;
@@ -70,7 +71,7 @@
 </script>
 
 <div>
-  <FormItem title="Upload NFT image" text="text-center">
+  <FormItem {title} text="text-center">
     {#if preview || percent}
       <div class="text-black">
         {#if percent && parseInt(percent) < 100}
