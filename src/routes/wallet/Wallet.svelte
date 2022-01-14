@@ -4,7 +4,7 @@
   import { border, bg } from "./_colors";
   import { page } from "$app/stores";
   import { electrs, hasura } from "$lib/api";
-  import { onMount, tick } from "svelte";
+  import { onDestroy, onMount, tick } from "svelte";
   import { asset, assets, balances, pending, password, user, token } from "$lib/store";
   import { ProgressLinear } from "$comp";
   import { getArtworksByOwner } from "$queries/artworks";
@@ -59,7 +59,6 @@
     .json();
 
     if (data) ({ artworks } = data);
-    getBalances();
     loading = false;
   };
 
@@ -76,6 +75,15 @@
       y = elem.getBoundingClientRect().top + y - OFFSET;
     }, 100)
   }
+
+  let poll;
+  let pollBalances = async () => {
+    await getBalances();
+    poll = setTimeout(pollBalances, 5000);
+  } 
+
+  onMount(pollBalances);
+  onDestroy(() => clearTimeout(poll));
 
   $: scrollTo(actionsBlock);
 </script>

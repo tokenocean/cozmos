@@ -211,12 +211,10 @@ export default class Core {
       }
     }`;
 
-    let result = await hasura
-      .auth(`Bearer ${this.token}`)
-      .post({
-        query,
-        variables: { file },
-        er
+    let result = await hasura.auth(`Bearer ${this.token}`).post({
+      query,
+      variables: { file },
+    });
   }
 
   /**
