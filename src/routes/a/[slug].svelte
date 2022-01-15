@@ -325,6 +325,7 @@
   class="w-full h-96 bg-center bg-cover flex justify-center items-center"
   style="background-image: url('https://blogs.esa.int/space19plus/files/2019/03/nebula.jpg');"
 >
+{#if artwork.video[0]}
   <button
     type="button"
     name="button"
@@ -347,6 +348,7 @@
     class="{vidDisplay} w-full h-96"
     bind:this={bannerVideo}
   />
+{/if}
 </div>
 
 <div class="nft-container mx-auto pt-4 md:pt-24 mb-10 px-4 md:px-0">
@@ -591,8 +593,10 @@
           </div>
         </div>
 
+				<!-- Gallery -->
+				{#if artwork.gallery[0]}
         <PhotoGallery {artwork} />
-
+				{/if}
         <!-- Comments -->
         <Comments bind:artwork bind:fetch />
       </div>
