@@ -317,7 +317,7 @@
 <Head {metadata} />
 
 <div
-  class="w-full h-96 bg-center bg-cover hidden md:block"
+  class="w-full h-96 bg-center bg-cover"
   style="background-image: url('https://blogs.esa.int/space19plus/files/2019/03/nebula.jpg');"
 />
 
