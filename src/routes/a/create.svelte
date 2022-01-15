@@ -202,7 +202,7 @@
       <div class="-mt-2">&times;</div>
     </div>
     <div class="hidden md:flex md:flex-col md:w-1/3">
-      <div class="flex-grow-1 h-full bg-black">
+      <div class="flex-grow-1 h-full bg-black" style="background-image: url('/stars.png')">
         <h2 class="text-white p-14">Preview experience</h2>
         {#if $user}
           <div
@@ -211,10 +211,6 @@
             <Card {artwork} {preview} />
           </div>
         {/if}
-        <div
-          style="background-image: url('/stars.png')"
-          class="h-full bg-left mt-auto bg-repeat w-full"
-        />
       </div>
     </div>
     <div class="md:p-14 p-2">
