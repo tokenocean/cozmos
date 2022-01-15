@@ -50,6 +50,7 @@
     faGift,
     faShareAlt,
     faTimes,
+		faPlay,
   } from "@fortawesome/free-solid-svg-icons";
   import { getArtworkBySlug } from "$queries/artworks";
   import { faHeart, faImage } from "@fortawesome/free-regular-svg-icons";
@@ -312,14 +313,41 @@
       hide: true,
     };
   };
+
+	let vidDisplay = 'hidden';
+	let playDisplay = '';
+	let bannerVideo;
 </script>
 
 <Head {metadata} />
 
 <div
-  class="w-full h-96 bg-center bg-cover"
+  class="w-full h-96 bg-center bg-cover flex justify-center items-center"
   style="background-image: url('https://blogs.esa.int/space19plus/files/2019/03/nebula.jpg');"
-/>
+>
+  <button
+    type="button"
+    name="button"
+    class="text-white {playDisplay}"
+    on:click={() => {
+      vidDisplay = "";
+      playDisplay = "hidden";
+      bannerVideo.play();
+    }}
+  >
+    <Fa icon={faPlay} />
+  </button>
+  <video
+    src={`/api/ipfs/${artwork.video[0].hash}`}
+    preload
+    autoplay
+    controls
+    disablepictureinpicture
+    controlslist="nodownload"
+    class="{vidDisplay} w-full h-96"
+    bind:this={bannerVideo}
+  />
+</div>
 
 <div class="nft-container mx-auto pt-4 md:pt-24 mb-10 px-4 md:px-0">
   <div class="md:flex">
