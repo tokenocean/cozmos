@@ -28,7 +28,7 @@
 <Splide {options}>
   {#each artwork.gallery as img}
     <SplideSlide>
-      <img src={src(img)} alt="Gallery Photo" class="rounded" on:click={() => popup(img)} />
+      <img src={src(img)} alt="Gallery" class="rounded" on:click={() => popup(img)} />
     </SplideSlide>
   {/each}
 </Splide>
@@ -36,7 +36,7 @@
 {#if showPopup}
   <div on:click={() => (showPopup = !showPopup)} class:showPopup class="popup">
     <span class="closeButton"><Fa icon={faTimes} /></span>
-    <img src={src(current)} alt="Gallery Photo" class="rounded w-1/2" />
+    <img src={src(current)} alt="Gallery" class="rounded w-1/2" />
   </div>
 {/if}
 
@@ -91,11 +91,6 @@
     margin: 0 auto;
     height: 95vh;
     object-fit: contain !important;
-  }
-
-  .desktopImage :global(img),
-  .desktopImage :global(video) {
-    margin: 0 auto;
   }
 
   @keyframes zoom {
