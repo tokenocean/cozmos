@@ -95,34 +95,10 @@
     >
   {/if}
 </div>
-<div class="container mx-auto mt-10">
-  <div class="flex items-center search">
-    <Search />
-  </div>
-</div>
 <div class="container mx-auto">
-  <div
-    class="flex flex-wrap justify-between items-center md:flex-row-reverse controls"
-  >
-    <div
-      class="w-full lg:w-auto mb-3 flex filter-container justify-between pt-10 xl:py-10 xl:pb-30 mt-50"
-    >
-      <div class="switch">
-        <div
-          class="flex cursor-pointer lg:hidden mb-8 font-bold"
-          on:click={() => (showFilters = !showFilters)}
-        >
-          <div>FILTERS</div>
-          <div class="my-auto">
-            <Fa icon={faSlidersH} class="ml-3" />
-          </div>
-        </div>
-      </div>
-      <Sort />
-    </div>
-    <Filter {showFilters} />
-  </div>
+	<div class="mt-10">
   <Gallery bind:filtered bind:total bind:loadMore />
+	</div>
 </div>
 
 <style>
