@@ -119,7 +119,7 @@
 
 </style>
 
-<div class="container mx-auto lg:px-16 mt-5 md:mt-20">
+<div class="container mx-auto mt-5 md:mt-20">
   {#if subject}
     <div class="flex justify-between flex-wrap" in:fade>
       <div class="w-full xl:w-1/3 xl:max-w-xs mb-10 md:mb-20 px-2 md:px-0">
@@ -355,7 +355,7 @@
             </div>
             <div class="w-full flex flex-wrap">
               {#each subject.creations as artwork (artwork.id)}
-                <div class="gallery-tab w-full lg:w-1/2 px-5 mb-10">
+                <div class="gallery-tab w-full lg:w-1/3 px-4 mb-10">
                   <Card {artwork} />
                 </div>
               {:else}
@@ -367,7 +367,7 @@
           <div class="w-full flex justify-center">
             <div class="w-full flex flex-wrap">
               {#each subject.holdings as artwork (artwork.id)}
-                <div class="gallery-tab w-full lg:w-1/2 px-5 mb-10">
+                <div class="gallery-tab w-full lg:w-1/3 px-4 mb-10">
                   <Card {artwork} />
                 </div>
               {:else}
