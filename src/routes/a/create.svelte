@@ -178,7 +178,7 @@
       for (let i = 0; i < files.length; i++) {
         let file = files[i];
         await core.createFile(savedArtwork.id, file);
-     } 
+     }
 
       showThanks();
     } catch (e) {
@@ -232,11 +232,13 @@
       </div>
 
       <div class="md:grid md:grid-cols-2 md:text-left md:p-4">
-        <FileUpload {artwork} title="Upload NFT Image" type="main" on:upload={addFile} />
-        <FileUpload {artwork} title="Upload Cover Image" type="cover" on:upload={addFile} />
-        <FileUpload {artwork} title="Upload Video" type="video" on:upload={addFile} />
-        <FileUpload {artwork} title="Upload Card Thumbnail" type="thumb" on:upload={addFile} />
-        <FileUpload {artwork} title="Upload Gallery Photo" type="gallery" on:upload={addFile} />
+        <FileUpload {artwork} title="Upload NFT Image" type="main" limits='PNG, JPG, GIF, MP4, WEBP, MAX 10MB' on:upload={addFile} />
+        <FileUpload {artwork} title="Upload Cover Image" type="cover" limits='PNG, JPG, WEBP, MAX 10MB'
+				on:upload={addFile} />
+        <FileUpload {artwork} title="Upload Video" type="video" limits='MP4, MAX 100MB' on:upload={addFile} />
+        <FileUpload {artwork} title="Upload Card Thumbnail" type="thumb" limits='PNG, JPG, WEBP, MAX 10MB'
+				on:upload={addFile} />
+        <FileUpload {artwork} title="Upload Gallery Photo" type="gallery" limits='PNG, JPG, WEBP, MAX 10MB' on:upload={addFile} />
         <FileUpload {artwork} title="Upload Gallery Photo" type="gallery" on:upload={addFile} />
       </div>
       <div class="flex flex-wrap flex-col-reverse lg:flex-row">

@@ -9,6 +9,7 @@
   export let artwork;
   export let title;
   export let type;
+	export let limits;
 
   let file;
   let preview;
@@ -87,7 +88,7 @@
         {/if}
       </div>
     {:else}
-      <Dropzone on:file={uploadFile} />
+      <Dropzone title={limits} on:file={uploadFile} />
     {/if}
   </FormItem>
 </div>
