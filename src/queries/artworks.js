@@ -1,3 +1,27 @@
+const fileFields = `
+  id
+  hash
+  filetype
+`;
+
+const artworkFiles = `
+  mainfile: files(where: { type: {_eq: "main"}}) {
+    ${fileFields} 
+  }
+  cover: files(where: { type: {_eq: "cover"}}) {
+    ${fileFields} 
+  }
+  video: files(where: { type: {_eq: "video"}}) {
+    ${fileFields} 
+  }
+  thumb: files(where: { type: {_eq: "thumb"}}) {
+    ${fileFields} 
+  }
+  gallery: files(where: { type: {_eq: "gallery"}}) {
+    ${fileFields} 
+  }
+`
+
 export const marketFields = `
   id
   edition
@@ -11,6 +35,7 @@ export const marketFields = `
   has_royalty
   slug
   created_at
+  ${artworkFiles}
   owner {
     id
     username
@@ -33,12 +58,7 @@ export const marketFields = `
 
 export const fields = `
   id
-	files{
-		id
-		hash
-		filetype
-		type	
-	}
+  ${artworkFiles}
   asset
   edition
   editions
@@ -47,8 +67,6 @@ export const fields = `
   description
   artist_id
   owner_id
-  filename
-  filetype
   favorited
   list_price
   reserve_price

@@ -15,6 +15,7 @@
 				"@fortawesome/free-brands-svg-icons": "^5.15.4",
 				"@fortawesome/free-regular-svg-icons": "^5.15.4",
 				"@fortawesome/free-solid-svg-icons": "^5.15.4",
+				"@splidejs/svelte-splide": "^0.1.15",
 				"@sveltejs/adapter-node": "^1.0.0-next.61",
 				"@sveltejs/kit": "^1.0.0-next.219",
 				"autoprefixer": "^10.4.2",
@@ -60,6 +61,6 @@
 		},
 		"type": "module",
 		"dependencies": {
-				"@splidejs/svelte-splide": "^0.1.15"
+				"@splidejs/splide": "^3.6.9"
 		}
 }

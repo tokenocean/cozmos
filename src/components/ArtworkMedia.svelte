@@ -12,10 +12,10 @@
 
   let img, vid;
   $: path =
-    artwork && artwork.filename &&
+    artwork && artwork.mainfile && artwork.mainfile[0] &&
     (thumb
-      ? `/api/public/${artwork.filename}.${artwork.filetype.split("/")[1]}`
-      : `/api/ipfs/${artwork.filename}`);
+      ? `/api/public/${artwork.mainfile[0].hash}.${artwork.mainfile[0].filetype.split("/")[1]}`
+      : `/api/ipfs/${artwork.mainfile[0].hash}`);
 
   $: cover = !showDetails;
   $: contain = showDetails;
@@ -117,7 +117,8 @@
 
 </style>
 
-{#if artwork.filetype && artwork.filetype.includes('video')}
+
+{#if false && artwork.mainfile[0].filetype && artwork.mainfile[0].filetype.includes('video')}
   <div
     class="w-full"
     class:inline-block={!popup}
