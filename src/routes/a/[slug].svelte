@@ -44,7 +44,6 @@
 
 <script>
   import "/src/carousel.css";
-  import { Splide, SplideSlide } from "@splidejs/svelte-splide";
   import Fa from "svelte-fa";
   import {
     faChevronDown,
@@ -64,6 +63,7 @@
     Head,
     Heart,
     ArtworkMedia,
+    PhotoGallery,
     ProgressLinear,
     RoyaltyInfo,
   } from "$comp";
@@ -304,7 +304,6 @@
     loading = false;
   };
 
-  let showPopup = false;
   let showMore = false;
   let showActivity = false;
 
@@ -565,39 +564,7 @@
           </div>
         </div>
 
-        <div class="text-2xl font-bold mt-12 mb-4">Gallery</div>
-        <Splide
-          options={{
-            type: "loop",
-            perPage: 2,
-            perMove: 1,
-            autoplay: true,
-            pauseOnHover: true,
-            gap: "1rem",
-            pagination: false,
-            width: "100%",
-          }}
-        >
-          {#each artwork.gallery as img}
-            <SplideSlide>
-              <img
-                src={`/api/public/${img.hash}.${img.filetype.split("/")[1]}`}
-                alt="Image 1"
-                class="rounded"
-                on:click={() => (showPopup = !showPopup)}
-              />
-            </SplideSlide>
-          {/each}
-        </Splide>
-
-        <div
-          on:click={() => (showPopup = !showPopup)}
-          class:showPopup
-          class="popup"
-        >
-          <span class="closeButton"><Fa icon={faTimes} /></span>
-          <img src="/static/atv.jpeg" alt="Image 1" class="rounded w-1/2" />
-        </div>
+        <PhotoGallery {artwork} />
 
         <!-- Comments -->
         <Comments bind:artwork bind:fetch />
@@ -652,41 +619,6 @@
     color: #3ba5ac;
   }
 
-  .popup {
-    position: fixed;
-    z-index: 900;
-    width: 100%;
-    height: 100vh;
-    padding: 5px;
-    text-align: center;
-    top: 0;
-    left: 0;
-    bottom: 0;
-    right: 0;
-    background: white;
-    scroll-behavior: contain;
-    transform: scale(0);
-  }
-
-  .showPopup {
-    display: flex !important;
-    align-items: center;
-    justify-content: center;
-    animation: zoom 0.2s ease forwards;
-  }
-
-  .closeButton {
-    position: absolute;
-    top: 50px;
-    right: 50px;
-    width: 40px;
-    height: 40px;
-    border-radius: 100%;
-    background: whitesmoke;
-    padding: 11px 15px;
-    cursor: pointer;
-  }
-
   .mob-desc {
     display: none;
   }
@@ -698,27 +630,6 @@
 
   .mobileImage :global(.cover) {
     width: 100%;
-  }
-
-  .popup :global(video) {
-    width: 50%;
-    height: auto !important;
-    margin: 0 auto;
-  }
-
-  .popup :global(div) {
-    width: 100%;
-    height: auto;
-  }
-
-  .popup :global(.card-link) {
-    height: auto !important;
-  }
-
-  .popup :global(img) {
-    margin: 0 auto;
-    height: 95vh;
-    object-fit: contain !important;
   }
 
   .desktopImage :global(img),

@@ -17,7 +17,7 @@ const artworkFiles = `
   thumb: files(where: { type: {_eq: "thumb"}}) {
     ${fileFields} 
   }
-  gallery: files(where: { type: {_eq: "thumb"}}) {
+  gallery: files(where: { type: {_eq: "gallery"}}) {
     ${fileFields} 
   }
 `
