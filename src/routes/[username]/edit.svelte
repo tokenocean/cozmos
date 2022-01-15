@@ -166,31 +166,11 @@
             <p class="font-bold">Add a short bio.</p>
             <textarea placeholder="Bio" bind:value={form.bio} />
           </div>
-          <div class="flex">
-            <!--<div>
+          <!--<div class="flex">
+            <div>
              <Dropzone on:file={uploadFile(IMG_TYPES.MAIN)} />
-					 </div>-->
-					 <!--
-          </div>
-          <div class="flex flex-col mb-4">
-            <p class="mb-1 font-bold">
-              Verify your profile* -
-              <span class="text-sm font-bold">Show the community that your
-                profile is authentic.</span>
-            </p>
-            <div class="md:flex">
-              <button
-                type="button"
-                name="button"
-                class="black-box my-4 md:my-0 md:mx-3 rounded-lg">
-                <Fa icon={faTwitter} class="mr-3" />Verify via Twitter</button>
-              <button
-                type="button"
-                name="button"
-                class="black-box md:mx-3 rounded-lg">
-                <Fa icon={faInstagram} class="mr-3" />Verify via Instagram</button>
-            </div>-->
-          </div>
+					 	</div>
+          </div>-->
           <p class="font-bold">Add links to your social media profiles...</p>
 					<div class="flex mb-4">
 						<p class="black-box w-40 rounded-lg">Twitter</p>
