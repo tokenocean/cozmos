@@ -170,6 +170,7 @@
             <!--<div>
              <Dropzone on:file={uploadFile(IMG_TYPES.MAIN)} />
 					 </div>-->
+					 <!--
           </div>
           <div class="flex flex-col mb-4">
             <p class="mb-1 font-bold">
@@ -188,13 +189,27 @@
                 name="button"
                 class="black-box md:mx-3 rounded-lg">
                 <Fa icon={faInstagram} class="mr-3" />Verify via Instagram</button>
-            </div>
+            </div>-->
           </div>
           <p class="font-bold">Add links to your social media profiles...</p>
+					<div class="flex mb-4">
+						<p class="black-box w-40 rounded-lg">Twitter</p>
+						<input
+							placeholder="Twitter username"
+							bind:value={form.twitter}
+							class="w-full" />
+					</div>
+					<div class="flex mb-4">
+						<p class="black-box w-40 rounded-lg">Instagram</p>
+						<input
+							placeholder="Instagram username"
+							bind:value={form.instagram}
+							class="w-full" />
+					</div>
           <div class="flex mb-4">
             <p class="black-box w-40 rounded-lg">Website</p>
             <input
-              placeholder="www.url"
+              placeholder="Website URL"
               bind:value={form.website}
               class="w-full" />
           </div>
