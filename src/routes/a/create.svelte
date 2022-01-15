@@ -18,7 +18,7 @@
   import { query } from "$lib/api";
   import { onMount, tick } from "svelte";
   import { prompt, token, psbt, user } from "$lib/store";
-  import { ProgressLinear, ThankYou } from "$comp";
+  import { ProgressLinear, PhotoGallery, ThankYou } from "$comp";
   import { create } from "$queries/artworks";
   import { btc, fade, kebab, goto, err } from "$lib/utils";
   import { requirePassword } from "$lib/auth";
@@ -40,11 +40,13 @@
   let video;
   let hidden = true;
   let loading;
-  $: preview = files.find(f => f.type === 'main')?.preview;
+  $: preview = files.find((f) => f.type === "main")?.preview;
 
-  const addFile = ({ detail: file }) => {
+  const addFile = async ({ detail: file }) => {
     files = [...files, file];
-  }
+    await tick();
+    gallery.go(images.length);
+  };
 
   let hash, tx;
   const issue = async (ticker) => {
@@ -146,7 +148,6 @@
 
     await requirePassword();
 
-
     if (!artwork.editions || isNaN(Number(artwork.editions)))
       return err("Editions is required and should be a number");
 
@@ -178,7 +179,7 @@
       for (let i = 0; i < files.length; i++) {
         let file = files[i];
         await core.createFile(savedArtwork.id, file);
-     }
+      }
 
       showThanks();
     } catch (e) {
@@ -191,6 +192,10 @@
   let close = () => {
     goto("/market");
   };
+
+  let gallery;
+
+  $: images = files.filter((f) => f.type === "gallery");
 </script>
 
 <div class="container mx-auto p-6 md:p-20 md:pb-96">
@@ -202,7 +207,10 @@
       <div class="-mt-2">&times;</div>
     </div>
     <div class="hidden md:flex md:flex-col md:w-1/3">
-      <div class="flex-grow-1 h-full bg-black" style="background-image: url('/stars.png')">
+      <div
+        class="flex-grow-1 h-full bg-black"
+        style="background-image: url('/stars.png')"
+      >
         <h2 class="text-white p-14">Preview experience</h2>
         {#if $user}
           <div
@@ -228,14 +236,45 @@
       </div>
 
       <div class="md:grid md:grid-cols-2 md:text-left md:p-4">
-        <FileUpload {artwork} title="Upload NFT Image" type="main" limits='PNG, JPG, GIF, MP4, WEBP, MAX 10MB' on:upload={addFile} />
-        <FileUpload {artwork} title="Upload Cover Image" type="cover" limits='PNG, JPG, WEBP, MAX 10MB'
-				on:upload={addFile} />
-        <FileUpload {artwork} title="Upload Video" type="video" limits='MP4, MAX 100MB' on:upload={addFile} />
-        <FileUpload {artwork} title="Upload Card Thumbnail" type="thumb" limits='PNG, JPG, WEBP, MAX 10MB'
-				on:upload={addFile} />
-        <FileUpload {artwork} title="Upload Gallery Photo" type="gallery" limits='PNG, JPG, WEBP, MAX 10MB' on:upload={addFile} />
-        <FileUpload {artwork} title="Upload Gallery Photo" type="gallery" on:upload={addFile} />
+        <FileUpload
+          {artwork}
+          title="Upload NFT Image"
+          type="main"
+          limits="PNG, JPG, GIF, MP4, WEBP, MAX 10MB"
+          on:upload={addFile}
+        />
+        <FileUpload
+          {artwork}
+          title="Upload Cover Image"
+          type="cover"
+          limits="PNG, JPG, WEBP, MAX 10MB"
+          on:upload={addFile}
+        />
+        <FileUpload
+          {artwork}
+          title="Upload Video"
+          type="video"
+          limits="MP4, MAX 100MB"
+          on:upload={addFile}
+        />
+        <FileUpload
+          {artwork}
+          title="Upload Card Thumbnail"
+          type="thumb"
+          limits="PNG, JPG, WEBP, MAX 10MB"
+          on:upload={addFile}
+        />
+        <FileUpload
+          {artwork}
+          title="Upload Gallery Photo"
+          type="gallery"
+          limits="PNG, JPG, WEBP, MAX 10MB"
+          on:upload={addFile}
+          previewEnabled={false}
+        />
+        <div>
+          <PhotoGallery {images} bind:this={gallery} />
+        </div>
       </div>
       <div class="flex flex-wrap flex-col-reverse lg:flex-row">
         <div class="w-full">

@@ -593,10 +593,8 @@
           </div>
         </div>
 
-				<!-- Gallery -->
-				{#if artwork.gallery[0]}
-        <PhotoGallery {artwork} />
-				{/if}
+        <PhotoGallery images={artwork.gallery} />
+
         <!-- Comments -->
         <Comments bind:artwork bind:fetch />
       </div>

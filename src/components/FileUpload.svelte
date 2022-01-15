@@ -11,6 +11,8 @@
   export let type;
 	export let limits;
 
+  export let previewEnabled = true;
+
   let file;
   let preview;
   let percent;
@@ -73,7 +75,7 @@
 
 <div>
   <FormItem {title} text="text-center">
-    {#if preview || percent}
+    {#if previewEnabled && (preview || percent)}
       <div class="text-black">
         {#if percent && parseInt(percent) < 100}
           Loading...
