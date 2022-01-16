@@ -119,6 +119,10 @@
 
 </style>
 
+<div
+  class="w-full h-96 bg-center bg-cover flex justify-center items-center"
+  style="background-image: url('https://blogs.esa.int/space19plus/files/2019/03/nebula.jpg');"
+/>
 <div class="container mx-auto mt-5 md:mt-20">
   {#if subject}
     <div class="flex justify-between flex-wrap" in:fade>

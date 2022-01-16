@@ -1,4 +1,5 @@
 <script>
+	import FileUpload from "$components/FileUpload.svelte";
   import Fa from "svelte-fa";
   import {
     faImage,
@@ -166,11 +167,18 @@
             <p class="font-bold">Add a short bio.</p>
             <textarea placeholder="Bio" bind:value={form.bio} />
           </div>
-          <!--<div class="flex">
-            <div>
-             <Dropzone on:file={uploadFile(IMG_TYPES.MAIN)} />
-					 	</div>
-          </div>-->
+					<div class="flex justify-center w-full">
+					  <FileUpload
+					    title="Upload a profile image"
+					    type="profile"
+					    limits="PNG, JPG, WEBP, MAX 10MB"
+					  />
+					  <FileUpload
+					    title="Upload a cover image"
+					    type="cover"
+					    limits="PNG, JPG, WEBP, MAX 10MB"
+					  />
+					</div>
           <p class="font-bold">Add links to your social media profiles...</p>
 					<div class="flex mb-4">
 						<p class="black-box w-40 rounded-lg">Twitter</p>
