@@ -26,10 +26,11 @@
   <button
     type="button"
     name="button"
+		disabled
     class="bg-black block mx-auto sm:w-full md:w-5/6 md:h-16 mt-8 mb-4 rounded-lg text-white font-bold marina flex items-center md:text-xl"><img
       src="/svg_icons/Marina.svg"
       alt="Marina icon"
-      class="w-20 mr-4" />Marina - Liquid Wallet</button>
+      class="w-20 mr-4" /><div>Marina - Liquid Wallet<br/><span class="text-sm">&#11835;&#11835;&#11835; Coming soon</span></div></button>
   <button
     type="button"
     name="button"
