@@ -317,13 +317,21 @@
 	let vidDisplay = 'hidden';
 	let playDisplay = '';
 	let bannerVideo;
+
+	function coverImage() {
+		if (artwork.cover[0]) {
+			return `/api/ipfs/${artwork.cover[0].hash}`;
+		}
+		else {
+			return 'https://blogs.esa.int/space19plus/files/2019/03/nebula.jpg';
+		}
+	}
 </script>
 
 <Head {metadata} />
-
 <div
   class="w-full h-96 bg-center bg-cover flex justify-center items-center"
-  style="background-image: url('https://blogs.esa.int/space19plus/files/2019/03/nebula.jpg');"
+  style="background-image: url({coverImage()});"
 >
 {#if artwork.video[0]}
   <button
