@@ -132,7 +132,7 @@
             <div class="flex-auto flex-col">
               <div id="avatar-container">
                 <img
-                  src="/svg_icons/comet-02.svg"
+                  src="/svg_icons/profile_shape.svg"
                   alt="comet"
                   id="avatar-border" />
                 <div id="avatar">
