@@ -102,6 +102,9 @@
 </div>
 
 <style>
+.container {
+	margin-top: 10rem;
+}
   @media only screen and (max-width: 1023px) {
     .search :global(input) {
       width: 90%;

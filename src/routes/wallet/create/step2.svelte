@@ -22,7 +22,7 @@
   $: displayMnemonic($page, $user);
 </script>
 
-<div class="container bg-black rounded-xl p-10 drop text-white">
+<div class="container bg-black rounded-xl p-10 drop text-white mt-20">
   {#if mnemonic}
     <p class="text-center">
       Write down the following 12 words in the correct order:

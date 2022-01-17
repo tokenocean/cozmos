@@ -11,7 +11,7 @@
 
 <header
   class:mobileScreen
-  class="px-4 py-4 sm:h-14 lg:h-auto absolute top-0 w-full"
+  class="px-4 py-4 sm:h-14 lg:h-auto fixed top-0 w-full"
 >
   <div class="mx-auto flex container items-center justify-between">
     <nav class="flex hambuger navbar-menu">

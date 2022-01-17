@@ -14,6 +14,7 @@
     position: absolute;
     z-index: 2;
     margin-left: 5%;
+		margin-top: 4rem;
   }
 
   .wallet-nav {

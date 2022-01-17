@@ -93,9 +93,6 @@
   });
 </script>
 
-<style global src="../main.css">
-</style>
-
 <svelte:window bind:scrollY={y} />
 
 {#if !($page.url.pathname.includes("/a/") && $page.url.pathname.split("/").length === 3)}
@@ -104,7 +101,7 @@
 
 <Snack />
 
-<div class={y > 50 ? 'sticky' : ''}>
+<div>
   <Navbar bind:sidebar={open} />
 </div>
 <Dialog />
@@ -116,3 +113,6 @@
 </main>
 
 <Footer />
+
+<style global src="../main.css">
+</style>

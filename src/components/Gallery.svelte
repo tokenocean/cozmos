@@ -72,16 +72,7 @@
       setTimeout(() => (justScrolled = false), 250);
     });
   };
-
 </script>
-
-<style>
-  .market-gallery :global(.card-link img),
-  .market-gallery :global(.card-link video) {
-    height: 350px;
-  }
-
-</style>
 
 <svelte:window bind:innerWidth={w} bind:scrollY={y} on:resize={resize} />
 
@@ -92,13 +83,21 @@
 {/if}
 
 <div bind:this={content}>
-  <div class="sm:grid sm:grid-cols-2 sm:gap-10 lg:grid-cols-3">
+  <div class="sm:grid sm:grid-cols-2 sm:gap-10 lg:grid-cols-3 z-0">
     {#each inview as artwork, i}
       <div
         class="market-gallery w-full mb-20"
-        style={`transform: translateY(${translate}px)`}>
+        style={`transform: translateY(${translate}px)`}
+      >
         <Card {artwork} bind:justScrolled height={350} />
       </div>
     {/each}
   </div>
 </div>
+
+<style>
+  .market-gallery :global(.card-link img),
+  .market-gallery :global(.card-link video) {
+    height: 350px;
+  }
+</style>

@@ -9,7 +9,7 @@
   } from "@fortawesome/free-solid-svg-icons";
 </script>
 
-<div class="w-full px-5 md:px-0 bg-black rounded-xl p-10 drop">
+<div class="w-full px-5 md:px-0 bg-black rounded-xl p-10 drop mt-20">
   <div class="px-6 text-white">
     <p class="text-xl mb-10">
       You'll need to know your backup phrase. Some things to have in mind:

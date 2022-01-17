@@ -12,9 +12,13 @@
 
   let img, vid;
   $: path =
-    artwork && artwork.mainfile && artwork.mainfile[0] &&
+    artwork &&
+    artwork.mainfile &&
+    artwork.mainfile[0] &&
     (thumb
-      ? `/api/public/${artwork.mainfile[0].hash}.${artwork.mainfile[0].filetype.split("/")[1]}`
+      ? `/api/public/${artwork.mainfile[0].hash}.${
+          artwork.mainfile[0].filetype.split("/")[1]
+        }`
       : `/api/ipfs/${artwork.mainfile[0].hash}`);
 
   $: cover = !showDetails;
@@ -88,8 +92,53 @@
     muted = !muted;
     vid.muted = muted;
   };
-
 </script>
+
+{#if false && artwork.mainfile[0].filetype && artwork.mainfile[0].filetype.includes("video")}
+  <div
+    class="w-full"
+    class:inline-block={!popup}
+    class:cover
+    class:contain
+    class:hidden={!loaded}
+    on:mouseover={over}
+    on:focus={over}
+    on:mouseout={out}
+    on:blur={out}
+  >
+    <video
+      class="lazy"
+      autoplay
+      muted
+      playsinline
+      loop
+      bind:this={vid}
+      controls={popup}
+    >
+      <source data-src={preview || path} />
+      Your browser does not support HTML5 video.
+    </video>
+    {#if !popup}
+      <button
+        class="absolute hidden md:block bottom-2 right-2 secondary-color"
+        type="button"
+        class:invisible
+        on:click|stopPropagation|preventDefault={toggleSound}
+      >
+        <Fa icon={muted ? faVolumeMute : faVolumeUp} size="1.5x" />
+      </button>
+    {/if}
+  </div>
+{:else}
+  <div class="w-full" class:cover class:contain>
+    <img
+      src={preview || path}
+      alt={artwork.title}
+      bind:this={img}
+      class="z relative"
+    />
+  </div>
+{/if}
 
 <style>
   .contain,
@@ -115,46 +164,7 @@
     width: auto;
   }
 
+  .z {
+    z-index: -1;
+  }
 </style>
-
-
-{#if false && artwork.mainfile[0].filetype && artwork.mainfile[0].filetype.includes('video')}
-  <div
-    class="w-full"
-    class:inline-block={!popup}
-    class:cover
-    class:contain
-    class:hidden={!loaded}
-    on:mouseover={over}
-    on:focus={over}
-    on:mouseout={out}
-    on:blur={out}>
-    <video
-      class="lazy"
-      autoplay
-      muted
-      playsinline
-      loop
-      bind:this={vid}
-      controls={popup}>
-      <source data-src={preview || path} />
-      Your browser does not support HTML5 video.
-    </video>
-    {#if !popup}
-      <button
-        class="absolute hidden md:block bottom-2 right-2 secondary-color"
-        type="button"
-        class:invisible
-        on:click|stopPropagation|preventDefault={toggleSound}>
-        <Fa icon={muted ? faVolumeMute : faVolumeUp} size="1.5x" />
-      </button>
-    {/if}
-  </div>
-{:else}
-  <div class="w-full" class:cover class:contain>
-    <img
-      src={preview || path}
-      alt={artwork.title}
-      bind:this={img} />
-  </div>
-{/if}
