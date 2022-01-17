@@ -61,25 +61,6 @@
     <h2 class="mb-5 px-5 md:px-0"><a href="/wallet">Wallet</a></h2>
 
     <div class="wallet-nav flex flex-col uppercase">
-      <a href={`/${$user.username}`}>
-        <div
-          class="flex flex-wrap justify-center sm:justify-start items-center sm:items-start h-full">
-          <Fa icon={faChevronLeft} class="my-auto mr-2" />
-          <div class="sm:hidden">Profile</div>
-          <div class="hidden sm:block">Back to profile</div>
-        </div>
-      </a>
-      <!-- Due to new feature (click on asset name to change the asset) we don't need this anymore -->
-      <!--{#if $assets.length > 1}-->
-      <!--  <a href="/wallet/asset">-->
-      <!--    <div-->
-      <!--      class="flex flex-wrap justify-center sm:justify-start items-center sm:items-start h-full">-->
-      <!--      <Fa icon={faDollarSign} class="my-auto mr-2" />-->
-      <!--      <div class="sm:hidden">Asset</div>-->
-      <!--      <div class="hidden sm:block">Change asset</div>-->
-      <!--    </div>-->
-      <!--  </a>-->
-      <!--{/if}-->
       <a href="/wallet/setup">
         <div
           class="flex flex-wrap justify-center sm:justify-start items-center sm:items-start h-full">
