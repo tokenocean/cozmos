@@ -66,9 +66,9 @@
   let bulk = false;
 
   let suggestions;
-  $: suggestions = wordlist.filter((w) =>
-    w.startsWith(words[curr])
-  ).slice(0, 5);
+  $: suggestions = wordlist
+    .filter((w) => w.startsWith(words[curr]))
+    .slice(0, 5);
 
   let take = async (suggestion) => {
     words[curr] = suggestion;
@@ -85,28 +85,9 @@
     if (e.key === "Enter" || (e.key === "Tab" && !e.shiftKey))
       return suggestions[0] && take(suggestions[0]);
   };
-
 </script>
 
-<style>
-  input {
-    @apply border-0 border-b-2 pb-1;
-    width: 75%;
-    margin-left: 20px;
-  }
-
-  @media only screen and (max-width: 640px) {
-    .suggestions {
-      position: fixed;
-      bottom: 80px;
-      left: 0;
-      width: 100vw;
-    }
-  }
-
-</style>
-
-<div class="p-5">
+<div class="p-5 bg-black rounded-xl text-white">
   <div class="flex flex-col">
     <p>Enter your backup phrase in the correct order:</p>
 
@@ -116,7 +97,8 @@
           id="list-price"
           label="Show words"
           on:change={(e) => (show = e.target.checked)}
-          checked={show} />
+          checked={show}
+        />
       </div>
     {/if}
   </div>
@@ -126,7 +108,8 @@
       bind:value={typed}
       placeholder="Type or paste your seed here"
       class="my-4 w-full"
-      on:blur={setMnemonic} />
+      on:blur={setMnemonic}
+    />
   {:else}
     <div class="flex flex-wrap mb-2">
       <div class="mr-2 sm:mr-0 flex-grow w-1/4 sm:w-1/2">
@@ -138,14 +121,16 @@
                 bind:value={words[i]}
                 on:keydown={(e) => keyup(i, e)}
                 key={i}
-                bind:this={inputs[i]} />
+                bind:this={inputs[i]}
+              />
             {:else}
               <input
                 bind:value={words[i]}
                 on:keydown={(e) => keyup(i, e)}
                 key={i}
                 bind:this={inputs[i]}
-                type="password" />
+                type="password"
+              />
             {/if}
           </div>
         {/each}
@@ -159,14 +144,16 @@
                 bind:value={words[i + 6]}
                 on:keydown={(e) => keyup(i + 6, e)}
                 bind:this={inputs[i + 6]}
-                key={i + 6} />
+                key={i + 6}
+              />
             {:else}
               <input
                 bind:value={words[i + 6]}
                 on:keydown={(e) => keyup(i + 6, e)}
                 bind:this={inputs[i + 6]}
                 key={i + 6}
-                type="password" />
+                type="password"
+              />
             {/if}
           </div>
         {/each}
@@ -176,22 +163,47 @@
       {#each suggestions as suggestion}
         <button
           class="primary-btn w-auto border m-1"
-          on:click={() => take(suggestion)}>{suggestion}</button>
+          on:click={() => take(suggestion)}>{suggestion}</button
+        >
       {/each}
     </div>
   {/if}
 
   <p class="my-4">
     {#if bulk}
-      <a
-        class="text-blue-400 my-2"
-        href="/"
-        on:click|preventDefault={toggle}>I want to enter one word at a time</a>
+      <a class="my-2" href="/" on:click|preventDefault={toggle}
+        >I want to enter one word at a time</a
+      >
     {:else}
-      <a
-        class="text-blue-400 my-2"
-        href="/"
-        on:click|preventDefault={toggle}>I want to type in a text box</a>
+      <a class="my-2" href="/" on:click|preventDefault={toggle}
+        >I want to type in a text box</a
+      >
     {/if}
   </p>
 </div>
+
+<style>
+  input {
+    @apply pb-1;
+    width: 75%;
+    margin-left: 20px;
+    background-color: black;
+    color: white;
+    border: 1px solid grey;
+  }
+
+  textarea {
+    background-color: black;
+    color: white;
+    border: 1px solid grey;
+  }
+
+  @media only screen and (max-width: 640px) {
+    .suggestions {
+      position: fixed;
+      bottom: 80px;
+      left: 0;
+      width: 100vw;
+    }
+  }
+</style>

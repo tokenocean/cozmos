@@ -1,6 +1,9 @@
 <script>
   import Fa from "svelte-fa";
-  import { faCircle } from "@fortawesome/free-solid-svg-icons";
+  import {
+    faChevronLeft,
+    faChevronRight,
+  } from "@fortawesome/free-solid-svg-icons";
   import { page } from "$app/stores";
   import { user } from "$lib/store";
   import { getMnemonic } from "$lib/wallet";
@@ -19,25 +22,58 @@
   $: displayMnemonic($page, $user);
 </script>
 
+<div class="container bg-black rounded-xl p-10 drop text-white">
+  {#if mnemonic}
+    <p class="text-center">
+      Write down the following 12 words in the correct order:
+    </p>
+    <div class="flex">
+      <button
+        on:click={() => (offset = 0)}
+        class="pagination w-auto m-2"
+        class:active={offset === 0}><Fa icon={faChevronLeft} /></button
+      >
+      <div class="mx-auto px-10 border-style rounded-xl mt-4">
+        {#each mnemonic.split(" ").slice(offset, offset + 6) as word, i}
+          <div class="text-xl text-center mx-4 my-2">
+            <p class="word"><b>{i + 1 + offset}.</b> {word}</p>
+          </div>
+        {/each}
+      </div>
+      <button
+        on:click={() => (offset = 6)}
+        class="pagination w-auto m-2"
+        class:active={offset === 6}><Fa icon={faChevronRight} /></button
+      >
+    </div>
+
+    <div class="flex justify-center">
+      <p class="my-4">
+        <a href="" on:click|preventDefault={() => copy(mnemonic)}
+          >Copy to clipboard</a
+        >
+      </p>
+    </div>
+    <div class="flex justify-center text-center mt-5">
+      <button
+        on:click={() =>
+          offset === 0 ? goto("/wallet/create/step1") : (offset -= 6)}
+        class="w-2/4 m-2 rounded-lg border border-white">Back</button
+      >
+      <Button
+        primary
+        on:click={() =>
+          offset === 6 ? goto("/wallet/create/step3") : (offset += 6)}
+        class="w-2/4 m-2">Next</Button
+      >
+    </div>
+  {/if}
+</div>
+
 <style>
   .pagination {
     color: lightgray;
     padding: 7px;
-  }
-  .pagination:focus {
-    @apply text-blue;
-  }
-
-  .active {
-    @apply text-blue;
-  }
-
-  .word {
-    padding: 10px;
-    display: inline-block;
-    border-radius: 10px;
-    background-color: whitesmoke;
-    font-weight: bold;
   }
 
   .word b {
@@ -45,42 +81,12 @@
     font-size: 15px;
     color: gray;
   }
+
+  .drop {
+    box-shadow: 15px 15px 15px grey;
+  }
+
+  .border-style {
+    border: 0.5px solid grey;
+  }
 </style>
-
-<div
-  class="container">
-  {#if mnemonic}
-    <p>Write down the following 12 words in the correct order:</p>
-
-    {#each mnemonic.split(' ').slice(offset, offset + 6) as word, i}
-      <div class="text-xl text-center my-4">
-        <p class="word"><b>{i + 1 + offset}</b> {word}</p>
-      </div>
-    {/each}
-
-    <div class="flex justify-center text-center mt-5">
-      <button
-        on:click={() => (offset = 0)}
-        class="pagination w-auto"
-        class:active={offset === 0}><Fa icon={faCircle} /></button>
-      <button
-        on:click={() => (offset = 6)}
-        class="pagination w-auto"
-        class:active={offset === 6}><Fa icon={faCircle} /></button>
-    </div>
-
-    <p class="my-4">
-      <a class="text-blue-400" href="" on:click|preventDefault={() => copy(mnemonic)}>Copy to
-        clipboard</a>
-    </p>
-
-    <div class="flex justify-center text-center mt-5">
-      <button
-        on:click={() => (offset === 0 ? goto('/wallet/create/step1') : (offset -= 6))}
-        class="w-2/4 secondary-btn m-2">Back</button>
-      <Button primary
-        on:click={() => (offset === 6 ? goto('/wallet/create/step3') : (offset += 6))}
-        class="w-2/4 m-2">Next</Button>
-    </div>
-  {/if}
-</div>

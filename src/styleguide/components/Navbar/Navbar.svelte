@@ -1,13 +1,35 @@
 <script>
-  import Fa         from "svelte-fa";
-  import {faSearch} from "@fortawesome/free-solid-svg-icons";
-  import Hamburger  from "$components/Hamburger.svelte";
-  import Menu       from "./Menu.svelte";
-  import Logo       from "$styleguide/components/Logo.svelte";
+  import Fa from "svelte-fa";
+  import { faSearch } from "@fortawesome/free-solid-svg-icons";
+  import Hamburger from "$components/Hamburger.svelte";
+  import Menu from "./Menu.svelte";
+  import Logo from "$styleguide/components/Logo.svelte";
 
   export let mobileScreen = false;
   export let sidebar = false;
 </script>
+
+<header
+  class:mobileScreen
+  class="px-4 py-4 sm:h-14 lg:h-auto absolute top-0 w-full"
+>
+  <div class="mx-auto flex container items-center justify-between">
+    <nav class="flex hambuger navbar-menu">
+      <Hamburger bind:open={sidebar} />
+    </nav>
+    <div>
+      <a href="/">
+        <Logo class="w-16 lg:w-28 z-20 relative" />
+      </a>
+    </div>
+    <a class="mobileSearch z-20 relative" href="/market">
+      <Fa icon={faSearch} />
+    </a>
+    <nav class="hidden text-bold lg:block">
+      <Menu />
+    </nav>
+  </div>
+</header>
 
 <style lang="scss">
   @import "../../theme.scss";
@@ -16,11 +38,13 @@
     font-family: $header--links--font-family;
     font-size: $header--links--font-size;
     padding-top: 20px;
-    background-color: $header--background-color;
+    background-color: rgba(0, 0, 0, 0.5);
     color: $header--links--color;
+    z-index: 1000000000;
 
-    :global(button.menu-button), :global(a.menu-link) {
-      transition: .15s;
+    :global(button.menu-button),
+    :global(a.menu-link) {
+      transition: 0.15s;
       font-family: $header--links--font-family;
       font-size: $header--links--font-size;
       color: $header--links--color;
@@ -76,24 +100,3 @@
     color: $header--hamburger--color;
   }
 </style>
-
-<header
-    class:mobileScreen
-    class="px-4 py-4 sm:h-14 lg:h-auto">
-  <div class="mx-auto flex container items-center justify-between">
-    <nav class="flex hambuger navbar-menu">
-      <Hamburger bind:open={sidebar} />
-    </nav>
-    <div>
-      <a href="/">
-        <Logo class="w-16 lg:w-28 z-20 relative" />
-      </a>
-    </div>
-    <a class="mobileSearch z-20 relative" href="/market">
-      <Fa icon={faSearch} />
-    </a>
-    <nav class="hidden text-bold lg:block">
-      <Menu />
-    </nav>
-  </div>
-</header>

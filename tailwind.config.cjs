@@ -24,7 +24,19 @@ const COLORS = {
     '700': '#BA4107',
     '800': '#893005',
     '900': '#581E03'
-  }
+  },
+	GRAY: {
+		'50': '#f9fafb',
+		'100': '#f3f4f6',
+		'200': '#e5e7eb',
+		'300': '#d1d5db',
+		'400': '#9ca3af',
+		'500': '#6b7280',
+		'600': '#4b5563',
+		'700': '#374151',
+		'800': '#1f2937',
+		'900': '#111827'
+	},
 };
 
 module.exports = {
@@ -49,6 +61,7 @@ module.exports = {
       backgroundColor: {
         blue: COLORS.BLUE,
         orange: COLORS.ORANGE,
+				gray: COLORS.GRAY,
       },
       colors: {
         primary: "#8feef5",
