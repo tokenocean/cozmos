@@ -7,6 +7,7 @@ import { generateMnemonic } from "bip39";
 export const register = async (email, username, password) => {
   if (!validateEmail(email)) throw new Error("Invalid email");
   if (password.length < 8) throw new Error("Password must be 8 characters");
+	if (!username) throw new Error("Username cannot be empty");
 
   return api
     .url("/register")
