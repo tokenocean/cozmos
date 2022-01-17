@@ -536,7 +536,7 @@
 
   .toc a,
   .guide a {
-    color: #3ba5ac;
+    color: #ef4baf;
   }
   .guide-image {
     max-width: 800px;

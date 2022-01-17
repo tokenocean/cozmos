@@ -56,7 +56,7 @@
 </script>
 
 <div class="container mx-auto p-4 md:p-20">
-  <div class="w-full max-w-4xl mx-auto bg-white p-4 md:p-10 rounded-xl">
+  <div class="w-full max-w-4xl mx-auto bg-gray-100 mt-20 p-4 md:p-10 drop">
       <a class="block mb-6 text-black" href={`/a/${artwork.slug}`}>
         <div class="flex">
           <Fa icon={faChevronLeft} class="my-auto mr-1" />
@@ -67,3 +67,9 @@
       <Form bind:artwork title={artwork.title} on:submit={update} />
   </div>
 </div>
+
+<style>
+.drop {
+	box-shadow: 8px 8px 8px lightgrey, 8px -1px 8px lightgrey;
+}
+</style>

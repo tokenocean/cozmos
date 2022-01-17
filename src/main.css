@@ -126,11 +126,11 @@ Brand Colors
 }
 
 /* Light blue — Primary accent color */
-.text-lightblue {
-    color: #6ed8e0;
+.text-lightpink {
+    color: #ef4baf;
 }
-.bg-lightblue {
-    background: #6ed8e0;
+.bg-lightpink {
+    background: #ef4baf;
 }
 
 .border-lightpink {
@@ -138,7 +138,7 @@ Brand Colors
 }
 
 /*Light blue gradient — Gradient accent color */
-.lightblue-grad {
+.lightpink-grad {
     background: rgb(143, 238, 245);
     background: linear-gradient(
             90deg,
@@ -227,11 +227,11 @@ label {
 }
 
 .secondary-color {
-    color: #3ba5ac;
+    color: #ef4baf;
 }
 
 .brand-color {
-    background: #3ba5ac;
+    background: #ef4baf;
 }
 
 .button-trans-gray {

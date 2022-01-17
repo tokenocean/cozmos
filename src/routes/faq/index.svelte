@@ -107,7 +107,7 @@
   }
 
   .contact a, .faq a{
-    color: #3ba5ac;
+    color: #ef4baf;
   }
 
   @media only screen and (max-width: 1023px){

@@ -39,7 +39,8 @@
 <style>
   div:hover,
   .favorited {
-    @apply text-primary cursor-pointer;
+    @apply cursor-pointer;
+		color: #ef4baf;
   }
 
 </style>

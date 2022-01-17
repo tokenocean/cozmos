@@ -64,7 +64,7 @@
   }
 </style>
 
-<div class="form-container bg-lightblue">
+<div class="form-container bg-lightpink">
   <form class="mb-6" on:submit|preventDefault={reset} autocomplete="off">
     <h2 class="mb-8">Reset password</h2>
     <div class="flex flex-col mb-4">

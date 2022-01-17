@@ -31,7 +31,7 @@
   }
 
   .snack.info {
-    background: #6ed8e0;
+    background: #ef4baf;
   }
 
   .snack.error {

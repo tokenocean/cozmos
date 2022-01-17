@@ -52,7 +52,7 @@
   }
 </style>
 
-<div class="form-container bg-lightblue px-4">
+<div class="form-container bg-lightpink px-4">
   <form class="mb-6" autocomplete="off">
     {#if loading}
       <ProgressLinear />

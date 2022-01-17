@@ -4,7 +4,7 @@ export const outer = (a) =>
   ({
     [btc]: "outer-btc",
     [cad]: "bg-red-600",
-    [usd]: "bg-lightblue",
+    [usd]: "bg-lightpink",
   }[a] || "bg-white");
 
 export const border = (a) =>

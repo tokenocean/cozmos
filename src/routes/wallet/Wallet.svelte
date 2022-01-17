@@ -104,7 +104,7 @@
     </div>
 {:else if $balances && $pending}
     <div class="w-full mt-20">
-        <div class="bg-blue mb-2 pt-1 sm:rounded-lg">
+        <div class="bg-black mb-2 pt-1 sm:rounded-lg">
             <div
                 class="flex inline-block text-center text-white text-xl mt-5 font-bold pr-8">
                 {#if $assets.length > 1}

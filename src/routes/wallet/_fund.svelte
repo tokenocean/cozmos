@@ -139,7 +139,7 @@
 </style>
 
 {#if $user && funding}
-  <div class="bg-blue mb-2 md:rounded-lg p-5">
+  <div class="bg-black mb-2 md:rounded-lg p-5">
     <div class="flex justify-between place-items-center text-white">
       <p class="font-semibold">Fund Wallet</p>
 <!--      hide this temporary, during find the fix how to manage page.params.action and funding binding-->
@@ -155,7 +155,7 @@
         Funding through a confidential liquid address, bitcoin address, or
         lightning invoice is achieved by automatically converting to L-BTC
         through
-        <a href="https://coinos.io" style="color: #6ed8e0">coinos.io</a>. Funds
+        <a href="https://coinos.io" style="color: #ef4baf">coinos.io</a>. Funds
         will be subject to counterparty risk during the conversion process.
       </p>
 
@@ -170,7 +170,7 @@
         See
         <a
           href="https://help.blockstream.com/hc/en-us/articles/900000630846-How-do-I-get-Liquid-Bitcoin-L-BTC-"
-          style="color: #6ed8e0">this article</a>
+          style="color: #ef4baf">this article</a>
         for other methods of acquiring L-BTC.
       </p>
     {/if}

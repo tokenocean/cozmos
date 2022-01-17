@@ -57,11 +57,12 @@
   div:hover,
   .favorited {
     @apply cursor-pointer;
+		color: #ef4baf;
   }
 </style>
 
 <div
-    class="{$$props.class}"
+    class="{$$props.class} text-white"
     on:click={favorite}
     class:favorited
     class:hovered

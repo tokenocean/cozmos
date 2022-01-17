@@ -372,7 +372,7 @@
           </a>
         </div>
       {/if}
-      <div class="mt-12">
+      <div class="mt-12 border border-gray rounded-xl p-4">
         <div class="text-2xl font-bold">History</div>
         <div class="mt-4 text-sm">
           {#each artwork.transactions.slice(0, showActivity ? artwork.transactions.length : 3) as transaction}
@@ -449,16 +449,16 @@
             >
               <Fa icon={faGift} />
             </div>
+						<div
+							class="ml-1 bg-black w-8 h-8 rounded-full flex items-center justify-center text-white cursor-pointer"
+						>
+							<Heart {artwork} size="1x" />
+						</div>
             <div
               class="mr-1 ml-1 bg-black w-8 h-8 rounded-full flex items-center justify-center text-white cursor-pointer"
               on:click={inDevelopment}
             >
               <Fa icon={faShareAlt} />
-            </div>
-            <div
-              class="ml-1 bg-black w-8 h-8 rounded-full flex items-center justify-center text-white cursor-pointer"
-            >
-              <Heart {artwork} size="1x" />
             </div>
           </div>
         </div>
@@ -533,7 +533,7 @@
                     </div>
                   </div>
                   <input
-                    class={`w-full flex justify-center items-center inline-block rounded-2xl h-14 font-medium text-center cursor-pointer text-lg ${actionClassName}`}
+                    class={`w-full flex justify-center items-center inline-block rounded-2xl h-14 text-center cursor-pointer text-lg backgroundGradient text-white font-bold ${actionClassName}`}
                     type="submit"
                     value={artwork.list_price ? "Make an offer" : "Place bid"}
                   />
@@ -547,7 +547,7 @@
               {/if}
             {:else if !artwork.auction_start || compareAsc(now, parseISO(artwork.auction_start)) === 1}
               <input
-                class={`w-full flex justify-center items-center inline-block rounded-2xl h-14 font-medium text-center cursor-pointer text-lg ${actionClassName}`}
+                class={`w-full flex justify-center items-center inline-block rounded-2xl h-14 text-center cursor-pointer text-lg backgroundGradient text-white font-bold ${actionClassName}`}
                 type="button"
                 on:click={startBidding}
                 value={artwork.list_price ? "Make an offer" : "Place bid"}
@@ -612,6 +612,10 @@
 </div>
 
 <style lang="scss">
+	.backgroundGradient {
+		background-image: linear-gradient(45deg, red, orange);
+	}
+
   .disabled {
     cursor: not-allowed;
     opacity: 0.8;
@@ -653,7 +657,7 @@
   }
 
   :global(.description a) {
-    color: #3ba5ac;
+    color: #ef4baf;
   }
 
   .mob-desc {
@@ -695,7 +699,7 @@
     }
 
     .show-more {
-      color: #3ba5ac;
+      color: #ef4baf;
       font-weight: bold;
       text-align: right;
       margin-top: 10px;

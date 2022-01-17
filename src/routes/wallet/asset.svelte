@@ -36,15 +36,19 @@
     background: #082527;
   }
   .dark-gray {
-    @apply bg-blue-600;
+    background-color: darkgray;
   }
   .border-blue {
-    border-color: #6ed8e0;
+    border-color: #ef4baf;
   }
 
   .active {
     @apply border-t-2 border-b-2 border-r-2 text-white;
   }
+
+	.container {
+		margin-top: 5rem;
+	}
 </style>
 
 {#if $balances}
@@ -56,7 +60,7 @@
         </div>
       </a>
     </div>
-    <div class="bg-blue p-4 rounded-lg">
+    <div class="bg-black p-4 rounded-lg">
       {#each $assets as a}
         <div
           class="flex mb-2 cursor-pointer"

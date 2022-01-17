@@ -440,7 +440,7 @@
           class="secondary-btn mb-2"
           on:click={() => copy($psbt.toBase64())}>Copy PSBT Base64</button
         >
-        <button class="primary-btn mb-2a" on:click={() => copy(tx.toHex())}
+        <button class="secondary-btn mb-2a" on:click={() => copy(tx.toHex())}
           >Copy Tx Hex</button
         >
       </div>

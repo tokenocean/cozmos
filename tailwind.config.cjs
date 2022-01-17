@@ -65,7 +65,7 @@ module.exports = {
       },
       colors: {
         primary: "#8feef5",
-        secondary: "#3ba5ac",
+        secondary: "#ef4baf",
         // blue (base - #335fe3)
         blue: COLORS.BLUE,
         // orange (base - #f77030)
