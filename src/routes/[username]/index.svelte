@@ -79,7 +79,7 @@
         <div id="line-right">
           <div>
             <div class="flex-auto flex-col">
-              <div id="avatar-container z-0">
+              <div id="avatar-container">
                 <img
                   src="/svg_icons/profile_shape.svg"
                   alt="comet"
