@@ -538,7 +538,7 @@
                     value={artwork.list_price ? "Make an offer" : "Place bid"}
                   />
                   <div
-                    class="text-center text-sm cursor-pointer"
+                    class="text-center text-sm cursor-pointer border border-black w-32 rounded-full mx-auto p-2 m-2"
                     on:click={stopBidding}
                   >
                     Cancel
