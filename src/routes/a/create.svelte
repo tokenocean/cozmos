@@ -214,7 +214,7 @@
         <h2 class="text-white p-14">Preview experience</h2>
         {#if $user}
           <div
-            class="w-2/3 mx-auto bg-gray-500 rounded-3xl sticky top-64 mb-20"
+            class="w-2/3 mx-auto bg-gray-500 rounded-3xl sticky top-64 mb-20 nopointer"
           >
             <Card {artwork} {preview} />
           </div>
@@ -291,6 +291,10 @@
 </div>
 
 <style>
+	.nopointer {
+		pointer-events: none;
+	}
+
   .container {
     width: 100% !important;
     min-height: 100vh;
