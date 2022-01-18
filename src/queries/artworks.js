@@ -33,6 +33,7 @@ export const marketFields = `
   auction_end
   asking_asset
   has_royalty
+  redeemed
   slug
   created_at
   ${artworkFiles}
@@ -76,6 +77,7 @@ export const fields = `
   auction_end
   list_price_tx
   asking_asset
+  redeemed
   bid_increment
   extension_interval
   max_extensions

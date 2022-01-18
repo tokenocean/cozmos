@@ -9,6 +9,7 @@ const {
   getCurrentUser,
   getTransactionArtwork,
   getTransactionUser,
+  redeemArtwork,
   setHeld,
   setOwner,
   setPsbt,
@@ -30,7 +31,6 @@ app.post("/cancel", auth, async (req, res) => {
     if (errors) throw new Error(errors[0].message);
     let user = data.currentuser[0];
 
-
     if (tx.user_id !== user.id) return res.code(401).send();
 
     res.send(await q(cancelBid, { id }));
@@ -46,7 +46,7 @@ app.post("/transfer", auth, async (req, res) => {
 
     let utxos = await lnft.url(`/address/${address}/utxo`).get().json();
     let attempts = 0;
-    let received = () => utxos.find((tx) => tx.asset === transaction.asset)
+    let received = () => utxos.find((tx) => tx.asset === transaction.asset);
 
     console.log("transferring", transaction);
 
@@ -219,6 +219,18 @@ app.post("/accept", auth, async (req, res) => {
       .post({ query: acceptBid, variables: req.body })
       .json();
     res.send(data);
+  } catch (e) {
+    console.log(e);
+    res.code(500).send(e.message);
+  }
+});
+
+app.post("/redeem", auth, async (req, res) => {
+  try { 
+      let { data } = await api(req.headers)
+      .post({ query: redeemArtwork, variables: req.body })
+      .json();
+      res.send(data);
   } catch (e) {
     console.log(e);
     res.code(500).send(e.message);
