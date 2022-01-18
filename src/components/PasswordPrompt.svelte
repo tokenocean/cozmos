@@ -16,7 +16,7 @@
   let attempt = dev ? "liquidart" : "";
   let input;
   let show;
-  export const showButtons = true;
+  export const showButtons = false;
 
   let focus = (p) => p && tick().then(() => input.focus());
   $: focus($prompt);
@@ -39,9 +39,13 @@
       })
       .catch(err);
   };
+
+	let close = () => {
+		$prompt = undefined;
+	}
 </script>
 
-<form on:submit|preventDefault={submit} class="bg-black">
+<form on:submit|preventDefault={submit} class="bg-black rounded-xl p-6 m-4">
   <div class="dialog-header">
     <h2 id="modal-headline">Enter password</h2>
   </div>
@@ -76,9 +80,9 @@
         >Forgot password?</a
       >
     </div>
-    <div class="flex justify-center">
-      <Button primary class="m-6 w-48">Cancel</Button>
-      <Button primary class="m-6 w-48" type="submit">Continue</Button>
+    <div class="flex justify-center mt-4">
+      <Button primary class="mr-6 mt-6 w-48" on:click={close}>Cancel</Button>
+      <Button primary class="mt-6 w-48" type="submit">Continue</Button>
     </div>
   </div>
 </form>
@@ -101,5 +105,8 @@
 
   h2 {
     color: white;
+		font-size: 1.875rem;
+		line-height: 2.25rem;
+		margin: 2rem auto;
   }
 </style>

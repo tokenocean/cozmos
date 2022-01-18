@@ -16,6 +16,13 @@
 		comp.close && comp.close();
 		$prompt = undefined;
 	}
+
+	function dark() {
+		if ($prompt.dark) {
+			return 'bg-black';
+		}
+	}
+
 </script>
 
 <style>
@@ -60,10 +67,10 @@
         role="dialog"
         aria-modal="true"
         aria-labelledby="modal-headline">
-        <div class="bg-white p-4">
+        <div class="{dark()} p-4">
           <div class="flow-root p-0 m-0">
             <div
-              class="cursor-pointer float-right bg-black text-white p-0 m-0 w-8 rounded-full flex justify-center font-bold"
+              class="cursor-pointer float-right bg-black border border-white text-white p-0 m-0 w-8 rounded-full flex justify-center font-bold"
               on:click={close}>
               X
             </div>
