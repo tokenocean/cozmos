@@ -10,7 +10,7 @@ const BRANDING = {
     external: {
       twitter: "https://twitter.com/cozmos",
       telegram: "https://t.me/cozmos",
-      // blog: 'https://blog.raretoshi.com/',
+      discord: "https://discord.com/invite/K393aHGV3M",
     },
   },
 
