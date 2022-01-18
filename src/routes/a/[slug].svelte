@@ -611,7 +611,16 @@
           </div>
         </div>
 
-        <PhotoGallery images={artwork.gallery} />
+							<!-- Gallery photos -->
+				{#if artwork.gallery[0]}
+				<div class="mt-12">
+				  <div class="text-2xl font-bold">Gallery</div>
+				  <div class="mt-2">
+				    <PhotoGallery images={artwork.gallery} />
+				  </div>
+				</div>
+				{/if}
+
 
         <!-- Comments -->
         <Comments bind:artwork bind:fetch />

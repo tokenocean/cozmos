@@ -272,7 +272,7 @@
           on:upload={addFile}
           previewEnabled={false}
         />
-        <div>
+        <div class="mt-0 md:mt-20">
           <PhotoGallery {images} bind:this={gallery} />
         </div>
       </div>
