@@ -26,34 +26,8 @@
   $: initialize($user);
 
   let form;
-  let fileInput;
-  let filename;
-  let preview;
-  let file;
-  let percent;
-
-  let fileChosen = (e) => {
-    file = e.target.files[0];
-    if (!file) return;
-    filename = file.name;
-    var reader = new FileReader();
-
-    reader.onload = async (e) => {
-      preview = e.target.result;
-    };
-
-    reader.readAsDataURL(file);
-  };
-
-  let progress = (event) => {
-    percent = Math.round((event.loaded / event.total) * 100);
-  };
 
   let submit = async () => {
-    if (file) {
-      form.avatar_url = await upload(file, progress);
-    }
-
     if (form.email && !validateEmail(form.email)) return err("Invalid email");
 
     if (form.twitter) form.twitter = form.twitter.replace(/@/g, "");
@@ -84,6 +58,12 @@
     } = form;
     $user = { ...$user, ...rest };
 
+		let avatar = files.find((f) => f.type === 'profile');
+		if (avatar) rest.avatar_url = `${avatar.hash}.${avatar.filetype.split("/")[1]}`
+
+		let cover = files.find((f) => f.type === 'cover');
+		if (cover) rest.cover_photo_url = `${cover.hash}.${cover.filetype.split("/")[1]}`
+
     query(updateUser, { user: rest, id }).then((r) => {
       if (r.error) {
         if (r.error.message.includes("Uniqueness")) err("Username taken");
@@ -94,6 +74,12 @@
       }
     });
   };
+
+	let files = [];
+
+	const addFile = ({ detail: file }) => {
+		files = [...files.filter(f => f.type !== file.type), file];
+	};
 
 </script>
 
@@ -169,15 +155,19 @@
             <textarea placeholder="Bio" bind:value={form.bio} />
           </div>
 					<div class="flex justify-center w-full">
+						<h3>Upload a profile image</h3>
 					  <FileUpload
-					    title="Upload a profile image"
 					    type="profile"
 					    limits="PNG, JPG, WEBP, MAX 10MB"
+							on:upload={addFile}
+							previewEnabled={false}
 					  />
+						<h3>Upload a cover image</h3>
 					  <FileUpload
-					    title="Upload a cover image"
 					    type="cover"
 					    limits="PNG, JPG, WEBP, MAX 10MB"
+							on:upload={addFile}
+							previewEnabled={false}
 					  />
 					</div>
           <p class="font-bold">Add links to your social media profiles...</p>
