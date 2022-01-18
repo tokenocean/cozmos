@@ -28,14 +28,13 @@
       metadata.keywords + " " + artwork.tags.map((t) => t.tag).join(" ");
     metadata.description = artwork.description;
 
-    if (artwork.mainfile[0].filetype.includes("video"))
-      metadata.video = "/api/ipfs/" + artwork.mainfile[0].hash;
-    else metadata.image = "/api/ipfs/" + artwork.mainfile[0].hash;
+    if (artwork.main[0].filetype.includes("video"))
+      metadata.video = "/api/ipfs/" + artwork.main[0].hash;
+    else metadata.image = "/api/ipfs/" + artwork.main[0].hash;
 
     props.metadata = metadata;
 
     return {
-      maxage: 90,
       props,
     };
   }
@@ -334,6 +333,7 @@
 </script>
 
 <Head {metadata} />
+
 <div
   class="w-full h-96 bg-center bg-cover flex justify-center items-center"
   style="background-image: url({coverImage()});"

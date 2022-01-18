@@ -11,7 +11,6 @@
 </script>
 
 <script>
-  import FileUpload from "$components/FileUpload.svelte";
   import Card from "$styleguide/components/Card.svelte";
   import Core from "$lib/lnft-core";
   import { page } from "$app/stores";
@@ -41,12 +40,6 @@
   let hidden = true;
   let loading;
   $: preview = files.find((f) => f.type === "main")?.preview;
-
-  const addFile = async ({ detail: file }) => {
-    files = [...files, file];
-    await tick();
-    gallery.go(images.length);
-  };
 
   let hash, tx;
   const issue = async (ticker) => {
@@ -128,7 +121,7 @@
     asking_asset: btc,
     title: "",
     description: "",
-    mainfile: [],
+    main: [],
     ticker: "",
     package_content: "",
     asset: btc,
@@ -167,7 +160,11 @@
       let strippedDown = { ...artwork };
       delete strippedDown.owner;
       delete strippedDown.artist;
-      delete strippedDown.mainfile;
+      delete strippedDown.main;
+      delete strippedDown.cover;
+      delete strippedDown.thumb;
+      delete strippedDown.video;
+      delete strippedDown.gallery;
 
       let savedArtwork = await core.createArtwork({
         artwork: strippedDown,
@@ -193,9 +190,6 @@
     goto("/market");
   };
 
-  let gallery;
-
-  $: images = files.filter((f) => f.type === "gallery");
 </script>
 
 <div class="container mx-auto p-6 md:p-20 md:pb-96">
@@ -235,54 +229,13 @@
         </p>
       </div>
 
-      <div class="md:grid md:grid-cols-2 md:text-left md:p-4">
-        <FileUpload
-          {artwork}
-          title="Upload NFT Image"
-          type="main"
-          limits="PNG, JPG, GIF, MP4, WEBP, MAX 10MB"
-          on:upload={addFile}
-        />
-        <FileUpload
-          {artwork}
-          title="Upload Cover Image"
-          type="cover"
-          limits="PNG, JPG, WEBP, MAX 10MB"
-          on:upload={addFile}
-        />
-        <FileUpload
-          {artwork}
-          title="Upload Video"
-          type="video"
-          limits="MP4, MAX 100MB"
-          on:upload={addFile}
-        />
-        <FileUpload
-          {artwork}
-          title="Upload Card Thumbnail"
-          type="thumb"
-          limits="PNG, JPG, WEBP, MAX 10MB"
-          on:upload={addFile}
-        />
-        <FileUpload
-          {artwork}
-          title="Upload Gallery Photo"
-          type="gallery"
-          limits="PNG, JPG, WEBP, MAX 10MB"
-          on:upload={addFile}
-          previewEnabled={false}
-        />
-        <div class="mt-0 md:mt-20">
-          <PhotoGallery {images} bind:this={gallery} />
-        </div>
-      </div>
       <div class="flex flex-wrap flex-col-reverse lg:flex-row">
         <div class="w-full">
           <div class:invisible={!loading}>
             <ProgressLinear />
           </div>
           <div class:invisible={loading}>
-            <Form bind:artwork on:submit={submit} />
+            <Form bind:artwork bind:files on:submit={submit} />
           </div>
         </div>
       </div>

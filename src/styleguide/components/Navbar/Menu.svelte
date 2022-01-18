@@ -146,10 +146,6 @@
       @apply my-2;
     }
 
-    .menu a.menu-link button.menu-link-button {
-      @apply text-xl leading-normal font-semibold;
-    }
-
     .menu :global(.search) {
       @apply hidden;
     }

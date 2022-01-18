@@ -63,8 +63,8 @@
     <div class="text-sm text-gray-600 break-all mb-6">
       <div class="text-xs">IPFS Hash</div>
       <a
-        href={`https://ipfs.io/ipfs/${artwork.mainfile[0].hash}`}
-        class="secondary-color">{artwork.mainfile[0].hash}</a>
+        href={`https://ipfs.io/ipfs/${artwork.main[0].hash}`}
+        class="secondary-color">{artwork.main[0].hash}</a>
     </div>
   {/if}
 

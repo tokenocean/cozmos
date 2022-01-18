@@ -1,11 +1,15 @@
 const fileFields = `
   id
   hash
+  type
   filetype
 `;
 
 const artworkFiles = `
-  mainfile: files(where: { type: {_eq: "main"}}) {
+  files {
+    ${fileFields}
+  } 
+  main: files(where: { type: {_eq: "main"}}) {
     ${fileFields} 
   }
   cover: files(where: { type: {_eq: "cover"}}) {
@@ -267,6 +271,12 @@ export const createComment = `mutation ($comment: comments_insert_input!) {
   }
 }`;
 
+export const deleteFiles = `mutation($id: uuid!) {
+  delete_files(where: { artwork_id: { _eq: $id }}) {
+    affected_rows
+  }
+}`;
+
 export const updateArtwork = `mutation update_artwork($artwork: artworks_set_input!, $id: uuid!) {
   update_artworks_by_pk(pk_columns: { id: $id }, _set: $artwork) {
     id
@@ -285,8 +295,8 @@ export const updateArtworkWithRoyaltyRecipients = `mutation update_artwork_with_
   }
 }`;
 
-export const updateTags = `mutation insert_tags($tags: [tags_insert_input!]!, $artwork_id: uuid!) {
-  delete_tags(where: {artwork_id: {_eq: $artwork_id}}) {
+export const updateTags = `mutation insert_tags($tags: [tags_insert_input!]!, $id: uuid!) {
+  delete_tags(where: {artwork_id: {_eq: $id}}) {
     affected_rows
   }
   insert_tags(objects: $tags) {

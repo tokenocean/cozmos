@@ -7,9 +7,7 @@
   import { Splide, SplideSlide } from "@splidejs/svelte-splide";
 
   export let images;
-  export const go = (i) => {
-    slider.go(">");
-  };
+  export const go = (i) => slider && slider.go(">");
 
   let showPopup = false;
   $: options = {

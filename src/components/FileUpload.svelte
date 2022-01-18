@@ -2,14 +2,13 @@
   import { tick } from "svelte";
   import { err } from "$lib/utils";
   import { upload, supportedTypes } from "$lib/upload";
-  import FormItem from "$components/FormItem.svelte";
   import { createEventDispatcher } from "svelte";
   import { ArtworkMedia, Dropzone } from "$comp";
 
   export let artwork;
   export let title;
   export let type;
-	export let limits;
+  export let limits;
 
   export let previewEnabled = true;
 
@@ -55,7 +54,7 @@
         throw new Error("Supported file types are jpg, png, gif, mp4");
 
       file.preview = preview;
-      dispatch('upload', file);
+      dispatch("upload", file);
     } catch (e) {
       err(e);
       percent = undefined;
@@ -74,23 +73,17 @@
 </script>
 
 <div>
-  <FormItem {title} text="text-center">
-    {#if previewEnabled && (preview || percent)}
-      <div class="text-black">
-        {#if percent && parseInt(percent) < 100}
-          Loading...
-        {:else if percent === 100}
-          <div class="w-1/2 mx-auto">
-            <ArtworkMedia
-              {artwork}
-              {preview}
-              on:cancel={cancelPreview}
-            />
-          </div>
-        {/if}
-      </div>
-    {:else}
-      <Dropzone title={limits} on:file={uploadFile} />
-    {/if}
-  </FormItem>
+  {#if previewEnabled && (preview || percent)}
+    <div class="text-black">
+      {#if percent && parseInt(percent) < 100}
+        Loading...
+      {:else if percent === 100}
+        <div class="w-1/2 mx-auto">
+          <ArtworkMedia {artwork} {preview} on:cancel={cancelPreview} />
+        </div>
+      {/if}
+    </div>
+  {:else}
+    <Dropzone title={limits} on:file={uploadFile} />
+  {/if}
 </div>

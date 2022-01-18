@@ -8,6 +8,7 @@ export { default as Dialog } from "./Dialog.svelte";
 export { default as Dropzone } from "./Dropzone.svelte";
 export { default as Eye } from "./Eye.svelte";
 export { default as FileUpload } from "./FileUpload.svelte";
+export { default as FormItem } from "./FormItem.svelte";
 export { default as Footer } from "./Footer.svelte";
 export { default as Gallery } from "./Gallery.svelte";
 export { default as Head } from "./Head.svelte";

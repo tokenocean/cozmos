@@ -208,6 +208,8 @@ export default class Core {
     let strippedDown = { ...file, artwork_id };
     delete strippedDown.file;
     delete strippedDown.preview;
+    delete strippedDown.id;
+
     let result = await query(
       `mutation ($file: files_insert_input!) {
       insert_files_one(object: $file) {
