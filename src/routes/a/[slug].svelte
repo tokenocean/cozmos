@@ -349,7 +349,7 @@
         bannerVideo.play();
       }}
     >
-      <Fa icon={faPlay} />
+      <img src="/static/svg_icons/playbutton.svg" alt="Play button" class="w-32 mx-auto">
     </button>
     <video
       src={`/api/ipfs/${artwork.video[0].hash}`}
