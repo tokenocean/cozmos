@@ -50,7 +50,7 @@
     faGift,
     faShareAlt,
     faTimes,
-		faPlay,
+    faPlay,
   } from "@fortawesome/free-solid-svg-icons";
   import { getArtworkBySlug } from "$queries/artworks";
   import { faHeart, faImage } from "@fortawesome/free-regular-svg-icons";
@@ -249,6 +249,12 @@
   };
 
   let loading;
+  let redeem = async () => {
+    await api.url("/redeem").auth(`Bearer ${$token}`).post({
+      id: artwork.id,
+    });
+  };
+
   let buyNow = async () => {
     try {
       await requirePassword();
@@ -314,18 +320,17 @@
     };
   };
 
-	let vidDisplay = 'hidden';
-	let playDisplay = '';
-	let bannerVideo;
+  let vidDisplay = "hidden";
+  let playDisplay = "";
+  let bannerVideo;
 
-	function coverImage() {
-		if (artwork.cover[0]) {
-			return `/api/ipfs/${artwork.cover[0].hash}`;
-		}
-		else {
-			return 'https://blogs.esa.int/space19plus/files/2019/03/nebula.jpg';
-		}
-	}
+  function coverImage() {
+    if (artwork.cover[0]) {
+      return `/api/ipfs/${artwork.cover[0].hash}`;
+    } else {
+      return "https://blogs.esa.int/space19plus/files/2019/03/nebula.jpg";
+    }
+  }
 </script>
 
 <Head {metadata} />
@@ -333,30 +338,30 @@
   class="w-full h-96 bg-center bg-cover flex justify-center items-center"
   style="background-image: url({coverImage()});"
 >
-{#if artwork.video[0]}
-  <button
-    type="button"
-    name="button"
-    class="text-white {playDisplay}"
-    on:click={() => {
-      vidDisplay = "";
-      playDisplay = "hidden";
-      bannerVideo.play();
-    }}
-  >
-    <Fa icon={faPlay} />
-  </button>
-  <video
-    src={`/api/ipfs/${artwork.video[0].hash}`}
-    preload
-    autoplay
-    controls
-    disablepictureinpicture
-    controlslist="nodownload"
-    class="{vidDisplay} w-full h-96"
-    bind:this={bannerVideo}
-  />
-{/if}
+  {#if artwork.video[0]}
+    <button
+      type="button"
+      name="button"
+      class="text-white {playDisplay}"
+      on:click={() => {
+        vidDisplay = "";
+        playDisplay = "hidden";
+        bannerVideo.play();
+      }}
+    >
+      <Fa icon={faPlay} />
+    </button>
+    <video
+      src={`/api/ipfs/${artwork.video[0].hash}`}
+      preload
+      autoplay
+      controls
+      disablepictureinpicture
+      controlslist="nodownload"
+      class="{vidDisplay} w-full h-96"
+      bind:this={bannerVideo}
+    />
+  {/if}
 </div>
 
 <div class="nft-container mx-auto pt-4 md:pt-24 mb-10 px-4 md:px-0">
@@ -370,6 +375,11 @@
           <a href={`/a/${artwork.slug}/edit`}>
             <Button primary class="w-full">Edit</Button>
           </a>
+        </div>
+      {/if}
+      {#if $user && $user.id === artwork.artist_id && !artwork.redeemed}
+        <div class="mt-8">
+          <Button primary on:click={redeem} class="w-full">Set Redeemed</Button>
         </div>
       {/if}
       <div class="mt-12 border border-gray rounded-xl p-4">
@@ -449,11 +459,11 @@
             >
               <Fa icon={faGift} />
             </div>
-						<div
-							class="ml-1 bg-black w-8 h-8 rounded-full flex items-center justify-center text-white cursor-pointer"
-						>
-							<Heart {artwork} size="1x" />
-						</div>
+            <div
+              class="ml-1 bg-black w-8 h-8 rounded-full flex items-center justify-center text-white cursor-pointer"
+            >
+              <Heart {artwork} size="1x" />
+            </div>
             <div
               class="mr-1 ml-1 bg-black w-8 h-8 rounded-full flex items-center justify-center text-white cursor-pointer"
               on:click={inDevelopment}
@@ -612,9 +622,9 @@
 </div>
 
 <style lang="scss">
-	.backgroundGradient {
-		background-image: linear-gradient(45deg, red, orange);
-	}
+  .backgroundGradient {
+    background-image: linear-gradient(45deg, red, orange);
+  }
 
   .disabled {
     cursor: not-allowed;

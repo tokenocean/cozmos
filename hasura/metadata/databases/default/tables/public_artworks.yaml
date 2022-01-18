@@ -162,6 +162,7 @@ select_permissions:
     - max_extensions
     - owner_id
     - package_content
+    - redeemed
     - reserve_price
     - slug
     - ticker
@@ -206,6 +207,7 @@ select_permissions:
     - max_extensions
     - owner_id
     - package_content
+    - redeemed
     - reserve_price
     - slug
     - ticker
@@ -258,6 +260,7 @@ update_permissions:
     - list_price_tx
     - max_extensions
     - owner_id
+    - redeemed
     - reserve_price
     - title
     filter:
