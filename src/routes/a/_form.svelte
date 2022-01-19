@@ -96,8 +96,11 @@
   <div class="md:grid md:grid-cols-2 md:text-left md:p-4">
     {#if $page.url.pathname.includes('/create')}
     <FormItem title="Upload NFT Image" text="text-center">
+			<div class="text-sm text-black text-center">
+				(Cannot be changed once submitted)
+			</div>
       {#if artwork.main && artwork.main.length}
-        <img src={`/api/ipfs/${artwork.main[0].hash}`} alt="Main" />
+        <img src={`/api/ipfs/${artwork.main[0].hash}`} alt="Main" class="mx-auto w-56 mt-4 nftimage" />
       {/if}
       <FileUpload
         {artwork}
@@ -108,9 +111,28 @@
       />
     </FormItem>
   {/if}
+		<FormItem title="Upload Card Thumbnail" text="text-center">
+			<div class="text-sm text-black text-center">
+				(Optional)
+			</div>
+			{#if artwork.thumb && artwork.thumb.length}
+				<img src={`/api/ipfs/${artwork.thumb[0].hash}`} alt="Thumb" class="mx-auto w-56 mt-4 nftimage"/>
+			{/if}
+			<FileUpload
+				{artwork}
+				title="Upload Card Thumbnail"
+				type="thumb"
+				limits="PNG, JPG, WEBP, MAX 10MB"
+				on:upload={addFile}
+				previewEnabled={false}
+			/>
+		</FormItem>
     <FormItem title="Upload Cover Image" text="text-center">
+			<div class="text-sm text-black text-center">
+				(Required)
+			</div>
       {#if artwork.cover && artwork.cover.length}
-        <img src={`/api/ipfs/${artwork.cover[0].hash}`} alt="Cover" />
+        <img src={`/api/ipfs/${artwork.cover[0].hash}`} alt="Cover" class="mx-auto w-72 mt-4 cover" />
       {/if}
       <FileUpload
         {artwork}
@@ -121,8 +143,11 @@
       />
     </FormItem>
     <FormItem title="Upload Video" text="text-center">
+			<div class="text-sm text-black text-center">
+				(Required)
+			</div>
       {#if artwork.video && artwork.video.length}
-        <video autoplay loop controls muted key={artwork.video[0].hash} bind:this={vid}>
+        <video autoplay loop controls muted disablepictureinpicture controlslist="nodownload" key={artwork.video[0].hash} bind:this={vid} class="mx-auto w-72 mt-4 cover">
           <source src={`/api/ipfs/${artwork.video[0].hash}`} />
         </video>
       {/if}
@@ -134,20 +159,17 @@
         previewEnabled={false}
       />
     </FormItem>
-    <FormItem title="Upload Card Thumbnail" text="text-center">
-      {#if artwork.thumb && artwork.thumb.length}
-        <img src={`/api/ipfs/${artwork.thumb[0].hash}`} alt="Thumb" />
-      {/if}
-      <FileUpload
-        {artwork}
-        title="Upload Card Thumbnail"
-        type="thumb"
-        limits="PNG, JPG, WEBP, MAX 10MB"
-        on:upload={addFile}
-        previewEnabled={false}
-      />
-    </FormItem>
+	</div>
+	<div class="md:grid md:grid-cols-1 md:text-left md:p-4">
     <FormItem title="Upload Gallery Photo" text="text-center">
+			<div class="text-sm text-black text-center">
+				(Optional)
+			</div>
+			{#if artwork.gallery && artwork.gallery.length}
+				<div class="mt-4 mx-auto">
+			  	<PhotoGallery {images} bind:this={gallery} />
+				</div>
+			{/if}
       <FileUpload
         {artwork}
         type="gallery"
@@ -156,9 +178,6 @@
         previewEnabled={false}
       />
     </FormItem>
-    <div>
-      <PhotoGallery {images} bind:this={gallery} />
-    </div>
   </div>
   <!-- Artwork title -->
 
@@ -359,6 +378,14 @@
 </form>
 
 <style lang="scss">
+	.cover {
+		height: 14rem;
+	}
+
+	.nftimage {
+		height: 14rem;
+	}
+
   .sell-type {
     svg {
       path {
