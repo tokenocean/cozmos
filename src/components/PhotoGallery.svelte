@@ -38,7 +38,7 @@
         <img
           src={src(img)}
           alt="Gallery"
-          class="rounded h-24"
+          class="rounded h-48"
           on:click={() => popup(img)}
         />
       </SplideSlide>
