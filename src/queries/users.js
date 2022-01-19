@@ -3,7 +3,7 @@ import { marketFields as artworkFields } from "./artworks";
 import { fields as txFields } from "./transactions";
 
 let fields =
-  "id, username, location, bio, email, full_name, website, twitter, instagram, discord, tiktok, youtube, facebook, twitch, avatar_url, address, multisig, pubkey, is_artist";
+  "id, username, location, bio, email, full_name, website, twitter, instagram, discord, tiktok, youtube, facebook, twitch, avatar_url, cover_photo_url, address, multisig, pubkey, is_artist";
 
 let privateFields = "mnemonic, wallet_initialized, is_admin, info";
 
@@ -44,7 +44,7 @@ export const getUserByUsername = `query($username: String!) {
 
 export const getSamples = `query {
   users(where: { _and: [{ is_artist: { _eq: false }, is_denied: { _eq: false }}, { samples: {}}]}) {
-    ${fields} 
+    ${fields}
     info
     samples {
       id

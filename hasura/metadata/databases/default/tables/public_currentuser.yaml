@@ -9,6 +9,7 @@ select_permissions:
     - bio
     - blindkey
     - confidential
+    - cover_photo_url
     - created_at
     - discord
     - display_name

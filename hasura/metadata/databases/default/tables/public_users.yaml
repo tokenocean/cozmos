@@ -135,6 +135,7 @@ select_permissions:
     - bio
     - blindkey
     - confidential
+    - cover_photo_url
     - discord
     - email
     - facebook
@@ -195,6 +196,7 @@ select_permissions:
     - bio
     - blindkey
     - confidential
+    - cover_photo_url
     - discord
     - email
     - facebook
@@ -235,6 +237,7 @@ update_permissions:
     - bio
     - blindkey
     - confidential
+    - cover_photo_url
     - discord
     - display_name
     - email

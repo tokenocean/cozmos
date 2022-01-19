@@ -9,7 +9,7 @@
     faMapMarkerAlt,
   } from "@fortawesome/free-solid-svg-icons";
   import { faTwitter, faInstagram } from "@fortawesome/free-brands-svg-icons";
-  import { onMount } from "svelte";
+  import { onMount, tick } from "svelte";
   import { user, token } from "$lib/store";
   import { err, info, goto, validateEmail } from "$lib/utils";
   import { Avatar } from "$comp";
@@ -76,14 +76,32 @@
   };
 
 	let files = [];
+	let avatarPreview;
+	let coverPreview;
+	let avatarPreviewEnable;
+	let coverPreviewEnable;
 
-	const addFile = ({ detail: file }) => {
+	const addFile = async ({ detail: file }) => {
+		if (file.type === 'profile') {
+		avatarPreviewEnable = true;
+		await tick();
+		avatarPreview.src = `/api/ipfs/${file.hash}`;
+		}
+		else if (file.type === 'cover') {
+		coverPreviewEnable = true;
+		await tick();
+		coverPreview.src = `/api/ipfs/${file.hash}`;
+		}
 		files = [...files.filter(f => f.type !== file.type), file];
 	};
 
 </script>
 
 <style>
+	.height {
+		height: 14rem;
+	}
+
   .container {
     height: auto;
     min-height: 100vh;
@@ -155,20 +173,30 @@
             <textarea placeholder="Bio" bind:value={form.bio} />
           </div>
 					<div class="flex justify-center w-full">
-						<h3>Upload a profile image</h3>
+						<div class="w-full">
+						<p class="font-bold text-center">Upload a profile image</p>
+						{#if $user.avatar_url && $user.avatar_url.length || avatarPreviewEnable === true}
+							<img src={`/api/public/${$user.avatar_url}`} alt="Avatar" class="mx-auto w-56 mt-4 height" bind:this={avatarPreview} />
+						{/if}
 					  <FileUpload
 					    type="profile"
 					    limits="PNG, JPG, WEBP, MAX 10MB"
 							on:upload={addFile}
 							previewEnabled={false}
 					  />
-						<h3>Upload a cover image</h3>
+						</div>
+						<div class="w-full">
+						<p class="font-bold text-center">Upload a cover image</p>
+						{#if $user.cover_photo_url && $user.cover_photo_url.length || coverPreviewEnable === true}
+							<img src={`/api/public/${$user.cover_photo_url}`} alt="Avatar" class="mx-auto w-56 mt-4 height" bind:this={coverPreview} />
+						{/if}
 					  <FileUpload
 					    type="cover"
 					    limits="PNG, JPG, WEBP, MAX 10MB"
 							on:upload={addFile}
 							previewEnabled={false}
 					  />
+						</div>
 					</div>
           <p class="font-bold">Add links to your social media profiles...</p>
 					<div class="flex mb-4">

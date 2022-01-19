@@ -66,11 +66,22 @@
   let collectedBold = "font-bold";
   let createdOpacity = "opacity-60";
   let collectedOpacity = "";
+	let coverSource;
+
+	function setCover() {
+		if ($user && $user.cover_photo_url && $user.cover_photo_url.length) {
+			coverSource = `/api/public/${$user.cover_photo_url}`;
+		}
+		else {
+			coverSource = 'https://blogs.esa.int/space19plus/files/2019/03/nebula.jpg';
+		}
+	}
+	setCover();
 </script>
 
 <div
   class="w-full h-96 bg-center bg-cover flex justify-center items-center"
-  style="background-image: url('https://blogs.esa.int/space19plus/files/2019/03/nebula.jpg');"
+  style="background-image: url({coverSource});"
 />
 <div class="container mx-auto mt-5 md:mt-20">
   {#if subject}
@@ -398,7 +409,7 @@
   #avatar {
     position: absolute;
     top: 50%;
-    left: 48.5%;
+    left: 50%;
     transform: translate(-50%, -50%);
   }
 
