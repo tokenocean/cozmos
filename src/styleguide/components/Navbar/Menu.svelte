@@ -9,6 +9,7 @@
   import { prompt } from "$lib/store";
   import { ConnectWallet } from "$comp";
   import Button from "$styleguide/components/Button.svelte";
+	import { goto } from "$lib/utils";
 
   export let open = false;
   let toggle = () => (open = !open);
@@ -72,11 +73,11 @@
       >
     {/if}
     <div class="relative flex hidden lg:flex">
-      <Button primary class="mr-6 w-40" rounded="rounded-full"
-        ><a href="/market">Explore</a></Button
+      <Button primary class="mr-6 w-40" rounded="rounded-full" on:click={() => goto("/market")}
+        >Explore</Button
       >
-      <Button primary class="mr-8 w-40" rounded="rounded-full"
-        ><a href="/a/create">Create</a></Button
+      <Button primary class="mr-8 w-40" rounded="rounded-full" on:click={() => goto("/a/create")}
+        >Create</Button
       >
       <button
         class="toggleWallet"
