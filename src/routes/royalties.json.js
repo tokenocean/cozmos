@@ -1,6 +1,6 @@
 import { getDefaultRoyaltyRecipients } from "$queries/royalty_recipients";
 
-export async function get({ headers, locals: { q } }) {
+export async function get({ locals: { q } }) {
   try {
     const { default_royalty_recipients } = await q(getDefaultRoyaltyRecipients);
 
@@ -8,7 +8,6 @@ export async function get({ headers, locals: { q } }) {
       body: {
         default_royalty_recipients,
       },
-      headers,
     };
   } catch (e) {
     console.log(e);
