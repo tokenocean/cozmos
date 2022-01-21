@@ -17,7 +17,7 @@
       session &&
       session.user &&
       !session.user.wallet_initialized &&
-      !["/wallet", "/logout"].find((p) => url.pathname.includes(p))
+      (!["/wallet", "/logout"].find((p) => url.pathname.includes(p)) || url.pathname === '/wallet')
     )
       return {
         status: 302,

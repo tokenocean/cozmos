@@ -94,7 +94,7 @@
   };
 </script>
 
-{#if false && artwork.thumb[0]}
+{#if artwork?.thumb?.length && artwork.thumb[0]}
 <div class="w-full" class:cover class:contain>
 	<img
 		src={`/api/ipfs/${artwork.thumb[0].hash}`}
@@ -104,7 +104,7 @@
 	/>
 </div>
 {:else}
-{#if false && artwork.main[0].filetype && artwork.main[0].filetype.includes("video")}
+  {#if artwork?.main?.length && artwork.main[0].filetype && artwork.main[0].filetype.includes("video")}
   <div
     class="w-full"
     class:inline-block={!popup}

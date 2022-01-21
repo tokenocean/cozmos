@@ -18,6 +18,8 @@
   export let files = [];
   export let title;
 
+  export let list_price, reserve_price;
+
   let input, items, loading, timer;
   let vid;
 
@@ -25,12 +27,10 @@
 
   $: images = files.filter((f) => f.type === "gallery");
 
-  const addFile = async ({ detail: file }) => {
+  const addFile = ({ detail: file }) => {
     files = [...files.filter(f => f.type !== file.type), file];
     artwork[file.type] = [file];
     if (vid) vid.load();
-    await tick();
-    gallery.go(images.length);
   };
 
   const debounce = (v) => {
@@ -100,7 +100,7 @@
 				(Cannot be changed once submitted)
 			</div>
       {#if artwork.main && artwork.main.length}
-        <img src={`/api/ipfs/${artwork.main[0].hash}`} alt="Main" class="mx-auto w-56 mt-4 nftimage" />
+        <img src={`/api/ipfs/${artwork.main[0].hash}`} alt="Main" class="mx-auto w-56 mt-4 nftimage object-cover" />
       {/if}
       <FileUpload
         {artwork}
@@ -277,8 +277,9 @@
       <div>
         {#if listingType === TYPES.FIXED}
           <FormItem title="Price">
+            <div class="flex">
             <Input
-              bind:value={artwork.list_price}
+              bind:value={list_price}
               placeholder="Price for NFT experience in L-BTC"
             />
           </FormItem>
@@ -286,7 +287,7 @@
         {#if listingType === TYPES.AUCTION}
           <FormItem title="Minimum bid">
             <Input
-              bind:value={artwork.reserve_price}
+              bind:value={reserve_price}
               placeholder="Minimum bid"
             />
           </FormItem>
@@ -329,52 +330,9 @@
     </div>
   </div>
 
-  <hr class="my-4" />
-
-  <div class="md:grid md:gap-8 md:grid-cols-2 py-4">
-    <div>
-      <FormItem title="Royalties">
-        <Input placeholder="%" />
-        <div class="text-sm mt-2 text-gray-400">Recommended: 10%. Max: 50%</div>
-      </FormItem>
-    </div>
-  </div>
-
   <Button type="submit" primary class="w-full mt-8">
     Submit an experience
   </Button>
-  <!--  <Button primary class="w-full mt-8" on:click={submit}>Submit an experience</Button>-->
-
-  <!--  <div class="flex flex-col mb-6">-->
-  <!--    <label for="title">Experience Title</label>-->
-  <!--    <input-->
-  <!--      id="title"-->
-  <!--      class="border-0 border-b-2"-->
-  <!--      style="border-radius: 0 !important"-->
-  <!--      placeholder="Title"-->
-  <!--      on:input={({ target: { value } }) => debounce(value)}-->
-  <!--      bind:this={input} />-->
-  <!--  </div>-->
-  <!--  <div class="flex flex-col mb-6">-->
-  <!--    <label for="description">Description</label>-->
-  <!--    <textarea-->
-  <!--      id="description"-->
-  <!--      placeholder="How would you describe it?"-->
-  <!--      bind:value={artwork.description} />-->
-  <!--  </div>-->
-  <!--  <div class="flex flex-col mb-6">-->
-  <!--    <label for="title">Package Content</label>-->
-  <!--    <input-->
-  <!--      id="title"-->
-  <!--      class="border-0 border-b-2"-->
-  <!--      style="border-radius: 0 !important"-->
-  <!--      placeholder="Title"-->
-  <!--      on:input={({ target: { value } }) => debounce(value)}-->
-  <!--      bind:this={input} />-->
-  <!--  </div>-->
-  <!--  <div class="flex w-full">-->
-  <!--    <Button primary class="w-full" type="submit">Submit experience</Button>-->
-  <!--  </div>-->
 </form>
 
 <style lang="scss">
