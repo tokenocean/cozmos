@@ -89,7 +89,7 @@
     main: [],
     ticker: "",
     package_content: "",
-    asset: btc,
+    asset: "",
     edition: 1,
     editions: 1,
     royalty_recipients: [],
@@ -245,8 +245,6 @@
         type: "listing",
       },
     });
-
-    info("List price updated!");
   };
 
   let setupAuction = async () => {
@@ -375,7 +373,7 @@
 
   $: generateTicker(title);
   let generateTicker = (t) => {
-    if (!t) return;
+    if (!t || t.length < 3) t = "TIK";
     artwork.ticker = (
       t.split(" ").length > 2
         ? t
@@ -391,14 +389,10 @@
   };
 
   let checkTicker = async () => {
-    let { data } = await hasura
-      .auth(`Bearer ${$token}`)
-      .post({
-        query: `query { artworks(where: { ticker: { _like: "${artwork.ticker.toUpperCase()}%" }}) { ticker }}`,
-      })
-      .json();
+    try {
+    let { artworks } = await query(`query { artworks(where: { ticker: { _like: "${artwork.ticker.toUpperCase()}%" }}) { ticker }}`);
 
-    if (!data.errors && data.artworks && data.artworks.length) {
+    if (artworks.length) {
       let tickers = data.artworks.sort(({ ticker: a }, { ticker: b }) =>
         b.length < a.length
           ? 1
@@ -413,6 +407,9 @@
           ticker.substr(0, 3) + c[c.indexOf(ticker.substr(3)) + 1];
       }
     }
+    } catch(e) {
+      err(e);
+    } 
   };
 
   async function submit(e) {
@@ -436,6 +433,7 @@
         $prompt = Issuing;
       }
       loading = true;
+      await issue();
       let strippedDown = { ...artwork };
       delete strippedDown.royalty_recipients;
       delete strippedDown.owner;
@@ -446,6 +444,7 @@
       delete strippedDown.video;
       delete strippedDown.gallery;
 
+      console.log("STRIPPED", strippedDown.asset);
       let savedArtwork = await core.createArtwork({
         artwork: strippedDown,
         generateRandomTickers: true,
@@ -462,8 +461,6 @@
       await spendPreviousSwap();
       await setupRoyalty();
       await setupSwaps();
-
-      debugger;
 
       let {
         asking_asset,

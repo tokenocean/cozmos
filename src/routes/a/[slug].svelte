@@ -270,7 +270,10 @@
         $psbt = await requestSignature($psbt);
       }
 
+      console.log($psbt.toBase64());
+
       await broadcast($psbt);
+
 
       let tx = $psbt.extractTransaction();
       transaction.hash = tx.getId();

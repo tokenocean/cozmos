@@ -907,6 +907,8 @@ export const createRelease = async ({ asset, owner }, tx) => {
 export const createSwap = async (artwork, amount, tx) => {
   let { asset, asking_asset } = artwork;
 
+  console.log("CREATE SWAP", asset, asking_asset);
+
   if (asking_asset === btc && amount < DUST)
     throw new Error(
       `Minimum asking price is ${(DUST / 100000000).toFixed(8)} L-BTC`
