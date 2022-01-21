@@ -1,6 +1,6 @@
 import cookie from "cookie";
 
-export async function post(request) {
+export async function post() {
   return {
     body: {},
     headers: {

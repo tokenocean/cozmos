@@ -1,7 +1,7 @@
 import { countArtworks, getLimited } from "$queries/artworks";
 import { hbp } from "$lib/api";
 
-export async function post({ body, locals }) {
+export async function post({ request, locals }) {
   try {
     let { q } = locals;
     let {
@@ -9,7 +9,7 @@ export async function post({ body, locals }) {
       offset = 0,
       where = {},
       order_by = { created_at: "desc" },
-    } = body;
+    } = await request.json();
 
     let { artworks_aggregate: a } = await q(countArtworks, { where });
     let { artworks } = await q(getLimited, { limit, offset, order_by, where });

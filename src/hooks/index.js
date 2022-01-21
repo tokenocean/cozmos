@@ -6,11 +6,12 @@ import { hbp, getQ } from "$lib/api";
 import { addSeconds } from "date-fns";
 import { prerendering } from "$app/env";
 
-export async function handle({ request, resolve }) {
-  const {
-    headers,
+export async function handle({ event, resolve }) {
+  let {
+    request: { headers },
     url: { pathname },
-  } = request;
+  } = event;
+
   const cookies = cookie.parse(headers.cookie || "");
   let { refresh_token, token: jwt } = cookies;
 
@@ -58,7 +59,7 @@ export async function handle({ request, resolve }) {
   else delete headers.authorization;
 
   let q = getQ(headers);
-  request.locals = { jwt, q };
+  event.locals = { jwt, q };
 
   if (headers.authorization) {
     try {
@@ -69,12 +70,12 @@ export async function handle({ request, resolve }) {
     }
   }
 
-  request.locals.user = user;
+  event.locals.user = user;
 
-  const response = await resolve(request);
+  const response = await resolve(event);
 
   if (setCookie && pathname !== "/auth/login")
-    response.headers["set-cookie"] = setCookie;
+    response.headers.set("set-cookie", setCookie);
 
   return response;
 }
