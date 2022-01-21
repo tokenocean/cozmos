@@ -12,7 +12,9 @@
         },
       };
 
-    const props = await get(`/addresses.json`, fetch);
+    const props = await get("/addresses.json", fetch);
+    const { rate } = await get("/rate.json", fetch);
+    props.rate = rate;
 
     if (
       session &&
@@ -44,13 +46,14 @@
     user,
     password,
     poll,
+    rate as r,
     token,
   } from "$lib/store";
   import { onDestroy, onMount } from "svelte";
   import branding from "$lib/branding";
   import Navbar from "$styleguide/components/Navbar/Navbar.svelte";
 
-  export let addresses, titles;
+  export let addresses, rate, titles;
 
   let interval;
 
@@ -74,6 +77,7 @@
 
     $a = addresses;
     $t = titles;
+    $r = rate;
 
     if ($session) {
       $user = $session.user;
@@ -82,6 +86,11 @@
 
     interval = setInterval(refresh, 60000);
   }
+
+  let getExchangeRate = async () => {
+    $r = (await get("/rate.json", fetch)).rate;
+  };
+  let rateInterval = setInterval(getExchangeRate, 1000);
 
   let open = false;
   let y;
