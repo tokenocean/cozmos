@@ -85,7 +85,7 @@
         bind:this={walletToggleHandler}
       >
         <img
-          src="/static/svg_icons/wallet.svg"
+          src="/svg_icons/wallet.svg"
           alt="Wallet icon"
           class="w-12"
         />
@@ -103,7 +103,7 @@
         bind:this={userToggleHandler}
       >
         <img
-          src="/static/svg_icons/profile.svg"
+          src="/svg_icons/profile.svg"
           alt="Profile icon"
           class="w-12"
         />

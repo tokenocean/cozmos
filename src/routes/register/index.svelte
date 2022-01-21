@@ -57,7 +57,7 @@
         Thanks for registering. Please check your email for an activation link.
       </p>
       <img
-        src="/static/svg_icons/01-Isotype Cozmos.svg"
+        src="/svg_icons/01-Isotype Cozmos.svg"
         alt=""
         class="linkIcon mx-auto"
       />

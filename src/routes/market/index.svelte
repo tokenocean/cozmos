@@ -85,7 +85,7 @@
 
 <div
   class="w-full h-96 bg-center bg-contain absolute top-0 zero flex justify-center items-center"
-  style="background-image: url(/static/tomorrowland.jpg);"
+  style="background-image: url(/tomorrowland.jpg);"
 />
 
 <Results />
