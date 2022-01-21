@@ -7,7 +7,7 @@ import {
 import { getArtworkTransactions } from "$queries/transactions";
 import { hbp } from "$lib/api";
 
-export async function get({ headers, locals, params }) {
+export async function get({ locals, params }) {
   try {
     let { slug } = params;
     let { q } = locals;
@@ -31,7 +31,6 @@ export async function get({ headers, locals, params }) {
         artwork,
         others,
       },
-      headers,
     };
   } catch (e) {
     console.log(e);
