@@ -6,7 +6,6 @@
   import { ArtworkMedia, Dropzone } from "$comp";
 
   export let artwork;
-  export let title;
   export let type;
   export let limits;
 

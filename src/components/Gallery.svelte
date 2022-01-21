@@ -4,7 +4,6 @@
   import Card from "$styleguide/components/Card.svelte";
 
   export let filtered;
-  export let count;
 
   let inview = filtered.slice(0, 24);
 </script>

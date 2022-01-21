@@ -40,9 +40,9 @@
       .catch(err);
   };
 
-	let close = () => {
-		$prompt = undefined;
-	}
+  let close = () => {
+    $prompt = undefined;
+  };
 </script>
 
 <form on:submit|preventDefault={submit} class="bg-black rounded-xl p-6 m-4">
@@ -105,8 +105,8 @@
 
   h2 {
     color: white;
-		font-size: 1.875rem;
-		line-height: 2.25rem;
-		margin: 2rem auto;
+    font-size: 1.875rem;
+    line-height: 2.25rem;
+    margin: 2rem auto;
   }
 </style>

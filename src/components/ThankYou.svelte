@@ -1,8 +1,8 @@
-<svelte:options accessors/>
+<svelte:options accessors />
 
 <script>
-import { goto } from '$lib/utils';
-export const close = () => goto('/market');
+  import { goto } from "$lib/utils";
+  export const close = () => goto("/market");
 </script>
 
 <div class="container text-center bg-white p-10">
@@ -13,32 +13,33 @@ export const close = () => goto('/market');
     <strong>Thanks for submitting your experience. We appreciate it.</strong>
     It might take a few minutes while we review it. Good luck!
   </p>
-  <img
-    src="/rocket.png"
-    alt="Rocket"
-    class="w-40 h-40 mx-auto" />
+  <img src="/rocket.png" alt="Rocket" class="w-40 h-40 mx-auto" />
   <div class="block md:flex justify-center">
     <div class="flex mt-5 md:mt-10">
-			<a
+      <a
         href="https://instagram.com/cozmosnft"
         target="_blank"
-        rel="noreferrer">
+        rel="noreferrer"
+      >
         <img
           src="/svg_icons/Instagram-02.svg"
           alt="Instagram icon"
-          class="w-52 md:w-16" />
+          class="w-52 md:w-16"
+        />
       </a>
       <a href="https://discord.com/cozmosnft" target="_blank" rel="noreferrer">
         <img
           src="/svg_icons/Discord.svg"
           alt="Discord icon"
-          class="w-52 md:w-16" />
+          class="w-52 md:w-16"
+        />
       </a>
       <a href="https://twitter.com/cozmosnft" target="_blank" rel="noreferrer">
         <img
           src="/svg_icons/Twitter-02.svg"
           alt="Twitter icon"
-          class="w-52 md:w-16" />
+          class="w-52 md:w-16"
+        />
       </a>
     </div>
     <p class="self-center md:ml-16 text-sm md:mt-10">Follow us for updates</p>

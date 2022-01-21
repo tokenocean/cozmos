@@ -7,7 +7,6 @@
   } from "@fortawesome/free-solid-svg-icons";
   export let artwork;
   let show;
-
 </script>
 
 {#if artwork.royalty_recipients.length}
@@ -29,7 +28,8 @@
           <RoyaltyRecipient
             editable={false}
             askingAsset={artwork.asking_asset}
-            {recipient} />
+            {recipient}
+          />
         {/each}
       {/if}
     </ul>

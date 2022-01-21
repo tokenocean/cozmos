@@ -2,7 +2,6 @@
   import { host } from "$lib/utils";
   import { page } from "$app/stores";
   export let metadata;
-
 </script>
 
 <svelte:head>
@@ -28,7 +27,6 @@
     <meta name="twitter:image" content={metadata.image} />
     <meta name="twitter:card" content="summary_large_image" />
   {/if}
-
 
   <meta property="og:url" content={host + $page.url.pathname} />
   <meta name="twitter:site" content={metadata.twitter.site} />

@@ -82,6 +82,7 @@
     }
   };
 </script>
+
 <div
   class="w-full h-96 bg-center bg-contain absolute top-0 zero flex justify-center items-center"
   style="background-image: url(/static/tomorrowland.jpg);"
@@ -94,32 +95,26 @@
 >
   <h2 class="md:mb-0 text-white">Market</h2>
   {#if $user && $user.is_artist}
-    <a href="/a/create" class="primary-btn border border-white" data-cy="new-artwork"
-      >Mint an experience</a
+    <a
+      href="/a/create"
+      class="primary-btn border border-white"
+      data-cy="new-artwork">Mint an experience</a
     >
   {/if}
 </div>
 <div class="container mx-auto">
-	<div class="mt-10">
-  <Gallery bind:filtered bind:total bind:loadMore />
-	</div>
+  <div class="mt-10">
+    <Gallery bind:filtered bind:total bind:loadMore />
+  </div>
 </div>
 
 <style>
-.zero {
-	z-index: -1;
-}
+  .zero {
+    z-index: -1;
+  }
 
-.container {
-	margin-top: 10rem;
-}
-  @media only screen and (max-width: 1023px) {
-    .search :global(input) {
-      width: 90%;
-      appearance: none;
-      border: 0;
-      border-bottom: 1px solid #ef4baf;
-    }
+  .container {
+    margin-top: 10rem;
   }
 
   @media only screen and (max-width: 767px) {

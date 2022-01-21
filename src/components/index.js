@@ -19,7 +19,6 @@ export { default as Pagination } from "./Pagination.svelte";
 export { default as PasswordPrompt } from "./PasswordPrompt.svelte";
 export { default as PhotoGallery } from "./PhotoGallery.svelte";
 export { default as ProgressLinear } from "./ProgressLinear.svelte";
-export { default as RecentActivityCard } from "./RecentActivityCard.svelte";
 export { default as Results } from "./Results.svelte";
 export { default as Row } from "./Row.svelte";
 export { default as Search } from "./Search.svelte";

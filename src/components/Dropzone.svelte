@@ -33,10 +33,74 @@
   };
 
   let handle = (e) => {
-    dispatch('file', { file: e.target.files[0] });
-  }
-
+    dispatch("file", { file: e.target.files[0] });
+  };
 </script>
+
+{#if style === "box"}
+  <div
+    id="drop-area"
+    on:click={open}
+    on:dragenter={start}
+    on:dragover={start}
+    on:dragleave={stop}
+    on:focus={start}
+    on:mouseover={start}
+    on:blur={stop}
+    on:mouseout={stop}
+    on:drop={drop}
+    class:highlight
+  >
+    <form class="text-center py-6 px-30">
+      <div class="flex justify-center flex-col align-center h-full">
+        <span class="uppercase text-gray-400">{title}</span>
+        <span class="mx-auto text-sm m-2 text-center">
+          <button
+            type="button"
+            name="button"
+            class="text-gray-300 bg-black rounded-full py-2 px-6"
+            >Choose file</button
+          >
+        </span>
+      </div>
+      <input
+        bind:this={fileInput}
+        type="file"
+        id="fileElem"
+        multiple
+        accept="image/*,video/*"
+        on:change={handle}
+      />
+    </form>
+  </div>
+{:else}
+  <a
+    href="."
+    on:click|preventDefault={open}
+    class="secondary-color cursor-pointer"
+  >
+    <div class="flex">
+      <div>{title}</div>
+      <div class="ml-1 my-auto">
+        <Fa icon={faCloudUploadAlt} />
+      </div>
+    </div>
+  </a>
+  <form class="text-center invisible">
+    <div class="flex justify-center flex-col align-center h-full">
+      <span class="uppercase">{title}</span>
+      <Fa icon={faCloudUploadAlt} />
+    </div>
+    <input
+      bind:this={fileInput}
+      type="file"
+      id="fileElem"
+      multiple
+      accept="image/*,video/*"
+      on:change={handle}
+    />
+  </form>
+{/if}
 
 <style>
   #fileElem {
@@ -71,61 +135,4 @@
       margin: 10px 0 25px 0;
     }
   }
-
 </style>
-
-{#if style === 'box'}
-  <div
-    id="drop-area"
-    on:click={open}
-    on:dragenter={start}
-    on:dragover={start}
-    on:dragleave={stop}
-    on:focus={start}
-    on:mouseover={start}
-    on:blur={stop}
-    on:mouseout={stop}
-    on:drop={drop}
-    class:highlight>
-    <form class="text-center py-6 px-30">
-      <div class="flex justify-center flex-col align-center h-full">
-        <span class="uppercase text-gray-400">{title}</span>
-        <span class="mx-auto text-sm m-2 text-center">
-          <button type="button" name="button" class='text-gray-300 bg-black rounded-full py-2 px-6'>Choose file</button>
-        </span>
-      </div>
-      <input
-        bind:this={fileInput}
-        type="file"
-        id="fileElem"
-        multiple
-        accept="image/*,video/*"
-        on:change={handle} />
-    </form>
-  </div>
-{:else}
-  <a
-    href="."
-    on:click|preventDefault={open}
-    class="secondary-color cursor-pointer">
-    <div class="flex">
-      <div>{title}</div>
-      <div class="ml-1 my-auto">
-        <Fa icon={faCloudUploadAlt} />
-      </div>
-    </div>
-  </a>
-  <form class="text-center invisible">
-    <div class="flex justify-center flex-col align-center h-full">
-      <span class="uppercase">{title}</span>
-      <Fa icon={faCloudUploadAlt} />
-    </div>
-    <input
-      bind:this={fileInput}
-      type="file"
-      id="fileElem"
-      multiple
-      accept="image/*,video/*"
-      on:change={handle} />
-  </form>
-{/if}

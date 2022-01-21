@@ -1,26 +1,18 @@
 <script>
   import Button from "$styleguide/components/Button.svelte";
-
 </script>
 
-<style lang="scss">
-  @import "../styleguide/theme.scss";
-
-  .secondary-font {
-    font-family: "Audiowide", sans-serif;
-  }
-
-</style>
-
 <div
-  class="overflow-hidden md:overflow-visible min-h-screen flex header-container mx-auto justify-center items-center bg-black">
+  class="overflow-hidden md:overflow-visible min-h-screen flex header-container mx-auto justify-center items-center bg-black"
+>
   <div class="flex justify-center mx-24 -mt-32">
     <div class="leading-normal">
       <div class="text-gray-500 text-xl font-semibold ml-20 md:ml-0">
         WE ARE DISRUPTING THE NFT INDUSTRY.
       </div>
       <div
-        class="text-white text-5xl secondary-font leading-normal mt-4 ml-20 md:ml-0">
+        class="text-white text-5xl secondary-font leading-normal mt-4 ml-20 md:ml-0"
+      >
         The First marketplace<br />
         for NFT-Experiences
       </div>
@@ -46,3 +38,11 @@
     </div>
   </div>
 </div>
+
+<style lang="scss">
+  @import "../styleguide/theme.scss";
+
+  .secondary-font {
+    font-family: "Audiowide", sans-serif;
+  }
+</style>

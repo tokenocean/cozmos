@@ -33,18 +33,16 @@
       err(e);
     }
   };
-
 </script>
+
+<div on:click={favorite} class:favorited>
+  <Fa icon={favorited ? solidHeart : faHeart} {size} />
+</div>
 
 <style>
   div:hover,
   .favorited {
     @apply cursor-pointer;
-		color: #ef4baf;
+    color: #ef4baf;
   }
-
 </style>
-
-<div on:click={favorite} class:favorited>
-  <Fa icon={favorited ? solidHeart : faHeart} {size} />
-</div>

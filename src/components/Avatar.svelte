@@ -3,27 +3,12 @@
   export let src = undefined;
   export let overlay = undefined;
   export let size = "small";
-
 </script>
-
-<style>
-  .small {
-    @apply w-12 h-12;
-  }
-
-  .large {
-    @apply w-16 h-16;
-  }
-
-  .xl {
-    @apply w-56 h-56;
-  }
-
-</style>
 
 <div class={`${size} my-auto relative`}>
   <div
-    class={`relative ${size} group rounded-full overflow-hidden shadow-inner text-center cursor-pointer`}>
+    class={`relative ${size} group rounded-full overflow-hidden shadow-inner text-center cursor-pointer`}
+  >
     {#if user || src}
       <img
         key={user && user.username}
@@ -42,6 +27,21 @@
       alt="Multisig"
       src={overlay}
       class="w-6 h-6 absolute"
-      style="bottom: -8px; right: -20px" />
+      style="bottom: -8px; right: -20px"
+    />
   {/if}
 </div>
+
+<style>
+  .small {
+    @apply w-12 h-12;
+  }
+
+  .large {
+    @apply w-16 h-16;
+  }
+
+  .xl {
+    @apply w-56 h-56;
+  }
+</style>

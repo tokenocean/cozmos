@@ -966,7 +966,7 @@ export const createOffer = async (artwork, amount, input, f = 150) => {
     has_royalty,
     royalty_recipients,
     owner_id,
-    owner
+    owner,
   } = artwork;
 
   if (asset === btc && amount < DUST)

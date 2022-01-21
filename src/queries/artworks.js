@@ -24,7 +24,7 @@ const artworkFiles = `
   gallery: files(where: { type: {_eq: "gallery"}}) {
     ${fileFields} 
   }
-`
+`;
 
 export const marketFields = `
   id
@@ -59,7 +59,7 @@ export const marketFields = `
     }
     amount
   }
-`
+`;
 
 export const fields = `
   id
@@ -155,7 +155,6 @@ export const txFields = `
     ${fields}
   }
 `;
-
 
 export const getFeatured = `query {
  featured {

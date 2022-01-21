@@ -17,8 +17,8 @@ const usd = import.meta.env.VITE_USD;
 const host = import.meta.env.VITE_HOST;
 
 export const UPLOAD_DESTINATION = {
-  'IPFS': 'ipfs',
-  'STORAGE': 'storage',
+  IPFS: "ipfs",
+  STORAGE: "storage",
 };
 
 const fade = (n, o) => svelteFade(n, { ...o, duration: 50 });
