@@ -12,7 +12,7 @@ export async function handle({ event, resolve }) {
     url: { pathname },
   } = event;
 
-  const cookies = cookie.parse(headers.cookie || "");
+  const cookies = cookie.parse(headers.get('cookie') || "");
   let { refresh_token, token: jwt } = cookies;
 
   let user, setCookie;
@@ -29,6 +29,7 @@ export async function handle({ event, resolve }) {
           .res();
 
         let body = await res.json();
+
         let { jwt_token, jwt_expires_in } = body;
         jwt = jwt_token;
 
@@ -55,10 +56,7 @@ export async function handle({ event, resolve }) {
     }
   }
 
-  if (jwt) headers.authorization = `Bearer ${jwt}`;
-  else delete headers.authorization;
-
-  let q = getQ(headers);
+  let q = getQ({ authorization: `Bearer ${jwt}` });
   event.locals = { jwt, q };
 
   if (headers.authorization) {

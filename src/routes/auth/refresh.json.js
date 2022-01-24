@@ -2,7 +2,7 @@ import cookie from "cookie";
 import { hbp } from "$lib/api";
 import { addSeconds } from "date-fns";
 
-export async function get({ headers }) {
+export async function get({ request: { headers }}) {
   try {
     let cookies = cookie.parse(headers.cookie || "");
     let { refresh_token, token: jwt } = cookies;
