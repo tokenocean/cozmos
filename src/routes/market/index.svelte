@@ -83,22 +83,15 @@
   };
 </script>
 
-<div
-  class="w-full h-96 bg-center bg-contain absolute top-0 zero flex justify-center items-center"
-  style="background-image: url(/tomorrowland.jpg);"
-/>
-
 <Results />
 
 <div
   class="container mx-auto flex flex-wrap flex-col-reverse md:flex-row sm:justify-between mt-10 md:mt-20"
 >
-  <h2 class="md:mb-0 text-white">Market</h2>
+  <h2 class="md:mb-0">Market</h2>
   {#if $user && $user.is_artist}
-    <a
-      href="/a/create"
-      class="primary-btn border border-white"
-      data-cy="new-artwork">Mint an experience</a
+    <a href="/a/create" class="primary-btn" data-cy="new-artwork"
+      >Mint an experience</a
     >
   {/if}
 </div>

@@ -409,7 +409,7 @@
     }
     } catch(e) {
       err(e);
-    } 
+    }
   };
 
   async function submit(e) {
@@ -518,10 +518,6 @@
   };
 </script>
 
-<div
-  class="w-full h-96 bg-center bg-cover absolute top-0 zero flex justify-center items-center"
-  style="background-image: url(/atv.jpeg);"
-/>
 <div class="container mx-auto p-6 md:p-20 md:pb-96">
   <div class="flex w-full mx-auto bg-gray-100 submitArtwork mb-4 md:mb-0">
     <div
