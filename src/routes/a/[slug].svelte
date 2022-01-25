@@ -514,7 +514,7 @@
             <!-- @todo check button's look-->
             {#if artwork.list_price && !bidding && !offering}
               <input
-                class={`flex justify-center mb-4 items-center inline-block rounded-2xl h-14 font-medium text-center cursor-pointer text-lg ${actionClassName}`}
+                class={`flex justify-center mb-4 backgroundGradientPurple text-white items-center inline-block rounded-2xl h-14 font-bold text-center cursor-pointer text-lg ${actionClassName}`}
                 type="button"
                 on:click={buyNow}
                 value="Buy now"
@@ -547,7 +547,9 @@
                     </div>
                   </div>
                   <input
-                    class={`w-full flex justify-center items-center inline-block rounded-2xl h-14 text-center cursor-pointer text-lg backgroundGradient text-white font-bold ${actionClassName}`}
+                    class={`w-full flex justify-center items-center inline-block rounded-2xl h-14 text-center cursor-pointer text-lg text-white font-bold ${actionClassName}`}
+										class:backgroundGradientPurple={!artwork.auction_start}
+										class:backgroundGradientRed={artwork.auction_start}
                     type="submit"
                     value={artwork.list_price ? "Make an offer" : "Place bid"}
                   />
@@ -561,7 +563,9 @@
               {/if}
             {:else if !artwork.auction_start || compareAsc(now, parseISO(artwork.auction_start)) === 1}
               <input
-                class={`w-full flex justify-center items-center inline-block rounded-2xl h-14 text-center cursor-pointer text-lg backgroundGradient text-white font-bold ${actionClassName}`}
+                class={`w-full flex justify-center items-center inline-block rounded-2xl h-14 text-center cursor-pointer text-lg text-white font-bold ${actionClassName}`}
+								class:backgroundGradientPurple={!artwork.auction_start}
+								class:backgroundGradientRed={artwork.auction_start}
                 type="button"
                 on:click={startBidding}
                 value={artwork.list_price ? "Make an offer" : "Place bid"}
@@ -635,8 +639,12 @@
 </div>
 
 <style lang="scss">
-  .backgroundGradient {
+  .backgroundGradientRed {
     background-image: linear-gradient(45deg, red, orange);
+  }
+
+  .backgroundGradientPurple {
+    background-image: linear-gradient(45deg, blue, purple);
   }
 
   .disabled {
