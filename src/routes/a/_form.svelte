@@ -119,7 +119,7 @@
 				(Optional)
 			</div>
 			{#if artwork.thumb && artwork.thumb.length}
-				<img src={`/api/ipfs/${artwork.thumb[0].hash}`} alt="Thumb" class="mx-auto w-56 mt-4 nftimage"/>
+				<img src={`/api/ipfs/${artwork.thumb[0].hash}`} alt="Thumb" class="mx-auto w-56 mt-4 nftimage object-cover" />
 			{/if}
 			<FileUpload
 				{artwork}
@@ -135,7 +135,7 @@
 				(Required)
 			</div>
       {#if artwork.cover && artwork.cover.length}
-        <img src={`/api/ipfs/${artwork.cover[0].hash}`} alt="Cover" class="mx-auto w-72 mt-4 cover" />
+        <img src={`/api/ipfs/${artwork.cover[0].hash}`} alt="Cover" class="mx-auto w-72 mt-4 cover object-cover" />
       {/if}
       <FileUpload
         {artwork}
@@ -150,7 +150,7 @@
 				(Required)
 			</div>
       {#if artwork.video && artwork.video.length}
-        <video autoplay loop controls muted disablepictureinpicture controlslist="nodownload" key={artwork.video[0].hash} bind:this={vid} class="mx-auto w-72 mt-4 cover">
+        <video autoplay loop controls muted disablepictureinpicture controlslist="nodownload" key={artwork.video[0].hash} bind:this={vid} class="mx-auto w-72 mt-4 cover object-cover">
           <source src={`/api/ipfs/${artwork.video[0].hash}`} />
         </video>
       {/if}
