@@ -19,7 +19,7 @@
     </nav>
     <div>
       <a href="/">
-        <Logo class="w-16 lg:w-28 z-20 relative" />
+        <Logo class="w-44 lg:w-48 z-20 relative" />
       </a>
     </div>
     <a class="mobileSearch z-20 relative" href="/market">
