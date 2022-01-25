@@ -81,8 +81,7 @@
 
   let keyup = (i, e) => {
     curr = i;
-    if (e.key === "Tab" && !e.shiftKey) e.preventDefault();
-    if (e.key === "Enter" || (e.key === "Tab" && !e.shiftKey))
+    if (e.key === "Enter")
       return suggestions[0] && take(suggestions[0]);
   };
 </script>
