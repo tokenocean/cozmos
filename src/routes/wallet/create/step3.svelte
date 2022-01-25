@@ -20,7 +20,7 @@
   <div class="flex justify-center gap-6 text-center mt-5">
     <button
       on:click={() => goto("/wallet/create/step2")}
-      class="w-2/4 m-2 rounded-lg border border-white">Back</button
+      class="w-2/4 m-2 rounded-lg border border-white text-white">Back</button
     >
     <Button primary on:click={checkMnemonic} class="w-2/4 m-2">Next</Button>
   </div>

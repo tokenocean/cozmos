@@ -29,7 +29,13 @@
     </p>
     <div class="flex">
       <button
-        on:click={() => (offset = 0)}
+        on:click={() => {
+          if (offset === 0) {
+            offset = 6;
+          } else if (offset === 6) {
+            offset = 0;
+          }
+        }}
         class="pagination w-auto m-2"
         class:active={offset === 0}><Fa icon={faChevronLeft} /></button
       >
@@ -41,7 +47,13 @@
         {/each}
       </div>
       <button
-        on:click={() => (offset = 6)}
+        on:click={() => {
+          if (offset === 0) {
+            offset = 6;
+          } else if (offset === 6) {
+            offset = 0;
+          }
+        }}
         class="pagination w-auto m-2"
         class:active={offset === 6}><Fa icon={faChevronRight} /></button
       >
@@ -58,7 +70,7 @@
       <button
         on:click={() =>
           offset === 0 ? goto("/wallet/create/step1") : (offset -= 6)}
-        class="w-2/4 m-2 rounded-lg border border-white">Back</button
+        class="w-2/4 m-2 rounded-lg border border-white text-white">Back</button
       >
       <Button
         primary
