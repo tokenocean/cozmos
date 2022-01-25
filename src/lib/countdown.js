@@ -25,16 +25,16 @@ export default (d) => {
 
   return days >= 1
     ? `
-  ${days ? days + (days === 1 ? " day" : " days") : ""} 
-  ${hours ? hours + (hours === 1 ? " hour" : " hours") : ""} 
+  ${days ? days + (days === 1 ? " day" : " days") : ""}
+  ${hours ? hours + (hours === 1 ? " hr" : " hrs") : ""}
   `
     : hours >= 1
     ? `
-  ${hours ? hours + (hours === 1 ? " hour" : " hours") : ""} 
-  ${minutes ? minutes + (minutes === 1 ? " minute" : " minutes") : ""}
+  ${hours ? hours + (hours === 1 ? " hr" : " hrs") : ""}
+  ${minutes ? minutes + (minutes === 1 ? " min" : " mins") : ""}
   `
     : `
-  ${minutes ? minutes + (minutes === 1 ? " minute" : " minutes") : ""}
-  ${seconds ? seconds + (seconds === 1 ? " second" : " seconds") : ""}
+  ${minutes ? minutes + (minutes === 1 ? " min" : " mins") : ""}
+  ${seconds ? seconds + (seconds === 1 ? " sec" : " secs") : ""}
   `;
 };

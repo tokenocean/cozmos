@@ -575,32 +575,37 @@
             {/if}
 
             {#if compareAsc(parseISO(artwork.auction_start), now) === 1 && start_counter}
-              <div
-                class="flex flex-1 text-center flex justify-center items-center"
-              >
-                <div class="text-sm">Auction starts in</div>
-                <div class="ml-2">{start_counter}</div>
-              </div>
+						<div
+						  class="flex justify-center items-center text-center rounded-2xl h-14 mt-2 backgroundGradientRed text-white font-bold"
+						>
+						  <div>
+						    <div class="text-sm">Auction starts in</div>
+						    <div>{start_counter}</div>
+						  </div>
+						</div>
             {:else if compareAsc(parseISO(artwork.auction_end), now) === 1 && end_counter}
-              <div
-                class="flex flex-1 text-center flex justify-center items-center"
-              >
-                <div class="text-sm">Auction closes in</div>
-                <div class="ml-2">{end_counter}</div>
-              </div>
+							<div
+							  class="flex justify-center items-center text-center rounded-2xl h-14 mt-2 backgroundGradientRed text-white font-bold"
+							>
+							  <div>
+							    <div class="text-sm">Auction ending in</div>
+							    <div>{end_counter}</div>
+							  </div>
+							</div>
             {:else if artwork.auction_end}
-              <div
-                class="flex flex-1 text-center flex justify-center items-center"
-              >
-                <div class="text-sm">Auction ended at</div>
-                <div class="ml-2">
-                  {format(parseISO(artwork.auction_end), "yyyy-MM-dd HH:mm")}
-                </div>
-              </div>
+							<div
+							  class="flex justify-center items-center text-center rounded-2xl h-14 mt-2 backgroundGradientRed text-white font-bold"
+							>
+							  <div>
+							    <div class="text-sm">Auction ended at</div>
+							    <div>
+							      {format(parseISO(artwork.auction_end), "yyyy-MM-dd HH:mm")}
+							    </div>
+							  </div>
+							</div>
             {/if}
           </div>
         </div>
-
         <!-- Description -->
         <div class="mt-12">
           <div class="text-2xl font-bold">Description</div>
@@ -609,7 +614,6 @@
               "Description of this product is empty"}
           </div>
         </div>
-
         <!-- Package content -->
         <div class="mt-12">
           <div class="text-2xl font-bold">Package content</div>
