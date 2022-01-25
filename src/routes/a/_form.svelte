@@ -90,6 +90,9 @@
       listingType = type;
     };
   }
+
+	let lbtcButton = "bg-black text-white";
+	let usdButton = "";
 </script>
 
 <form class="flex flex-col w-full mb-6" on:submit autocomplete="off">
@@ -280,7 +283,7 @@
             <div class="flex">
             <Input
               bind:value={list_price}
-              placeholder="Price for NFT experience in L-BTC"
+              placeholder="Price for NFT experience"
             />
           </FormItem>
         {/if}
@@ -292,6 +295,24 @@
             />
           </FormItem>
         {/if}
+				<button
+				  type="button"
+				  name="button"
+				  class="border border-black rounded w-20 mt-1 {lbtcButton}"
+				  on:click={() => {
+				    usdButton = "";
+				    lbtcButton = "bg-black text-white";
+				  }}>L-BTC</button
+				>
+				<button
+				  type="button"
+				  name="button"
+				  class="border border-black rounded w-20 mt-1 {usdButton}"
+				  on:click={() => {
+				    lbtcButton = "";
+				    usdButton = "bg-black text-white";
+				  }}>USD</button
+				>
         <div class="mt-4">
           <ul class="text-sm list-disc ml-4">
             <li>
