@@ -359,6 +359,7 @@
       preload
       autoplay
       controls
+			loop
       disablepictureinpicture
       controlslist="nodownload"
       class="{vidDisplay} w-full h-96"
