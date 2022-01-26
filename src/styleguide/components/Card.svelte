@@ -65,12 +65,12 @@
     </a>
   </div>
   {#if showDetails}
-    <div class="bg-black flex h-30 px-6 pt-2">
-      <div>
-        <div class="mb-1 border rounded-full w-12 border-solid border-white">
+    <div class="bg-black flex h-30 px-6 pt-8">
+      <div class="relative">
+        <div class="mb-1 border absolute bottom-14 z rounded-full w-12 border-solid border-white">
           <Avatar user={artwork.artist} />
         </div>
-        <div class="text-xs mb-1 font-bold username">
+        <div class="text-xs mb-1 font-bold text-gray-300">
           @{artwork.owner.username}
         </div>
         <div class="text-base pb-1 font-bold title-font description">
@@ -157,10 +157,6 @@
     font-family: $card--title--font-family;
   }
 
-  .username {
-    color: $card--title--color;
-  }
-
   .auction-item-background-gradient {
     background: $card--auction--static-background;
     background: $card--auction--gradient-background;
@@ -179,4 +175,8 @@
   .title-font {
     font-family: $card--title--font-family;
   }
+
+	.z {
+		z-index: 1000
+	}
 </style>
