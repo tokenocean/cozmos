@@ -533,7 +533,7 @@
       >
         <h2 class="text-white p-14">Preview experience</h2>
         <div
-          class="w-2/3 mx-auto bg-gray-500 rounded-3xl sticky top-64 mb-20 nopointer"
+          class="w-2/3 mx-auto bg-white rounded-3xl sticky top-64 mb-20 nopointer"
         >
           <Card {artwork} {preview} />
         </div>
@@ -559,6 +559,9 @@
             <ProgressLinear />
           </div>
           <div class:invisible={loading}>
+						<div class="block md:hidden bg-white rounded-3xl nopointer mb-5">
+						  <Card {artwork} {preview} />
+						</div>
             <Form bind:artwork bind:list_price bind:reserve_price bind:files on:submit={submit} />
           </div>
         </div>
