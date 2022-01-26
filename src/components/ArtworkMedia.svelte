@@ -100,7 +100,7 @@
       src={`/api/ipfs/${artwork.thumb[0].hash}`}
       alt={artwork.title}
       bind:this={img}
-      class="z relative py-10 px-4"
+      class="z relative"
     />
   </div>
 {:else if artwork?.main?.length && artwork.main[0].filetype && artwork.main[0].filetype.includes("video")}
@@ -144,7 +144,7 @@
       src={preview || path}
       alt={artwork.title}
       bind:this={img}
-      class="z relative py-10 px-4"
+      class="z relative"
     />
   </div>
 {/if}
