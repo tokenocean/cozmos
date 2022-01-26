@@ -571,10 +571,6 @@
 </div>
 
 <style>
-  .zero {
-    z-index: -1;
-  }
-
   .nopointer {
     pointer-events: none;
   }

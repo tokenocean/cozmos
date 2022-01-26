@@ -102,10 +102,6 @@
 </div>
 
 <style>
-  .zero {
-    z-index: -1;
-  }
-
   .container {
     margin-top: 10rem;
   }
