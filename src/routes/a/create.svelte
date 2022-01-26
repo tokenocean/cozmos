@@ -518,7 +518,7 @@
   };
 </script>
 
-<div class="container mx-auto p-6 md:p-20 md:pb-96">
+<div class="container mx-auto p-6 md:p-20">
   <div class="flex w-full mx-auto bg-gray-100 submitArtwork mb-4 md:mb-0">
     <div
       class="absolute right-2 md:right-16 rounded-full border-black border-l border-t w-8 h-8 -mt-4 z-50 bg-black text-4xl text-center text-white cursor-pointer"
@@ -526,7 +526,7 @@
     >
       <div class="-mt-2">&times;</div>
     </div>
-    <div class="hidden md:flex md:flex-col md:w-1/3">
+    <div class="hidden lg:flex lg:flex-col md:w-96">
       <div
         class="flex-grow-1 h-full bg-black"
         style="background-image: url('/stars.png')"
@@ -559,7 +559,7 @@
             <ProgressLinear />
           </div>
           <div class:invisible={loading}>
-						<div class="block md:hidden bg-white rounded-3xl nopointer mb-5">
+						<div class="block lg:hidden w-10/12 mx-auto md:w-6/12 bg-white rounded-3xl nopointer mb-5">
 						  <Card {artwork} {preview} />
 						</div>
             <Form bind:artwork bind:list_price bind:reserve_price bind:files on:submit={submit} />
