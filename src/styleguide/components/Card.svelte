@@ -67,11 +67,13 @@
   {#if showDetails}
     <div class="bg-black flex h-30 px-6 pt-8">
       <div class="relative">
-        <div class="mb-1 border absolute bottom-14 z rounded-full w-12 border-solid border-white">
+        <div
+          class="mb-1 border absolute bottom-14 z rounded-full w-12 border-solid border-white"
+        >
           <Avatar user={artwork.artist} />
         </div>
         <div class="text-xs mb-1 font-bold text-gray-300">
-          @{artwork.owner.username}
+          @{artwork.artist.username}
         </div>
         <div class="text-base pb-1 font-bold title-font description">
           {artwork.title || "No Name"}
@@ -176,7 +178,7 @@
     font-family: $card--title--font-family;
   }
 
-	.z {
-		z-index: 1000
-	}
+  .z {
+    z-index: 1000;
+  }
 </style>
