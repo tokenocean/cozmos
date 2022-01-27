@@ -16,6 +16,7 @@ const {
   setRelease,
   updateViews,
 } = require("./queries");
+const { SERVER_URL } = process.env;
 
 const crypto = require("crypto");
 
@@ -126,15 +127,8 @@ app.post("/transaction", auth, async (req, res) => {
     let { artworks } = await q(getTransactionArtwork, {
       id: transaction.artwork_id,
     });
-    let {
-      bid_increment,
-      auction_end,
-      auction_start,
-      owner,
-      title,
-      bid,
-      slug,
-    } = artworks[0];
+    let { bid_increment, auction_end, auction_start, owner, title, bid, slug } =
+      artworks[0];
 
     if (
       bid &&
@@ -226,11 +220,11 @@ app.post("/accept", auth, async (req, res) => {
 });
 
 app.post("/redeem", auth, async (req, res) => {
-  try { 
-      let { data } = await api(req.headers)
+  try {
+    let { data } = await api(req.headers)
       .post({ query: redeemArtwork, variables: req.body })
       .json();
-      res.send(data);
+    res.send(data);
   } catch (e) {
     console.log(e);
     res.code(500).send(e.message);
