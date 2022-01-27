@@ -13,6 +13,7 @@
 </script>
 
 <script>
+  import Card from "$styleguide/components/Card.svelte";
   import { ProgressLinear } from "$comp";
   import Fa from "svelte-fa";
   import { faSlidersH } from "@fortawesome/free-solid-svg-icons";
@@ -86,13 +87,26 @@
 <Results />
 
 <div class="stars mx-auto w-full">
-  <Gallery bind:filtered bind:total bind:loadMore />
+  <div class="feature flex">
+    <div class="m-auto">
+      <Card artwork={filtered[0]} cover={true} showDetails={false} />
+    </div>
+    <div class="opacity-50">
+      <p>
+        10 Day Trip Exploration trip to the Canadian Rockies with Mountaineering
+        guide Trail of a traveller
+      </p>
+      <Card artwork={filtered[0]} summary={true} />
+    </div>
+  </div>
+  <div class="mx-auto container">
+    <Gallery bind:filtered bind:total bind:loadMore />
+  </div>
 </div>
 
 <style>
   .stars {
-    background: url("/stars.png");
-    margin-top: 10rem;
+    background: black url("/stars.png");
   }
 
   @media only screen and (max-width: 767px) {

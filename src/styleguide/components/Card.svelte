@@ -15,6 +15,9 @@
   export let popup = false;
   export let preview;
 
+  export let cover = false;
+  export let summary = false;
+
   let sats, val, ticker;
   $: if (artwork) [sats, val, ticker] = units(artwork.asking_asset);
 
@@ -51,101 +54,116 @@
   }
 </script>
 
-<div class="rounded-3xl overflow-hidden boxed" in:fade>
-  <div class="h-60 overflow-hidden flex justify-center items-center">
-    <a href={`/a/${artwork.slug}`} class="w-full">
-      <ArtworkMedia
-        {artwork}
-        {showDetails}
-        {popup}
-        bind:loaded
-        bind:thumb
-        {preview}
-      />
-    </a>
+{#if cover}
+  <div class="rounded shadow">
+    <ArtworkMedia
+      {artwork}
+      {showDetails}
+      {popup}
+      bind:loaded
+      bind:thumb
+      {preview}
+    />
   </div>
-  {#if showDetails}
-    <div class="bg-black flex h-30 px-6 pt-8">
-      <div class="relative">
-        <div
-          class="mb-1 border absolute bottom-14 z rounded-full w-12 border-solid border-white"
-        >
-          <Avatar user={artwork.artist} />
-        </div>
-        <div class="text-xs mb-1 font-bold text-gray-300">
-          @{artwork.artist.username}
-        </div>
-        <div class="text-base pb-1 font-bold title-font description">
-          {artwork.title || "No Name"}
-        </div>
-      </div>
-
-      <div class="ml-auto flex items-center justify-center">
-        <Heart {artwork} />
-        <span on:click={() => alert("in development")}>
-          <Fa
-            icon={faShareAlt}
-            class="ml-4 cursor-pointer"
-            color="#fff"
-            size="lg"
-          />
-        </span>
-      </div>
+{:else}
+  <div class="rounded-3xl overflow-hidden boxed" in:fade>
+    <div class="h-60 overflow-hidden flex justify-center items-center">
+      <a href={`/a/${artwork.slug}`} class="w-full">
+        <ArtworkMedia
+          {artwork}
+          {showDetails}
+          {popup}
+          bind:loaded
+          bind:thumb
+          {preview}
+        />
+      </a>
     </div>
-    {#if artwork.reserve_price}
-      <div
-        class="auction-item-background-gradient h-20 p-4 flex justify-between"
-      >
-        <div class="flex-1 mr-2">
-          <div class="text-xs">Reserve Price</div>
-          <div class="text-sm flex justify-start font-bold">
-            <div>{val(artwork.reserve_price)} {ticker}</div>
-            <div class="ml-2 currency-arrow-font">&#62;</div>
-            <div class="ml-2">{currencyConversion(artwork.reserve_price)}</div>
+    {#if showDetails}
+      <div class="bg-black flex h-30 px-6 pt-8">
+        <div class="relative">
+          <div
+            class="mb-1 border absolute bottom-14 z rounded-full w-12 border-solid border-white"
+          >
+            <Avatar user={artwork.artist} />
           </div>
-        </div>
-        {#if artwork.bid && artwork.bid.user}
-          <div class="ml-2">
-            <div class="text-xs whitespace-nowrap">
-              Current bid by @{artwork.bid.user.username}
-            </div>
-            <div class="text-sm flex justify-start font-bold">
-              <div>{val(artwork.bid.amount)} {ticker}</div>
-              <div class="ml-2 currency-arrow-font">&#62;</div>
-              <div class="ml-2">{currencyConversion(artwork.bid.amount)}</div>
-            </div>
+          <div class="text-xs mb-1 font-bold text-gray-300">
+            @{artwork.artist.username}
           </div>
-        {/if}
-      </div>
-    {:else}
-      <div
-        class="buy-now-item-background-gradient h-20 p-4 px-6 flex justify-between"
-      >
-        <div class="flex-1 mr-4">
-          <div class="text-xs">Buy now</div>
-          <div class="text-base flex justify-start font-bold">
-            {#if artwork.list_price}
-              <div>{val(artwork.list_price)} {ticker}</div>
-            {/if}
-            <div class="ml-2 currency-arrow-font">&#62;</div>
-            <div class="ml-2">
-              {currencyConversion(artwork.list_price, ticker)}
-            </div>
+          <div class="text-base pb-1 font-bold title-font description">
+            {artwork.title || "No Name"}
           </div>
         </div>
 
-        {#if artwork.auction_end}
-          <div>
-            {#if end_counter}
-              <div class="text-xs">Time left:</div>
-              <div class="font-bold text-lg">{end_counter}</div>
-            {/if}
-          </div>
-        {/if}
+        <div class="ml-auto flex items-center justify-center">
+          <Heart {artwork} />
+          <span on:click={() => alert("in development")}>
+            <Fa
+              icon={faShareAlt}
+              class="ml-4 cursor-pointer"
+              color="#fff"
+              size="lg"
+            />
+          </span>
+        </div>
       </div>
+      {#if artwork.reserve_price}
+        <div
+          class="auction-item-background-gradient h-20 p-4 flex justify-between"
+        >
+          <div class="flex-1 mr-2">
+            <div class="text-xs">Reserve Price</div>
+            <div class="text-sm flex justify-start font-bold">
+              <div>{val(artwork.reserve_price)} {ticker}</div>
+              <div class="ml-2 currency-arrow-font">&#62;</div>
+              <div class="ml-2">
+                {currencyConversion(artwork.reserve_price)}
+              </div>
+            </div>
+          </div>
+          {#if artwork.bid && artwork.bid.user}
+            <div class="ml-2">
+              <div class="text-xs whitespace-nowrap">
+                Current bid by @{artwork.bid.user.username}
+              </div>
+              <div class="text-sm flex justify-start font-bold">
+                <div>{val(artwork.bid.amount)} {ticker}</div>
+                <div class="ml-2 currency-arrow-font">&#62;</div>
+                <div class="ml-2">{currencyConversion(artwork.bid.amount)}</div>
+              </div>
+            </div>
+          {/if}
+        </div>
+      {:else}
+        <div
+          class="buy-now-item-background-gradient h-20 p-4 px-6 flex justify-between"
+        >
+          <div class="flex-1 mr-4">
+            <div class="text-xs">Buy now</div>
+            <div class="text-base flex justify-start font-bold">
+              {#if artwork.list_price}
+                <div>{val(artwork.list_price)} {ticker}</div>
+              {/if}
+              <div class="ml-2 currency-arrow-font">&#62;</div>
+              <div class="ml-2">
+                {currencyConversion(artwork.list_price, ticker)}
+              </div>
+            </div>
+          </div>
+
+          {#if artwork.auction_end}
+            <div>
+              {#if end_counter}
+                <div class="text-xs">Time left:</div>
+                <div class="font-bold text-lg">{end_counter}</div>
+              {/if}
+            </div>
+          {/if}
+        </div>
+      {/if}
     {/if}
-  {/if}
-</div>
+  </div>
+{/if}
 
 <style lang="scss">
   @import "../theme";
