@@ -15,9 +15,9 @@
 				"@fortawesome/free-brands-svg-icons": "^5.15.4",
 				"@fortawesome/free-regular-svg-icons": "^5.15.4",
 				"@fortawesome/free-solid-svg-icons": "^5.15.4",
-				"@splidejs/svelte-splide": "^0.1.17",
-				"@sveltejs/adapter-node": "^1.0.0-next.66",
-				"@sveltejs/kit": "^1.0.0-next.239",
+				"@splidejs/svelte-splide": "^0.1.18",
+				"@sveltejs/adapter-node": "^1.0.0-next.67",
+				"@sveltejs/kit": "^1.0.0-next.244",
 				"autoprefixer": "^10.4.2",
 				"bip32": "^2.0.6",
 				"bip39": "^3.0.4",
@@ -45,15 +45,15 @@
 				"prettier": "^2.5.1",
 				"prettier-plugin-svelte": "^2.6.0",
 				"qrcode-generator-es6": "^1.1.4",
-				"rollup": "^2.65.0",
+				"rollup": "^2.66.1",
 				"simple-svelte-autocomplete": "^2.2.4",
 				"slip77": "^0.1.1",
 				"subscriptions-transport-ws": "^0.9.19",
-				"svelte": "^3.46.2",
+				"svelte": "^3.46.3",
 				"svelte-fa": "^2.4.0",
 				"svelte-preprocess": "^4.10.2",
 				"svelte-select": "^4.4.7",
-				"tailwindcss": "^3.0.15",
+				"tailwindcss": "^3.0.17",
 				"uuid": "^8.3.2",
 				"vite-plugin-shim-react-pdf": "^1.0.4",
 				"wretch": "^1.7.7",
@@ -61,6 +61,6 @@
 		},
 		"type": "module",
 		"dependencies": {
-				"@splidejs/splide": "^3.6.11"
+				"@splidejs/splide": "^3.6.12"
 		}
 }
