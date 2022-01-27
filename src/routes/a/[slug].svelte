@@ -274,7 +274,6 @@
 
       await broadcast($psbt);
 
-
       let tx = $psbt.extractTransaction();
       transaction.hash = tx.getId();
       transaction.psbt = $psbt.toBase64();
@@ -322,8 +321,6 @@
     };
   };
 
-  let vidDisplay = "hidden";
-  let playDisplay = "";
   let bannerVideo;
 
   function coverImage() {
@@ -333,6 +330,8 @@
       return "https://blogs.esa.int/space19plus/files/2019/03/nebula.jpg";
     }
   }
+
+  let showPopup = false;
 </script>
 
 <Head {metadata} />
@@ -345,26 +344,38 @@
     <button
       type="button"
       name="button"
-      class="text-white {playDisplay}"
+      class="text-white"
       on:click={() => {
-        vidDisplay = "";
-        playDisplay = "hidden";
+        showPopup = !showPopup;
         bannerVideo.play();
       }}
     >
-      <img src="/svg_icons/playbutton.svg" alt="Play button" class="w-32 mx-auto">
+      <img
+        src="/svg_icons/playbutton.svg"
+        alt="Play button"
+        class="w-32 mx-auto"
+      />
     </button>
-    <video
-      src={`/api/ipfs/${artwork.video[0].hash}`}
-      preload
-      autoplay
-      controls
-			loop
-      disablepictureinpicture
-      controlslist="nodownload"
-      class="{vidDisplay} w-full h-96"
-      bind:this={bannerVideo}
-    />
+    {#if showPopup}
+      <div
+        on:click={() => (showPopup = !showPopup)}
+        class:showPopup
+        class="popup"
+      >
+        <span class="closeButton"><Fa icon={faTimes} /></span>
+        <video
+          src={`/api/ipfs/${artwork.video[0].hash}`}
+          preload
+          autoplay
+          controls
+          loop
+          disablepictureinpicture
+          controlslist="nodownload"
+          class="w-full"
+          bind:this={bannerVideo}
+        />
+      </div>
+    {/if}
   {/if}
 </div>
 
@@ -548,8 +559,8 @@
                   </div>
                   <input
                     class={`w-full flex justify-center items-center inline-block rounded-2xl h-14 text-center cursor-pointer text-lg text-white font-bold ${actionClassName}`}
-										class:backgroundGradientPurple={!artwork.auction_start}
-										class:backgroundGradientRed={artwork.auction_start}
+                    class:backgroundGradientPurple={!artwork.auction_start}
+                    class:backgroundGradientRed={artwork.auction_start}
                     type="submit"
                     value={artwork.list_price ? "Make an offer" : "Place bid"}
                   />
@@ -564,8 +575,8 @@
             {:else if !artwork.auction_start || compareAsc(now, parseISO(artwork.auction_start)) === 1}
               <input
                 class={`w-full flex justify-center items-center inline-block rounded-2xl h-14 text-center cursor-pointer text-lg text-white font-bold ${actionClassName}`}
-								class:backgroundGradientPurple={!artwork.auction_start}
-								class:backgroundGradientRed={artwork.auction_start}
+                class:backgroundGradientPurple={!artwork.auction_start}
+                class:backgroundGradientRed={artwork.auction_start}
                 type="button"
                 on:click={startBidding}
                 value={artwork.list_price ? "Make an offer" : "Place bid"}
@@ -575,34 +586,34 @@
             {/if}
 
             {#if compareAsc(parseISO(artwork.auction_start), now) === 1 && start_counter}
-						<div
-						  class="flex justify-center items-center text-center rounded-2xl h-14 mt-2 backgroundGradientRed text-white font-bold"
-						>
-						  <div>
-						    <div class="text-sm">Auction starts in</div>
-						    <div>{start_counter}</div>
-						  </div>
-						</div>
+              <div
+                class="flex justify-center items-center text-center rounded-2xl h-14 mt-2 backgroundGradientRed text-white font-bold"
+              >
+                <div>
+                  <div class="text-sm">Auction starts in</div>
+                  <div>{start_counter}</div>
+                </div>
+              </div>
             {:else if compareAsc(parseISO(artwork.auction_end), now) === 1 && end_counter}
-							<div
-							  class="flex justify-center items-center text-center rounded-2xl h-14 mt-2 backgroundGradientRed text-white font-bold"
-							>
-							  <div>
-							    <div class="text-sm">Auction ending in</div>
-							    <div>{end_counter}</div>
-							  </div>
-							</div>
+              <div
+                class="flex justify-center items-center text-center rounded-2xl h-14 mt-2 backgroundGradientRed text-white font-bold"
+              >
+                <div>
+                  <div class="text-sm">Auction ending in</div>
+                  <div>{end_counter}</div>
+                </div>
+              </div>
             {:else if artwork.auction_end}
-							<div
-							  class="flex justify-center items-center text-center rounded-2xl h-14 mt-2 backgroundGradientRed text-white font-bold"
-							>
-							  <div>
-							    <div class="text-sm">Auction ended at</div>
-							    <div>
-							      {format(parseISO(artwork.auction_end), "yyyy-MM-dd HH:mm")}
-							    </div>
-							  </div>
-							</div>
+              <div
+                class="flex justify-center items-center text-center rounded-2xl h-14 mt-2 backgroundGradientRed text-white font-bold"
+              >
+                <div>
+                  <div class="text-sm">Auction ended at</div>
+                  <div>
+                    {format(parseISO(artwork.auction_end), "yyyy-MM-dd HH:mm")}
+                  </div>
+                </div>
+              </div>
             {/if}
           </div>
         </div>
@@ -623,16 +634,15 @@
           </div>
         </div>
 
-							<!-- Gallery photos -->
-				{#if artwork.gallery[0]}
-				<div class="mt-12">
-				  <div class="text-2xl font-bold">Gallery</div>
-				  <div class="mt-2">
-				    <PhotoGallery images={artwork.gallery} />
-				  </div>
-				</div>
-				{/if}
-
+        <!-- Gallery photos -->
+        {#if artwork.gallery[0]}
+          <div class="mt-12">
+            <div class="text-2xl font-bold">Gallery</div>
+            <div class="mt-2">
+              <PhotoGallery images={artwork.gallery} />
+            </div>
+          </div>
+        {/if}
 
         <!-- Comments -->
         <Comments bind:artwork bind:fetch />
@@ -643,6 +653,58 @@
 </div>
 
 <style lang="scss">
+  .popup {
+    position: fixed;
+    z-index: 9000000000;
+    width: 100%;
+    height: 100vh;
+    padding: 5px;
+    text-align: center;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    background: white;
+    scroll-behavior: contain;
+    transform: scale(0);
+  }
+
+  .showPopup {
+    display: flex !important;
+    align-items: center;
+    justify-content: center;
+    animation: zoom 0.2s ease forwards;
+  }
+
+  .closeButton {
+    position: absolute;
+    top: 50px;
+    right: 50px;
+    width: 40px;
+    height: 40px;
+    border-radius: 100%;
+    background: whitesmoke;
+    padding: 11px 15px;
+    cursor: pointer;
+  }
+
+  .popup :global(video) {
+    width: 100%;
+    height: 100vh !important;
+    margin: 0 auto;
+    z-index: -1;
+  }
+
+  .popup :global(div) {
+    width: 100%;
+    height: auto;
+  }
+  .popup :global(img) {
+    margin: 0 auto;
+    height: 95vh;
+    object-fit: contain !important;
+  }
+
   .backgroundGradientRed {
     background-image: linear-gradient(45deg, red, orange);
   }
@@ -761,7 +823,7 @@
   @media only screen and (max-width: 500px) {
     .popup :global(img),
     .popup :global(video) {
-      height: auto;
+      height: 100vh;
       width: 100%;
     }
   }
