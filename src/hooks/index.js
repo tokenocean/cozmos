@@ -59,7 +59,7 @@ export async function handle({ event, resolve }) {
   let q = getQ({ authorization: `Bearer ${jwt}` });
   event.locals = { jwt, q };
 
-  if (headers.authorization) {
+  if (jwt) {
     try {
       let { currentuser } = await q(getUser);
       user = currentuser[0];
