@@ -2,22 +2,16 @@
 
 <script>
   import Fa from "svelte-fa";
-  import { faTimes } from "@fortawesome/free-solid-svg-icons";
+  import {
+    faTimes,
+    faChevronRight,
+    faChevronLeft,
+  } from "@fortawesome/free-solid-svg-icons";
 
   export let images;
-  export const go = (i) => slider && slider.go(">");
 
   let showPopup = false;
-  $: options = {
-    type: "loop",
-    // perPage: Math.min(images.length, 3),
-    gap: "1rem",
-    autoWidth: true,
-    perMove: 1,
-    autoplay: true,
-    pauseOnHover: true,
-    pagination: false,
-  };
+
   let current;
   let popup = (img) => {
     current = img;
@@ -30,20 +24,38 @@
 </script>
 
 {#if images.length}
-  <div
-    class="flex justify-center items-center overflow-x-auto"
-    bind:this={slider}
-  >
-    {#each images as img}
-      <img
-        src={src(img)}
-        alt="Gallery"
-        class="rounded h-48"
-        on:click={() => popup(img)}
-      />
-    {/each}
-  </div>
+  <div class="flex justify-center items-center">
+    <button
+      type="button"
+      name="button"
+      on:click={() => (slider.scrollLeft -= 200)}
+      class="w-20 mx-2"
+    >
+      <Fa icon={faChevronLeft} /></button
+    >
+    <div
+      class="flex flex-start items-center overflow-x-auto"
+      bind:this={slider}
+    >
+      {#each images as img}
+        <img
+          src={src(img)}
+          alt="Gallery"
+          class="rounded h-48 mx-2 cursor-pointer"
+          on:click={() => popup(img)}
+        />
+      {/each}
+    </div>
 
+    <button
+      type="button"
+      name="button"
+      on:click={() => (slider.scrollLeft += 200)}
+      class="w-20 mx-2"
+    >
+      <Fa icon={faChevronRight} /></button
+    >
+  </div>
   {#if showPopup}
     <div
       on:click={() => (showPopup = !showPopup)}
@@ -82,7 +94,7 @@
 
   .closeButton {
     position: absolute;
-    top: 50px;
+    top: 100px;
     right: 50px;
     width: 40px;
     height: 40px;
@@ -106,6 +118,7 @@
     margin: 0 auto;
     height: 95vh;
     object-fit: contain !important;
+    cursor: pointer;
   }
 
   @keyframes zoom {
@@ -119,7 +132,7 @@
 
   @media only screen and (max-width: 1023px) {
     .closeButton {
-      top: 20px;
+      top: 70px;
       right: 20px;
     }
   }
