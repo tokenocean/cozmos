@@ -14,7 +14,6 @@ hasura/.env.hostnet
 hasura/.env.mainnet
 hasura/.env.prod
 hasura/data/certbot
-hasura/data/raretoshi
 hasura/data/nginx/.lapasswd
 hasura/gdk-server/__pycache__
 hasura/ipfs
@@ -24,4 +23,3 @@ hasura/app/.pnpm-store
 cypress
 **/.pnpm-debug.log
 .svelte-kit
-
