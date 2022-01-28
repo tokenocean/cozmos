@@ -149,7 +149,7 @@
   >
     <h2 class="text-white text-xl">WE ARE DISRUPTING THE NFT INDUSTRY</h2>
   </div>
-  <div class="mx-auto container">
+  <div class="mx-auto container" id="market">
     <div class="flex justify-between m-10 p-4 border-b-[1px] border-gray-500">
       <h2
         class="text-white text-lg rounded-full border border-white w-48 px-10 text-center"
@@ -160,26 +160,43 @@
     </div>
     <Gallery bind:filtered bind:total bind:loadMore />
   </div>
-  <div class="background-gradient w-full flex justify-center items-center h-96">
+  <div
+    class="background-gradient w-full flex justify-center items-center py-12"
+  >
     <div>
       <h2 class="text-center text-black text-xl">FROM CREATORS FOR EVERYONE</h2>
-      <p class="text-center text-black mb-10 font-bold">
+      <p class="text-center text-black font-bold">
         An NFT marketplace with real-life experiences based on the L-BTC
         blockchain.
       </p>
 
       <div class="flex justify-center items-center text-black">
-        <div class="w-72 text-center mx-10">
-          Forget about gas wars and astronomical fees, minting is free and
-          transaction fees are literally less than $0.5.
+        <div class="w-72 text-center mx-10 h-96">
+          <img
+            src="/static/svg_icons/icons-28.svg"
+            alt="low fees"
+            class="w-72"
+          />
+          Forget about gas wars and astronomical fees, minting is free and transaction
+          fees are literally less than $0.5.
         </div>
-        <div class="w-72 text-center mx-10">
+        <div class="w-72 text-center mx-10 h-96">
+          <img
+            src="/static/svg_icons/icons-29.svg"
+            alt="amazing experiences"
+            class="w-72"
+          />
           Buy, sell and trade amazing life changing experiences.
         </div>
-        <div class="w-72 text-center mx-10">
-          Engage with an amazing new community. Join private discords and get
-          early access, perks and exlcusive air drops. This is the secret door
-          to your wildest dreams!
+        <div class="w-72 text-center mx-10 h-96">
+          <img
+            src="/static/svg_icons/icons-30.svg"
+            alt="awesome community"
+            class="w-72"
+          />
+          Engage with an amazing new community. Join private discords and get early
+          access, perks and exlcusive air drops. This is the secret door to your
+          wildest dreams!
         </div>
       </div>
     </div>
