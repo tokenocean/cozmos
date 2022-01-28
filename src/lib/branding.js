@@ -11,6 +11,7 @@ const BRANDING = {
       twitter: "https://twitter.com/cozmos",
       telegram: "https://t.me/cozmos",
       discord: "https://discord.com/invite/K393aHGV3M",
+      instagram: "https://instagram.com/cozmosnft",
     },
   },
 
