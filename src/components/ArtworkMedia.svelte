@@ -108,10 +108,10 @@
       <img
         src="/static/svg_icons/profile_featured.svg"
         alt="Profile featured icon"
-        class="absolute top-4 left-4 bg-black opacity-50 rounded-lg index w-16"
+        class="absolute top-4 left-4 bg-black/50 rounded-lg index w-16"
       />
       <p
-        class="absolute index bottom-[0.5px] py-4 text-white font-bold bg-black opacity-50 w-full text-center"
+        class="absolute index bottom-[0.5px] py-4 text-white font-bold bg-black/50 w-full text-center"
       >
         Featured experience
       </p>
@@ -165,11 +165,11 @@
       <img
         src="/static/svg_icons/profile_featured.svg"
         alt="Profile featured icon"
-        class="absolute top-4 left-4 bg-black opacity-50 rounded-lg index w-16"
+        class="absolute top-4 left-4 bg-black/50 rounded-lg index w-16"
       />
 
       <p
-        class="absolute index bottom-[0.01px] py-4 text-white font-bold bg-black opacity-50 w-full text-center rounded-b-3xl"
+        class="absolute index bottom-[0.01px] py-4 text-white font-bold bg-black/50 w-full text-center rounded-b-3xl"
       >
         Featured experience
       </p>

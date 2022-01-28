@@ -114,7 +114,7 @@
     />
   </div>
   <div
-    class="featuredBackground feature flex items-center justify-center h-[75vh]"
+    class="featuredBackground feature flex items-center justify-center h-[100vh]"
   >
     <div class="mx-auto w-1/2">
       <div class="drop rounded-3xl mx-auto w-1/2">
@@ -144,12 +144,35 @@
       </div>
     </div>
   </div>
+  <div
+    class="w-full h-20 my-20 flex justify-center items-center background-gradient"
+  >
+    <h2 class="text-white text-xl">WE ARE DISRUPTING THE NFT INDUSTRY</h2>
+  </div>
   <div class="mx-auto container">
+    <div class="flex justify-between m-10 p-4 border-b-[1px] border-gray-500">
+      <h2
+        class="text-white text-lg rounded-full border border-white w-48 px-10 text-center"
+      >
+        Market
+      </h2>
+      <h2 class="text-white text-lg">Out of this world experiences</h2>
+    </div>
     <Gallery bind:filtered bind:total bind:loadMore />
   </div>
 </div>
 
 <style>
+  .background-gradient {
+    background: linear-gradient(
+      90deg,
+      #fa7900 0%,
+      #df36b4 43%,
+      #0063ea 77%,
+      #00eaaf 100%
+    );
+  }
+
   .splashBackground {
     background-image: url("/static/surfing.png");
     background-size: cover;
@@ -173,8 +196,7 @@
 
   .featuredBackground {
     background-image: url("/static/berta.jpg");
-    object-fit: scale-down;
-    background-position: center;
+    background-size: cover;
   }
 
   @media only screen and (max-width: 767px) {
