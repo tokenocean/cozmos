@@ -29,7 +29,7 @@
       type="button"
       name="button"
       on:click={() => (slider.scrollLeft -= 200)}
-      class="w-20 mx-2"
+      class="mx-2"
     >
       <Fa icon={faChevronLeft} /></button
     >
@@ -51,7 +51,7 @@
       type="button"
       name="button"
       on:click={() => (slider.scrollLeft += 200)}
-      class="w-20 mx-2"
+      class="mx-2"
     >
       <Fa icon={faChevronRight} /></button
     >
