@@ -15,7 +15,6 @@
   export let popup = false;
   export let preview;
 
-  export let cover = false;
   export let summary = false;
 
   let sats, val, ticker;
@@ -54,135 +53,118 @@
   }
 </script>
 
-{#if cover}
-  <div class="rounded-3xl shadow">
-    <ArtworkMedia
-      {artwork}
-      {showDetails}
-      {popup}
-      bind:loaded
-      bind:thumb
-      {preview}
-      cover={true}
-    />
-  </div>
-{:else}
-  <div class="rounded-3xl overflow-hidden boxed" in:fade>
+<div class="rounded-3xl overflow-hidden boxed" in:fade>
+  {#if !summary}
+    <div class="h-60 overflow-hidden flex justify-center items-center">
+      <a href={`/a/${artwork.slug}`} class="w-full">
+        <ArtworkMedia
+          {artwork}
+          {showDetails}
+          {popup}
+          bind:loaded
+          bind:thumb
+          {preview}
+        />
+      </a>
+    </div>
+  {/if}
+  {#if showDetails}
     {#if !summary}
-      <div class="h-60 overflow-hidden flex justify-center items-center">
-        <a href={`/a/${artwork.slug}`} class="w-full">
-          <ArtworkMedia
-            {artwork}
-            {showDetails}
-            {popup}
-            bind:loaded
-            bind:thumb
-            {preview}
-          />
-        </a>
+      <div class="bg-black flex h-32 px-6 pt-4">
+        <div class="relative pt-8">
+          <div
+            class="mb-1 border absolute -top-12 z rounded-full w-16 border-solid border-white"
+          >
+            <Avatar user={artwork.artist} size="lg" />
+          </div>
+          <div class="text-xs mb-1 italic font-bold text-gray-300">
+            @{artwork.artist.username}
+          </div>
+          <div class="text-base pb-1 font-bold title-font description">
+            {artwork.title || "No Name"}
+          </div>
+        </div>
+        <div class="ml-auto mb-auto flex items-center justify-center">
+          <Heart {artwork} size="sm" />
+          <span on:click={() => alert("in development")}>
+            <Fa
+              icon={faShareAlt}
+              class="ml-4 cursor-pointer"
+              color="#fff"
+              size="sm"
+            />
+          </span>
+        </div>
       </div>
     {/if}
-    {#if showDetails}
-      {#if !summary}
-        <div class="bg-black flex h-30 px-6 pt-8">
-          <div class="relative">
-            <div
-              class="mb-1 border absolute bottom-14 z rounded-full w-12 border-solid border-white"
-            >
-              <Avatar user={artwork.artist} />
+    {#if artwork.reserve_price}
+      <div
+        class="auction-item-background-gradient h-20 p-4 flex justify-between"
+        class:summary
+      >
+        <div class="flex-1 mr-2">
+          <div class="text-xs" class:text-gray-300={summary}>Reserve Price</div>
+          <div class="text-sm flex justify-start font-bold">
+            <div class:text-white={summary}>
+              {val(artwork.reserve_price)}
+              {ticker}
             </div>
-            <div class="text-xs mb-1 font-bold text-gray-300">
-              @{artwork.artist.username}
+            <div class="ml-2 currency-arrow-font" class:text-white={summary}>
+              &#62;
             </div>
-            <div class="text-base pb-1 font-bold title-font description">
-              {artwork.title || "No Name"}
+            <div class="ml-2" class:text-gray-300={summary}>
+              {currencyConversion(artwork.reserve_price)}
             </div>
-          </div>
-
-          <div class="ml-auto flex items-center justify-center">
-            <Heart {artwork} />
-            <span on:click={() => alert("in development")}>
-              <Fa
-                icon={faShareAlt}
-                class="ml-4 cursor-pointer"
-                color="#fff"
-                size="lg"
-              />
-            </span>
           </div>
         </div>
-      {/if}
-      {#if artwork.reserve_price}
-        <div
-          class="auction-item-background-gradient h-20 p-4 flex justify-between"
-          class:featured={summary}
-        >
-          <div class="flex-1 mr-2">
-            <div class="text-xs" class:text-gray-300={summary}>
-              Reserve Price
+        {#if artwork.bid && artwork.bid.user}
+          <div class="ml-2" class:text-secondary={summary}>
+            <div class="text-xs whitespace-nowrap">
+              Current bid by @{artwork.bid.user.username}
             </div>
             <div class="text-sm flex justify-start font-bold">
+              <div>{val(artwork.bid.amount)} {ticker}</div>
+              <div class="ml-2 currency-arrow-font">&#62;</div>
+              <div class="ml-2">{currencyConversion(artwork.bid.amount)}</div>
+            </div>
+          </div>
+        {/if}
+      </div>
+    {:else}
+      <div
+        class="bg-gradient-to-r from-cyan-300 via-purple-500 to-pink-600 h-20 p-4 px-6 flex justify-between"
+        class:summary
+      >
+        <div class="flex-1 mr-4">
+          <div class="text-xs" class:text-gray-300={summary}>Buy now</div>
+          <div class="text-base flex justify-start font-bold">
+            {#if artwork.list_price}
               <div class:text-white={summary}>
-                {val(artwork.reserve_price)}
+                {val(artwork.list_price)}
                 {ticker}
               </div>
-              <div class="ml-2 currency-arrow-font" class:text-white={summary}>
-                &#62;
-              </div>
-              <div class="ml-2" class:text-gray-300={summary}>
-                {currencyConversion(artwork.reserve_price)}
-              </div>
+            {/if}
+            <div class="ml-2 currency-arrow-font" class:text-white={summary}>
+              &#62;
+            </div>
+            <div class="ml-2" class:text-gray-300={summary}>
+              {currencyConversion(artwork.list_price, ticker)}
             </div>
           </div>
-          {#if artwork.bid && artwork.bid.user}
-            <div class="ml-2" class:text-secondary={summary}>
-              <div class="text-xs whitespace-nowrap">
-                Current bid by @{artwork.bid.user.username}
-              </div>
-              <div class="text-sm flex justify-start font-bold">
-                <div>{val(artwork.bid.amount)} {ticker}</div>
-                <div class="ml-2 currency-arrow-font">&#62;</div>
-                <div class="ml-2">{currencyConversion(artwork.bid.amount)}</div>
-              </div>
-            </div>
-          {/if}
         </div>
-      {:else}
-        <div
-          class="buy-now-item-background-gradient h-20 p-4 px-6 flex justify-between"
-          class:featured={summary}
-        >
-          <div class="flex-1 mr-4">
-            <div class="text-xs" class:text-gray-300={summary}>Buy now</div>
-            <div class="text-base flex justify-start font-bold">
-              {#if artwork.list_price}
-                <div class:text-white={summary}>
-                  {val(artwork.list_price)}
-                  {ticker}
-                </div>
-              {/if}
-              <div class="ml-2 currency-arrow-font" class:text-white={summary}>
-                &#62;
-              </div>
-              <div class="ml-2" class:text-gray-300={summary}>
-                {currencyConversion(artwork.list_price, ticker)}
-              </div>
-            </div>
-          </div>
 
-          {#if artwork.auction_end}
-            <div class:text-secondary={summary}>
-              {#if end_counter}
-                <div class="text-xs">Time left:</div>
-                <div class="font-bold text-lg">{end_counter}</div>
-              {/if}
-            </div>
-          {/if}
-        </div>
-      {/if}
+        {#if artwork.auction_end}
+          <div class:text-secondary={summary}>
+            {#if end_counter}
+              <div class="text-xs">Time left:</div>
+              <div class="font-bold text-lg">{end_counter}</div>
+            {/if}
+          </div>
+        {/if}
+      </div>
     {/if}
-  </div>
-{/if}
+  {/if}
+</div>
 
 <style lang="scss">
   @import "../theme";
@@ -219,7 +201,7 @@
     z-index: 1000;
   }
 
-  .featured {
+  .summary {
     background: rgba(0, 0, 0, 0.5);
   }
 </style>

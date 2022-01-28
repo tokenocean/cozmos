@@ -2,7 +2,7 @@
   export let user = undefined;
   export let src = undefined;
   export let overlay = undefined;
-  export let size = "small";
+  export let size = "sm";
 </script>
 
 <div class={`${size} my-auto relative`}>
@@ -33,11 +33,11 @@
 </div>
 
 <style>
-  .small {
+  .sm {
     @apply w-12 h-12;
   }
 
-  .large {
+  .lg {
     @apply w-16 h-16;
   }
 

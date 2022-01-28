@@ -13,6 +13,7 @@
 </script>
 
 <script>
+  import ArtworkMedia from "$components/ArtworkMedia.svelte";
   import Card from "$styleguide/components/Card.svelte";
   import { ProgressLinear } from "$comp";
   import Fa from "svelte-fa";
@@ -117,8 +118,8 @@
     class="featuredBackground feature flex items-center justify-center h-[100vh]"
   >
     <div class="mx-auto w-1/2">
-      <div class="drop rounded-3xl mx-auto w-1/2">
-        <Card artwork={filtered[0]} cover={true} showDetails={false} />
+      <div class="drop rounded-3xl mx-auto w-auto" style="width: 300px">
+        <ArtworkMedia artwork={filtered[0]} featured={true} />
       </div>
     </div>
     <div
