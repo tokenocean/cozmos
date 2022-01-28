@@ -87,147 +87,150 @@
 </script>
 
 <Results />
-
-<div class="stars mx-auto w-full">
-  <div class="h-[100vh] splashBackground flex justify-center items-center">
-    <div class="w-full md:w-1/2">
-      <div class="h-72 mt-72">
-        <h2 class="text-lg text-gray-300 text-center">
-          We are disrupting the NFT industry.
-        </h2>
-        <h1 class="text-white text-4xl text-center">
-          The first marketplace for NFT experiences.
-        </h1>
+{#if filtered.length}
+  <div class="stars mx-auto w-full">
+    <div class="h-[100vh] splashBackground flex justify-center items-center">
+      <div class="w-full md:w-1/2">
+        <div class="h-72 mt-72">
+          <h2 class="text-lg text-gray-300 text-center">
+            We are disrupting the NFT industry.
+          </h2>
+          <h1 class="text-white text-4xl text-center">
+            The first marketplace for NFT experiences.
+          </h1>
+        </div>
+        <img
+          src="/static/svg_icons/mouse.svg"
+          alt="mouse icon"
+          class="w-36 mx-auto text-white"
+        />
+        <p class="text-white text-center">E X P L O R E</p>
+        <div
+          class="text-white flex justify-center cursor-pointer w-10 mx-auto"
+          on:click={() => animateScroll.scrollTo({ element: "#market" })}
+        >
+          <Fa icon={faChevronDown} />
+        </div>
       </div>
       <img
-        src="/static/svg_icons/mouse.svg"
-        alt="mouse icon"
-        class="w-36 mx-auto text-white"
+        src="/static/svg_icons/mute.svg"
+        alt="mute icon"
+        class="right-[1px] bottom-[1px] md:right-10 md:bottom-10 absolute w-36 text-white"
       />
-      <p class="text-white text-center">E X P L O R E</p>
-      <div
-        class="text-white flex justify-center cursor-pointer w-10 mx-auto"
-        on:click={() => animateScroll.scrollTo({ element: "#market" })}
-      >
-        <Fa icon={faChevronDown} />
-      </div>
-    </div>
-    <img
-      src="/static/svg_icons/mute.svg"
-      alt="mute icon"
-      class="right-[1px] bottom-[1px] md:right-10 md:bottom-10 absolute w-36 text-white"
-    />
-  </div>
-  <div
-    class="featuredBackground feature block md:flex items-center justify-center h-auto md:h-[100vh]"
-  >
-    <div class="mx-auto flex md:block justify-center w-9/12 md:w-1/2">
-      <div
-        class="drop rounded-3xl mx-auto w-auto my-6 md:my-0"
-        style="width: 300px"
-      >
-        <ArtworkMedia artwork={filtered[0]} featured={true} />
-      </div>
     </div>
     <div
-      class="mx-auto w-full md:w-1/2 background h-full flex justify-center items-center"
+      class="featuredBackground feature block md:flex items-center justify-center h-auto md:h-[100vh]"
     >
-      <div class="ml-0 md:ml-48 pt-6 md:pt-0">
-        <h2
-          class="text-3xl text-white w-full md:w-1/2 text-center md:text-left"
+      <div class="mx-auto flex md:block justify-center w-9/12 md:w-1/2">
+        <div
+          class="drop rounded-3xl mx-auto w-auto my-6 md:my-0"
+          style="width: 300px"
         >
-          10 Day Trip Exploration to the Canadian Rockies with Mountaineering
-          guide Trail of a Traveller.
-        </h2>
-        <p
-          class="text-xl text-secondary font-bold m-2 text-center md:text-left"
-        >
-          Creator: <span class="font-normal"
-            ><Card
-              artwork={filtered[0]}
-              showDetails={false}
-              summary={true}
-              usernameOnly={true}
-            /></span
+          <ArtworkMedia artwork={filtered[0]} featured={true} />
+        </div>
+      </div>
+      <div
+        class="mx-auto w-full md:w-1/2 background h-full flex justify-center items-center"
+      >
+        <div class="ml-0 md:ml-48 pt-6 md:pt-0">
+          <h2
+            class="text-3xl text-white w-full md:w-1/2 text-center md:text-left"
           >
-        </p>
-        <div class="w-full md:w-3/5">
-          <Card artwork={filtered[0]} summary={true} />
+            10 Day Trip Exploration to the Canadian Rockies with Mountaineering
+            guide Trail of a Traveller.
+          </h2>
+          <p
+            class="text-xl text-secondary font-bold m-2 text-center md:text-left"
+          >
+            Creator: <span class="font-normal"
+              ><Card
+                artwork={filtered[0]}
+                showDetails={false}
+                summary={true}
+                usernameOnly={true}
+              /></span
+            >
+          </p>
+          <div class="w-full md:w-3/5">
+            <Card artwork={filtered[0]} summary={true} />
+          </div>
+          <Card
+            artwork={filtered[0]}
+            showDetails={false}
+            summary={true}
+            artworkButton={true}
+          />
         </div>
-        <Card
-          artwork={filtered[0]}
-          showDetails={false}
-          summary={true}
-          artworkButton={true}
-        />
       </div>
     </div>
-  </div>
-  <div
-    class="w-full h-20 my-14 md:my-20 flex justify-center items-center background-gradient"
-    id="market"
-  >
-    <h2 class="text-white text-xl text-center md:text-left">
-      WE ARE DISRUPTING THE NFT INDUSTRY
-    </h2>
-  </div>
-  <div class="mx-auto container">
     <div
-      class="block md:flex justify-between m-10 p-0 md:p-4 border-b-[1px] border-gray-500"
+      class="w-full h-20 my-14 md:my-20 flex justify-center items-center background-gradient"
+      id="market"
     >
-      <h2
-        class="text-white text-lg rounded-full border border-white w-48 px-10 text-center mx-auto md:mx-0 mb-2 md:mb-0"
-      >
-        Market
-      </h2>
-      <h2 class="text-white text-lg text-center md:text-left mb-2 md:mb-0">
-        Out of this world experiences
+      <h2 class="text-white text-xl text-center md:text-left">
+        WE ARE DISRUPTING THE NFT INDUSTRY
       </h2>
     </div>
-    <Gallery bind:filtered bind:total bind:loadMore />
-  </div>
-  <div
-    class="background-gradient w-full block md:flex justify-center items-center py-12"
-  >
-    <div>
-      <h2 class="text-center text-black text-xl">FROM CREATORS FOR EVERYONE</h2>
-      <p class="text-center text-black font-bold">
-        An NFT marketplace with real-life experiences based on the L-BTC
-        blockchain.
-      </p>
+    <div class="mx-auto container">
+      <div
+        class="block md:flex justify-between m-10 p-0 md:p-4 border-b-[1px] border-gray-500"
+      >
+        <h2
+          class="text-white text-lg rounded-full border border-white w-48 px-10 text-center mx-auto md:mx-0 mb-2 md:mb-0"
+        >
+          Market
+        </h2>
+        <h2 class="text-white text-lg text-center md:text-left mb-2 md:mb-0">
+          Out of this world experiences
+        </h2>
+      </div>
+      <Gallery bind:filtered bind:total bind:loadMore />
+    </div>
+    <div
+      class="background-gradient w-full block md:flex justify-center items-center py-12"
+    >
+      <div>
+        <h2 class="text-center text-black text-xl">
+          FROM CREATORS FOR EVERYONE
+        </h2>
+        <p class="text-center text-black font-bold">
+          An NFT marketplace with real-life experiences based on the L-BTC
+          blockchain.
+        </p>
 
-      <div class="block md:flex justify-center items-center text-black">
-        <div class="w-72 text-center mx-10 h-auto md:h-96">
-          <img
-            src="/static/svg_icons/icons-28.svg"
-            alt="low fees"
-            class="w-72"
-          />
-          Forget about gas wars and astronomical fees, minting is free and transaction
-          fees are literally less than $0.5.
-        </div>
-        <div class="w-72 text-center mx-10 h-auto md:h-96">
-          <img
-            src="/static/svg_icons/icons-29.svg"
-            alt="amazing experiences"
-            class="w-72"
-          />
-          Buy, sell and trade amazing life changing experiences.
-        </div>
-        <div class="w-72 text-center mx-10 h-auto md:h-96">
-          <img
-            src="/static/svg_icons/icons-30.svg"
-            alt="awesome community"
-            class="w-72"
-          />
-          Engage with an amazing new community. Join private discords and get early
-          access, perks and exlcusive air drops. This is the secret door to your
-          wildest dreams!
+        <div class="block md:flex justify-center items-center text-black">
+          <div class="w-72 text-center mx-10 h-auto md:h-96">
+            <img
+              src="/static/svg_icons/icons-28.svg"
+              alt="low fees"
+              class="w-72"
+            />
+            Forget about gas wars and astronomical fees, minting is free and transaction
+            fees are literally less than $0.5.
+          </div>
+          <div class="w-72 text-center mx-10 h-auto md:h-96">
+            <img
+              src="/static/svg_icons/icons-29.svg"
+              alt="amazing experiences"
+              class="w-72"
+            />
+            Buy, sell and trade amazing life changing experiences.
+          </div>
+          <div class="w-72 text-center mx-10 h-auto md:h-96">
+            <img
+              src="/static/svg_icons/icons-30.svg"
+              alt="awesome community"
+              class="w-72"
+            />
+            Engage with an amazing new community. Join private discords and get early
+            access, perks and exlcusive air drops. This is the secret door to your
+            wildest dreams!
+          </div>
         </div>
       </div>
     </div>
   </div>
-</div>
+{/if}
 
 <style>
   .background-gradient {
