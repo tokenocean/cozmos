@@ -78,8 +78,6 @@
     if (cover)
       rest.cover_photo_url = `${cover.hash}.${cover.filetype.split("/")[1]}`;
 
-    console.log("FILES", files);
-
     query(updateUser, { user: rest, id }).then((r) => {
       if (r.error) {
         if (r.error.message.includes("Uniqueness")) err("Username taken");
@@ -108,7 +106,6 @@
       coverPreview.src = `/api/ipfs/${file.hash}`;
     }
     files = [...files.filter((f) => f.type !== file.type), file];
-    console.log("ADD FILE", files);
   };
 </script>
 
