@@ -126,8 +126,8 @@
     >
       <div class="ml-48">
         <h2 class="text-3xl text-white w-1/2">
-          10 Day Trip Exploration trip to the Canadian Rockies with
-          Mountaineering guide Trail of a traveller
+          10 Day Trip Exploration to the Canadian Rockies with Mountaineering
+          guide Trail of a Traveller.
         </h2>
         <p class="text-xl text-secondary font-bold m-2">
           Creator: <span class="font-normal">@trailofatraveller</span>
@@ -159,6 +159,30 @@
       <h2 class="text-white text-lg">Out of this world experiences</h2>
     </div>
     <Gallery bind:filtered bind:total bind:loadMore />
+  </div>
+  <div class="background-gradient w-full flex justify-center items-center h-96">
+    <div>
+      <h2 class="text-center text-black text-xl">FROM CREATORS FOR EVERYONE</h2>
+      <p class="text-center text-black mb-10 font-bold">
+        An NFT marketplace with real-life experiences based on the L-BTC
+        blockchain.
+      </p>
+
+      <div class="flex justify-center items-center text-black">
+        <div class="w-72 text-center mx-10">
+          Forget about gas wars and astronomical fees, minting is free and
+          transaction fees are literally less than $0.5.
+        </div>
+        <div class="w-72 text-center mx-10">
+          Buy, sell and trade amazing life changing experiences.
+        </div>
+        <div class="w-72 text-center mx-10">
+          Engage with an amazing new community. Join private discords and get
+          early access, perks and exlcusive air drops. This is the secret door
+          to your wildest dreams!
+        </div>
+      </div>
+    </div>
   </div>
 </div>
 
