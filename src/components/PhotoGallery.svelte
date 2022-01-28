@@ -32,18 +32,19 @@
 </script>
 
 {#if images.length}
-  <Splide {options} bind:this={slider}>
+  <div
+    class="flex justify-center items-center overflow-x-auto"
+    bind:this={slider}
+  >
     {#each images as img}
-      <SplideSlide>
-        <img
-          src={src(img)}
-          alt="Gallery"
-          class="rounded h-48"
-          on:click={() => popup(img)}
-        />
-      </SplideSlide>
+      <img
+        src={src(img)}
+        alt="Gallery"
+        class="rounded h-48"
+        on:click={() => popup(img)}
+      />
     {/each}
-  </Splide>
+  </div>
 
   {#if showPopup}
     <div

@@ -13,6 +13,7 @@
 </script>
 
 <script>
+  import * as animateScroll from "svelte-scrollto";
   import ArtworkMedia from "$components/ArtworkMedia.svelte";
   import Card from "$styleguide/components/Card.svelte";
   import { ProgressLinear } from "$comp";
@@ -83,11 +84,7 @@
       console.log(e);
     }
   };
-
-  let y;
 </script>
-
-<svelte:window bind:scrollY={y} />
 
 <Results />
 
@@ -110,9 +107,7 @@
       <p class="text-white text-center">E X P L O R E</p>
       <div
         class="text-white flex justify-center cursor-pointer w-10 mx-auto"
-        on:click={() => {
-          y = 1802;
-        }}
+        on:click={() => animateScroll.scrollTo({ element: "#market" })}
       >
         <Fa icon={faChevronDown} />
       </div>

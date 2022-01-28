@@ -28,7 +28,11 @@
   $: images = files.filter((f) => f.type === "gallery");
 
   const addFile = ({ detail: file }) => {
-    files = [...files.filter(f => f.type !== file.type), file];
+    files = [
+      ...files.filter((f) => f.type === "gallery" || f.type !== file.type),
+      file,
+    ];
+
     artwork[file.type] = [file];
     if (vid) vid.load();
   };
@@ -91,51 +95,59 @@
     };
   }
 
-	let lbtcButton = "bg-black text-white";
-	let usdButton = "";
+  let lbtcButton = "bg-black text-white";
+  let usdButton = "";
 </script>
 
 <form class="flex flex-col w-full mb-6" on:submit autocomplete="off">
   <div class="md:grid md:grid-cols-2 md:text-left md:p-4">
-    {#if $page.url.pathname.includes('/create')}
-    <FormItem title="Upload NFT Image" text="text-center">
-			<div class="text-sm text-black text-center">
-				(Cannot be changed once submitted)
-			</div>
-      {#if artwork.main && artwork.main.length}
-        <img src={`/api/ipfs/${artwork.main[0].hash}`} alt="Main" class="mx-auto w-56 mt-4 nftimage object-cover" />
+    {#if $page.url.pathname.includes("/create")}
+      <FormItem title="Upload NFT Image" text="text-center">
+        <div class="text-sm text-black text-center">
+          (Cannot be changed once submitted)
+        </div>
+        {#if artwork.main && artwork.main.length}
+          <img
+            src={`/api/ipfs/${artwork.main[0].hash}`}
+            alt="Main"
+            class="mx-auto w-56 mt-4 nftimage object-cover"
+          />
+        {/if}
+        <FileUpload
+          {artwork}
+          type="main"
+          limits="PNG, JPG, GIF, MP4, WEBP, MAX 10MB"
+          on:upload={addFile}
+          previewEnabled={false}
+        />
+      </FormItem>
+    {/if}
+    <FormItem title="Upload Card Thumbnail" text="text-center">
+      <div class="text-sm text-black text-center">(Optional)</div>
+      {#if artwork.thumb && artwork.thumb.length}
+        <img
+          src={`/api/ipfs/${artwork.thumb[0].hash}`}
+          alt="Thumb"
+          class="mx-auto w-56 mt-4 nftimage object-cover"
+        />
       {/if}
       <FileUpload
         {artwork}
-        type="main"
-        limits="PNG, JPG, GIF, MP4, WEBP, MAX 10MB"
+        title="Upload Card Thumbnail"
+        type="thumb"
+        limits="PNG, JPG, WEBP, MAX 10MB"
         on:upload={addFile}
         previewEnabled={false}
       />
     </FormItem>
-  {/if}
-		<FormItem title="Upload Card Thumbnail" text="text-center">
-			<div class="text-sm text-black text-center">
-				(Optional)
-			</div>
-			{#if artwork.thumb && artwork.thumb.length}
-				<img src={`/api/ipfs/${artwork.thumb[0].hash}`} alt="Thumb" class="mx-auto w-56 mt-4 nftimage object-cover" />
-			{/if}
-			<FileUpload
-				{artwork}
-				title="Upload Card Thumbnail"
-				type="thumb"
-				limits="PNG, JPG, WEBP, MAX 10MB"
-				on:upload={addFile}
-				previewEnabled={false}
-			/>
-		</FormItem>
     <FormItem title="Upload Cover Image" text="text-center">
-			<div class="text-sm text-black text-center">
-				(Required)
-			</div>
+      <div class="text-sm text-black text-center">(Required)</div>
       {#if artwork.cover && artwork.cover.length}
-        <img src={`/api/ipfs/${artwork.cover[0].hash}`} alt="Cover" class="mx-auto w-72 mt-4 cover object-cover" />
+        <img
+          src={`/api/ipfs/${artwork.cover[0].hash}`}
+          alt="Cover"
+          class="mx-auto w-72 mt-4 cover object-cover"
+        />
       {/if}
       <FileUpload
         {artwork}
@@ -146,11 +158,19 @@
       />
     </FormItem>
     <FormItem title="Upload Video" text="text-center">
-			<div class="text-sm text-black text-center">
-				(Required)
-			</div>
+      <div class="text-sm text-black text-center">(Required)</div>
       {#if artwork.video && artwork.video.length}
-        <video autoplay loop controls muted disablepictureinpicture controlslist="nodownload" key={artwork.video[0].hash} bind:this={vid} class="mx-auto w-72 mt-4 cover object-cover">
+        <video
+          autoplay
+          loop
+          controls
+          muted
+          disablepictureinpicture
+          controlslist="nodownload"
+          key={artwork.video[0].hash}
+          bind:this={vid}
+          class="mx-auto w-72 mt-4 cover object-cover"
+        >
           <source src={`/api/ipfs/${artwork.video[0].hash}`} />
         </video>
       {/if}
@@ -162,17 +182,15 @@
         previewEnabled={false}
       />
     </FormItem>
-	</div>
-	<div class="md:grid md:grid-cols-1 md:text-left md:p-4">
+  </div>
+  <div class="md:grid md:grid-cols-1 md:text-left md:p-4">
     <FormItem title="Upload Gallery Photo" text="text-center">
-			<div class="text-sm text-black text-center">
-				(Optional)
-			</div>
-			{#if artwork.gallery && artwork.gallery.length}
-				<div class="mt-4 mx-auto">
-			  	<PhotoGallery {images} bind:this={gallery} />
-				</div>
-			{/if}
+      <div class="text-sm text-black text-center">(Optional)</div>
+      {#if artwork.gallery && artwork.gallery.length}
+        <div class="mt-4 mx-auto">
+          <PhotoGallery {images} bind:this={gallery} />
+        </div>
+      {/if}
       <FileUpload
         {artwork}
         type="gallery"
@@ -281,38 +299,36 @@
         {#if listingType === TYPES.FIXED}
           <FormItem title="Price">
             <div class="flex">
-            <Input
-              bind:value={list_price}
-              placeholder="Price for NFT experience"
-            />
-          </FormItem>
+              <Input
+                bind:value={list_price}
+                placeholder="Price for NFT experience"
+              />
+            </div></FormItem
+          >
         {/if}
         {#if listingType === TYPES.AUCTION}
           <FormItem title="Minimum bid">
-            <Input
-              bind:value={reserve_price}
-              placeholder="Minimum bid"
-            />
+            <Input bind:value={reserve_price} placeholder="Minimum bid" />
           </FormItem>
         {/if}
-				<button
-				  type="button"
-				  name="button"
-				  class="border border-black rounded w-20 mt-1 {lbtcButton}"
-				  on:click={() => {
-				    usdButton = "";
-				    lbtcButton = "bg-black text-white";
-				  }}>L-BTC</button
-				>
-				<button
-				  type="button"
-				  name="button"
-				  class="border border-black rounded w-20 mt-1 {usdButton}"
-				  on:click={() => {
-				    lbtcButton = "";
-				    usdButton = "bg-black text-white";
-				  }}>USD</button
-				>
+        <button
+          type="button"
+          name="button"
+          class="border border-black rounded w-20 mt-1 {lbtcButton}"
+          on:click={() => {
+            usdButton = "";
+            lbtcButton = "bg-black text-white";
+          }}>L-BTC</button
+        >
+        <button
+          type="button"
+          name="button"
+          class="border border-black rounded w-20 mt-1 {usdButton}"
+          on:click={() => {
+            lbtcButton = "";
+            usdButton = "bg-black text-white";
+          }}>USD</button
+        >
         <div class="mt-4">
           <ul class="text-sm list-disc ml-4">
             <li>
@@ -357,13 +373,13 @@
 </form>
 
 <style lang="scss">
-	.cover {
-		height: 14rem;
-	}
+  .cover {
+    height: 14rem;
+  }
 
-	.nftimage {
-		height: 14rem;
-	}
+  .nftimage {
+    height: 14rem;
+  }
 
   .sell-type {
     svg {
