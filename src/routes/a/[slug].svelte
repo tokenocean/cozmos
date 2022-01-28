@@ -41,7 +41,6 @@
 </script>
 
 <script>
-  import "/src/carousel.css";
   import Fa from "svelte-fa";
   import {
     faChevronDown,
