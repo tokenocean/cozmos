@@ -105,7 +105,7 @@
       class="z relative"
       class:featured
     />
-    {#if cover}
+    {#if featured}
       <img
         src="/static/svg_icons/profile_featured.svg"
         alt="Profile featured icon"
@@ -162,7 +162,7 @@
       class="z relative"
       class:featured
     />
-    {#if cover}
+    {#if featured}
       <img
         src="/static/svg_icons/profile_featured.svg"
         alt="Profile featured icon"
