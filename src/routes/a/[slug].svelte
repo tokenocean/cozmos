@@ -357,12 +357,10 @@
       />
     </button>
     {#if showPopup}
-      <div
-        on:click={() => (showPopup = !showPopup)}
-        class:showPopup
-        class="popup"
-      >
-        <span class="closeButton"><Fa icon={faTimes} /></span>
+      <div class:showPopup class="popup">
+        <span class="closeButton" on:click={() => (showPopup = !showPopup)}
+          ><Fa icon={faTimes} /></span
+        >
         <video
           src={`/api/ipfs/${artwork.video[0].hash}`}
           preload
