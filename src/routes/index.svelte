@@ -87,8 +87,8 @@
 <Results />
 
 <div class="stars mx-auto w-full">
-  <div class="feature flex">
-    <div class="m-auto">
+  <div class=" featuredBackground feature flex">
+    <div class="m-auto w-96">
       <Card artwork={filtered[0]} cover={true} showDetails={false} />
     </div>
     <div class="opacity-50">
@@ -107,6 +107,12 @@
 <style>
   .stars {
     background: black url("/stars.png");
+  }
+
+  .featuredBackground {
+    background-image: url("/static/berta.jpg");
+    object-fit: scale-down;
+    background-position: center;
   }
 
   @media only screen and (max-width: 767px) {

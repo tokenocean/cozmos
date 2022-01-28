@@ -64,6 +64,7 @@
       bind:thumb
       {preview}
     />
+    <p class="absolute bottom-96">Featured experience</p>
   </div>
 {:else}
   <div class="rounded-3xl overflow-hidden boxed" in:fade>
