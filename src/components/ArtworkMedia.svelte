@@ -10,6 +10,7 @@
   export let preview = false;
   export let popup = false;
   export let cover = false;
+  export let featured = false;
 
   let img, vid;
   $: path =
@@ -96,13 +97,13 @@
 </script>
 
 {#if artwork?.thumb?.length && artwork.thumb[0]}
-  <div class="w-full" class:cover class:contain>
+  <div class:cover class:contain>
     <img
       src={`/api/ipfs/${artwork.thumb[0].hash}`}
       alt={artwork.title}
       bind:this={img}
       class="z relative"
-      class:featured={cover}
+      class:featured
     />
     {#if cover}
       <img
@@ -159,7 +160,7 @@
       alt={artwork.title}
       bind:this={img}
       class="z relative"
-      class:featured={cover}
+      class:featured
     />
     {#if cover}
       <img
@@ -178,10 +179,6 @@
 {/if}
 
 <style>
-  .featured {
-    border-radius: 1.5rem;
-  }
-
   .index {
     z-index: 2;
   }
@@ -195,8 +192,16 @@
   .contain img,
   .contain video {
     height: 350px;
-    width: 100%;
     object-fit: cover;
+    width: 100%;
+  }
+
+  .featured {
+    border-radius: 1.5rem;
+    height: 500px;
+    width: 300px;
+    object-fit: cover;
+    margin: 0;
   }
 
   img,

@@ -36,6 +36,7 @@
 </script>
 
 <div on:click={favorite} class:favorited>
+  {size}
   <Fa icon={favorited ? solidHeart : faHeart} {size} />
 </div>
 

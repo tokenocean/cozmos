@@ -13,12 +13,12 @@
   // vars for style-guide to manage appearance
   export let active = false;
   export let hovered = false;
+  export let size = "1.5x";
 
   let { favorited } = artwork;
 
   let favorite = async () => {
     try {
-
       await requireLogin();
       let { id: artwork_id } = artwork;
       let { id: user_id } = $user;
@@ -32,15 +32,22 @@
         artwork.num_favorites++;
         favorited = true;
       }
-
     } catch (e) {
       err(e);
     }
   };
 </script>
 
-<style lang="scss">
+<div
+  class="{$$props.class} text-white"
+  on:click={favorite}
+  class:favorited
+  class:hovered
+>
+  <Fa icon={favorited || active ? solidHeart : faHeart} {size} />
+</div>
 
+<style lang="scss">
   .default {
     // nothing
   }
@@ -57,15 +64,6 @@
   div:hover,
   .favorited {
     @apply cursor-pointer;
-		color: #ef4baf;
+    color: #ef4baf;
   }
 </style>
-
-<div
-    class="{$$props.class} text-white"
-    on:click={favorite}
-    class:favorited
-    class:hovered
->
-  <Fa icon={favorited || active ? solidHeart : faHeart} size="1.5x" />
-</div>
