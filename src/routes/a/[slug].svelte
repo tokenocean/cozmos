@@ -332,6 +332,9 @@
   }
 
   let showPopup = false;
+
+  console.log($user);
+  console.log(artwork);
 </script>
 
 <Head {metadata} />
@@ -520,8 +523,8 @@
 
           <!-- Controls -->
           <div class="flex flex-1 flex-col">
-            <!-- @todo check button's look-->
-            {#if artwork.list_price && !bidding && !offering}
+            <!-- @todo check buttons look -->
+            {#if artwork.list_price && !bidding && !offering && $user.id !== artwork.owner_id}
               <input
                 class={`flex justify-center mb-4 backgroundGradientPurple text-white items-center inline-block rounded-2xl h-14 font-bold text-center cursor-pointer text-lg ${actionClassName}`}
                 type="button"
@@ -532,7 +535,7 @@
               />
             {/if}
 
-            {#if bidding}
+            {#if bidding && $user.id !== artwork.owner_id}
               {#if offering}
                 <ProgressLinear />
               {:else}
@@ -570,7 +573,7 @@
                   </div>
                 </form>
               {/if}
-            {:else if !artwork.auction_start || compareAsc(now, parseISO(artwork.auction_start)) === 1}
+            {:else if (!artwork.auction_start && $user.id !== artwork.owner_id) || (compareAsc(now, parseISO(artwork.auction_start)) === 1 && $user.id !== artwork.owner_id)}
               <input
                 class={`w-full flex justify-center items-center inline-block rounded-2xl h-14 text-center cursor-pointer text-lg text-white font-bold ${actionClassName}`}
                 class:backgroundGradientPurple={!artwork.auction_start}
