@@ -13,12 +13,14 @@
   class:open
 >
   <div class="menu-header bg-black h-14" />
-  <div class="menu-container -left-full bg-white absolute h-screen">
+  <div
+    class="menu-container -left-full bg-black rounded text-white absolute h-96"
+  >
     {#if $session?.user}
-      <div class="flex">
+      <div class="flex justify-center items-center space-x-2">
         <div>Signed in as:</div>
         <a href={`/${$session.user.username}`}>
-          <div class="flex mx-auto">
+          <div class="flex space-x-2 mx-auto">
             <Avatar user={$session.user} />
             <button on:click={toggle}>{$session.user.username}</button>
           </div></a
@@ -39,7 +41,7 @@
           <a href="/admin"><button on:click={toggle}>Admin</button></a>
         {/if}
         <a sveltekit:prefetch href="/logout"
-          ><button on:click={toggle}>Sign out</button></a
+          ><button on:click={toggle}>Sign Out</button></a
         >
       {:else}<a href="/login"><button on:click={toggle}>Sign In</button></a
         >{/if}
