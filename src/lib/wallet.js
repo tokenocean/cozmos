@@ -589,7 +589,6 @@ export const pay = async (artwork, to, amount) => {
 
   let p2 = Psbt.fromBase64(p.toBase64());
 
-  debugger;
   let construct = async (p) => {
     let out = artwork && isMultisig(artwork) ? multisig() : singlesig();
     if (asset === btc) {
