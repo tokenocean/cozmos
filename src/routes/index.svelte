@@ -169,7 +169,7 @@
     </div>
   </div>
   <div
-    class="w-full h-20 my-20 flex justify-center items-center background-gradient"
+    class="w-full h-20 my-14 md:my-20 flex justify-center items-center background-gradient"
     id="market"
   >
     <h2 class="text-white text-xl text-center md:text-left">
