@@ -28,7 +28,7 @@
       metadata.keywords + " " + artwork.tags.map((t) => t.tag).join(" ");
     metadata.description = artwork.description;
 
-    if (artwork.main[0].filetype.includes("video"))
+    if (artwork?.main?.length && artwork.main[0].filetype.includes("video"))
       metadata.video = "/api/ipfs/" + artwork.main[0].hash;
     else metadata.image = "/api/ipfs/" + artwork.main[0].hash;
 
