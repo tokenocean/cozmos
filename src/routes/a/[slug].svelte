@@ -383,25 +383,19 @@
 <div class="nft-container mx-auto pt-4 md:pt-24 mb-10 px-4 md:px-0">
   <div class="md:flex">
     <div class="md:w-1/3 md:mr-16">
-      <div class="overflow-hidden rounded-2xl nft-box-shadow">
+      <div class="overflow-hidden rounded-2xl nft-box-shadow mb-8">
         <ArtworkMedia {artwork} />
       </div>
       {#if $user && $user.id === artwork.owner_id}
-        <div class="mt-8">
-          <a href={`/a/${artwork.slug}/edit`}>
-            <Button primary class="w-full">Edit</Button>
-          </a>
-        </div>
-        <div class="mt-8">
-          <a href={`/a/${artwork.slug}/transfer`}>
-            <Button primary class="w-full">Transfer</Button>
-          </a>
-        </div>
+        <a href={`/a/${artwork.slug}/edit`}>
+          <Button primary class="w-full mb-2">Edit</Button>
+        </a>
+        <a href={`/a/${artwork.slug}/transfer`}>
+          <Button primary class="w-full mb-2" {disabled}>Transfer</Button>
+        </a>
       {/if}
       {#if $user && $user.id === artwork.artist_id && !artwork.redeemed}
-        <div class="mt-8">
-          <Button primary on:click={redeem} class="w-full">Set Redeemed</Button>
-        </div>
+        <Button primary on:click={redeem} class="w-full mb-2">Redeem</Button>
       {/if}
       <div class="mt-12 border border-gray rounded-xl p-4">
         <div class="text-2xl font-bold">History</div>

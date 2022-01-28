@@ -14,6 +14,7 @@
   class:ghostWhite
   class:primary
   class:hover
+  class:ghostWhite-disabled={disabled}
   class="h-12 px-8 {rounded} button flex justify-center items-center {$$props.class ||
     ''}"><slot /></button
 >
