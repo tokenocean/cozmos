@@ -83,7 +83,11 @@
       console.log(e);
     }
   };
+
+  let y;
 </script>
+
+<svelte:window bind:scrollY={y} />
 
 <Results />
 
@@ -104,7 +108,12 @@
         class="w-36 mx-auto text-white"
       />
       <p class="text-white text-center">E X P L O R E</p>
-      <div class="text-white flex justify-center">
+      <div
+        class="text-white flex justify-center cursor-pointer w-10 mx-auto"
+        on:click={() => {
+          y = 1802;
+        }}
+      >
         <Fa icon={faChevronDown} />
       </div>
     </div>
@@ -131,26 +140,34 @@
           guide Trail of a Traveller.
         </h2>
         <p class="text-xl text-secondary font-bold m-2">
-          Creator: <span class="font-normal">@trailofatraveller</span>
+          Creator: <span class="font-normal"
+            ><Card
+              artwork={filtered[0]}
+              showDetails={false}
+              summary={true}
+              usernameOnly={true}
+            /></span
+          >
         </p>
         <div class="w-3/5">
           <Card artwork={filtered[0]} summary={true} />
         </div>
-        <button
-          type="button"
-          name="button"
-          class="w-3/5 mx-auto backgroundGradientPurple p-2 rounded-xl text-white font-bold m-2"
-          >Explore experience</button
-        >
+        <Card
+          artwork={filtered[0]}
+          showDetails={false}
+          summary={true}
+          artworkButton={true}
+        />
       </div>
     </div>
   </div>
   <div
     class="w-full h-20 my-20 flex justify-center items-center background-gradient"
+    id="market"
   >
     <h2 class="text-white text-xl">WE ARE DISRUPTING THE NFT INDUSTRY</h2>
   </div>
-  <div class="mx-auto container" id="market">
+  <div class="mx-auto container">
     <div class="flex justify-between m-10 p-4 border-b-[1px] border-gray-500">
       <h2
         class="text-white text-lg rounded-full border border-white w-48 px-10 text-center"
@@ -227,10 +244,6 @@
 
   .background {
     background-color: rgba(0, 0, 0, 0.5);
-  }
-
-  .backgroundGradientPurple {
-    background-image: linear-gradient(45deg, blue, purple, deeppink);
   }
   .stars {
     background: black url("/stars.png");

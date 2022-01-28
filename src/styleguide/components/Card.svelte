@@ -16,6 +16,8 @@
   export let preview;
 
   export let summary = false;
+  export let usernameOnly = false;
+  export let artworkButton = false;
 
   let sats, val, ticker;
   $: if (artwork) [sats, val, ticker] = units(artwork.asking_asset);
@@ -53,6 +55,20 @@
   }
 </script>
 
+{#if usernameOnly}
+  @{artwork.artist.username}
+{/if}
+{#if artworkButton}
+  <button
+    on:click={() => {
+      goto(`/a/${artwork.slug}`);
+    }}
+    type="button"
+    name="button"
+    class="w-3/5 mx-auto backgroundGradientPurple p-2 rounded-xl text-white font-bold m-2"
+    >Explore experience</button
+  >
+{/if}
 <div class="rounded-3xl overflow-hidden boxed" in:fade>
   {#if !summary}
     <div class="h-60 overflow-hidden flex justify-center items-center">
@@ -203,5 +219,8 @@
 
   .summary {
     background: rgba(0, 0, 0, 0.5);
+  }
+  .backgroundGradientPurple {
+    background-image: linear-gradient(45deg, blue, purple, deeppink);
   }
 </style>
