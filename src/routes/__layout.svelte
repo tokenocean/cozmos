@@ -1,6 +1,7 @@
 <script context="module">
   import { prerendering } from "$app/env";
   import { get } from "$lib/api";
+  import "../main.css";
 
   export async function load({ fetch, url, session }) {
     if (prerendering)
@@ -114,6 +115,3 @@
 </main>
 
 <Footer />
-
-<style global src="../main.css">
-</style>
