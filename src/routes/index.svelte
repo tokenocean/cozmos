@@ -86,17 +86,37 @@
 
 <Results />
 
-<div class="stars mx-auto w-full">
-  <div class=" featuredBackground feature flex">
-    <div class="m-auto w-96">
-      <Card artwork={filtered[0]} cover={true} showDetails={false} />
+<div class="stars mx-auto w-full mt-[5.25rem]">
+  <div class="h-[75vh] splashBackground" />
+  <div
+    class="featuredBackground feature flex items-center justify-center h-[75vh]"
+  >
+    <div class="mx-auto w-1/2">
+      <div class="drop rounded-3xl mx-auto w-1/2">
+        <Card artwork={filtered[0]} cover={true} showDetails={false} />
+      </div>
     </div>
-    <div class="opacity-50">
-      <p>
-        10 Day Trip Exploration trip to the Canadian Rockies with Mountaineering
-        guide Trail of a traveller
-      </p>
-      <Card artwork={filtered[0]} summary={true} />
+    <div
+      class="mx-auto w-1/2 background h-full flex justify-center items-center"
+    >
+      <div class="ml-48">
+        <h2 class="text-3xl text-white w-1/2">
+          10 Day Trip Exploration trip to the Canadian Rockies with
+          Mountaineering guide Trail of a traveller
+        </h2>
+        <p class="text-xl text-secondary font-bold m-2">
+          Creator: <span class="font-normal">@trailofatraveller</span>
+        </p>
+        <div class="w-3/5">
+          <Card artwork={filtered[0]} summary={true} />
+        </div>
+        <button
+          type="button"
+          name="button"
+          class="w-3/5 mx-auto backgroundGradientPurple p-2 rounded-xl text-white font-bold m-2"
+          >Explore experience</button
+        >
+      </div>
     </div>
   </div>
   <div class="mx-auto container">
@@ -105,6 +125,21 @@
 </div>
 
 <style>
+  .splashBackground {
+    background-image: url("/static/surfing.png");
+  }
+
+  .drop {
+    box-shadow: -5px 5px 5px black;
+  }
+
+  .background {
+    background-color: rgba(0, 0, 0, 0.5);
+  }
+
+  .backgroundGradientPurple {
+    background-image: linear-gradient(45deg, blue, purple, deeppink);
+  }
   .stars {
     background: black url("/stars.png");
   }

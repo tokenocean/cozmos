@@ -9,6 +9,7 @@
   export let thumb = true;
   export let preview = false;
   export let popup = false;
+  export let cover = false;
 
   let img, vid;
   $: path =
@@ -101,7 +102,20 @@
       alt={artwork.title}
       bind:this={img}
       class="z relative"
+      class:featured={cover}
     />
+    {#if cover}
+      <img
+        src="/static/svg_icons/profile_featured.svg"
+        alt="Profile featured icon"
+        class="absolute top-4 left-4 bg-black opacity-50 rounded-lg index w-16"
+      />
+      <p
+        class="absolute index bottom-[0.5px] py-4 text-white font-bold bg-black opacity-50 w-full text-center"
+      >
+        Featured experience
+      </p>
+    {/if}
   </div>
 {:else if artwork?.main?.length && artwork.main[0].filetype && artwork.main[0].filetype.includes("video")}
   <div
@@ -145,11 +159,33 @@
       alt={artwork.title}
       bind:this={img}
       class="z relative"
+      class:featured={cover}
     />
+    {#if cover}
+      <img
+        src="/static/svg_icons/profile_featured.svg"
+        alt="Profile featured icon"
+        class="absolute top-4 left-4 bg-black opacity-50 rounded-lg index w-16"
+      />
+
+      <p
+        class="absolute index bottom-[0.01px] py-4 text-white font-bold bg-black opacity-50 w-full text-center rounded-b-3xl"
+      >
+        Featured experience
+      </p>
+    {/if}
   </div>
 {/if}
 
 <style>
+  .featured {
+    border-radius: 1.5rem;
+  }
+
+  .index {
+    z-index: 2;
+  }
+
   .contain,
   .cover {
     width: 100%;
