@@ -1,10 +1,8 @@
 <svelte:options accessors={true} />
 
 <script>
-  import "../carousel.css";
   import Fa from "svelte-fa";
   import { faTimes } from "@fortawesome/free-solid-svg-icons";
-  import { Splide, SplideSlide } from "@splidejs/svelte-splide";
 
   export let images;
   export const go = (i) => slider && slider.go(">");
