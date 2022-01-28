@@ -390,24 +390,26 @@
 
   let checkTicker = async () => {
     try {
-    let { artworks } = await query(`query { artworks(where: { ticker: { _like: "${artwork.ticker.toUpperCase()}%" }}) { ticker }}`);
-
-    if (artworks.length) {
-      let tickers = data.artworks.sort(({ ticker: a }, { ticker: b }) =>
-        b.length < a.length
-          ? 1
-          : b.length > a.length
-          ? -1
-          : a.charCodeAt(a.length - 1) - b.charCodeAt(b.length - 1)
+      let { artworks } = await query(
+        `query { artworks(where: { ticker: { _like: "${artwork.ticker.toUpperCase()}%" }}) { ticker }}`
       );
 
-      if (tickers.map((a) => a.ticker).includes(artwork.ticker)) {
-        let { ticker } = tickers.pop();
-        artwork.ticker =
-          ticker.substr(0, 3) + c[c.indexOf(ticker.substr(3)) + 1];
+      if (artworks.length) {
+        let tickers = data.artworks.sort(({ ticker: a }, { ticker: b }) =>
+          b.length < a.length
+            ? 1
+            : b.length > a.length
+            ? -1
+            : a.charCodeAt(a.length - 1) - b.charCodeAt(b.length - 1)
+        );
+
+        if (tickers.map((a) => a.ticker).includes(artwork.ticker)) {
+          let { ticker } = tickers.pop();
+          artwork.ticker =
+            ticker.substr(0, 3) + c[c.indexOf(ticker.substr(3)) + 1];
+        }
       }
-    }
-    } catch(e) {
+    } catch (e) {
       err(e);
     }
   };
@@ -514,7 +516,7 @@
   }
 
   let close = () => {
-    goto("/market");
+    goto("/#market");
   };
 </script>
 
@@ -559,10 +561,18 @@
             <ProgressLinear />
           </div>
           <div class:invisible={loading}>
-						<div class="block lg:hidden w-10/12 mx-auto md:w-6/12 bg-white rounded-3xl nopointer mb-5">
-						  <Card {artwork} {preview} />
-						</div>
-            <Form bind:artwork bind:list_price bind:reserve_price bind:files on:submit={submit} />
+            <div
+              class="block lg:hidden w-10/12 mx-auto md:w-6/12 bg-white rounded-3xl nopointer mb-5"
+            >
+              <Card {artwork} {preview} />
+            </div>
+            <Form
+              bind:artwork
+              bind:list_price
+              bind:reserve_price
+              bind:files
+              on:submit={submit}
+            />
           </div>
         </div>
       </div>

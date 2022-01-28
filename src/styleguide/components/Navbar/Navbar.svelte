@@ -22,7 +22,7 @@
         <Logo class="w-44 lg:w-48 z-20 relative" />
       </a>
     </div>
-    <a class="mobileSearch z-20 relative" href="/market">
+    <a class="mobileSearch z-20 relative" href="/#market">
       <Fa icon={faSearch} />
     </a>
     <nav class="hidden text-bold lg:block">
