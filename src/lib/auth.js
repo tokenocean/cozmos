@@ -4,7 +4,7 @@ import decode from "jwt-decode";
 import { tick } from "svelte";
 import { get } from "svelte/store";
 import { password as pw, poll, prompt, user, token } from "$lib/store";
-import { PasswordPrompt } from "$comp";
+import PasswordPrompt from "$components/PasswordPrompt.svelte";
 import { goto, err } from "$lib/utils";
 
 export const expired = (t) => !t || decode(t).exp * 1000 < Date.now();
