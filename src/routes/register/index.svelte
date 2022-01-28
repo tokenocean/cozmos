@@ -43,7 +43,7 @@
   };
 </script>
 
-<div class="form-container bg-white px-4">
+<div class="mt-20 md:mt-0 form-container bg-white px-4">
   <form
     class="mb-6 bg-black rounded-xl"
     on:submit|preventDefault={submit}
@@ -65,7 +65,7 @@
         <a href="/login">Continue to sign in page</a></Button
       >
     {:else}
-      <h2 class="mb-8 text-white">Sign up</h2>
+      <h2 class="mb-8 text-white">Sign Up</h2>
       <div class="flex flex-col mb-4">
         <label class="mb-2 font-medium text-white" for="first_name">Email</label
         >

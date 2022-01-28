@@ -53,7 +53,7 @@
   });
 </script>
 
-<div class="form-container bg-white px-4">
+<div class="mt-20 md:mt-0 form-container bg-white px-4">
   <form
     class="mb-6 rounded-xl bg-black"
     on:submit|preventDefault={login}

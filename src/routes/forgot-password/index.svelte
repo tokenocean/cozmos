@@ -17,13 +17,13 @@
   $: if (ref) pageChange($page);
 </script>
 
-<div class="form-container bg-white" key={$page.url.pathname}>
+<div class="mt-20 md:mt-0 form-container bg-white" key={$page.url.pathname}>
   <form
     class="mb-6 bg-black rounded-xl"
     on:submit|preventDefault={forgot}
     autocomplete="off"
   >
-    <h2 class="mb-8 text-white">Recover password</h2>
+    <h2 class="mb-8 text-white">Recover Password</h2>
     {#if sending}
       <p class="my-4 text-white">
         Thank you, please check your email for the recovery link.
