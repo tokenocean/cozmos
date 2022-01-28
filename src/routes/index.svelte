@@ -93,7 +93,7 @@
 
 <div class="stars mx-auto w-full">
   <div class="h-[100vh] splashBackground flex justify-center items-center">
-    <div class="w-1/2">
+    <div class="w-full md:w-1/2">
       <div class="h-72 mt-72">
         <h2 class="text-lg text-gray-300 text-center">
           We are disrupting the NFT industry.
@@ -120,26 +120,33 @@
     <img
       src="/static/svg_icons/mute.svg"
       alt="mute icon"
-      class="right-10 bottom-10 absolute w-36 text-white"
+      class="right-[1px] bottom-[1px] md:right-10 md:bottom-10 absolute w-36 text-white"
     />
   </div>
   <div
-    class="featuredBackground feature flex items-center justify-center h-[100vh]"
+    class="featuredBackground feature block md:flex items-center justify-center h-auto md:h-[100vh]"
   >
-    <div class="mx-auto w-1/2">
-      <div class="drop rounded-3xl mx-auto w-auto" style="width: 300px">
+    <div class="mx-auto flex md:block justify-center w-9/12 md:w-1/2">
+      <div
+        class="drop rounded-3xl mx-auto w-auto my-6 md:my-0"
+        style="width: 300px"
+      >
         <ArtworkMedia artwork={filtered[0]} featured={true} />
       </div>
     </div>
     <div
-      class="mx-auto w-1/2 background h-full flex justify-center items-center"
+      class="mx-auto w-full md:w-1/2 background h-full flex justify-center items-center"
     >
-      <div class="ml-48">
-        <h2 class="text-3xl text-white w-1/2">
+      <div class="ml-0 md:ml-48 pt-6 md:pt-0">
+        <h2
+          class="text-3xl text-white w-full md:w-1/2 text-center md:text-left"
+        >
           10 Day Trip Exploration to the Canadian Rockies with Mountaineering
           guide Trail of a Traveller.
         </h2>
-        <p class="text-xl text-secondary font-bold m-2">
+        <p
+          class="text-xl text-secondary font-bold m-2 text-center md:text-left"
+        >
           Creator: <span class="font-normal"
             ><Card
               artwork={filtered[0]}
@@ -149,7 +156,7 @@
             /></span
           >
         </p>
-        <div class="w-3/5">
+        <div class="w-full md:w-3/5">
           <Card artwork={filtered[0]} summary={true} />
         </div>
         <Card
@@ -165,21 +172,27 @@
     class="w-full h-20 my-20 flex justify-center items-center background-gradient"
     id="market"
   >
-    <h2 class="text-white text-xl">WE ARE DISRUPTING THE NFT INDUSTRY</h2>
+    <h2 class="text-white text-xl text-center md:text-left">
+      WE ARE DISRUPTING THE NFT INDUSTRY
+    </h2>
   </div>
   <div class="mx-auto container">
-    <div class="flex justify-between m-10 p-4 border-b-[1px] border-gray-500">
+    <div
+      class="block md:flex justify-between m-10 p-0 md:p-4 border-b-[1px] border-gray-500"
+    >
       <h2
-        class="text-white text-lg rounded-full border border-white w-48 px-10 text-center"
+        class="text-white text-lg rounded-full border border-white w-48 px-10 text-center mx-auto md:mx-0 mb-2 md:mb-0"
       >
         Market
       </h2>
-      <h2 class="text-white text-lg">Out of this world experiences</h2>
+      <h2 class="text-white text-lg text-center md:text-left mb-2 md:mb-0">
+        Out of this world experiences
+      </h2>
     </div>
     <Gallery bind:filtered bind:total bind:loadMore />
   </div>
   <div
-    class="background-gradient w-full flex justify-center items-center py-12"
+    class="background-gradient w-full block md:flex justify-center items-center py-12"
   >
     <div>
       <h2 class="text-center text-black text-xl">FROM CREATORS FOR EVERYONE</h2>
@@ -188,8 +201,8 @@
         blockchain.
       </p>
 
-      <div class="flex justify-center items-center text-black">
-        <div class="w-72 text-center mx-10 h-96">
+      <div class="block md:flex justify-center items-center text-black">
+        <div class="w-72 text-center mx-10 h-auto md:h-96">
           <img
             src="/static/svg_icons/icons-28.svg"
             alt="low fees"
@@ -198,7 +211,7 @@
           Forget about gas wars and astronomical fees, minting is free and transaction
           fees are literally less than $0.5.
         </div>
-        <div class="w-72 text-center mx-10 h-96">
+        <div class="w-72 text-center mx-10 h-auto md:h-96">
           <img
             src="/static/svg_icons/icons-29.svg"
             alt="amazing experiences"
@@ -206,7 +219,7 @@
           />
           Buy, sell and trade amazing life changing experiences.
         </div>
-        <div class="w-72 text-center mx-10 h-96">
+        <div class="w-72 text-center mx-10 h-auto md:h-96">
           <img
             src="/static/svg_icons/icons-30.svg"
             alt="awesome community"

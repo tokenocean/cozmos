@@ -8,12 +8,12 @@
   } from "@fortawesome/free-brands-svg-icons";
 </script>
 
-<div class="bg-black p-2 colored-border relative pb-12">
+<div class="bg-black p-2 colored-border relative pb-16">
   <div
     class="container footer mx-auto flex justify-between flex-wrap text-white pt-12"
   >
     <div
-      class="flex flex-col text-sm w-full lg:w-2/4 order-last lg:order-first"
+      class="flex flex-col text-sm w-full lg:w-2/4 order-last lg:order-first mb-4 md:mb-0"
     >
       <div class="w-96 flex justify-center items-center">
         <a href="/"
@@ -56,10 +56,10 @@
     class="container footer mx-auto flex justify-between flex-wrap text-white border-t-[1px] border-gray-500"
   >
     <div>
-      <p class="pr-3 mb-4 text-sm mt-2">Powered by:</p>
+      <p class="pr-3 mb-4 text-sm mt-3">Powered by:</p>
       <img src="/liquid_logo.svg" alt="liquid network logo" />
     </div>
-    <div class="flex justify-center items-center space-x-8">
+    <div class="flex justify-center items-center space-x-8 mt-4 md:mt-0">
       <p class="text-sm">Copyright 2021 {branding.projectName} Cozmos.</p>
       <a href={branding.urls.external.instagram}>
         <Fa icon={faInstagramSquare} /></a

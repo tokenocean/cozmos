@@ -65,7 +65,7 @@
     }}
     type="button"
     name="button"
-    class="w-3/5 mx-auto backgroundGradientPurple p-2 rounded-xl text-white font-bold m-2"
+    class="w-full md:w-3/5 mb-6 md:mb-0 mx-auto backgroundGradientPurple p-2 rounded-xl text-white font-bold m-2"
     >Explore experience</button
   >
 {/if}
