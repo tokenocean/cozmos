@@ -74,7 +74,6 @@
     ],
     __typename: "artworks",
   };
-
 </script>
 
 <h1 class="mx-auto max-w-5xl my-16">This is a style-guide</h1>
@@ -145,7 +144,8 @@
 
 <h3 class="my-8 max-w-5xl mx-auto mt-32">Favorite/Like (Heart component)</h3>
 <div
-  class="box max-w-5xl mx-auto p-5 mx-0 my-8 border-gray-200 border rounded-lg">
+  class="box max-w-5xl mx-auto p-5 mx-0 my-8 border-gray-200 border rounded-lg"
+>
   <div class="mb-8">
     <h4 class="text-gray-400 text-base mb-8">Favorite</h4>
     <div class="p-12 flex items-center justify-center">
@@ -169,7 +169,8 @@
 
 <h3 class="my-8 max-w-5xl mx-auto mt-32">Logo</h3>
 <div
-  class="box max-w-5xl mx-auto p-5 mx-0 my-8 border-gray-200 border rounded-lg">
+  class="box max-w-5xl mx-auto p-5 mx-0 my-8 border-gray-200 border rounded-lg"
+>
   <div class="mb-8">
     <h4 class="text-gray-400 text-base mb-8">Logo normal</h4>
     <div class="p-24 bg-black flex items-center justify-center">
@@ -193,10 +194,11 @@
 
 <h3 class="my-8 max-w-5xl mx-auto mt-32">Splash</h3>
 <div
-  class="box max-w-5xl mx-auto p-5 mx-0 my-8 border-gray-200 border rounded-lg">
+  class="box max-w-5xl mx-auto p-5 mx-0 my-8 border-gray-200 border rounded-lg"
+>
   <div class="mb-8">
     <h4 class="text-gray-400 text-base mb-8">Splash used for social sharing</h4>
-    <img src="/branding/splash.png" class="w-full max-w-xl" />
+    <img src="/branding/splash.png" class="w-full max-w-xl" alt="Splash" />
   </div>
 </div>
 

@@ -139,6 +139,7 @@
       bind:this={vid}
       controls={popup}
     >
+      <track kind="captions" />
       <source data-src={preview || path} />
       Your browser does not support HTML5 video.
     </video>

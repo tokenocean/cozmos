@@ -191,11 +191,6 @@
     background: $card--auction--gradient-background;
   }
 
-  .buy-now-item-background-gradient {
-    background: $card--buy-now--static-background;
-    background: $card--buy-now--gradient-background;
-  }
-
   .currency-arrow-font {
     font-family: $card--title--font-family;
     line-height: 1.6;
