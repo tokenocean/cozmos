@@ -16,7 +16,7 @@
   import Card from "$styleguide/components/Card.svelte";
   import { ProgressLinear } from "$comp";
   import Fa from "svelte-fa";
-  import { faSlidersH } from "@fortawesome/free-solid-svg-icons";
+  import { faSlidersH, faChevronDown } from "@fortawesome/free-solid-svg-icons";
   import {
     artworks,
     filterCriteria as fc,
@@ -86,8 +86,33 @@
 
 <Results />
 
-<div class="stars mx-auto w-full mt-[5.25rem]">
-  <div class="h-[75vh] splashBackground" />
+<div class="stars mx-auto w-full">
+  <div class="h-[100vh] splashBackground flex justify-center items-center">
+    <div class="w-1/2">
+      <div class="h-72 mt-72">
+        <h2 class="text-lg text-gray-300 text-center">
+          We are disrupting the NFT industry.
+        </h2>
+        <h1 class="text-white text-4xl text-center">
+          The first marketplace for NFT experiences.
+        </h1>
+      </div>
+      <img
+        src="/static/svg_icons/mouse.svg"
+        alt="mouse icon"
+        class="w-36 mx-auto text-white"
+      />
+      <p class="text-white text-center">E X P L O R E</p>
+      <div class="text-white flex justify-center">
+        <Fa icon={faChevronDown} />
+      </div>
+    </div>
+    <img
+      src="/static/svg_icons/mute.svg"
+      alt="mute icon"
+      class="right-10 bottom-10 absolute w-36 text-white"
+    />
+  </div>
   <div
     class="featuredBackground feature flex items-center justify-center h-[75vh]"
   >
@@ -127,6 +152,8 @@
 <style>
   .splashBackground {
     background-image: url("/static/surfing.png");
+    background-size: cover;
+    box-shadow: inset 0 0 0 1000px rgba(0, 0, 0, 0.25);
   }
 
   .drop {
