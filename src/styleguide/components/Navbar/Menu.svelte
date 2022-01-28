@@ -72,7 +72,7 @@
         ><button on:click={toggle}>Admin</button></a
       >
     {/if}
-    <div class="relative flex hidden lg:flex">
+    <div class="relative flex lg:flex">
       <Button
         primary
         class="mr-6 w-40"
@@ -98,7 +98,7 @@
         {/if}
       </div>
     </div>
-    <div class="relative flex hidden lg:flex">
+    <div class="relative flex lg:flex">
       <button
         class="toggleUser"
         on:click={toggleUser}
@@ -147,6 +147,23 @@
 
     .menu :global(.search) {
       @apply hidden;
+    }
+  }
+
+  @media only screen and (max-width: 1023px) {
+    .menu {
+      flex-direction: column;
+      align-items: flex-start;
+      margin-top: 50px;
+      border-top: 1px solid gray;
+      background: white;
+      height: 100vh;
+      width: 100%;
+    }
+
+    .menu a {
+      margin: 25px 0 0 0px;
+      width: 100%;
     }
   }
 </style>

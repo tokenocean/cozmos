@@ -103,6 +103,7 @@
 
 <Snack />
 
+<Sidebar bind:open />
 <div>
   <Navbar bind:sidebar={open} />
 </div>
