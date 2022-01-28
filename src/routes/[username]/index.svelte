@@ -66,17 +66,17 @@
   let collectedBold = "font-bold";
   let createdOpacity = "opacity-60";
   let collectedOpacity = "";
-	let coverSource;
+  let coverSource;
 
-	function setCover() {
-		if ($user && $user.cover_photo_url && $user.cover_photo_url.length) {
-			coverSource = `/api/public/${$user.cover_photo_url}`;
-		}
-		else {
-			coverSource = 'https://blogs.esa.int/space19plus/files/2019/03/nebula.jpg';
-		}
-	}
-	setCover();
+  function setCover() {
+    if ($user && $user.cover_photo_url && $user.cover_photo_url.length) {
+      coverSource = `/api/public/${$user.cover_photo_url}`;
+    } else {
+      coverSource =
+        "https://blogs.esa.int/space19plus/files/2019/03/nebula.jpg";
+    }
+  }
+  setCover();
 </script>
 
 <div
@@ -90,17 +90,19 @@
         <div id="line-right">
           <div>
             <div class="flex-auto flex-col">
-              <div id="avatar-container">
-                <img
-                  src="/svg_icons/profile_shape.svg"
-                  alt="comet"
-                  id="avatar-border"
-                />
-                <div id="avatar">
-                  <Avatar size="xl" user={subject} />
+              <div class="absolute top-56">
+                <div id="avatar-container">
+                  <img
+                    src="/svg_icons/profile_shape.svg"
+                    alt="comet"
+                    id="avatar-border"
+                  />
+                  <div id="avatar">
+                    <Avatar size="xl" user={subject} />
+                  </div>
                 </div>
               </div>
-              <div class="flex items-center">
+              <div class="flex items-center mt-32 md:mt-20">
                 <div class="flex">
                   <h3>@{subject.username}</h3>
                 </div>
