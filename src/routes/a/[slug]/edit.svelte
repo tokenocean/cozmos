@@ -1,14 +1,14 @@
 <script context="module">
   export async function load({ fetch, params, session }) {
-    const props = await fetch(`/artworks/${params.slug}.json`).then((r) =>
-      r.json()
-    );
-
     if (!(session && session.user))
       return {
         status: 302,
         redirect: "/login",
       };
+
+    const props = await fetch(`/artworks/${params.slug}.json`).then((r) =>
+      r.json()
+    );
 
     return {
       props,
@@ -24,7 +24,12 @@
   import { onMount } from "svelte";
   import { page } from "$app/stores";
   import Form from "../_form.svelte";
-  import { getArtwork, deleteFiles, updateArtwork, updateTags } from "$queries/artworks";
+  import {
+    getArtwork,
+    deleteFiles,
+    updateArtwork,
+    updateTags,
+  } from "$queries/artworks";
   import { err, goto } from "$lib/utils";
   import { password, user, token } from "$lib/store";
   import { requireLogin, requirePassword } from "$lib/auth";

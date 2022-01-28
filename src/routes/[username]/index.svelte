@@ -5,7 +5,6 @@
       const { subject } = await get(`/${params.username}.json`, fetch);
 
       return {
-        maxage: 90,
         props: {
           subject,
         },
@@ -67,21 +66,11 @@
   let createdOpacity = "opacity-60";
   let collectedOpacity = "";
   let coverSource;
-
-  function setCover() {
-    if ($user && $user.cover_photo_url && $user.cover_photo_url.length) {
-      coverSource = `/api/public/${$user.cover_photo_url}`;
-    } else {
-      coverSource =
-        "https://blogs.esa.int/space19plus/files/2019/03/nebula.jpg";
-    }
-  }
-  setCover();
 </script>
 
 <div
   class="w-full h-96 bg-center bg-cover flex justify-center items-center"
-  style="background-image: url({coverSource});"
+  style="background-image: url({`/api/public/${subject.cover_photo_url}`});"
 />
 <div class="container mx-auto mt-5 md:mt-20">
   {#if subject}

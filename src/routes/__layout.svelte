@@ -83,6 +83,8 @@
     interval = setInterval(refresh, 60000);
   }
 
+  token.subscribe(console.log);
+
   let open = false;
   let y;
 

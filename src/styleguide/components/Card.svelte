@@ -10,10 +10,9 @@
   export let artwork;
   export let columns = 3;
   export let showDetails = true;
-  export let loaded = false;
   export let thumb = true;
   export let popup = false;
-  export let preview;
+  export let preview = undefined;
 
   export let summary = false;
   export let usernameOnly = false;
@@ -73,14 +72,7 @@
   {#if !summary}
     <div class="h-60 overflow-hidden flex justify-center items-center">
       <a href={`/a/${artwork.slug}`} class="w-full">
-        <ArtworkMedia
-          {artwork}
-          {showDetails}
-          {popup}
-          bind:loaded
-          bind:thumb
-          {preview}
-        />
+        <ArtworkMedia {artwork} {showDetails} {popup} bind:thumb {preview} />
       </a>
     </div>
   {/if}

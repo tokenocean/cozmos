@@ -1,5 +1,17 @@
+<script context="module">
+  export async function load({ session }) {
+    if (!(session && session.user))
+      return {
+        status: 302,
+        redirect: "/login",
+      };
+
+    return {};
+  }
+</script>
+
 <script>
-	import FileUpload from "$components/FileUpload.svelte";
+  import FileUpload from "$components/FileUpload.svelte";
   import Fa from "svelte-fa";
   import {
     faImage,
@@ -58,11 +70,15 @@
     } = form;
     $user = { ...$user, ...rest };
 
-		let avatar = files.find((f) => f.type === 'profile');
-		if (avatar) rest.avatar_url = `${avatar.hash}.${avatar.filetype.split("/")[1]}`
+    let avatar = files.find((f) => f.type === "profile");
+    if (avatar)
+      rest.avatar_url = `${avatar.hash}.${avatar.filetype.split("/")[1]}`;
 
-		let cover = files.find((f) => f.type === 'cover');
-		if (cover) rest.cover_photo_url = `${cover.hash}.${cover.filetype.split("/")[1]}`
+    let cover = files.find((f) => f.type === "cover");
+    if (cover)
+      rest.cover_photo_url = `${cover.hash}.${cover.filetype.split("/")[1]}`;
+
+    console.log("FILES", files);
 
     query(updateUser, { user: rest, id }).then((r) => {
       if (r.error) {
@@ -75,39 +91,188 @@
     });
   };
 
-	let files = [];
-	let avatarPreview;
-	let coverPreview;
-	let avatarPreviewEnable;
-	let coverPreviewEnable;
+  let files = [];
+  let avatarPreview;
+  let coverPreview;
+  let avatarPreviewEnable;
+  let coverPreviewEnable;
 
-	const addFile = async ({ detail: file }) => {
-		if (file.type === 'profile') {
-		avatarPreviewEnable = true;
-		await tick();
-		avatarPreview.src = `/api/ipfs/${file.hash}`;
-		}
-		else if (file.type === 'cover') {
-		coverPreviewEnable = true;
-		await tick();
-		coverPreview.src = `/api/ipfs/${file.hash}`;
-		}
-		files = [...files.filter(f => f.type !== file.type), file];
-	};
-
+  const addFile = async ({ detail: file }) => {
+    if (file.type === "profile") {
+      avatarPreviewEnable = true;
+      await tick();
+      avatarPreview.src = `/api/ipfs/${file.hash}`;
+    } else if (file.type === "cover") {
+      coverPreviewEnable = true;
+      await tick();
+      coverPreview.src = `/api/ipfs/${file.hash}`;
+    }
+    files = [...files.filter((f) => f.type !== file.type), file];
+    console.log("ADD FILE", files);
+  };
 </script>
 
+<div class="px-4 container mx-auto py-5 md:py-20">
+  {#if form}
+    <div
+      class="mb-4 w-full sm:max-w-3xl box-shadow p-4 md:p-10 m-auto lg:flex-row bg-gray-100"
+    >
+      <a class="block text-black" href={`/${$user.username}`}>
+        <div class="flex">
+          <Fa icon={faChevronLeft} class="my-auto mr-1" />
+          <div>Back</div>
+        </div>
+      </a>
+      <h2 class="mb-6 md:mb-16 text-center">Edit your profile</h2>
+      <div class="flex mt-4 m-auto flex-col-reverse lg:flex-row">
+        <form
+          class="mb-6 flex-grow xl:mr-8"
+          on:submit|preventDefault={submit}
+          autocomplete="off"
+        >
+          <p class="font-bold">Enter your details*</p>
+          <div class="flex mb-4">
+            <input
+              id="name"
+              placeholder="Name"
+              bind:value={form.full_name}
+              class="mr-5"
+            />
+            <input placeholder="@username" bind:value={form.username} />
+          </div>
+
+          <div class="flex flex-col mb-4">
+            <p class="font-bold">Enter your email*</p>
+            <input placeholder="Email" bind:value={form.email} />
+          </div>
+          <div class="flex flex-col mb-4">
+            <p class="font-bold">Add a short bio.</p>
+            <textarea placeholder="Bio" bind:value={form.bio} />
+          </div>
+          <div class="flex justify-center w-full">
+            <div class="w-full">
+              <p class="font-bold text-center">Upload a profile image</p>
+              {#if ($user.avatar_url && $user.avatar_url.length) || avatarPreviewEnable === true}
+                <img
+                  src={`/api/public/${$user.avatar_url}`}
+                  alt="Avatar"
+                  class="mx-auto w-56 mt-4 height"
+                  bind:this={avatarPreview}
+                />
+              {/if}
+              <FileUpload
+                type="profile"
+                limits="PNG, JPG, WEBP, MAX 10MB"
+                on:upload={addFile}
+                previewEnabled={false}
+              />
+            </div>
+            <div class="w-full">
+              <p class="font-bold text-center">Upload a cover image</p>
+              {#if ($user.cover_photo_url && $user.cover_photo_url.length) || coverPreviewEnable === true}
+                <img
+                  src={`/api/public/${$user.cover_photo_url}`}
+                  alt="Avatar"
+                  class="mx-auto w-56 mt-4 height"
+                  bind:this={coverPreview}
+                />
+              {/if}
+              <FileUpload
+                type="cover"
+                limits="PNG, JPG, WEBP, MAX 10MB"
+                on:upload={addFile}
+                previewEnabled={false}
+              />
+            </div>
+          </div>
+          <p class="font-bold">Add links to your social media profiles...</p>
+          <div class="flex mb-4">
+            <p class="black-box w-40 rounded-lg">Twitter</p>
+            <input
+              placeholder="Twitter username"
+              bind:value={form.twitter}
+              class="w-full"
+            />
+          </div>
+          <div class="flex mb-4">
+            <p class="black-box w-40 rounded-lg">Instagram</p>
+            <input
+              placeholder="Instagram username"
+              bind:value={form.instagram}
+              class="w-full"
+            />
+          </div>
+          <div class="flex mb-4">
+            <p class="black-box w-40 rounded-lg">Website</p>
+            <input
+              placeholder="Website URL"
+              bind:value={form.website}
+              class="w-full"
+            />
+          </div>
+          <div class="flex mb-4">
+            <p class="black-box w-40 rounded-lg">YouTube</p>
+            <input
+              placeholder="Channel URL"
+              bind:value={form.youtube}
+              class="w-full"
+            />
+          </div>
+          <div class="flex mb-4">
+            <p class="black-box w-40 rounded-lg">Facebook</p>
+            <input
+              placeholder="Facebook Username"
+              bind:value={form.facebook}
+              class="w-full"
+            />
+          </div>
+          <div class="flex mb-4">
+            <p class="black-box w-40 rounded-lg">Discord</p>
+            <input
+              placeholder="Discord Username"
+              bind:value={form.discord}
+              class="w-full"
+            />
+          </div>
+          <div class="flex mb-4">
+            <p class="black-box w-40 rounded-lg">TikTok</p>
+            <input
+              placeholder="TikTok Username"
+              bind:value={form.tiktok}
+              class="w-full"
+            />
+          </div>
+          <div class="flex mb-4">
+            <p class="black-box w-40 rounded-lg">Twitch</p>
+            <input
+              placeholder="Twitch Username"
+              bind:value={form.twitch}
+              class="w-full"
+            />
+          </div>
+
+          <div class="flex mt-8">
+            <Button type="submit" primary class="w-full mt-8">
+              Save changes
+            </Button>
+          </div>
+        </form>
+      </div>
+    </div>
+  {/if}
+</div>
+
 <style>
-	.height {
-		height: 14rem;
-	}
+  .height {
+    height: 14rem;
+  }
 
   .container {
     height: auto;
     min-height: 100vh;
     margin: 0;
     max-width: 100%;
-		margin-top: 5rem;
+    margin-top: 5rem;
   }
 
   input,
@@ -135,134 +300,4 @@
       margin-bottom: 200px;
     }
   }
-
 </style>
-
-<div class="px-4 container mx-auto py-5 md:py-20">
-  {#if form}
-    <div
-      class="mb-4 w-full sm:max-w-3xl box-shadow p-4 md:p-10 m-auto lg:flex-row bg-gray-100">
-      <a class="block text-black" href={`/${$user.username}`}>
-        <div class="flex">
-          <Fa icon={faChevronLeft} class="my-auto mr-1" />
-          <div>Back</div>
-        </div>
-      </a>
-      <h2 class="mb-6 md:mb-16 text-center">Edit your profile</h2>
-      <div class="flex mt-4 m-auto flex-col-reverse lg:flex-row">
-        <form
-          class="mb-6 flex-grow xl:mr-8"
-          on:submit|preventDefault={submit}
-          autocomplete="off">
-          <p class="font-bold">Enter your details*</p>
-          <div class="flex mb-4">
-            <input
-              id="name"
-              placeholder="Name"
-              bind:value={form.full_name}
-              class="mr-5" />
-            <input placeholder="@username" bind:value={form.username} />
-          </div>
-
-          <div class="flex flex-col mb-4">
-            <p class="font-bold">Enter your email*</p>
-            <input placeholder="Email" bind:value={form.email} />
-          </div>
-          <div class="flex flex-col mb-4">
-            <p class="font-bold">Add a short bio.</p>
-            <textarea placeholder="Bio" bind:value={form.bio} />
-          </div>
-					<div class="flex justify-center w-full">
-						<div class="w-full">
-						<p class="font-bold text-center">Upload a profile image</p>
-						{#if $user.avatar_url && $user.avatar_url.length || avatarPreviewEnable === true}
-							<img src={`/api/public/${$user.avatar_url}`} alt="Avatar" class="mx-auto w-56 mt-4 height" bind:this={avatarPreview} />
-						{/if}
-					  <FileUpload
-					    type="profile"
-					    limits="PNG, JPG, WEBP, MAX 10MB"
-							on:upload={addFile}
-							previewEnabled={false}
-					  />
-						</div>
-						<div class="w-full">
-						<p class="font-bold text-center">Upload a cover image</p>
-						{#if $user.cover_photo_url && $user.cover_photo_url.length || coverPreviewEnable === true}
-							<img src={`/api/public/${$user.cover_photo_url}`} alt="Avatar" class="mx-auto w-56 mt-4 height" bind:this={coverPreview} />
-						{/if}
-					  <FileUpload
-					    type="cover"
-					    limits="PNG, JPG, WEBP, MAX 10MB"
-							on:upload={addFile}
-							previewEnabled={false}
-					  />
-						</div>
-					</div>
-          <p class="font-bold">Add links to your social media profiles...</p>
-					<div class="flex mb-4">
-						<p class="black-box w-40 rounded-lg">Twitter</p>
-						<input
-							placeholder="Twitter username"
-							bind:value={form.twitter}
-							class="w-full" />
-					</div>
-					<div class="flex mb-4">
-						<p class="black-box w-40 rounded-lg">Instagram</p>
-						<input
-							placeholder="Instagram username"
-							bind:value={form.instagram}
-							class="w-full" />
-					</div>
-          <div class="flex mb-4">
-            <p class="black-box w-40 rounded-lg">Website</p>
-            <input
-              placeholder="Website URL"
-              bind:value={form.website}
-              class="w-full" />
-          </div>
-          <div class="flex mb-4">
-            <p class="black-box w-40 rounded-lg">YouTube</p>
-            <input
-              placeholder="Channel URL"
-              bind:value={form.youtube}
-              class="w-full" />
-          </div>
-          <div class="flex mb-4">
-            <p class="black-box w-40 rounded-lg">Facebook</p>
-            <input
-              placeholder="Facebook Username"
-              bind:value={form.facebook}
-              class="w-full" />
-          </div>
-          <div class="flex mb-4">
-            <p class="black-box w-40 rounded-lg">Discord</p>
-            <input
-              placeholder="Discord Username"
-              bind:value={form.discord}
-              class="w-full" />
-          </div>
-          <div class="flex mb-4">
-            <p class="black-box w-40 rounded-lg">TikTok</p>
-            <input
-              placeholder="TikTok Username"
-              bind:value={form.tiktok}
-              class="w-full" />
-          </div>
-          <div class="flex mb-4">
-            <p class="black-box w-40 rounded-lg">Twitch</p>
-            <input
-              placeholder="Twitch Username"
-              bind:value={form.twitch}
-              class="w-full" />
-          </div>
-
-          <div class="flex mt-8">
-            <Button type="submit" primary class="w-full mt-8">
-              Save changes
-            </Button>
-          </div>
-        </form>
-      </div>
-    </div>
-  {/if}
-</div>
