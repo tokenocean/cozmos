@@ -106,6 +106,10 @@
       coverPreview.src = `/api/ipfs/${file.hash}`;
     }
     files = [...files.filter((f) => f.type !== file.type), file];
+<<<<<<< HEAD
+=======
+    console.log("ADD FILE", files);
+>>>>>>> get user cover photo working
   };
 </script>
 
@@ -153,7 +157,11 @@
                 <img
                   src={`/api/public/${$user.avatar_url}`}
                   alt="Avatar"
+<<<<<<< HEAD
                   class="rounded mx-auto w-56 mt-4 height"
+=======
+                  class="mx-auto w-56 mt-4 height"
+>>>>>>> get user cover photo working
                   bind:this={avatarPreview}
                 />
               {/if}
@@ -170,7 +178,11 @@
                 <img
                   src={`/api/public/${$user.cover_photo_url}`}
                   alt="Avatar"
+<<<<<<< HEAD
                   class="rounded mx-auto w-56 mt-4 height"
+=======
+                  class="mx-auto w-56 mt-4 height"
+>>>>>>> get user cover photo working
                   bind:this={coverPreview}
                 />
               {/if}
