@@ -332,9 +332,6 @@
   }
 
   let showPopup = false;
-
-  console.log($user);
-  console.log(artwork);
 </script>
 
 <Head {metadata} />
