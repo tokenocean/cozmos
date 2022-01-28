@@ -37,9 +37,6 @@
       >
       <a href="/support"><button on:click={toggle}>Support</button></a>
       {#if $session?.user}
-        {#if $session.user.is_admin}
-          <a href="/admin"><button on:click={toggle}>Admin</button></a>
-        {/if}
         <a sveltekit:prefetch href="/logout"
           ><button on:click={toggle}>Sign Out</button></a
         >

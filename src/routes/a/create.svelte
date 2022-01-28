@@ -233,6 +233,7 @@
     );
 
     await sign(0x83);
+
     artwork.list_price_tx = $psbt.toBase64();
 
     await query(createTransaction, {
@@ -446,13 +447,15 @@
       delete strippedDown.video;
       delete strippedDown.gallery;
 
-      console.log("STRIPPED", strippedDown.asset);
       let savedArtwork = await core.createArtwork({
         artwork: strippedDown,
         generateRandomTickers: true,
       });
 
-      let { id } = savedArtwork;
+      let { id, asset } = savedArtwork;
+
+      artwork.id = id;
+      artwork.asset = asset;
 
       for (let i = 0; i < files.length; i++) {
         let file = files[i];
@@ -466,7 +469,6 @@
 
       let {
         asking_asset,
-        asset,
         auction_end,
         auction_release_tx,
         auction_start,

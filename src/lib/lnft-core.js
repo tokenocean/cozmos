@@ -187,8 +187,6 @@ export default class Core {
       comment: { artwork_id, comment },
     };
 
-    console.log("CREATE COMMENT", variables);
-
     let result = await hasura
       .auth(`Bearer ${this.token}`)
       .post({

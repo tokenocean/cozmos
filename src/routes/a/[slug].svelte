@@ -106,7 +106,6 @@
   let id = artwork ? artwork.id : $page.params.id;
 
   let fetch = async () => {
-    console.log("ARTWORK", artwork);
     query(getArtworkBySlug, { slug: artwork.slug }).then((res) => {
       artwork = res.artworks[0];
 
@@ -115,12 +114,12 @@
   };
 
   let actionClassName = null;
-  //  let poll = setInterval(fetch, 2500);
+  let poll = setInterval(fetch, 2500);
 
-  /* onDestroy(() => { */
-  /*   $art = undefined; */
-  /*   clearInterval(poll); */
-  /* }); */
+  onDestroy(() => {
+    $art = undefined;
+    clearInterval(poll);
+  });
 
   $: update(artwork);
   let update = () => {
@@ -264,6 +263,8 @@
 
       $psbt = await executeSwap(artwork);
       $psbt = await sign();
+
+      console.log("PSBT", $psbt.toBase64());
 
       if (artwork.has_royalty || artwork.auction_end) {
         $psbt = await requestSignature($psbt);

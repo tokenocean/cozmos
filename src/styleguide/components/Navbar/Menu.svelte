@@ -67,11 +67,6 @@
   class="flex justify-between text-center items-center menu relative whitespace-nowrap"
 >
   {#if $user}
-    {#if $user.is_admin}
-      <a class="menu-link" href="/admin"
-        ><button on:click={toggle}>Admin</button></a
-      >
-    {/if}
     <div class="relative flex lg:flex">
       <Button
         primary
