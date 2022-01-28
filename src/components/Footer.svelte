@@ -18,7 +18,7 @@
       <div class="w-96 flex justify-center items-center">
         <a href="/"
           ><img
-            src="/static/svg_icons/01-Isotype Cozmos.svg"
+            src="/svg_icons/01-Isotype Cozmos.svg"
             alt="logo"
             class="w-48"
           /></a

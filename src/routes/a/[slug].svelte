@@ -392,6 +392,11 @@
             <Button primary class="w-full">Edit</Button>
           </a>
         </div>
+        <div class="mt-8">
+          <a href={`/a/${artwork.slug}/transfer`}>
+            <Button primary class="w-full">Transfer</Button>
+          </a>
+        </div>
       {/if}
       {#if $user && $user.id === artwork.artist_id && !artwork.redeemed}
         <div class="mt-8">

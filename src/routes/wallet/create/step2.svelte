@@ -61,7 +61,7 @@
 
     <div class="flex justify-center">
       <p class="my-4">
-        <a href="" on:click|preventDefault={() => copy(mnemonic)}
+        <a href="/" on:click|preventDefault={() => copy(mnemonic)}
           >Copy to clipboard</a
         >
       </p>

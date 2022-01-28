@@ -26,6 +26,7 @@
     "cipher-base": "github:asoltys/cipher-base",
     "cookie": "^0.4.1",
     "crypto-js": "^4.1.1",
+    "cssnano": "^5.0.16",
     "cypress": "^9.3.1",
     "cypress-file-upload": "^5.0.8",
     "date-fns": "^2.28.0",

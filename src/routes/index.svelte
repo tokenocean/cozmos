@@ -262,13 +262,4 @@
     background-image: url("/static/berta.jpg");
     background-size: cover;
   }
-
-  @media only screen and (max-width: 767px) {
-    .primary-btn {
-      width: 300px;
-      text-align: center;
-      margin: 0 auto;
-      margin-bottom: 30px;
-    }
-  }
 </style>
