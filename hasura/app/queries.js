@@ -82,6 +82,7 @@ module.exports = {
   }`,
   getTransactionArtwork: `query($id: uuid!) {
     artworks(where: { id: { _eq: $id }}) {
+      id
       auction_start
       auction_end
       bid_increment
