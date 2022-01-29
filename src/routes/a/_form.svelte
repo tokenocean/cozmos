@@ -110,7 +110,7 @@
           <img
             src={`/api/ipfs/${artwork.main[0].hash}`}
             alt="Main"
-            class="mx-auto w-56 mt-4 nftimage object-cover"
+            class="rounded mx-auto w-56 mt-4 nftimage object-cover"
           />
         {/if}
         <FileUpload
@@ -128,7 +128,7 @@
         <img
           src={`/api/ipfs/${artwork.thumb[0].hash}`}
           alt="Thumb"
-          class="mx-auto w-56 mt-4 nftimage object-cover"
+          class="rounded mx-auto w-56 mt-4 nftimage object-cover"
         />
       {/if}
       <FileUpload
@@ -146,7 +146,7 @@
         <img
           src={`/api/ipfs/${artwork.cover[0].hash}`}
           alt="Cover"
-          class="mx-auto w-72 mt-4 cover object-cover"
+          class="rounded mx-auto w-72 mt-4 cover object-cover"
         />
       {/if}
       <FileUpload
@@ -169,7 +169,7 @@
           controlslist="nodownload"
           key={artwork.video[0].hash}
           bind:this={vid}
-          class="mx-auto w-72 mt-4 cover object-cover"
+          class="rounded mx-auto w-72 mt-4 cover object-cover"
         >
           <source src={`/api/ipfs/${artwork.video[0].hash}`} />
         </video>

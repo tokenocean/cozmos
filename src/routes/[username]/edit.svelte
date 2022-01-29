@@ -153,7 +153,7 @@
                 <img
                   src={`/api/public/${$user.avatar_url}`}
                   alt="Avatar"
-                  class="mx-auto w-56 mt-4 height"
+                  class="rounded mx-auto w-56 mt-4 height"
                   bind:this={avatarPreview}
                 />
               {/if}
@@ -170,7 +170,7 @@
                 <img
                   src={`/api/public/${$user.cover_photo_url}`}
                   alt="Avatar"
-                  class="mx-auto w-56 mt-4 height"
+                  class="rounded mx-auto w-56 mt-4 height"
                   bind:this={coverPreview}
                 />
               {/if}
