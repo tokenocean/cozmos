@@ -100,7 +100,7 @@
           </h1>
         </div>
         <img
-          src="/static/svg_icons/mouse.svg"
+          src="/svg_icons/mouse.svg"
           alt="mouse icon"
           class="w-36 mx-auto text-white"
         />
@@ -113,7 +113,7 @@
         </div>
       </div>
       <img
-        src="/static/svg_icons/mute.svg"
+        src="/svg_icons/mute.svg"
         alt="mute icon"
         class="right-[1px] bottom-[1px] md:right-10 md:bottom-10 absolute w-36 text-white"
       />
@@ -200,17 +200,13 @@
 
         <div class="block md:flex justify-center items-center text-black">
           <div class="w-72 text-center mx-10 h-auto md:h-96">
-            <img
-              src="/static/svg_icons/icons-28.svg"
-              alt="low fees"
-              class="w-72"
-            />
+            <img src="/svg_icons/icons-28.svg" alt="low fees" class="w-72" />
             Forget about gas wars and astronomical fees, minting is free and transaction
             fees are literally less than $0.5.
           </div>
           <div class="w-72 text-center mx-10 h-auto md:h-96">
             <img
-              src="/static/svg_icons/icons-29.svg"
+              src="/svg_icons/icons-29.svg"
               alt="amazing experiences"
               class="w-72"
             />
@@ -218,7 +214,7 @@
           </div>
           <div class="w-72 text-center mx-10 h-auto md:h-96">
             <img
-              src="/static/svg_icons/icons-30.svg"
+              src="/svg_icons/icons-30.svg"
               alt="awesome community"
               class="w-72"
             />
@@ -244,7 +240,7 @@
   }
 
   .splashBackground {
-    background-image: url("/static/surfing.png");
+    background-image: url("/surfing.png");
     background-size: cover;
     box-shadow: inset 0 0 0 1000px rgba(0, 0, 0, 0.25);
   }
@@ -262,7 +258,7 @@
   }
 
   .featuredBackground {
-    background-image: url("/static/berta.jpg");
+    background-image: url("/berta.jpg");
     background-size: cover;
   }
 </style>

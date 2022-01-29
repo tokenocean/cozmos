@@ -107,7 +107,7 @@
     />
     {#if featured}
       <img
-        src="/static/svg_icons/profile_featured.svg"
+        src="/svg_icons/profile_featured.svg"
         alt="Profile featured icon"
         class="absolute top-4 left-4 bg-black/50 rounded-lg index w-16"
       />
@@ -165,7 +165,7 @@
     />
     {#if featured}
       <img
-        src="/static/svg_icons/profile_featured.svg"
+        src="/svg_icons/profile_featured.svg"
         alt="Profile featured icon"
         class="absolute top-4 left-4 bg-black/50 rounded-lg index w-16"
       />
