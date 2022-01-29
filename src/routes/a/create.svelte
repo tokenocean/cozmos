@@ -102,40 +102,25 @@
     auction_end: null,
   };
 
-  let input;
-  let initialized;
-
-  let loading;
   let list_price,
+    loading,
+    input,
+    initialized,
+    reserve_price,
     royalty_value,
-    start_date,
-    end_date,
-    start_time,
-    end_time,
+    start,
+    end,
     auction_enabled,
     auction_underway,
     multi_royalty_recipients_enabled,
     royalty_recipients;
 
-  let reserve_price;
+  let files = [];
 
   if (!artwork.asking_asset) artwork.asking_asset = btc;
   auction_enabled =
     auction_enabled ||
     compareAsc(parseISO(artwork.auction_end), new Date()) === 1;
-
-  let start, end;
-  if (artwork.auction_start) {
-    start = parseISO(artwork.auction_start);
-    start_date = format(start, "yyyy-MM-dd");
-    start_time = format(start, "HH:mm");
-  }
-
-  if (artwork.auction_end) {
-    end = parseISO(artwork.auction_end);
-    end_date = format(end, "yyyy-MM-dd");
-    end_time = format(end, "HH:mm");
-  }
 
   auction_underway =
     auction_enabled &&
@@ -249,26 +234,15 @@
   };
 
   let setupAuction = async () => {
-    if (!auction_enabled) return true;
+    let { auction_start: start, auction_end: end } = artwork;
 
-    let start = parse(
-      `${start_date} ${start_time}`,
-      "yyyy-MM-dd HH:mm",
-      new Date()
-    );
-
-    let end = parse(`${end_date} ${end_time}`, "yyyy-MM-dd HH:mm", new Date());
-
-    if (compareAsc(start, new Date()) < 1)
+    if (compareAsc(parseISO(start), new Date()) < 1)
       throw new Error("Start date can't be in the past");
 
-    if (compareAsc(start, end) > 0)
+    if (compareAsc(parseISO(start), parseISO(end)) > 0)
       throw new Error("Start date must precede end date");
 
-    if (
-      !artwork.auction_end ||
-      compareAsc(parseISO(artwork.auction_end), new Date()) < 1
-    ) {
+    if (compareAsc(parseISO(artwork.auction_end), new Date()) < 1) {
       await requirePassword();
 
       let base64, tx;
@@ -302,9 +276,6 @@
 
       if (base64) $psbt = Psbt.fromBase64(base64);
     }
-
-    artwork.auction_start = start;
-    artwork.auction_end = end;
   };
 
   let stale;
@@ -333,87 +304,12 @@
     info("Royalties activated!");
   };
 
-  let tags;
+  let tags = [];
   let video;
   let hidden = true;
   $: preview = files.find((f) => f.type === "main")?.preview;
 
-  let hash, tx;
-  const issue = async (ticker) => {
-    let contract;
-    let domain =
-      user.username === branding.superUserName
-        ? branding.urls.base
-        : `${user.username.toLowerCase()}.${branding.urls.base}`;
-
-    let error, success;
-
-    await requirePassword();
-
-    contract = await createIssuance(artwork, domain, tx);
-
-    await sign();
-    await broadcast(true);
-    await tick();
-
-    tx = $psbt.extractTransaction();
-    artwork.asset = parseAsset(
-      tx.outs.find((o) => parseAsset(o.asset) !== btc).asset
-    );
-    hash = tx.getId();
-
-    return JSON.stringify(contract);
-  };
-
-  let files = [];
-
-  let tries;
-  let l;
-
-  let title;
-
-  $: generateTicker(title);
-  let generateTicker = (t) => {
-    if (!t || t.length < 3) t = "TIK";
-    artwork.ticker = (
-      t.split(" ").length > 2
-        ? t
-            .split(" ")
-            .map((w) => w[0])
-            .join("")
-        : t
-    )
-      .substr(0, 3)
-      .toUpperCase();
-
-    checkTicker();
-  };
-
-  let checkTicker = async () => {
-    try {
-      let { artworks } = await query(
-        `query { artworks(where: { ticker: { _like: "${artwork.ticker.toUpperCase()}%" }}) { ticker }}`
-      );
-
-      if (artworks.length) {
-        let tickers = data.artworks.sort(({ ticker: a }, { ticker: b }) =>
-          b.length < a.length
-            ? 1
-            : b.length > a.length
-            ? -1
-            : a.charCodeAt(a.length - 1) - b.charCodeAt(b.length - 1)
-        );
-
-        if (tickers.map((a) => a.ticker).includes(artwork.ticker)) {
-          let { ticker } = tickers.pop();
-          artwork.ticker =
-            ticker.substr(0, 3) + c[c.indexOf(ticker.substr(3)) + 1];
-        }
-      }
-    } catch (e) {
-      err(e);
-    }
-  };
+  let hash, tx, listingType;
 
   async function submit(e) {
     e.preventDefault();
@@ -436,66 +332,58 @@
         $prompt = Issuing;
       }
       loading = true;
-      await issue();
-      let strippedDown = { ...artwork };
-      delete strippedDown.royalty_recipients;
-      delete strippedDown.owner;
-      delete strippedDown.artist;
-      delete strippedDown.main;
-      delete strippedDown.cover;
-      delete strippedDown.thumb;
-      delete strippedDown.video;
-      delete strippedDown.gallery;
 
-      let savedArtwork = await core.createArtwork({
-        artwork: strippedDown,
+      let auction_start, auction_end;
+      if (listingType === "AUCTION") {
+        auction_start = start;
+        auction_end = end;
+      }
+
+      artwork = {
+        ...artwork,
+        auction_start,
+        auction_end,
+        editions: 1,
+        list_price: sats(artwork.asking_asset, list_price),
+        reserve_price: sats(artwork.asking_asset, reserve_price),
+      };
+
+      let { id, asset } = await core.createArtwork({
+        artwork,
         generateRandomTickers: true,
       });
 
-      let { id, asset } = savedArtwork;
-
       artwork.id = id;
       artwork.asset = asset;
-
-      for (let i = 0; i < files.length; i++) {
-        let file = files[i];
-        await core.createFile(savedArtwork.id, file);
-      }
 
       await setupAuction();
       await spendPreviousSwap();
       await setupRoyalty();
       await setupSwaps();
 
+      for (let i = 0; i < files.length; i++) {
+        let file = files[i];
+        await core.createFile(id, file);
+      }
+
       let {
-        asking_asset,
-        auction_end,
-        auction_release_tx,
-        auction_start,
-        auction_tx,
-        bid_increment,
-        extension_interval,
-        list_price_tx,
-        max_extensions,
+        asset: a,
+        ticker,
+        slug,
+        royalty_recipients,
+        owner,
+        artist,
+        main,
+        cover,
+        thumb,
+        video,
+        gallery,
+        tags,
+        ...stripped
       } = artwork;
 
-      if (!auction_start) auction_start = null;
-      if (!auction_end) auction_end = null;
-
       query(updateArtworkWithRoyaltyRecipients, {
-        artwork: {
-          asking_asset,
-          auction_end,
-          auction_release_tx,
-          auction_start,
-          auction_tx,
-          bid_increment,
-          extension_interval,
-          list_price: sats(artwork.asking_asset, list_price),
-          list_price_tx,
-          max_extensions,
-          reserve_price: sats(artwork.asking_asset, reserve_price),
-        },
+        artwork: stripped,
         id,
         royaltyRecipients: royalty_value
           ? royalty_recipients.map((item) => {
@@ -569,10 +457,13 @@
               <Card {artwork} {preview} />
             </div>
             <Form
+              bind:listingType
               bind:artwork
               bind:list_price
               bind:reserve_price
               bind:files
+              bind:start
+              bind:end
               on:submit={submit}
             />
           </div>

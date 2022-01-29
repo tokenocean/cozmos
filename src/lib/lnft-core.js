@@ -276,12 +276,21 @@ export default class Core {
 
       artwork.asset = asset;
 
-      let artworkSansTags = { ...artwork };
-
-      delete artworkSansTags.tags;
+      let {
+        royalty_recipients,
+        owner,
+        artist,
+        main,
+        cover,
+        thumb,
+        video,
+        gallery,
+        tags: t,
+        ...stripped
+      } = artwork;
 
       let variables = {
-        artwork: artworkSansTags,
+        artwork: stripped,
         transaction: {
           artwork_id: artwork.id,
           type: "creation",

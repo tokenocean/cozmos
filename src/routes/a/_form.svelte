@@ -13,17 +13,60 @@
   import Input from "$styleguide/components/Input.svelte";
   import Textarea from "$styleguide/components/Textarea.svelte";
   import { prompt } from "$lib/store";
+  import {
+    format,
+    addDays,
+    compareAsc,
+    isWithinInterval,
+    parse,
+    parseISO,
+    addMinutes,
+  } from "date-fns";
 
   export let artwork;
   export let files = [];
   export let title;
 
-  export let list_price, reserve_price;
+  export let list_price, reserve_price, start, end;
 
   let input, items, loading, timer;
   let vid;
 
   let gallery;
+
+  let start_date, end_date, start_time, end_time;
+  if (artwork.auction_start) {
+    start = parseISO(artwork.auction_start);
+    start_date = format(start, "yyyy-MM-dd");
+    start_time = format(start, "HH:mm");
+  }
+
+  if (artwork.auction_end) {
+    end = parseISO(artwork.auction_end);
+    end_date = format(end, "yyyy-MM-dd");
+    end_time = format(end, "HH:mm");
+  }
+
+  let enableAuction = () => {
+    if (!start_date) {
+      start_date = format(addMinutes(new Date(), 15), "yyyy-MM-dd");
+      start_time = format(addMinutes(new Date(), 15), "HH:mm");
+    }
+    if (!end_date) {
+      end_date = format(addMinutes(addDays(new Date(), 3), 15), "yyyy-MM-dd");
+      end_time = format(addMinutes(addDays(new Date(), 3), 15), "HH:mm");
+    }
+  };
+
+  $: updateDates(start_date, start_time, end_date, end_time);
+  let updateDates = () => {
+    start = parse(
+      `${start_date} ${start_time}`,
+      "yyyy-MM-dd HH:mm",
+      new Date()
+    );
+    end = parse(`${end_date} ${end_time}`, "yyyy-MM-dd HH:mm", new Date());
+  };
 
   $: images = files.filter((f) => f.type === "gallery");
 
@@ -83,9 +126,10 @@
     AUCTION: "AUCTION",
   };
 
-  let listingType = TYPES.FIXED;
+  export let listingType = TYPES.FIXED;
 
   function selectListingType(type) {
+    if (type === TYPES.AUCTION) enableAuction();
     return () => {
       artwork.list_price = "";
       artwork.reserve_price = "";
@@ -110,7 +154,7 @@
           <img
             src={`/api/ipfs/${artwork.main[0].hash}`}
             alt="Main"
-            class="rounded mx-auto w-56 mt-4 nftimage object-cover"
+            class="mx-auto w-56 mt-4 nftimage object-cover"
           />
         {/if}
         <FileUpload
@@ -128,7 +172,7 @@
         <img
           src={`/api/ipfs/${artwork.thumb[0].hash}`}
           alt="Thumb"
-          class="rounded mx-auto w-56 mt-4 nftimage object-cover"
+          class="mx-auto w-56 mt-4 nftimage object-cover"
         />
       {/if}
       <FileUpload
@@ -146,7 +190,7 @@
         <img
           src={`/api/ipfs/${artwork.cover[0].hash}`}
           alt="Cover"
-          class="rounded mx-auto w-72 mt-4 cover object-cover"
+          class="mx-auto w-72 mt-4 cover object-cover"
         />
       {/if}
       <FileUpload
@@ -169,7 +213,7 @@
           controlslist="nodownload"
           key={artwork.video[0].hash}
           bind:this={vid}
-          class="rounded mx-auto w-72 mt-4 cover object-cover"
+          class="mx-auto w-72 mt-4 cover object-cover"
         >
           <source src={`/api/ipfs/${artwork.video[0].hash}`} />
         </video>
@@ -345,22 +389,40 @@
       <div class="mt-4 md:mt-0">
         {#if listingType === TYPES.AUCTION}
           <FormItem title="Starting date">
-            <input
-              id="startdate"
-              type="date"
-              name="startdate"
-              bind:value={artwork.auction_start}
-              class="text-sm appearance-none h-12 rounded-md bg-gray-100 border border-gray-300 mt-2 w-full"
-            />
+            <div class="grid grid-cols-2 gap-4">
+              <input
+                id="startdate"
+                type="date"
+                name="startdate"
+                bind:value={start_date}
+                class="text-sm appearance-none h-12 rounded-md bg-gray-100 border border-gray-300 mt-2 w-full"
+              />
+              <input
+                id="starttime"
+                type="time"
+                name="starttime"
+                bind:value={start_time}
+                class="text-sm appearance-none h-12 rounded-md bg-gray-100 border border-gray-300 mt-2 w-full"
+              />
+            </div>
           </FormItem>
           <FormItem title="Expiration date" class="mt-4">
-            <input
-              id="enddate"
-              type="date"
-              name="enddate"
-              bind:value={artwork.auction_end}
-              class="text-sm appearance-none h-12 rounded-md bg-gray-100 border border-gray-300 mt-2 w-full"
-            />
+            <div class="grid grid-cols-2 gap-4">
+              <input
+                id="enddate"
+                type="date"
+                name="enddate"
+                bind:value={end_date}
+                class="text-sm appearance-none h-12 rounded-md bg-gray-100 border border-gray-300 mt-2 w-full"
+              />
+              <input
+                id="endtime"
+                type="time"
+                name="endtime"
+                bind:value={end_time}
+                class="text-sm appearance-none h-12 rounded-md bg-gray-100 border border-gray-300 mt-2 w-full"
+              />
+            </div>
           </FormItem>
         {/if}
       </div>
