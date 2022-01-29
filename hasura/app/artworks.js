@@ -9,7 +9,6 @@ const {
   getCurrentUser,
   getTransactionArtwork,
   getTransactionUser,
-  redeemArtwork,
   setHeld,
   setOwner,
   setPsbt,
@@ -127,8 +126,16 @@ app.post("/transaction", auth, async (req, res) => {
     let { artworks } = await q(getTransactionArtwork, {
       id: transaction.artwork_id,
     });
-    let { bid_increment, auction_end, auction_start, owner, title, bid, slug } =
-      artworks[0];
+    let {
+      id: artwork_id,
+      bid_increment,
+      auction_end,
+      auction_start,
+      owner,
+      title,
+      bid,
+      slug,
+    } = artworks[0];
 
     if (
       bid &&
@@ -142,6 +149,17 @@ app.post("/transaction", auth, async (req, res) => {
           8
         )}`
       );
+    }
+
+    if (transaction.type === "purchase") {
+      let { data, errors } = await api(req.headers)
+        .post({ query: getCurrentUser })
+        .json();
+
+      if (errors) throw new Error(errors[0].message);
+      let user = data.currentuser[0];
+
+      await q(setOwner, { id: artwork_id, owner_id: user.id });
     }
 
     let locals = {
@@ -211,18 +229,6 @@ app.post("/accept", auth, async (req, res) => {
     await broadcast(Psbt.fromBase64(req.body.psbt));
     let { data } = await api(req.headers)
       .post({ query: acceptBid, variables: req.body })
-      .json();
-    res.send(data);
-  } catch (e) {
-    console.log(e);
-    res.code(500).send(e.message);
-  }
-});
-
-app.post("/redeem", auth, async (req, res) => {
-  try {
-    let { data } = await api(req.headers)
-      .post({ query: redeemArtwork, variables: req.body })
       .json();
     res.send(data);
   } catch (e) {
