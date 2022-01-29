@@ -46,7 +46,12 @@
     <ProgressLinear />
   {:else}
     <form on:submit|preventDefault={createComment}>
-      <textarea name="name" rows="8" class="w-full mt-8" bind:value={comment} />
+      <textarea
+        name="name"
+        rows="8"
+        class="w-full mt-8 border rounded"
+        bind:value={comment}
+      />
       <button type="submit" class="primary-btn ml-auto">Add comment</button>
     </form>
   {/if}
