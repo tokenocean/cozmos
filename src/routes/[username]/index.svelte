@@ -68,10 +68,14 @@
   let coverSource;
 </script>
 
-<div
-  class="w-full h-96 bg-center bg-cover flex justify-center items-center"
-  style="background-image: url({`/api/public/${subject.cover_photo_url}`});"
-/>
+{#if subject.cover_photo_url}
+  <div
+    class="w-full h-96 bg-center bg-cover flex justify-center items-center"
+    style="background-image: url({`/api/public/${subject.cover_photo_url}`});"
+  />
+{:else}
+  <div class="w-full h-96 bg-black flex justify-center items-center" />
+{/if}
 <div class="container mx-auto mt-5 md:mt-20">
   {#if subject}
     <div class="flex justify-between flex-wrap" in:fade>
