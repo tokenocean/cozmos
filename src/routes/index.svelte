@@ -137,7 +137,7 @@
             class="text-3xl text-white w-full md:w-1/2 text-center md:text-left"
           >
             10 Day Trip Exploration to the Canadian Rockies with Mountaineering
-            guide Trail of a Traveller.
+            guide Trail of a Traveler.
           </h2>
           <p
             class="text-xl text-secondary font-bold m-2 text-center md:text-left"
