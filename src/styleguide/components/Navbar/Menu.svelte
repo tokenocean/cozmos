@@ -125,6 +125,10 @@
 </div>
 
 <style lang="scss">
+  div {
+    font-family: "Raleway", Helvetica, Arial, sans-serif;
+  }
+
   @import "../../theme";
 
   .menu button {
