@@ -76,7 +76,7 @@
 {:else}
   <div class="w-full h-96 bg-black flex justify-center items-center" />
 {/if}
-<div class="container mx-auto mt-5 md:mt-20">
+<div class="container mx-auto mb-20 mt-5 md:mt-20">
   {#if subject}
     <div class="flex justify-between flex-wrap" in:fade>
       <div class="w-full xl:w-1/3 xl:max-w-xs mb-10 md:mb-20 px-2 md:px-0">
