@@ -184,9 +184,11 @@
       class="w-full h-20 my-14 md:my-20 flex justify-center items-center background-gradient"
       id="market"
     >
-      <h2 class="text-white text-xl text-center md:text-left">
-        WE ARE DISRUPTING THE NFT INDUSTRY
-      </h2>
+      <marquee direction="right">
+        <h2 class="text-white text-xl text-center md:text-left">
+          WE ARE DISRUPTING THE NFT INDUSTRY
+        </h2></marquee
+      >
     </div>
     <div class="mx-auto container">
       <div
