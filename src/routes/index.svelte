@@ -101,7 +101,14 @@
         class="w-full absolute z-0"
       />
       <div class="w-full md:w-1/2 z-10">
-        <div class="h-72 mt-72" />
+        <div class="h-72 mt-72">
+          <h2 class="text-lg text-gray-300 text-center">
+            We are disrupting the NFT industry.
+          </h2>
+          <h1 class="text-white text-4xl text-center">
+            The first marketplace for NFT experiences.
+          </h1>
+        </div>
         <img
           src="/svg_icons/mouse.svg"
           alt="mouse icon"
