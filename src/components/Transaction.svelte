@@ -459,6 +459,6 @@
 
 <style>
   .primary-btn {
-    @apply border border-cyan-500;
+    @apply border border-pink-500;
   }
 </style>
