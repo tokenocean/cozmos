@@ -13,6 +13,41 @@
   $: if ($user) getBalances();
 </script>
 
+{#if $balances}
+  <div class="container mx-auto">
+    <div class="mb-5">
+      <a href="/wallet" class="text-white">
+        <div class="flex">
+          <Fa icon={faChevronLeft} class="my-auto mr-1" />
+          <div>Back</div>
+        </div>
+      </a>
+    </div>
+    <div class="border border-white bg-black p-4 rounded-lg">
+      {#each $assets as a}
+        <div
+          class="flex mb-2 cursor-pointer"
+          on:click={() => {
+            $asset = a.asset;
+            goto("/wallet");
+          }}
+        >
+          <div class={`py-2 ${outer(a.asset)} w-3 rounded-l-lg`} />
+          <div
+            class={`flex ${bg(
+              a.asset
+            )} text-white rounded-r-lg p-4 flex-grow ${border(a.asset)}`}
+            class:active={$asset === a.asset}
+          >
+            <div class="flex-grow">{a.name}</div>
+            <div>{val(a.asset, $balances[a.asset] || 0)}</div>
+          </div>
+        </div>
+      {/each}
+    </div>
+  </div>
+{/if}
+
 <style lang="scss">
   @import "../../styleguide/theme";
 
@@ -46,37 +81,7 @@
     @apply border-t-2 border-b-2 border-r-2 text-white;
   }
 
-	.container {
-		margin-top: 5rem;
-	}
+  .container {
+    margin-top: 5rem;
+  }
 </style>
-
-{#if $balances}
-  <div class="container mx-auto">
-    <div class="mb-5">
-      <a href="/wallet" class="text-black">        <div class="flex">
-          <Fa icon={faChevronLeft} class="my-auto mr-1" />
-          <div>Back</div>
-        </div>
-      </a>
-    </div>
-    <div class="bg-black p-4 rounded-lg">
-      {#each $assets as a}
-        <div
-          class="flex mb-2 cursor-pointer"
-          on:click={() => {
-            $asset = a.asset;
-            goto('/wallet');
-          }}>
-          <div class={`py-2 ${outer(a.asset)} w-3 rounded-l-lg`} />
-          <div
-            class={`flex ${bg(a.asset)} text-white rounded-r-lg p-4 flex-grow ${border(a.asset)}`}
-            class:active={$asset === a.asset}>
-            <div class="flex-grow">{a.name}</div>
-            <div>{val(a.asset, $balances[a.asset] || 0)}</div>
-          </div>
-        </div>
-      {/each}
-    </div>
-  </div>
-{/if}

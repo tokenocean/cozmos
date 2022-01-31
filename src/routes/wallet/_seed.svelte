@@ -81,12 +81,11 @@
 
   let keyup = (i, e) => {
     curr = i;
-    if (e.key === "Enter")
-      return suggestions[0] && take(suggestions[0]);
+    if (e.key === "Enter") return suggestions[0] && take(suggestions[0]);
   };
 </script>
 
-<div class="p-5 bg-black rounded-xl text-white mt-20">
+<div class="border border-white p-5 bg-black rounded-xl text-white mt-20">
   <div class="flex flex-col">
     <p>Enter your backup phrase in the correct order:</p>
 

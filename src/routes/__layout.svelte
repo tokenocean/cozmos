@@ -110,9 +110,19 @@
 <Dialog />
 
 <main>
-  <div class="mx-auto min-h-screen">
+  <div
+    class="mx-auto min-h-screen"
+    class:stars={$page.url.pathname.includes("/wallet")}
+  >
     <slot />
   </div>
 </main>
 
 <Footer />
+
+<style>
+  .stars {
+    background-image: url("/background_black.png");
+    background-size: cover;
+  }
+</style>

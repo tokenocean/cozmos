@@ -9,12 +9,29 @@
   } from "@fortawesome/free-solid-svg-icons";
 </script>
 
+{#if $user}
+  <div class="wallet-nav-container">
+    <h2 class="mb-5 px-5 md:px-0 text-white"><a href="/wallet">Wallet</a></h2>
+
+    <div class="wallet-nav flex flex-col uppercase">
+      <a href="/wallet/setup">
+        <div
+          class="text-white flex flex-wrap justify-center sm:justify-start items-center sm:items-start h-full"
+        >
+          <Fa icon={faCog} class="my-auto mr-2" />
+          <div>Settings</div>
+        </div>
+      </a>
+    </div>
+  </div>
+{/if}
+
 <style>
   .wallet-nav-container {
     position: absolute;
     z-index: 2;
     margin-left: 5%;
-		margin-top: 4rem;
+    margin-top: 4rem;
   }
 
   .wallet-nav {
@@ -55,19 +72,3 @@
     }
   }
 </style>
-
-{#if $user}
-  <div class="wallet-nav-container">
-    <h2 class="mb-5 px-5 md:px-0"><a href="/wallet">Wallet</a></h2>
-
-    <div class="wallet-nav flex flex-col uppercase">
-      <a href="/wallet/setup">
-        <div
-          class="flex flex-wrap justify-center sm:justify-start items-center sm:items-start h-full">
-          <Fa icon={faCog} class="my-auto mr-2" />
-          <div>Settings</div>
-        </div>
-      </a>
-    </div>
-  </div>
-{/if}

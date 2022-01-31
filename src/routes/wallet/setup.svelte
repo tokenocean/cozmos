@@ -5,7 +5,9 @@
 </script>
 
 {#if $user}
-  <div class="w-full px-5 bg-black p-24 rounded-xl drop mt-20">
+  <div
+    class="border border-white w-full px-5 bg-black p-24 rounded-xl drop mt-20"
+  >
     <p class="mb-6 text-xl p-4 text-white">
       Welcome! Choose your option to get started
     </p>
@@ -23,7 +25,4 @@
 {/if}
 
 <style>
-  .drop {
-    box-shadow: 10px 10px 10px grey;
-  }
 </style>

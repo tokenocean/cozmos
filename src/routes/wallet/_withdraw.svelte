@@ -58,7 +58,7 @@
 
 {#if $user && withdrawing}
   <form
-    class="text-white bg-black md:rounded-lg p-5 w-full flex flex-col"
+    class="border border-white text-white bg-black md:rounded-lg p-5 w-full flex flex-col"
     on:submit|preventDefault={send}
     autocomplete="off"
   >

@@ -9,7 +9,9 @@
   } from "@fortawesome/free-solid-svg-icons";
 </script>
 
-<div class="w-full px-5 md:px-0 bg-black rounded-xl p-10 drop mt-20">
+<div
+  class="border border-white w-full px-5 md:px-0 bg-black rounded-xl p-10 drop mt-20"
+>
   <div class="px-6 text-white">
     <p class="text-xl mb-10">
       You'll need to know your backup phrase. Some things to have in mind:
@@ -54,9 +56,5 @@
   }
   li span {
     margin-left: 20px;
-  }
-
-  .drop {
-    box-shadow: 15px 15px 15px grey;
   }
 </style>

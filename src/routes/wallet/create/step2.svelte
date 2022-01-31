@@ -22,7 +22,9 @@
   $: displayMnemonic($page, $user);
 </script>
 
-<div class="container bg-black rounded-xl p-10 drop text-white mt-20">
+<div
+  class="border border-white container bg-black rounded-xl p-10 drop text-white mt-20"
+>
   {#if mnemonic}
     <p class="text-center">
       Write down the following 12 words in the correct order:
@@ -92,10 +94,6 @@
     margin-right: 10px;
     font-size: 15px;
     color: gray;
-  }
-
-  .drop {
-    box-shadow: 15px 15px 15px grey;
   }
 
   .border-style {
