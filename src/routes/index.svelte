@@ -84,21 +84,24 @@
       console.log(e);
     }
   };
+
+  let muted = "muted";
 </script>
 
 <Results />
 {#if filtered.length}
   <div class="stars mx-auto w-full">
     <div class="h-[100vh] splashBackground flex justify-center items-center">
-      <div class="w-full md:w-1/2">
-        <div class="h-72 mt-72">
-          <h2 class="text-lg text-gray-300 text-center">
-            We are disrupting the NFT industry.
-          </h2>
-          <h1 class="text-white text-4xl text-center">
-            The first marketplace for NFT experiences.
-          </h1>
-        </div>
+      <video
+        src={`/static/landing_video.mp4`}
+        preload
+        autoplay
+        loop
+        {muted}
+        class="w-full absolute z-0"
+      />
+      <div class="w-full md:w-1/2 z-10">
+        <div class="h-72 mt-72" />
         <img
           src="/svg_icons/mouse.svg"
           alt="mouse icon"
@@ -115,7 +118,14 @@
       <img
         src="/svg_icons/mute.svg"
         alt="mute icon"
-        class="right-[1px] bottom-[1px] md:right-10 md:bottom-10 absolute w-36 text-white"
+        class="right-[1px] bottom-[1px] md:right-10 md:bottom-10 absolute w-36 text-white cursor-pointer"
+        on:click={() => {
+          if (muted === "muted") {
+            muted = "";
+          } else {
+            muted = "muted";
+          }
+        }}
       />
     </div>
     <div
@@ -229,6 +239,10 @@
 {/if}
 
 <style>
+  .z {
+    z-index: 1;
+  }
+
   .background-gradient {
     background: linear-gradient(
       90deg,
@@ -240,8 +254,6 @@
   }
 
   .splashBackground {
-    background-image: url("/surfing.png");
-    background-size: cover;
     box-shadow: inset 0 0 0 1000px rgba(0, 0, 0, 0.25);
   }
 
