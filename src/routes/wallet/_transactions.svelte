@@ -42,9 +42,9 @@
   ];
 </script>
 
-<div class="px-5 sm:px-0">
+<div class="mb-4 border-4 border-black rounded overflow-auto h-96 px-5 sm:px-0">
   {#if txns.length}
-    <div class="my-7 flex">
+    <div class="my-7 flex px-6">
       <div class="flex-1">Show all history</div>
       <ToggleSwitch
         id="toggle"
@@ -58,7 +58,7 @@
     {#each txns as tx}
       {#if !show || tx.asset === $asset}
         <a href={`/tx/${tx.id}`}>
-          <div class="w-full mb-4">
+          <div class="w-full mb-4 px-6">
             <div class="flex">
               <div class="flex-grow text-sm text-gray-500">
                 {format(parseISO(tx.created_at), "MMM do, yyyy")}
