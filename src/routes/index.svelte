@@ -246,10 +246,6 @@
 {/if}
 
 <style>
-  .z {
-    z-index: 1;
-  }
-
   .background-gradient {
     background: linear-gradient(
       90deg,
