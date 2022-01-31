@@ -93,7 +93,7 @@
   <div class="stars mx-auto w-full">
     <div class="h-[100vh] splashBackground flex justify-center items-center">
       <video
-        src={`/static/landing_video.mp4`}
+        src={`/landing_video.mp4`}
         preload
         autoplay
         loop
