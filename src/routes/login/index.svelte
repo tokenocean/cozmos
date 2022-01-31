@@ -53,7 +53,7 @@
   });
 </script>
 
-<div class="mt-20 md:mt-0 form-container bg-white px-4">
+<div class="backgroundBlack mt-20 md:mt-0 form-container px-4">
   <form
     class="mb-6 rounded-xl bg-black"
     on:submit|preventDefault={login}
@@ -113,6 +113,11 @@
 </div>
 
 <style>
+  .backgroundBlack {
+    background-image: url("/background_black.png");
+    background-size: cover;
+  }
+
   .form-container {
     width: 100%;
     height: 100vh;
@@ -126,7 +131,7 @@
     width: 100%;
     max-width: 450px;
     padding: 40px;
-    box-shadow: 6px 5px 12px 2px #ccc;
+    border: 1px solid white;
   }
 
   input {

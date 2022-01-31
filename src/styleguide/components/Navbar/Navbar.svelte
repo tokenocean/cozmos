@@ -38,7 +38,7 @@
     font-family: $header--links--font-family;
     font-size: $header--links--font-size;
     padding-top: 20px;
-    background-color: rgba(0, 0, 0, 0.75);
+    background-color: rgba(0, 0, 0, 1);
     color: $header--links--color;
     z-index: 1000000000;
 

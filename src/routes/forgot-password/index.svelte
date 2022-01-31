@@ -17,7 +17,10 @@
   $: if (ref) pageChange($page);
 </script>
 
-<div class="mt-20 md:mt-0 form-container bg-white" key={$page.url.pathname}>
+<div
+  class="backgroundBlack mt-20 md:mt-0 form-container"
+  key={$page.url.pathname}
+>
   <form
     class="mb-6 bg-black rounded-xl"
     on:submit|preventDefault={forgot}
@@ -50,6 +53,11 @@
 </div>
 
 <style>
+  .backgroundBlack {
+    background-image: url("/background_black.png");
+    background-size: cover;
+  }
+
   .form-container {
     width: 100%;
     height: 100vh;
@@ -63,7 +71,7 @@
     width: 100%;
     max-width: 450px;
     padding: 40px;
-    box-shadow: 6px 5px 12px 2px #ccc;
+    border: 1px solid white;
   }
 
   input {
