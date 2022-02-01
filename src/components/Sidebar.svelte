@@ -13,11 +13,9 @@
   class:open
 >
   <div class="menu-header bg-black h-14" />
-  <div
-    class="menu-container -left-full bg-black rounded text-white absolute h-96"
-  >
+  <div class="menu-container -left-full bg-black rounded text-white absolute">
     {#if $session?.user}
-      <div class="flex justify-center items-center space-x-2">
+      <div class="mt-6 flex justify-center items-center space-x-2">
         <div>Signed in as:</div>
         <a href={`/${$session.user.username}`}>
           <div class="flex space-x-2 mx-auto">
@@ -29,12 +27,21 @@
     {/if}
     <div class="menu relative">
       <a sveltekit:prefetch href="/"><button on:click={toggle}>Home</button></a>
-      <a sveltekit:prefetch href="/about"
-        ><button on:click={toggle}>About</button></a
+      <a sveltekit:prefetch href="/#market"
+        ><button on:click={toggle}>Explore</button></a
       >
+      {#if $session?.user}
+        <a sveltekit:prefetch href="/a/create"
+          ><button on:click={toggle}>Create</button></a
+        >
+      {/if}
       <a sveltekit:prefetch href="/wallet"
         ><button on:click={toggle}>Wallet</button></a
       >
+      <a sveltekit:prefetch href="/about"
+        ><button on:click={toggle}>About</button></a
+      >
+
       <a href="/support"><button on:click={toggle}>Support</button></a>
       {#if $session?.user}
         <a sveltekit:prefetch href="/logout"

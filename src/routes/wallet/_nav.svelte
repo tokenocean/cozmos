@@ -14,7 +14,7 @@
     <h2 class="mb-5 px-5 md:px-0 text-white"><a href="/wallet">Wallet</a></h2>
 
     <div class="wallet-nav flex flex-col uppercase">
-      <a href="/wallet/setup">
+      <a href="/wallet/setup" class="bg-black">
         <div
           class="text-white flex flex-wrap justify-center sm:justify-start items-center sm:items-start h-full"
         >
@@ -67,7 +67,7 @@
       text-align: center;
       align-items: center;
       padding: 12px 0;
-      border-left: 1px solid lightgray;
+      border: 1px solid white;
       margin-bottom: 0;
     }
   }
