@@ -100,7 +100,7 @@
         {muted}
         class="w-full absolute z-0"
       />
-      <div class="w-full md:w-1/2 z-10">
+      <div class="w-full md:w-1/2 z">
         <div class="h-72 mt-72">
           <h2 class="text-lg text-gray-300 text-center">
             We are disrupting the NFT industry.
@@ -248,6 +248,10 @@
 {/if}
 
 <style>
+  .z {
+    z-index: 1;
+  }
+
   .background-gradient {
     background: linear-gradient(
       90deg,

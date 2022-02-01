@@ -85,7 +85,11 @@
         on:click={toggleWallet}
         bind:this={walletToggleHandler}
       >
-        <img src="/svg_icons/wallet.svg" alt="Wallet icon" class="w-12" />
+        <img
+          src="/svg_icons/wallet.svg"
+          alt="Wallet icon"
+          class="border border-white rounded-full w-12"
+        />
       </button>
       <div use:clickOutside on:clickOutside={handleWalletClickOutside}>
         {#if displayWallet}
@@ -99,7 +103,11 @@
         on:click={toggleUser}
         bind:this={userToggleHandler}
       >
-        <img src="/svg_icons/profile.svg" alt="Profile icon" class="w-12" />
+        <img
+          src="/svg_icons/profile.svg"
+          alt="Profile icon"
+          class="border border-white rounded-full w-12"
+        />
       </button>
       <div use:clickOutside on:clickOutside={handleUserClickOutside}>
         {#if displayUser}
@@ -113,12 +121,12 @@
     >
     <a
       href="/wallet"
-      class="w-40 mx-2 bg-black rounded-full text-white px-4 py-1"
+      class="w-40 mx-2 bg-black rounded-full border border-white text-white px-4 py-1"
       ><button on:click|preventDefault={showConnect}>Connect wallet</button></a
     >
     <a
       href="/login"
-      class="w-40 mx-2 bg-black rounded-full text-white px-4 py-1"
+      class="w-40 mx-2 bg-black rounded-full text-white px-4 py-1 border border-white"
       ><button>Login</button></a
     >
   {/if}
