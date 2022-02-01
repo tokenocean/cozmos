@@ -101,11 +101,11 @@
         class="w-full absolute z-0"
       />
       <div class="w-full md:w-1/2 z">
-        <div class="h-72 mt-72">
-          <h2 class="text-lg text-gray-300 text-center">
+        <div class="mt-0 md:mt-72 h-auto md:h-72 mb-72 md:mb-0">
+          <h2 class="text-sm md:text-lg text-gray-300 text-center">
             We are disrupting the NFT industry.
           </h2>
-          <h1 class="text-white text-4xl text-center">
+          <h1 class="text-white text-2xl md:text-4xl text-center">
             The first marketplace for NFT experiences.
           </h1>
         </div>
@@ -125,7 +125,7 @@
       <img
         src="/svg_icons/mute.svg"
         alt="mute icon"
-        class="right-[1px] bottom-[1px] md:right-10 md:bottom-10 absolute w-36 text-white cursor-pointer"
+        class="right-[1px] bottom-[300px] md:right-10 md:bottom-10 absolute w-36 text-white cursor-pointer"
         on:click={() => {
           if (muted === "muted") {
             muted = "";
@@ -218,12 +218,12 @@
         </p>
 
         <div class="block md:flex justify-center items-center text-black">
-          <div class="w-72 text-center mx-20 h-auto md:h-96">
+          <div class="w-72 text-center mx-auto md:mx-20 h-auto md:h-96">
             <img src="/svg_icons/icons-28.svg" alt="low fees" class="w-72" />
             Forget about gas wars and astronomical fees, minting is free and transaction
             fees are literally less than $0.5.
           </div>
-          <div class="w-72 text-center mx-20 h-auto md:h-96">
+          <div class="w-72 text-center mx-auto md:mx-20 h-auto md:h-96">
             <img
               src="/svg_icons/icons-29.svg"
               alt="amazing experiences"
@@ -231,7 +231,7 @@
             />
             Buy, sell and trade amazing life changing experiences.
           </div>
-          <div class="w-72 text-center mx-20 h-auto md:h-96">
+          <div class="w-72 text-center mx-auto md:mx-20 h-auto md:h-96">
             <img
               src="/svg_icons/icons-30.svg"
               alt="awesome community"

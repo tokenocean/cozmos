@@ -55,7 +55,7 @@
       <img src="/liquid_logo.svg" alt="liquid network logo" />
     </div>
     <div class="flex justify-center items-center mt-4 md:mt-0">
-      <p class="text-sm">Copyright 2021 {branding.projectName} Cozmos.</p>
+      <p class="text-sm">Copyright 2021 {branding.projectName}.</p>
       <a href={branding.urls.external.instagram}>
         <img src="/Instagram-02.svg" alt="Instagram" class="w-20" />
       </a>

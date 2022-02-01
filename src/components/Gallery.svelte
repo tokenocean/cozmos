@@ -9,7 +9,7 @@
 </script>
 
 <div>
-  <div class="sm:grid sm:grid-cols-2 sm:gap-10 lg:grid-cols-3 z-0">
+  <div class="px-6 md:px-0 sm:grid sm:grid-cols-2 sm:gap-10 lg:grid-cols-3 z-0">
     {#each inview as artwork, i}
       <div class="market-gallery w-full mb-20">
         <Card {artwork} height={350} />

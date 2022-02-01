@@ -79,9 +79,7 @@
       {#if !summary}
         <div class="bg-black flex h-32 px-6 pt-4">
           <div class="relative pt-8">
-            <div
-              class="mb-1 border absolute -top-12 z rounded-full w-16 border-solid border-white"
-            >
+            <div class="mb-1 absolute -top-12 z rounded-full w-16">
               <Avatar user={artwork.artist} size="lg" />
             </div>
             <div class="text-xs mb-1 italic font-bold text-gray-300">
