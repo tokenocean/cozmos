@@ -1,11 +1,6 @@
 <script>
   import branding from "$lib/branding";
   import Fa from "svelte-fa";
-  import {
-    faInstagramSquare,
-    faDiscord,
-    faTwitter,
-  } from "@fortawesome/free-brands-svg-icons";
 </script>
 
 <div class="bg-black p-2 colored-border relative pb-16">
@@ -59,13 +54,17 @@
       <p class="pr-3 mb-4 text-sm mt-3">Powered by:</p>
       <img src="/liquid_logo.svg" alt="liquid network logo" />
     </div>
-    <div class="flex justify-center items-center space-x-8 mt-4 md:mt-0">
+    <div class="flex justify-center items-center mt-4 md:mt-0">
       <p class="text-sm">Copyright 2021 {branding.projectName} Cozmos.</p>
       <a href={branding.urls.external.instagram}>
-        <Fa icon={faInstagramSquare} /></a
-      >
-      <a href={branding.urls.external.discord}> <Fa icon={faDiscord} /></a>
-      <a href={branding.urls.external.twitter}><Fa icon={faTwitter} /> </a>
+        <img src="/Instagram-02.svg" alt="Instagram" class="w-20" />
+      </a>
+      <a href={branding.urls.external.discord}>
+        <img src="/Discord.svg" alt="Discord" class="w-20" />
+      </a>
+      <a href={branding.urls.external.twitter}>
+        <img src="/Twitter-02.svg" alt="Twitter" class="w-20" />
+      </a>
     </div>
   </div>
 </div>
