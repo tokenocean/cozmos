@@ -204,8 +204,6 @@
     animation-fill-mode: both;
     -webkit-animation-timing-function: ease-in-out;
     animation-timing-function: ease-in-out;
-    animation-iteration-count: infinite;
-    -webkit-animation-iteration-count: infinite;
   }
   .bounce:hover {
     animation-name: bounce;
