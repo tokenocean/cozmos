@@ -418,7 +418,7 @@
     >
       <div class="-mt-2">&times;</div>
     </div>
-    <div class="hidden lg:flex lg:flex-col md:w-96">
+    <div class="hidden lg:flex lg:flex-col md:w-[500px]">
       <div
         class="flex-grow-1 h-full bg-black"
         style="background-image: url('/stars.png')"
