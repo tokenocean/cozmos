@@ -218,12 +218,12 @@
         </p>
 
         <div class="block md:flex justify-center items-center text-black">
-          <div class="w-72 text-center mx-10 h-auto md:h-96">
+          <div class="w-72 text-center mx-20 h-auto md:h-96">
             <img src="/svg_icons/icons-28.svg" alt="low fees" class="w-72" />
             Forget about gas wars and astronomical fees, minting is free and transaction
             fees are literally less than $0.5.
           </div>
-          <div class="w-72 text-center mx-10 h-auto md:h-96">
+          <div class="w-72 text-center mx-20 h-auto md:h-96">
             <img
               src="/svg_icons/icons-29.svg"
               alt="amazing experiences"
@@ -231,7 +231,7 @@
             />
             Buy, sell and trade amazing life changing experiences.
           </div>
-          <div class="w-72 text-center mx-10 h-auto md:h-96">
+          <div class="w-72 text-center mx-20 h-auto md:h-96">
             <img
               src="/svg_icons/icons-30.svg"
               alt="awesome community"
