@@ -86,6 +86,7 @@
   };
 
   let muted = "muted";
+  let soundIcon;
 </script>
 
 <Results />
@@ -126,11 +127,14 @@
         src="/svg_icons/mute.svg"
         alt="mute icon"
         class="right-[1px] bottom-[300px] md:right-10 md:bottom-10 absolute w-36 text-white cursor-pointer"
+        bind:this={soundIcon}
         on:click={() => {
           if (muted === "muted") {
             muted = "";
+            soundIcon.src = "/svg_icons/sound_on.svg";
           } else {
             muted = "muted";
+            soundIcon.src = "/svg_icons/mute.svg";
           }
         }}
       />
