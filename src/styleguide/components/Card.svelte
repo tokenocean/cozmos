@@ -71,7 +71,7 @@
 <a href={`/a/${artwork.slug}`} class="w-full">
   <div class="bounce rounded-3xl overflow-hidden boxed" in:fade>
     {#if !summary}
-      <div class="h-60 overflow-hidden flex justify-center items-center">
+      <div class="h-72 overflow-hidden flex justify-center items-center">
         <ArtworkMedia {artwork} {showDetails} {popup} bind:thumb {preview} />
       </div>
     {/if}
