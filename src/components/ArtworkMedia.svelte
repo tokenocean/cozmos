@@ -1,7 +1,11 @@
 <script>
   import { onMount } from "svelte";
   import Fa from "svelte-fa";
-  import { faVolumeUp, faVolumeMute } from "@fortawesome/free-solid-svg-icons";
+  import {
+    faVolumeUp,
+    faVolumeMute,
+    faTimes,
+  } from "@fortawesome/free-solid-svg-icons";
   import { loaded } from "$lib/store";
 
   export let artwork;
@@ -11,6 +15,7 @@
   export let popup = false;
   export let cover = false;
   export let featured = false;
+  export let popupImage = false;
 
   let img, vid;
   $: path =
@@ -94,6 +99,8 @@
     muted = !muted;
     vid.muted = muted;
   };
+
+  let showPopup = false;
 </script>
 
 {#if artwork?.thumb?.length && artwork.thumb[0]}
@@ -102,9 +109,31 @@
       src={`/api/ipfs/${artwork.thumb[0].hash}`}
       alt={artwork.title}
       bind:this={img}
-      class="z relative"
+      on:click={() => {
+        if (popupImage === true) {
+          showPopup = !showPopup;
+        }
+      }}
+      class="z relative h-[400px] object-cover"
       class:featured
     />
+    {#if showPopup}
+      <div
+        class:showPopup
+        class="popup"
+        on:click={() => (showPopup = !showPopup)}
+      >
+        <span class="closeButton" on:click={() => (showPopup = !showPopup)}
+          ><Fa icon={faTimes} /></span
+        >
+        <img
+          src={`/api/ipfs/${artwork.thumb[0].hash}`}
+          alt={artwork.title}
+          on:click={() => (showPopup = !showPopup)}
+          class="w-1/2 cursor-pointer"
+        />
+      </div>
+    {/if}
     {#if featured}
       <img
         src="/svg_icons/profile_featured.svg"
@@ -160,9 +189,31 @@
       src={preview || path}
       alt={artwork.title}
       bind:this={img}
-      class="z relative"
+      on:click={() => {
+        if (popupImage === true) {
+          showPopup = !showPopup;
+        }
+      }}
+      class="z relative h-[400px] object-cover rounded-t-xl"
       class:featured
     />
+    {#if showPopup}
+      <div
+        class:showPopup
+        class="popup"
+        on:click={() => (showPopup = !showPopup)}
+      >
+        <span class="closeButton" on:click={() => (showPopup = !showPopup)}
+          ><Fa icon={faTimes} /></span
+        >
+        <img
+          src={preview || path}
+          alt={artwork.title}
+          on:click={() => (showPopup = !showPopup)}
+          class="w-1/2 cursor-pointer"
+        />
+      </div>
+    {/if}
     {#if featured}
       <img
         src="/svg_icons/profile_featured.svg"
@@ -217,6 +268,72 @@
 
   .z {
     z-index: 1;
+  }
+
+  .popup {
+    position: fixed;
+    z-index: 9000000000;
+    width: 100%;
+    height: 100vh;
+    padding: 5px;
+    text-align: center;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    background: white;
+    scroll-behavior: contain;
+  }
+
+  .showPopup {
+    display: flex !important;
+    align-items: center;
+    justify-content: center;
+    animation: zoom 0.2s ease forwards;
+  }
+
+  .closeButton {
+    position: absolute;
+    top: 50px;
+    right: 50px;
+    width: 40px;
+    height: 40px;
+    border-radius: 100%;
+    background: whitesmoke;
+    padding: 11px 15px;
+    cursor: pointer;
+  }
+
+  .popup :global(video) {
+    width: 100%;
+    height: 100vh !important;
+    margin: 0 auto;
+    z-index: -1;
+  }
+
+  .popup :global(div) {
+    width: 100%;
+    height: auto;
+  }
+  .popup :global(img) {
+    margin: 0 auto;
+    height: 95vh;
+    object-fit: contain !important;
+  }
+
+  @media only screen and (max-width: 1023px) {
+    .closeButton {
+      top: 20px;
+      right: 20px;
+    }
+  }
+
+  @media only screen and (max-width: 500px) {
+    .popup :global(img),
+    .popup :global(video) {
+      height: 100vh;
+      width: 100%;
+    }
   }
 
   @media only screen and (max-width: 640px) {
