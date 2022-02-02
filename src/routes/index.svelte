@@ -253,6 +253,8 @@
       </div>
     </div>
   </div>
+{:else}
+  No experiences have been uploaded
 {/if}
 
 <style>
