@@ -53,7 +53,7 @@
     };
   }
 
-  let title = () => {
+  let updateTitle = () => {
     if (artwork.title) {
       if (artwork.title.length > 30) {
         return `${artwork.title.substr(0, 30)}...`;
@@ -64,6 +64,8 @@
       return "No Name";
     }
   };
+
+  $: title = updateTitle(artwork.title);
 </script>
 
 {#if usernameOnly}
@@ -101,7 +103,7 @@
               @{artwork.artist.username}
             </div>
             <div class="text-base pb-1 font-bold title-font description">
-              {title()}
+              {title}
             </div>
           </div></a
         >
