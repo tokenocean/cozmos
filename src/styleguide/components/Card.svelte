@@ -252,7 +252,7 @@
   }
 
   .z {
-    z-index: 1000;
+    z-index: 1;
   }
 
   .summary {
