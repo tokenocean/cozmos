@@ -339,21 +339,18 @@
         auction_end = end;
       }
 
-      artwork = {
-        ...artwork,
-        auction_start,
-        auction_end,
-        editions: 1,
-        list_price: sats(artwork.asking_asset, list_price),
-        reserve_price: sats(artwork.asking_asset, reserve_price),
-      };
-
       let { id, asset } = await core.createArtwork({
-        artwork,
+        artwork: {
+          ...artwork,
+          auction_start,
+          auction_end,
+          editions: 1,
+          list_price: sats(artwork.asking_asset, list_price),
+          reserve_price: sats(artwork.asking_asset, reserve_price),
+        },
         generateRandomTickers: true,
       });
 
-      artwork.id = id;
       artwork.asset = asset;
 
       await setupAuction();
@@ -383,7 +380,14 @@
       } = artwork;
 
       query(updateArtworkWithRoyaltyRecipients, {
-        artwork: stripped,
+        artwork: {
+          ...stripped,
+          auction_start,
+          auction_end,
+          editions: 1,
+          list_price: sats(artwork.asking_asset, list_price),
+          reserve_price: sats(artwork.asking_asset, reserve_price),
+        },
         id,
         royaltyRecipients: royalty_value
           ? royalty_recipients.map((item) => {
