@@ -120,7 +120,7 @@
     {#if showPopup}
       <div
         class:showPopup
-        class="popup"
+        class="popup cursor-default"
         on:click={() => (showPopup = !showPopup)}
       >
         <span class="closeButton" on:click={() => (showPopup = !showPopup)}
@@ -200,7 +200,7 @@
     {#if showPopup}
       <div
         class:showPopup
-        class="popup"
+        class="popup cursor-default"
         on:click={() => (showPopup = !showPopup)}
       >
         <span class="closeButton" on:click={() => (showPopup = !showPopup)}
