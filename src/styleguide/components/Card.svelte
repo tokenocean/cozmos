@@ -52,6 +52,18 @@
       ticker: cadTicker,
     };
   }
+
+  let title = () => {
+    if (artwork.title) {
+      if (artwork.title.length > 30) {
+        return `${artwork.title.substr(0, 30)}...`;
+      } else {
+        return artwork.title;
+      }
+    } else {
+      return "No Name";
+    }
+  };
 </script>
 
 {#if usernameOnly}
@@ -68,16 +80,19 @@
     >Explore experience</button
   >
 {/if}
-<a href={`/a/${artwork.slug}`} class="w-full">
-  <div class="bounce rounded-3xl overflow-hidden boxed" in:fade>
-    {#if !summary}
+
+<div class="bounce rounded-3xl overflow-hidden boxed" in:fade>
+  {#if !summary}
+    <a href={`/a/${artwork.slug}`} class="w-full">
       <div class="h-72 overflow-hidden flex justify-center items-center">
         <ArtworkMedia {artwork} {showDetails} {popup} bind:thumb {preview} />
-      </div>
-    {/if}
-    {#if showDetails}
-      {#if !summary}
-        <div class="bg-black flex h-32 px-6 pt-4">
+      </div></a
+    >
+  {/if}
+  {#if showDetails}
+    {#if !summary}
+      <div class="bg-black flex h-32 px-6 pt-4">
+        <a href={`/a/${artwork.slug}`} class="w-full">
           <div class="relative pt-8">
             <div class="mb-1 absolute -top-12 z rounded-full w-16">
               <Avatar user={artwork.artist} size="lg" />
@@ -86,23 +101,25 @@
               @{artwork.artist.username}
             </div>
             <div class="text-base pb-1 font-bold title-font description">
-              {artwork.title || "No Name"}
+              {title()}
             </div>
-          </div>
-          <div class="ml-auto mb-auto flex items-center justify-center">
-            <Heart {artwork} size="sm" />
-            <span on:click={() => alert("in development")}>
-              <Fa
-                icon={faShareAlt}
-                class="ml-4 cursor-pointer"
-                color="#fff"
-                size="sm"
-              />
-            </span>
-          </div>
+          </div></a
+        >
+        <div class="ml-auto mb-auto flex items-center justify-center">
+          <Heart {artwork} size="sm" />
+          <span on:click={() => alert("in development")}>
+            <Fa
+              icon={faShareAlt}
+              class="ml-4 cursor-pointer"
+              color="#fff"
+              size="sm"
+            />
+          </span>
         </div>
-      {/if}
-      {#if artwork.reserve_price}
+      </div>
+    {/if}
+    {#if artwork.reserve_price}
+      <a href={`/a/${artwork.slug}`} class="w-full">
         <div
           class="auction-item-background-gradient h-20 p-4 flex justify-between"
           class:summary
@@ -136,8 +153,10 @@
               </div>
             </div>
           {/if}
-        </div>
-      {:else}
+        </div></a
+      >
+    {:else}
+      <a href={`/a/${artwork.slug}`} class="w-full">
         <div
           class="bg-gradient-to-r from-cyan-300 via-purple-500 to-pink-600 h-20 p-4 px-6 flex justify-between"
           class:summary
@@ -168,11 +187,11 @@
               {/if}
             </div>
           {/if}
-        </div>
-      {/if}
+        </div></a
+      >
     {/if}
-  </div>
-</a>
+  {/if}
+</div>
 
 <style lang="scss">
   @keyframes bounce {
