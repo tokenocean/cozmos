@@ -145,6 +145,14 @@
   let val, sats, ticker;
   let amount;
 
+  let showCongrats = () => {
+    $prompt = {
+      component: Congrats,
+      hide: true,
+      artwork,
+    };
+  };
+
   let transaction = {};
   let makeOffer = async (e) => {
     try {
@@ -264,13 +272,9 @@
       $psbt = await executeSwap(artwork);
       $psbt = await sign();
 
-      console.log("PSBT", $psbt.toBase64());
-
       if (artwork.has_royalty || artwork.auction_end) {
         $psbt = await requestSignature($psbt);
       }
-
-      console.log($psbt.toBase64());
 
       await broadcast($psbt);
 
@@ -280,6 +284,8 @@
 
       await save();
       await fetch();
+
+      showCongrats();
 
       $user.email &&
         (await api
@@ -313,13 +319,6 @@
 
   let showMore = false;
   let showActivity = false;
-
-  let showCongrats = () => {
-    $prompt = {
-      component: Congrats,
-      hide: true,
-    };
-  };
 
   let bannerVideo;
 
@@ -381,7 +380,7 @@
   <div class="md:flex">
     <div class="md:w-1/3 md:mr-16">
       <div class="overflow-hidden rounded-2xl nft-box-shadow mb-8">
-        <ArtworkMedia {artwork} />
+        <ArtworkMedia {artwork} popupImage={true} />
       </div>
       {#if $user && $user.id === artwork.owner_id}
         <a href={`/a/${artwork.slug}/edit`}>
@@ -472,13 +471,13 @@
               <Fa icon={faGift} />
             </div>
             <div
-              class="ml-1 bg-black w-8 h-8 rounded-full flex items-center justify-center text-white cursor-pointer"
-            >
-              <Heart {artwork} size="1x" />
-            </div>
-            <div
               class="mr-1 ml-1 bg-black w-8 h-8 rounded-full flex items-center justify-center text-white cursor-pointer"
-              on:click={inDevelopment}
+              on:click={() => {
+                navigator.clipboard.writeText(
+                  `https://cozmos.com/a/${artwork.slug}`
+                );
+                alert("Link to NFT copied to clipboard");
+              }}
             >
               <Fa icon={faShareAlt} />
             </div>
@@ -646,7 +645,6 @@
       </div>
     </div>
   </div>
-  <div class="h-72" />
 </div>
 
 <style lang="scss">

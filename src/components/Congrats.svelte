@@ -1,3 +1,10 @@
+<script>
+  export let artwork;
+
+  let experience = artwork.title;
+  let image = `/api/ipfs/${artwork.main[0].hash}`;
+</script>
+
 <div class="container text-center p-10">
   <div class="flex justify-center">
     <h1
@@ -6,10 +13,10 @@
       Congratulations!
     </h1>
   </div>
-  <p class="text-xl mt-4">You just purchased VIP Backstage at Tomorrowland.</p>
+  <p class="text-xl mt-4">You just purchased {experience}.</p>
   <img
-    src="/tomorrowland.jpg"
-    alt="Tomorrowland"
+    src={image}
+    alt={experience}
     class="w-120 md:w-90 md:h-60 mx-auto rounded-t-3xl mt-10"
   />
   <div class="border-t-2 border-gray-400 block md:flex justify-center">

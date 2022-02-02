@@ -58,7 +58,11 @@
           </div>
           <div class="sm:flex sm:items-start">
             <div class="mt-3 text-center sm:mt-0 sm:text-left w-full">
-              <svelte:component this={$prompt.component} bind:this={comp} />
+              <svelte:component
+                this={$prompt.component}
+                bind:this={comp}
+                artwork={$prompt.artwork}
+              />
             </div>
           </div>
         </div>

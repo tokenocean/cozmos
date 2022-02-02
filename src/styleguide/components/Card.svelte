@@ -106,8 +106,14 @@
           </div></a
         >
         <div class="ml-auto mb-auto flex items-center justify-center">
-          <Heart {artwork} size="sm" />
-          <span on:click={() => alert("in development")}>
+          <span
+            on:click={() => {
+              navigator.clipboard.writeText(
+                `https://cozmos.com/a/${artwork.slug}`
+              );
+              alert("Link to NFT copied to clipboard");
+            }}
+          >
             <Fa
               icon={faShareAlt}
               class="ml-4 cursor-pointer"
