@@ -91,7 +91,7 @@
 </script>
 
 {#if $addresses}
-  <div class="container mx-auto sm:justify-between mt-48 p-4">
+  <div class="container mx-auto sm:justify-between mt-36 p-4">
     <h2 class="text-center mb-4">Transfer Experience</h2>
 
     {#if loading}
