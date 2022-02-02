@@ -38,7 +38,7 @@
   count();
 
   let currencyConversion = (amount, ticker) =>
-    `${(val(amount) * $rate).toFixed(0)} USD`;
+    `$${(val(amount) * $rate).toFixed(0)} USD`;
 
   let updateTitle = () => {
     if (artwork.title) {
