@@ -379,7 +379,9 @@
 <div class="nft-container mx-auto pt-4 md:pt-24 mb-10 px-4 md:px-0">
   <div class="md:flex">
     <div class="md:w-1/3 md:mr-16">
-      <div class="overflow-hidden rounded-2xl nft-box-shadow mb-8">
+      <div
+        class="cursor-pointer overflow-hidden rounded-2xl nft-box-shadow mb-8"
+      >
         <ArtworkMedia {artwork} popupImage={true} />
       </div>
       {#if $user && $user.id === artwork.owner_id}
