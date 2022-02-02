@@ -1,19 +1,17 @@
 <script context="module">
   export async function load({ fetch, params: { slug }, session }) {
-    if (!(session && session.user)) return {
-      status: 302,
-      redirect: '/login'
-    } 
+    if (!(session && session.user))
+      return {
+        status: 302,
+        redirect: "/login",
+      };
 
-    const props = await fetch(`/artworks/${slug}.json`).then((r) =>
-      r.json()
-    );
+    const props = await fetch(`/artworks/${slug}.json`).then((r) => r.json());
 
     return {
       props,
     };
   }
-
 </script>
 
 <script>
@@ -90,48 +88,44 @@
     }
     loading = false;
   };
-
 </script>
+
+{#if $addresses}
+  <div class="container mx-auto sm:justify-between mt-48 p-4">
+    <h2 class="text-center mb-4">Transfer Experience</h2>
+
+    {#if loading}
+      <ProgressLinear />
+    {:else}
+      <div
+        class="border border-black rounded p-10 w-full max-w-lg text-center my-8 mx-auto"
+      >
+        <AutoComplete
+          hideArrow={true}
+          placeholder="Recipient"
+          items={$addresses.filter((a) => a.id !== $user.id)}
+          className="w-full border border-gray-400 rounded"
+          labelFieldName="username"
+          bind:selectedItem={recipient}
+        >
+          <div class="flex" slot="item" let:item let:label>
+            <Avatar class="my-auto" user={item} />
+            <div class="ml-1 my-auto">{item.username}</div>
+          </div>
+        </AutoComplete>
+        <a
+          href="/"
+          on:click|preventDefault={send}
+          class:disabled
+          class="block mt-8 text-center text-sm secondary-btn w-full">Send</a
+        >
+      </div>
+    {/if}
+  </div>
+{/if}
 
 <style>
   .disabled {
     @apply text-gray-400 border-gray-400;
   }
-
-  :global(.huh) {
-    @apply rounded-lg px-8 py-4 text-black w-full !important;
-  }
-
 </style>
-
-{#if $addresses}
-<div class="container mx-auto sm:justify-between mt-10 md:mt-20">
-  <h2 class="mb-4">Transfer Artwork</h2>
-
-  {#if loading}
-    <ProgressLinear />
-  {:else}
-    <div class="w-full max-w-lg text-center my-8 mx-auto">
-      <AutoComplete
-        hideArrow={true}
-        placeholder="Recipient"
-        items={$addresses.filter((a) => a.id !== $user.id)}
-        className="w-full"
-        inputClassName="huh"
-        labelFieldName="username"
-        bind:selectedItem={recipient}>
-        <div class="flex" slot="item" let:item let:label>
-          <Avatar class="my-auto" user={item} />
-          <div class="ml-1 my-auto">{item.username}</div>
-        </div>
-      </AutoComplete>
-    <a
-      href="/"
-      on:click|preventDefault={send}
-      class:disabled
-      class="block mt-8 text-center text-sm secondary-btn w-full">Send</a>
-    </div>
-
-  {/if}
-</div>
-{/if}

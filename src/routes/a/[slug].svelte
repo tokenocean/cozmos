@@ -466,12 +466,17 @@
           <div
             class="flex flex-1 justify-center md:justify-end items-center my-4 md:my-0"
           >
-            <div
-              class="mr-1 ml-1 bg-black w-8 h-8 rounded-full flex items-center justify-center text-white cursor-pointer"
-              on:click={inDevelopment}
-            >
-              <Fa icon={faGift} />
-            </div>
+            {#if $user && $user.id === artwork.owner_id}
+              <div
+                class="mr-1 ml-1 bg-black w-8 h-8 rounded-full flex items-center justify-center text-white cursor-pointer"
+              >
+                <a href={`/a/${artwork.slug}/transfer`}>
+                  <Button class="w-full" {disabled}>
+                    <Fa icon={faGift} /></Button
+                  ></a
+                >
+              </div>
+            {/if}
             <div
               class="mr-1 ml-1 bg-black w-8 h-8 rounded-full flex items-center justify-center text-white cursor-pointer"
               on:click={() => {
