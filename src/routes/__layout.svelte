@@ -55,7 +55,15 @@
 
   export let addresses, rate, titles;
 
-  let interval;
+  let getExchangeRate = async () => {
+    try {
+      $r = (await get("/rate.json", fetch)).rate;
+    } catch (e) {
+      console.log(e);
+    }
+  };
+
+  let interval, rateInterval;
 
   let refresh = async () => {
     try {
@@ -85,13 +93,8 @@
     }
 
     interval = setInterval(refresh, 60000);
+    rateInterval = setInterval(getExchangeRate, 1000);
   }
-
-  let getExchangeRate = async () => {
-    $r = (await get("/rate.json", fetch)).rate;
-  };
-  let rateInterval = setInterval(getExchangeRate, 1000);
-
   let open = false;
   let y;
 

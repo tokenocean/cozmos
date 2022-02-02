@@ -6,6 +6,7 @@
   import { fade, goto, units, cad, info } from "$lib/utils";
   import Fa from "svelte-fa";
   import { faShareAlt } from "@fortawesome/free-solid-svg-icons";
+  import { rate } from "$lib/store";
 
   export let artwork;
   export let columns = 3;
@@ -36,23 +37,8 @@
   };
   count();
 
-  function currencyConversion(amount, ticker, toString = true) {
-    return "$0.00";
-
-    const [getValue, getSats, cadTicker] = units(cad);
-
-    // @TODO this is fake price conversion. Need to be replaced by coinos.io exchange rates api
-    const price = val(amount) * 40000;
-
-    if (toString) {
-      return `${price} ${cadTicker}`;
-    }
-
-    return {
-      value: price,
-      ticker: cadTicker,
-    };
-  }
+  let currencyConversion = (amount, ticker) =>
+    `${(val(amount) * $rate).toFixed(0)} USD`;
 
   let updateTitle = () => {
     if (artwork.title) {

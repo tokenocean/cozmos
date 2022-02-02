@@ -68,7 +68,16 @@
   import Sidebar from "./_sidebar.svelte";
   import Comments from "./_comments.svelte";
   import { tick, onDestroy } from "svelte";
-  import { art, meta, prompt, password, user, token, psbt } from "$lib/store";
+  import {
+    art,
+    meta,
+    rate,
+    prompt,
+    password,
+    user,
+    token,
+    psbt,
+  } from "$lib/store";
   import countdown from "$lib/countdown";
   import { goto, err, explorer, info, linkify, units } from "$lib/utils";
   import { requirePassword } from "$lib/auth";
@@ -139,11 +148,10 @@
     [sats, val, ticker] = units(artwork && artwork.asking_asset);
     list_price = artwork.list_price;
     list_price = val(artwork.list_price);
+    if (!fiat) fiat = (list_price * $rate).toFixed(0);
   };
 
-  let list_price;
-  let val, sats, ticker;
-  let amount;
+  let list_price, fiat, val, sats, ticker, amount;
 
   let showCongrats = () => {
     $prompt = {
@@ -506,7 +514,7 @@
                   </div>
                   <div class="text-white text-3xl font-bold flex">
                     <div>{list_price}{ticker}</div>
-                    <div class="text-gray-500 ml-8">4345.04$</div>
+                    <div class="text-gray-500 ml-8">{fiat}$</div>
                   </div>
                 {/if}
 

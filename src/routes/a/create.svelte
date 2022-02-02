@@ -102,6 +102,8 @@
     auction_end: null,
   };
 
+  $: artwork.list_price = sats(artwork.asking_asset, list_price);
+
   let list_price,
     loading,
     input,

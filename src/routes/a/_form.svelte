@@ -12,7 +12,7 @@
   import Button from "$styleguide/components/Button.svelte";
   import Input from "$styleguide/components/Input.svelte";
   import Textarea from "$styleguide/components/Textarea.svelte";
-  import { prompt } from "$lib/store";
+  import { prompt, rate } from "$lib/store";
   import {
     format,
     addDays,
@@ -29,8 +29,16 @@
 
   export let list_price, reserve_price, start, end;
 
-  let input, items, loading, timer;
+  let input, items, loading, timer, fiat, fiat_price;
   let vid;
+  let fixed = $rate;
+
+  $: list_price = fiat_price && (fiat_price / fixed).toFixed(8);
+
+  let toggleFiat = () => {
+    fiat = !fiat;
+    if (fiat) fiat_price = list_price ? (list_price * fixed).toFixed(2) : "";
+  };
 
   let gallery;
 
@@ -138,9 +146,6 @@
       listingType = type;
     };
   }
-
-  let lbtcButton = "bg-black text-white";
-  let usdButton = "";
 </script>
 
 <form class="flex flex-col w-full mb-6" on:submit autocomplete="off">
@@ -343,10 +348,17 @@
         {#if listingType === TYPES.FIXED}
           <FormItem title="Price">
             <div class="flex">
-              <Input
-                bind:value={list_price}
-                placeholder="Price for NFT experience"
-              />
+              {#if fiat}
+                <Input
+                  bind:value={fiat_price}
+                  placeholder="Price for NFT experience"
+                />
+              {:else}
+                <Input
+                  bind:value={list_price}
+                  placeholder="Price for NFT experience"
+                />
+              {/if}
             </div></FormItem
           >
         {/if}
@@ -358,20 +370,18 @@
         <button
           type="button"
           name="button"
-          class="border border-black rounded w-20 mt-1 {lbtcButton}"
-          on:click={() => {
-            usdButton = "";
-            lbtcButton = "bg-black text-white";
-          }}>L-BTC</button
+          class="border border-black rounded w-20 mt-1"
+          class:bg-black={!fiat}
+          class:text-white={!fiat}
+          on:click={toggleFiat}>L-BTC</button
         >
         <button
           type="button"
           name="button"
-          class="border border-black rounded w-20 mt-1 {usdButton}"
-          on:click={() => {
-            lbtcButton = "";
-            usdButton = "bg-black text-white";
-          }}>USD</button
+          class="border border-black rounded w-20 mt-1"
+          class:bg-black={fiat}
+          class:text-white={fiat}
+          on:click={toggleFiat}>USD</button
         >
         <div class="mt-4">
           <ul class="text-sm list-disc ml-4">
