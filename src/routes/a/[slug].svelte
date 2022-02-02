@@ -514,7 +514,7 @@
                   </div>
                   <div class="text-white text-3xl font-bold flex">
                     <div>{list_price}{ticker}</div>
-                    <div class="text-gray-500 ml-8">{fiat}$</div>
+                    <div class="text-gray-500 ml-8">${fiat}</div>
                   </div>
                 {/if}
 
@@ -524,7 +524,7 @@
                   </div>
                   <div class="text-white text-3xl font-bold flex">
                     <div>{val(artwork.reserve_price)} {ticker}</div>
-                    <div class="text-gray-500 ml-8">4345.04$</div>
+                    <div class="text-gray-500 ml-8">${fiat}</div>
                   </div>
                 {/if}
               </div>
