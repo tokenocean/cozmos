@@ -153,12 +153,16 @@
       <div
         class="mx-auto w-full md:w-1/2 background h-full flex justify-center items-center"
       >
-        <div class="ml-0 md:ml-48 pt-6 md:pt-0">
+        <div class="w-full ml-0 md:ml-48 pt-6 md:pt-0">
           <h2
             class="text-3xl text-white w-full md:w-1/2 text-center md:text-left"
           >
-            10 Day Trip Exploration to the Canadian Rockies with Mountaineering
-            guide Trail of a Traveler.
+            <Card
+              artwork={filtered[0]}
+              showDetails={false}
+              summary={true}
+              titleOnly={true}
+            />
           </h2>
           <p
             class="text-xl text-secondary font-bold m-2 text-center md:text-left"
@@ -188,7 +192,7 @@
       class="w-full h-20 my-14 md:my-20 flex justify-center items-center background-gradient"
       id="market"
     >
-      <marquee direction="right">
+      <marquee>
         <h2 class="text-white text-xl text-center md:text-left">
           WE ARE DISRUPTING THE NFT INDUSTRY
         </h2></marquee

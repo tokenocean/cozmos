@@ -17,6 +17,7 @@
   export let summary = false;
   export let usernameOnly = false;
   export let artworkButton = false;
+  export let titleOnly = false;
 
   let sats, val, ticker;
   $: if (artwork) [sats, val, ticker] = units(artwork.asking_asset);
@@ -68,6 +69,9 @@
   $: title = updateTitle(artwork.title);
 </script>
 
+{#if titleOnly}
+  {artwork.title}
+{/if}
 {#if usernameOnly}
   @{artwork.artist.username}
 {/if}
