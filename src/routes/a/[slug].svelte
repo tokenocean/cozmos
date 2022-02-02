@@ -478,7 +478,7 @@
                 navigator.clipboard.writeText(
                   `https://cozmos.com/a/${artwork.slug}`
                 );
-                alert("Link to NFT copied to clipboard");
+                info("Link to NFT copied to clipboard!");
               }}
             >
               <Fa icon={faShareAlt} />

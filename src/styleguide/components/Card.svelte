@@ -3,7 +3,7 @@
   import ArtworkMedia from "$components/ArtworkMedia.svelte";
   import Heart from "$styleguide/components/Heart.svelte";
   import countdown from "$lib/countdown";
-  import { fade, goto, units, cad } from "$lib/utils";
+  import { fade, goto, units, cad, info } from "$lib/utils";
   import Fa from "svelte-fa";
   import { faShareAlt } from "@fortawesome/free-solid-svg-icons";
 
@@ -113,7 +113,7 @@
               navigator.clipboard.writeText(
                 `https://cozmos.com/a/${artwork.slug}`
               );
-              alert("Link to NFT copied to clipboard");
+              info("Link to NFT copied to clipboard!");
             }}
           >
             <Fa
