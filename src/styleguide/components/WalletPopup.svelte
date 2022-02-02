@@ -3,7 +3,7 @@
   import { faUser, faCopy } from "@fortawesome/free-solid-svg-icons";
   import { hasura } from "$lib/api";
   import { getArtworksByOwner } from "$queries/artworks";
-  import { asset, balances, user, token } from "$lib/store";
+  import { asset, balances, rate, user, token } from "$lib/store";
   import { assetLabel, btc, val, copy } from "$lib/utils";
   import { getBalances } from "$lib/wallet";
   import { requireLogin } from "$lib/auth";
@@ -67,10 +67,12 @@
         </div>
         <div class="flex font-bold text-lg border-t">
           <div class="flex-1 text-center p-2 border-r">
-            {balance}
+            {parseFloat(balance).toFixed(4)}
             {assetLabel($asset)}
           </div>
-          <div class="flex-1 text-center p-2 ">US$ 0.00</div>
+          <div class="flex-1 text-center p-2 ">
+            US ${(balance * $rate).toFixed(2)}
+          </div>
         </div>
       </div>
       <div class="text-black flex items-center mt-2">
