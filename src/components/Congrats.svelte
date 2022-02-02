@@ -17,7 +17,7 @@
   <img
     src={image}
     alt={experience}
-    class="w-120 md:w-90 md:h-60 mx-auto rounded-t-3xl mt-10"
+    class="w-120 md:w-90 md:h-60 mx-auto rounded-t-3xl mt-10 object-cover"
   />
   <div class="border-t-2 border-gray-400 block md:flex justify-center">
     <div class="flex mt-5 md:mt-10">
