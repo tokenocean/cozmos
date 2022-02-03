@@ -198,7 +198,7 @@
 <style lang="scss">
   @keyframes slide {
     100% {
-      box-shadow: 3px 3px 3px rgba(255, 255, 255, 0.25);
+      box-shadow: 3px 3px 3px rgba(204, 204, 204, 0.25);
       transform: translateY(-2.5%);
     }
   }
