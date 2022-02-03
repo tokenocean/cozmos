@@ -8,21 +8,21 @@ const fileFields = `
 const artworkFiles = `
   files {
     ${fileFields}
-  } 
+  }
   main: files(where: { type: {_eq: "main"}}) {
-    ${fileFields} 
+    ${fileFields}
   }
   cover: files(where: { type: {_eq: "cover"}}) {
-    ${fileFields} 
+    ${fileFields}
   }
   video: files(where: { type: {_eq: "video"}}) {
-    ${fileFields} 
+    ${fileFields}
   }
   thumb: files(where: { type: {_eq: "thumb"}}) {
-    ${fileFields} 
+    ${fileFields}
   }
   gallery: files(where: { type: {_eq: "gallery"}}) {
-    ${fileFields} 
+    ${fileFields}
   }
 `;
 
@@ -33,6 +33,7 @@ export const marketFields = `
   title
   favorited
   list_price
+	reserve_price
   auction_start
   auction_end
   asking_asset
