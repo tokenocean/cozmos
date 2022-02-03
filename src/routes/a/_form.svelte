@@ -243,8 +243,6 @@
         previewEnabled={false}
       />
     </FormItem>
-  </div>
-  <div class="md:grid md:grid-cols-1 md:text-left md:p-4">
     <FormItem title="Upload Gallery Photo" text="text-center">
       <div class="text-sm text-black text-center">(Optional)</div>
       {#if artwork.gallery && artwork.gallery.length}
@@ -261,6 +259,7 @@
       />
     </FormItem>
   </div>
+
   <!-- Artwork title -->
 
   <div class="py-2">
