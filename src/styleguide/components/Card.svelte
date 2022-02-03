@@ -73,7 +73,7 @@
   >
 {/if}
 
-<div class="bounce rounded-3xl overflow-hidden boxed" in:fade>
+<div class="slide rounded-3xl overflow-hidden boxed" in:fade>
   {#if !summary}
     <a href={`/a/${artwork.slug}`} class="w-full">
       <div class="h-72 overflow-hidden flex justify-center items-center">
@@ -196,39 +196,22 @@
 </div>
 
 <style lang="scss">
-  @keyframes bounce {
-    0%,
-    100%,
-    20%,
-    50%,
-    80% {
-      -webkit-transform: translateY(0);
-      -ms-transform: translateY(0);
-      transform: translateY(0);
-    }
-    40% {
-      -webkit-transform: translateY(-30px);
-      -ms-transform: translateY(-30px);
-      transform: translateY(-30px);
-    }
-    60% {
-      -webkit-transform: translateY(-15px);
-      -ms-transform: translateY(-15px);
-      transform: translateY(-15px);
+  @keyframes slide {
+    100% {
+      box-shadow: 5px 5px 5px rgba(255, 255, 255, 0.25);
+      transform: translateY(-2.5%);
     }
   }
 
-  .bounce {
-    -webkit-animation-duration: 1s;
-    animation-duration: 1s;
-    -webkit-animation-fill-mode: both;
+  .slide {
+    animation-duration: 0.25s;
+
     animation-fill-mode: both;
-    -webkit-animation-timing-function: ease-in-out;
+
     animation-timing-function: ease-in-out;
   }
-  .bounce:hover {
-    animation-name: bounce;
-    -moz-animation-name: bounce;
+  .slide:hover {
+    animation-name: slide;
   }
   @import "../theme";
 
