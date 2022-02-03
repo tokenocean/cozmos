@@ -489,7 +489,7 @@
               class="mr-1 ml-1 bg-black w-8 h-8 rounded-full flex items-center justify-center text-white cursor-pointer"
               on:click={() => {
                 navigator.clipboard.writeText(
-                  `https://cozmos.com/a/${artwork.slug}`
+                  `https://cozmos.io/a/${artwork.slug}`
                 );
                 info("Link to NFT copied to clipboard!");
               }}

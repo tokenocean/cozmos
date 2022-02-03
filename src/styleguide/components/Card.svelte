@@ -101,7 +101,7 @@
           <span
             on:click={() => {
               navigator.clipboard.writeText(
-                `https://cozmos.com/a/${artwork.slug}`
+                `https://cozmos.io/a/${artwork.slug}`
               );
               info("Link to NFT copied to clipboard!");
             }}

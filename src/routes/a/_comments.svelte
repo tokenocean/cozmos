@@ -25,12 +25,12 @@
   {/if}
   {#each artwork.comments as comment}
     <div class="flex mb-4">
-      <a href="https://www.cozmos.com/{comment.user.username}"
+      <a href="https://www.cozmos.io/{comment.user.username}"
         ><Avatar user={comment.user} size="lg" /></a
       >
       <div class="ml-10">
         <div class="font-bold">
-          <a href="https://www.cozmos.com/{comment.user.username}"
+          <a href="https://www.cozmos.io/{comment.user.username}"
             >@{comment.user.username}</a
           >
         </div>
