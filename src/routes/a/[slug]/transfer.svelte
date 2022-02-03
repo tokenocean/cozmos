@@ -15,6 +15,9 @@
 </script>
 
 <script>
+  import Fa from "svelte-fa";
+
+  import { faChevronLeft } from "@fortawesome/free-solid-svg-icons";
   import { Avatar, ProgressLinear } from "$comp";
   import AutoComplete from "simple-svelte-autocomplete";
   import { addresses, art, psbt, user, token } from "$lib/store";
@@ -91,14 +94,22 @@
 </script>
 
 {#if $addresses}
-  <div class="container mx-auto sm:justify-between mt-36 p-4">
+  <div
+    class="shadow bg-gray-100 container mx-auto sm:justify-between mt-36 p-4"
+  >
+    <a class="block ml-6 mt-6 text-black" href={`/a/${artwork.slug}`}>
+      <div class="flex">
+        <Fa icon={faChevronLeft} class="my-auto mr-1" />
+        <div>Back</div>
+      </div>
+    </a>
     <h2 class="text-center mb-4">Transfer Experience</h2>
 
     {#if loading}
       <ProgressLinear />
     {:else}
       <div
-        class="border border-black rounded p-10 w-full max-w-lg text-center my-8 mx-auto"
+        class="bg-white border border-black rounded p-10 w-full max-w-lg text-center my-8 mx-auto"
       >
         <AutoComplete
           hideArrow={true}
@@ -125,6 +136,10 @@
 {/if}
 
 <style>
+  .shadow {
+    box-shadow: 6px 5px 12px 2px #ccc;
+  }
+
   .disabled {
     @apply text-gray-400 border-gray-400;
   }
