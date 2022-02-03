@@ -34,10 +34,19 @@
   let fixed = $rate;
 
   $: list_price = fiat_price && (fiat_price / fixed).toFixed(8);
+  $: reserve_price = fiat_price && (fiat_price / fixed).toFixed(8);
 
   let toggleFiat = () => {
     fiat = !fiat;
-    if (fiat) fiat_price = list_price ? (list_price * fixed).toFixed(2) : "";
+    if (fiat) {
+      if (list_price) {
+        fiat_price = (list_price * fixed).toFixed(2);
+      } else if (reserve_price) {
+        fiat_price = (reserve_price * fixed).toFixed(2);
+      } else {
+        fiat_price = "";
+      }
+    }
   };
 
   let gallery;
@@ -139,6 +148,9 @@
   function selectListingType(type) {
     if (type === TYPES.AUCTION) enableAuction();
     return () => {
+      list_price = "";
+      reserve_price = "";
+      fiat_price = "";
       artwork.list_price = "";
       artwork.reserve_price = "";
       artwork.auction_end = "";
@@ -190,7 +202,7 @@
       />
     </FormItem>
     <FormItem title="Upload Cover Image" text="text-center">
-      <div class="text-sm text-black text-center">(Required)</div>
+      <div class="text-sm text-black text-center">(Optional)</div>
       {#if artwork.cover && artwork.cover.length}
         <img
           src={`/api/ipfs/${artwork.cover[0].hash}`}
@@ -207,7 +219,7 @@
       />
     </FormItem>
     <FormItem title="Upload Video" text="text-center">
-      <div class="text-sm text-black text-center">(Required)</div>
+      <div class="text-sm text-black text-center">(Optional)</div>
       {#if artwork.video && artwork.video.length}
         <video
           autoplay
@@ -349,14 +361,24 @@
           <FormItem title="Price">
             <div class="flex">
               {#if fiat}
-                <Input
+                <input
+                  min="1"
+                  type="number"
+                  class="text-sm appearance-none h-12 rounded-md bg-gray-100 border border-gray-300 mt-2 w-full"
+                  step="0.01"
                   bind:value={fiat_price}
                   placeholder="Price for NFT experience"
+                  required
                 />
               {:else}
-                <Input
+                <input
+                  min="0.00001000"
+                  type="number"
+                  class="text-sm appearance-none h-12 rounded-md bg-gray-100 border border-gray-300 mt-2 w-full"
+                  step="0.00001"
                   bind:value={list_price}
                   placeholder="Price for NFT experience"
+                  required
                 />
               {/if}
             </div></FormItem
@@ -364,7 +386,27 @@
         {/if}
         {#if listingType === TYPES.AUCTION}
           <FormItem title="Minimum bid">
-            <Input bind:value={reserve_price} placeholder="Minimum bid" />
+            {#if fiat}
+              <input
+                min="1"
+                type="number"
+                step="0.01"
+                bind:value={fiat_price}
+                placeholder="Minimum bid"
+                required
+                class="text-sm appearance-none h-12 rounded-md bg-gray-100 border border-gray-300 mt-2 w-full"
+              />
+            {:else}
+              <input
+                min="0.00001000"
+                type="number"
+                step="0.00001"
+                bind:value={reserve_price}
+                placeholder="Minimum bid"
+                required
+                class="text-sm appearance-none h-12 rounded-md bg-gray-100 border border-gray-300 mt-2 w-full"
+              />
+            {/if}
           </FormItem>
         {/if}
         <button

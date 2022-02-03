@@ -228,10 +228,15 @@ export default class Core {
   async createArtwork({ artwork, generateRandomTickers = false }) {
     // check that artwork match expectations
 
-    // if (!artwork.title) throw new Error("Please enter a title");
-    // if (!artwork.description) return err("Description is required");
-    if (!artwork.ticker && !generateRandomTickers)
-      throw new Error("Please enter a ticker symbol");
+    if (!artwork.title) throw new Error("Please enter a title");
+    if (!artwork.description) throw new Error("Description is required");
+    if (!artwork.package_content) throw new Error("Enter your package content");
+    if (!artwork.main.length) throw new Error("NFT image required");
+
+    if (artwork.reserve_price && !artwork.auction_start)
+      throw new Error("Auction start date required");
+    if (artwork.reserve_price && !artwork.auction_end)
+      throw new Error("Auction end date required");
 
     let { ticker } = artwork;
     let tickers = [];

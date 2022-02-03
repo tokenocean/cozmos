@@ -172,7 +172,11 @@
                 &#62;
               </div>
               <div class="ml-2" class:text-gray-300={summary}>
-                {currencyConversion(artwork.list_price, ticker)}
+                {#if artwork.list_price}
+                  {currencyConversion(artwork.list_price, ticker)}
+                {:else}
+                  0 {ticker}
+                {/if}
               </div>
             </div>
           </div>
