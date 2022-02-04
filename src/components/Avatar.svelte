@@ -7,7 +7,7 @@
 
 <div class={`${size} my-auto relative`}>
   <div
-    class={`relative ${size} group rounded-full overflow-hidden shadow-inner text-center cursor-pointer border border-white rounded-full`}
+    class={`relative ${size} group rounded-full overflow-hidden shadow-inner text-center border border-white rounded-full`}
   >
     {#if user || src}
       <img
