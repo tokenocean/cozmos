@@ -501,10 +501,10 @@
 
         <hr class="mt-8 mb-8" />
         <!-- price & purchase/make bid -->
-        <div class="flex">
+        <div class="block md:flex">
           <!-- Price block-->
           {#if artwork.list_price || artwork.reserve_price}
-            <div class="mr-8">
+            <div class="mr-0 md:mr-8">
               <div
                 class="flex flex-col justify-center align-center bg-black rounded-2xl px-8 h-32"
               >
@@ -532,7 +532,7 @@
           {/if}
 
           <!-- Controls -->
-          <div class="flex flex-1 flex-col">
+          <div class="mt-4 md:mt-0 flex flex-1 flex-col">
             <!-- @todo check buttons look -->
             {#if artwork.list_price && !bidding && !offering && $user?.id !== artwork.owner_id}
               <input

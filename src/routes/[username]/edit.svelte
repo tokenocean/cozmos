@@ -146,7 +146,7 @@
             <p class="font-bold">Add a short bio.</p>
             <textarea placeholder="Bio" bind:value={form.bio} />
           </div>
-          <div class="flex justify-center w-full">
+          <div class="block md:flex justify-center w-full">
             <div class="w-full">
               <p class="font-bold text-center">Upload a profile image</p>
               {#if ($user.avatar_url && $user.avatar_url.length) || avatarPreviewEnable === true}

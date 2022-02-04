@@ -125,6 +125,7 @@
   <div
     class="mx-auto min-h-screen"
     class:stars={$page.url.pathname.includes("/wallet")}
+    class:padding={$page.url.pathname.includes("transfer")}
   >
     <slot />
   </div>
@@ -133,6 +134,10 @@
 <Footer />
 
 <style>
+  .padding {
+    padding: 0 5%;
+  }
+
   .stars {
     background-image: url("/background_black.png");
     background-size: cover;
