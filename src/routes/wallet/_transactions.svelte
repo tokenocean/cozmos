@@ -43,6 +43,9 @@
 </script>
 
 <div class="mb-4 border border-white rounded overflow-auto h-96 px-5 sm:px-0">
+  {#if !txns.length}
+    <p class="text-center mt-10 text-white text-lg">No transactions yet.</p>
+  {/if}
   {#if txns.length}
     <div class="text-white my-7 flex px-6">
       <div class="flex-1">Show all history</div>
