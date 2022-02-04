@@ -36,6 +36,10 @@
   $: list_price = fiat_price && (fiat_price / fixed).toFixed(8);
   $: reserve_price = fiat_price && (fiat_price / fixed).toFixed(8);
 
+  // $: artwork.list_price = sats(artwork.asking_asset, list_price);
+  /* $: artwork.auction_start = sats(artwork.asking_asset, list_price); */
+  /* $: artwork.auction_end = sats(artwork.asking_asset, list_price); */
+
   let toggleFiat = () => {
     fiat = !fiat;
     if (fiat) {

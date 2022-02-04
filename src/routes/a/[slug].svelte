@@ -146,12 +146,13 @@
     count();
 
     [sats, val, ticker] = units(artwork && artwork.asking_asset);
-    list_price = artwork.list_price;
     list_price = val(artwork.list_price);
+    reserve_price = val(artwork.reserve_price);
     if (!fiat) fiat = (list_price * $rate).toFixed(0);
+    if (!reserveFiat) reserveFiat = (reserve_price * $rate).toFixed(0);
   };
 
-  let list_price, fiat, val, sats, ticker, amount;
+  let list_price, reserve_price, fiat, reserveFiat, val, sats, ticker, amount;
 
   let showCongrats = () => {
     $prompt = {
@@ -524,7 +525,7 @@
                   </div>
                   <div class="text-white text-3xl font-bold flex">
                     <div>{val(artwork.reserve_price)} {ticker}</div>
-                    <div class="text-gray-500 ml-8">${fiat}</div>
+                    <div class="text-gray-500 ml-8">{reserveFiat}$</div>
                   </div>
                 {/if}
               </div>

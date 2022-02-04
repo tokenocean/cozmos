@@ -17,10 +17,23 @@ import {
   user,
   token,
 } from "$lib/store";
-import { create, createComment } from "$queries/artworks";
-import { btc, kebab } from "$lib/utils";
+import {
+  create,
+  createComment,
+  updateArtworkWithRoyaltyRecipients,
+} from "$queries/artworks";
+import { btc, dev, err, kebab } from "$lib/utils";
 import { createIssuance, sign, broadcast, parseAsset } from "$lib/wallet";
 import branding from "$lib/branding";
+import {
+  format,
+  addDays,
+  compareAsc,
+  isWithinInterval,
+  parse,
+  parseISO,
+  addMinutes,
+} from "date-fns";
 
 export default class Core {
   constructor() {
@@ -228,10 +241,13 @@ export default class Core {
   async createArtwork({ artwork, generateRandomTickers = false }) {
     // check that artwork match expectations
 
-    if (!artwork.title) throw new Error("Please enter a title");
-    if (!artwork.description) throw new Error("Description is required");
-    if (!artwork.package_content) throw new Error("Enter your package content");
-    if (!artwork.main.length) throw new Error("NFT image required");
+    if (!dev) {
+      if (!artwork.title) throw new Error("Please enter a title");
+      if (!artwork.description) throw new Error("Description is required");
+      if (!artwork.package_content)
+        throw new Error("Enter your package content");
+      if (!artwork.main.length) throw new Error("NFT image required");
+    }
 
     if (artwork.reserve_price && !artwork.auction_start)
       throw new Error("Auction start date required");
@@ -324,5 +340,190 @@ export default class Core {
     }
 
     return artwork;
+  }
+
+  async setupAuction(artwork, royalty_value) {
+    let { auction_start: start, auction_end: end } = artwork;
+
+    if (compareAsc(parseISO(start), new Date()) < 1)
+      throw new Error("Start date can't be in the past");
+
+    if (compareAsc(parseISO(start), parseISO(end)) > 0)
+      throw new Error("Start date must precede end date");
+
+    if (compareAsc(parseISO(artwork.auction_end), new Date()) < 1) {
+      await requirePassword();
+
+      let base64, tx;
+      if (royalty_value) {
+        tx = await signOver(artwork, tx);
+        artwork.auction_tx = $psbt.toBase64();
+      } else {
+        $psbt = await sendToMultisig(artwork);
+        $psbt = await signAndBroadcast();
+        base64 = $psbt.toBase64();
+        tx = $psbt.extractTransaction();
+
+        tx = await signOver(artwork, tx);
+        artwork.auction_tx = $psbt.toBase64();
+
+        artwork.auction_release_tx = (
+          await createRelease(artwork, tx)
+        ).toBase64();
+      }
+
+      await query(createTransaction, {
+        transaction: {
+          amount: 1,
+          artwork_id: artwork.id,
+          asset: artwork.asking_asset,
+          hash: tx.getId(),
+          psbt: $psbt.toBase64(),
+          type: "auction",
+        },
+      });
+
+      if (base64) $psbt = Psbt.fromBase64(base64);
+    }
+  }
+
+  async setupRoyalty(artwork, royalty_value) {
+    if (artwork.has_royalty || !royalty_value) return true;
+
+    if (!artwork.auction_end) {
+      await requirePassword();
+      $psbt = await sendToMultisig(artwork);
+      await signAndBroadcast();
+    }
+
+    await query(createTransaction, {
+      transaction: {
+        amount: 1,
+        artwork_id: artwork.id,
+        asset: artwork.asking_asset,
+        hash: $psbt.extractTransaction().getId(),
+        psbt: $psbt.toBase64(),
+        type: "royalty",
+      },
+    });
+
+    artwork.stale = true;
+
+    info("Royalties activated!");
+  }
+
+  async setupSwaps(artwork, price) {
+    if (
+      !price ||
+      (!artwork.stale && parseInt(artwork.list_price || 0) === price)
+    )
+      return true;
+
+    let tx;
+    if (artwork.stale) tx = $psbt.extractTransaction();
+    await requirePassword();
+
+    $psbt = await createSwap(artwork, price, tx);
+
+    await sign(0x83);
+
+    artwork.list_price_tx = $psbt.toBase64();
+
+    await query(createTransaction, {
+      transaction: {
+        amount: price,
+        artwork_id: artwork.id,
+        asset: artwork.asking_asset,
+        hash: $psbt.__CACHE.__TX.getId(),
+        psbt: $psbt.toBase64(),
+        type: "listing",
+      },
+    });
+  }
+
+  async spendPreviousSwap(artwork, price, royalty_value) {
+    if (
+      !price ||
+      royalty_value ||
+      artwork.auction_end ||
+      parseInt(artwork.list_price || 0) === price
+    )
+      return true;
+
+    await requirePassword();
+
+    if (artwork.list_price_tx) {
+      $psbt = await cancelSwap(artwork, 500);
+
+      if (artwork.has_royalty || artwork.auction_end) {
+        $psbt = await requestSignature($psbt);
+      }
+      try {
+        await signAndBroadcast();
+        await query(createTransaction, {
+          transaction: {
+            amount: artwork.list_price,
+            artwork_id: artwork.id,
+            asset: artwork.asking_asset,
+            hash: $psbt.extractTransaction().getId(),
+            psbt: $psbt.toBase64(),
+            type: "cancel",
+          },
+        });
+
+        artwork.stale = true;
+      } catch (e) {
+        if (e.message.includes("already"))
+          throw new Error(
+            "Please wait a block before changing the listing price"
+          );
+        else throw e;
+      }
+    }
+  }
+
+  async listArtwork(artwork, price, royalty_value, files) {
+    await this.setupAuction(artwork, royalty_value);
+    await this.spendPreviousSwap(artwork, price, royalty_value);
+    await this.setupRoyalty(artwork, royalty_value);
+    await this.setupSwaps(artwork, price);
+
+    let { id } = artwork;
+
+    for (let i = 0; i < files.length; i++) {
+      let file = files[i];
+      await this.createFile(id, file);
+    }
+
+    let {
+      asset: a,
+      ticker,
+      slug,
+      royalty_recipients,
+      owner,
+      artist,
+      main,
+      cover,
+      thumb,
+      video,
+      gallery,
+      tags,
+      ...stripped
+    } = artwork;
+
+    stripped.editions = 1;
+
+    query(updateArtworkWithRoyaltyRecipients, {
+      artwork: stripped,
+      id,
+      royaltyRecipients: royalty_value
+        ? royalty_recipients.map((item) => {
+            delete item.id;
+            item.artwork_id = id;
+            item.asking_asset = artwork.asking_asset;
+            return item;
+          })
+        : [],
+    }).catch(err);
   }
 }
