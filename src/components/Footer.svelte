@@ -52,7 +52,23 @@
   >
     <div>
       <p class="pr-3 mb-4 text-sm mt-3">Powered by:</p>
-      <img src="/liquid_logo.svg" alt="liquid network logo" />
+      <a href="https://liquid.net/"
+        ><img
+          src="/liquid_logo.svg"
+          alt="liquid network logo"
+          class="my-2"
+        /></a
+      >
+      <a href="https://tokenocean.io"
+        ><img
+          src="/tokenocean2.png"
+          alt="Token Ocean logo"
+          class="my-2 w-[7.5rem]"
+        /></a
+      >
+      <a href="https://coinos.io"
+        ><img src="/Coinos.png" alt="coinos logo" class="my-2 w-[7rem]" /></a
+      >
     </div>
     <div class="flex justify-center items-center mt-4 md:mt-0">
       <p class="text-sm">Copyright 2021 {branding.projectName}.</p>
