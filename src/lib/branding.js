@@ -8,7 +8,7 @@ const BRANDING = {
     www: "www.cozmos.coinos.io",
     protocol: "https://cozmos.coinos.io",
     external: {
-      twitter: "https://twitter.com/cozmos",
+      twitter: "https://twitter.com/cozmosnft",
       telegram: "https://t.me/cozmos",
       discord: "https://discord.com/invite/K393aHGV3M",
       instagram: "https://instagram.com/cozmosnft",
