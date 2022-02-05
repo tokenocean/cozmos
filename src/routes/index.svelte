@@ -177,7 +177,12 @@
             >
           </p>
           <div class="w-full md:w-3/5">
-            <Card artwork={filtered[0]} summary={true} />
+            <Card
+              artwork={filtered[0]}
+              summary={true}
+              textSize0={"text-lg"}
+              textSize1={"text-xl"}
+            />
           </div>
           <Card
             artwork={filtered[0]}

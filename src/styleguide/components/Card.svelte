@@ -19,6 +19,8 @@
   export let usernameOnly = false;
   export let artworkButton = false;
   export let titleOnly = false;
+  export let textSize0 = "text-xs";
+  export let textSize1 = "text-sm";
 
   let sats, val, ticker;
   $: if (artwork) [sats, val, ticker] = units(artwork.asking_asset);
@@ -123,10 +125,10 @@
           class:summary
         >
           <div class="flex-1 mr-2">
-            <div class="text-xs" class:text-gray-300={summary}>
+            <div class={textSize0} class:text-gray-300={summary}>
               Reserve Price
             </div>
-            <div class="text-sm flex justify-start font-bold">
+            <div class="{textSize1} flex justify-start font-bold">
               <div class:text-white={summary}>
                 {val(artwork.reserve_price)}
                 {ticker}
@@ -141,10 +143,10 @@
           </div>
           {#if artwork.bid && artwork.bid.user}
             <div class="ml-2" class:text-secondary={summary}>
-              <div class="text-xs whitespace-nowrap">
+              <div class="{textSize0} whitespace-nowrap">
                 Current bid by @{artwork.bid.user.username}
               </div>
-              <div class="text-sm flex justify-start font-bold">
+              <div class="{textSize1} flex justify-start font-bold">
                 <div>{val(artwork.bid.amount)} {ticker}</div>
                 <div class="ml-2 currency-arrow-font">&#62;</div>
                 <div class="ml-2">{currencyConversion(artwork.bid.amount)}</div>
@@ -160,18 +162,21 @@
           class:summary
         >
           <div class="flex-1 mr-4">
-            <div class="text-xs" class:text-gray-300={summary}>Buy now</div>
-            <div class="text-base flex justify-start font-bold">
+            <div class={textSize0} class:text-gray-300={summary}>Buy now</div>
+            <div class="{textSize1} text-base flex justify-start font-bold">
               {#if artwork.list_price}
-                <div class:text-white={summary}>
+                <div class={textSize1} class:text-white={summary}>
                   {val(artwork.list_price)}
                   {ticker}
                 </div>
               {/if}
-              <div class="ml-2 currency-arrow-font" class:text-white={summary}>
+              <div
+                class="{textSize1} ml-2 currency-arrow-font"
+                class:text-white={summary}
+              >
                 &#62;
               </div>
-              <div class="ml-2" class:text-gray-300={summary}>
+              <div class="{textSize1} ml-2" class:text-gray-300={summary}>
                 {#if artwork.list_price}
                   {currencyConversion(artwork.list_price, ticker)}
                 {:else}
@@ -184,7 +189,7 @@
           {#if artwork.auction_end}
             <div class:text-secondary={summary}>
               {#if end_counter}
-                <div class="text-xs">Time left:</div>
+                <div class={textSize0}>Time left:</div>
                 <div class="font-bold text-lg">{end_counter}</div>
               {/if}
             </div>
