@@ -12,7 +12,11 @@
           <div class="flex space-x-40 border-b-[1px]">
             <div class="p-2"><span>My profile</span></div>
             <div class="my-auto">
-              <img src="/svg_icons/arrow_right.png" alt="right arrow" />
+              <img
+                src="/svg_icons/arrow_right.png"
+                alt="right arrow"
+                class="w-[0.5rem]"
+              />
             </div>
           </div>
         </a>
@@ -20,7 +24,11 @@
           <div class="flex space-x-[9.5rem] border-b-[1px]">
             <div class="p-2" on:click><span>Disconnect</span></div>
             <div class="my-auto">
-              <img src="/svg_icons/arrow_right.png" alt="right arrow" />
+              <img
+                src="/svg_icons/arrow_right.png"
+                alt="right arrow"
+                class="w-[0.5rem]"
+              />
             </div>
           </div>
         </a>
