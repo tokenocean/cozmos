@@ -338,7 +338,7 @@
             </div>
             <div class="w-full flex flex-wrap">
               {#each subject.creations as artwork (artwork.id)}
-                <div class="gallery-tab w-full lg:w-1/3 px-4 mb-10">
+                <div class="gallery-tab w-full lg:w-1/2 px-4 mb-10">
                   <Card {artwork} />
                 </div>
               {:else}
@@ -350,7 +350,7 @@
           <div class="w-full flex justify-center">
             <div class="w-full flex flex-wrap">
               {#each subject.holdings as artwork (artwork.id)}
-                <div class="gallery-tab w-full lg:w-1/3 px-4 mb-10">
+                <div class="gallery-tab w-full lg:w-1/2 px-4 mb-10">
                   <Card {artwork} />
                 </div>
               {:else}
