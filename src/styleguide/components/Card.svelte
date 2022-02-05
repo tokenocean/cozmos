@@ -92,7 +92,7 @@
             <div class="text-xs mb-1 italic font-bold text-gray-300">
               @{artwork.artist.username}
             </div>
-            <div class="text-base pb-1 font-bold title-font description">
+            <div class="text-base pb-1 title-font description">
               {title}
             </div>
           </div></a
