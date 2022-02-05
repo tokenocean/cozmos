@@ -1,6 +1,4 @@
 <script>
-  import Fa from "svelte-fa";
-  import { faChevronRight } from "@fortawesome/free-solid-svg-icons";
   import { user, token } from "$lib/store";
 </script>
 
@@ -14,7 +12,7 @@
           <div class="flex space-x-40 border-b-[1px]">
             <div class="p-2"><span>My profile</span></div>
             <div class="my-auto">
-              <Fa icon={faChevronRight} />
+              <img src="/svg_icons/arrow_right.png" alt="right arrow" />
             </div>
           </div>
         </a>
@@ -22,7 +20,7 @@
           <div class="flex space-x-[9.5rem] border-b-[1px]">
             <div class="p-2" on:click><span>Disconnect</span></div>
             <div class="my-auto">
-              <Fa icon={faChevronRight} />
+              <img src="/svg_icons/arrow_right.png" alt="right arrow" />
             </div>
           </div>
         </a>
