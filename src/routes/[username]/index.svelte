@@ -85,7 +85,7 @@
             <div class="absolute top-56">
               <div id="avatar-container">
                 <img
-                  src="/svg_icons/profile_shape.svg"
+                  src="/svg_icons/profile_circle.svg"
                   alt="comet"
                   id="avatar-border"
                 />
