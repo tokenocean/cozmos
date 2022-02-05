@@ -1,4 +1,5 @@
 <script>
+  import * as animateScroll from "svelte-scrollto";
   import Search from "$styleguide/components/Search.svelte";
   import WalletPopup from "$styleguide/components/WalletPopup.svelte";
   import UserPopup from "$styleguide/components/UserPopup.svelte";
@@ -72,7 +73,10 @@
         primary
         class="mr-6 w-40"
         rounded="rounded-full"
-        on:click={() => goto("/#market")}>Explore</Button
+        on:click={async () => {
+          await goto("/");
+          animateScroll.scrollTo({ element: "#market" });
+        }}>Explore</Button
       >
       <Button
         primary
@@ -117,7 +121,9 @@
     </div>
   {:else}
     <a href="/#market" class="mr-8"
-      ><Button primary rounded="rounded-full" class="w-40">Explore</Button></a
+      ><Button primary rounded="rounded-full" height="h-10" class="w-40"
+        >Explore</Button
+      ></a
     >
     <a
       href="/wallet"

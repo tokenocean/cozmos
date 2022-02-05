@@ -11,7 +11,7 @@
     <div class="flex items-center text-white">
       <div class="menu uppercase">
         <a href={`/${$user.username}`} on:click>
-          <div class="flex space-x-40 border-b-2">
+          <div class="flex space-x-40 border-b-[1px]">
             <div class="p-2"><span>My profile</span></div>
             <div class="my-auto">
               <Fa icon={faChevronRight} />
@@ -19,7 +19,7 @@
           </div>
         </a>
         <a href="/logout" class="cursor-pointer">
-          <div class="flex space-x-[9.7rem] border-b-2">
+          <div class="flex space-x-[9.5rem] border-b-[1px]">
             <div class="p-2" on:click><span>Disconnect</span></div>
             <div class="my-auto">
               <Fa icon={faChevronRight} />

@@ -32,16 +32,16 @@
     </div>
 
     <div class="w-full lg:w-1/4 text-gray-500">
-      <ul class="list-none font-bold">
-        <li class="mb-2">
+      <ul class="list-none">
+        <li>
           <a href="https://blockstream.com/liquid/">The Liquid Network</a>
         </li>
-        <li class="mb-2"><a href="/faq">FAQs</a></li>
-        <li class="mb-2">
+        <li><a href="/faq">FAQs</a></li>
+        <li>
           <a href="mailto:{branding.emails.support}">Support</a>
         </li>
-        <li class="mb-2"><a href="/privacy-policy">Privacy Policy</a></li>
-        <li class="mb-2">
+        <li><a href="/privacy-policy">Privacy Policy</a></li>
+        <li>
           <a href="/terms-and-conditions">Terms of Service</a>
         </li>
       </ul>

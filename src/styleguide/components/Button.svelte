@@ -5,6 +5,7 @@
   export let disabled = false;
   export let type = "button";
   export let rounded = "rounded-lg";
+  export let height = "h-12";
 </script>
 
 <button
@@ -15,7 +16,7 @@
   class:primary
   class:hover
   class:ghostWhite-disabled={disabled}
-  class="h-12 px-8 {rounded} button flex justify-center items-center {$$props.class ||
+  class="{height} px-8 {rounded} button flex justify-center items-center {$$props.class ||
     ''}"><slot /></button
 >
 

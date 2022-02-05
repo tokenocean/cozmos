@@ -214,7 +214,7 @@
       <Gallery bind:filtered bind:total bind:loadMore />
     </div>
     <div
-      class="background-gradient w-full block md:flex justify-center items-center py-12"
+      class="background-gradient w-full block md:flex justify-center items-center py-20"
     >
       <div>
         <h2 class="text-center text-black text-xl">
