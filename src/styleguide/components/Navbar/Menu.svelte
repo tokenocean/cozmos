@@ -120,7 +120,7 @@
       </div>
     </div>
   {:else}
-    <a href="/#market" class="mr-8"
+    <a href="/#market" class="mr-2"
       ><Button primary rounded="rounded-full" height="h-10" class="w-40"
         >Explore</Button
       ></a

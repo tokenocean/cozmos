@@ -261,27 +261,27 @@
               </a>
             {/if}
           </div>
-          <div
-            class="ml-0 md:ml-6 text-sm flex md:justify-start justify-center mt-5"
-          >
+          <div class="text-sm flex md:justify-start justify-center mt-5">
             <div
-              class="mr-3 border rounded-full py-2 px-5 border-solid border-black"
+              class="text-center w-full mr-3 border rounded-full py-2 px-5 border-solid border-black"
             >
               Followers:
               {subject.num_followers}
             </div>
             <div
-              class="border rounded-full py-2 px-5 border-solid border-black"
+              class="text-center w-full border rounded-full py-2 px-5 border-solid border-black"
             >
               Following:
               {subject.num_follows}
             </div>
           </div>
-          <div class="mt-3 md:justify-start justify-center flex md:block">
+          <div
+            class="w-full mt-3 md:justify-start justify-center flex md:block"
+          >
             {#if $user}
               {#if $user.id === subject.id}
                 <a
-                  class="primary-btn w-2/3 md:w-auto md:mr-6 text-sm"
+                  class="primary-btn w-full text-sm"
                   href={`/${$user.username}/edit`}>Edit Profile</a
                 >
               {/if}
