@@ -149,37 +149,45 @@
           <div class="block md:flex justify-center w-full">
             <div class="w-full">
               <p class="font-bold text-center">Upload a profile image</p>
-              {#if ($user.avatar_url && $user.avatar_url.length) || avatarPreviewEnable === true}
-                <img
-                  src={`/api/public/${$user.avatar_url}`}
-                  alt="Avatar"
-                  class="rounded mx-auto w-56 mt-4 height object-cover"
-                  bind:this={avatarPreview}
+              <div
+                class="w-[80%] mx-auto hover:border-black border-2 border-gray-300 rounded-xl mb-8"
+              >
+                {#if ($user.avatar_url && $user.avatar_url.length) || avatarPreviewEnable === true}
+                  <img
+                    src={`/api/public/${$user.avatar_url}`}
+                    alt="Avatar"
+                    class="rounded mx-auto w-56 mt-4 height object-cover"
+                    bind:this={avatarPreview}
+                  />
+                {/if}
+                <FileUpload
+                  type="profile"
+                  limits="PNG, JPG, WEBP, MAX 10MB"
+                  on:upload={addFile}
+                  previewEnabled={false}
                 />
-              {/if}
-              <FileUpload
-                type="profile"
-                limits="PNG, JPG, WEBP, MAX 10MB"
-                on:upload={addFile}
-                previewEnabled={false}
-              />
+              </div>
             </div>
             <div class="w-full">
               <p class="font-bold text-center">Upload a cover image</p>
-              {#if ($user.cover_photo_url && $user.cover_photo_url.length) || coverPreviewEnable === true}
-                <img
-                  src={`/api/public/${$user.cover_photo_url}`}
-                  alt="Avatar"
-                  class="rounded mx-auto w-72 mt-4 height object-cover"
-                  bind:this={coverPreview}
+              <div
+                class="w-[80%] mx-auto hover:border-black border-2 border-gray-300 rounded-xl mb-8"
+              >
+                {#if ($user.cover_photo_url && $user.cover_photo_url.length) || coverPreviewEnable === true}
+                  <img
+                    src={`/api/public/${$user.cover_photo_url}`}
+                    alt="Avatar"
+                    class="rounded mx-auto w-72 mt-4 height object-cover"
+                    bind:this={coverPreview}
+                  />
+                {/if}
+                <FileUpload
+                  type="cover"
+                  limits="PNG, JPG, WEBP, MAX 10MB"
+                  on:upload={addFile}
+                  previewEnabled={false}
                 />
-              {/if}
-              <FileUpload
-                type="cover"
-                limits="PNG, JPG, WEBP, MAX 10MB"
-                on:upload={addFile}
-                previewEnabled={false}
-              />
+              </div>
             </div>
           </div>
           <p class="font-bold">Add links to your social media profiles...</p>

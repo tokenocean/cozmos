@@ -72,13 +72,17 @@
     </div>
     <div class="flex justify-center items-center mt-4 md:mt-0">
       <p class="text-sm">Copyright 2021 {branding.projectName}.</p>
-      <a href={branding.urls.external.instagram}>
+      <a
+        href={branding.urls.external.instagram}
+        target="_blank"
+        rel="noreferrer"
+      >
         <img src="/Instagram-02.svg" alt="Instagram" class="w-20" />
       </a>
-      <a href={branding.urls.external.discord}>
+      <a href={branding.urls.external.discord} target="_blank" rel="noreferrer">
         <img src="/Discord.svg" alt="Discord" class="w-20" />
       </a>
-      <a href={branding.urls.external.twitter}>
+      <a href={branding.urls.external.twitter} target="_blank" rel="noreferrer">
         <img src="/Twitter-02.svg" alt="Twitter" class="w-20" />
       </a>
     </div>

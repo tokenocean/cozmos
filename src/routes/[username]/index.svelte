@@ -91,7 +91,7 @@
                     id="avatar-border"
                   />
                   <div id="avatar">
-                    <Avatar size="xl" user={subject} />
+                    <Avatar size="xl" user={subject} border="null" />
                   </div>
                 </div>
               </div>
@@ -106,7 +106,11 @@
             </div>
             <div class="social-details">
               {#if subject.instagram}
-                <a href={`https://instagram.com/${subject.instagram}`}>
+                <a
+                  href={`https://instagram.com/${subject.instagram}`}
+                  target="_blank"
+                  rel="noreferrer"
+                >
                   <div class="flex">
                     <div class="my-auto">
                       <img
@@ -122,7 +126,11 @@
                 </a>
               {/if}
               {#if subject.twitter}
-                <a href={`https://twitter.com/${subject.twitter}`}>
+                <a
+                  href={`https://twitter.com/${subject.twitter}`}
+                  target="_blank"
+                  rel="noreferrer"
+                >
                   <div class="flex">
                     <div class="my-auto">
                       <img
@@ -138,7 +146,11 @@
                 </a>
               {/if}
               {#if subject.website}
-                <a href={`https://${subject.website}`}>
+                <a
+                  href={`https://${subject.website}`}
+                  target="_blank"
+                  rel="noreferrer"
+                >
                   <div class="flex">
                     <div class="my-auto">
                       <img
@@ -154,7 +166,11 @@
                 </a>
               {/if}
               {#if subject.youtube}
-                <a href={`https://youtube.com/${subject.youtube}`}>
+                <a
+                  href={`https://youtube.com/${subject.youtube}`}
+                  target="_blank"
+                  rel="noreferrer"
+                >
                   <div class="flex">
                     <div class="my-auto">
                       <img
@@ -170,7 +186,11 @@
                 </a>
               {/if}
               {#if subject.facebook}
-                <a href={`https://facebook.com/${subject.facebook}`}>
+                <a
+                  href={`https://facebook.com/${subject.facebook}`}
+                  target="_blank"
+                  rel="noreferrer"
+                >
                   <div class="flex">
                     <div class="my-auto">
                       <img
@@ -186,7 +206,11 @@
                 </a>
               {/if}
               {#if subject.discord}
-                <a href={`https://discord.com`}>
+                <a
+                  href={`https://discord.com`}
+                  target="_blank"
+                  rel="noreferrer"
+                >
                   <div class="flex">
                     <div class="my-auto">
                       <img
@@ -202,7 +226,11 @@
                 </a>
               {/if}
               {#if subject.tiktok}
-                <a href={`https://tiktok.com/@${subject.tiktok}`}>
+                <a
+                  href={`https://tiktok.com/@${subject.tiktok}`}
+                  target="_blank"
+                  rel="noreferrer"
+                >
                   <div class="flex">
                     <div class="my-auto">
                       <img
@@ -218,7 +246,11 @@
                 </a>
               {/if}
               {#if subject.twitch}
-                <a href={`https://twitch.com/${subject.twitch}`}>
+                <a
+                  href={`https://twitch.com/${subject.twitch}`}
+                  target="_blank"
+                  rel="noreferrer"
+                >
                   <div class="flex">
                     <div class="my-auto">
                       <img
@@ -234,7 +266,9 @@
                 </a>
               {/if}
             </div>
-            <div class="flex md:justify-start justify-center mt-5">
+            <div
+              class="ml-0 md:ml-6 text-sm flex md:justify-start justify-center mt-5"
+            >
               <div
                 class="mr-3 border rounded-full py-2 px-5 border-solid border-black"
               >
@@ -252,7 +286,7 @@
               {#if $user}
                 {#if $user.id === subject.id}
                   <a
-                    class="primary-btn w-2/3 md:w-auto md:mr-6"
+                    class="primary-btn w-2/3 md:w-auto md:mr-6 text-sm"
                     href={`/${$user.username}/edit`}>Edit Profile</a
                   >
                 {/if}
@@ -262,7 +296,7 @@
               {#if $user}
                 {#if !($user.id === subject.id)}
                   <button
-                    class="p-2 primary-btn follow mt-8 w-2/3 md:w-full mx-auto"
+                    class="p-2 primary-btn follow mt-8 w-2/3 md:w-full mx-auto text-sm"
                     on:click={follow}
                   >
                     {subject.followed ? "Unfollow" : "Follow"}</button

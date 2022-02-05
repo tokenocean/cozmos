@@ -110,17 +110,11 @@
 
   #drop-area {
     cursor: pointer;
-    border: 2px solid lightgray;
-    border-radius: 10px;
+
     width: 80%;
     max-width: 350px;
     max-height: 350px;
-    margin: 50px auto;
-    margin-top: 30px;
-  }
-
-  #drop-area.highlight {
-    border-color: black;
+    margin: 0 auto;
   }
 
   #fileElem {
@@ -132,7 +126,6 @@
     #drop-area {
       width: 100%;
       max-width: 100%;
-      margin: 10px 0 25px 0;
     }
   }
 </style>

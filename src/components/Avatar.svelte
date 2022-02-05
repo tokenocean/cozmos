@@ -3,11 +3,12 @@
   export let src = undefined;
   export let overlay = undefined;
   export let size = "sm";
+  export let border = "border-2 border-white";
 </script>
 
 <div class={`${size} my-auto relative`}>
   <div
-    class={`relative ${size} group rounded-full overflow-hidden shadow-inner text-center border border-white rounded-full`}
+    class={`relative ${size} group rounded-full overflow-hidden shadow-inner text-center ${border} rounded-full`}
   >
     {#if user || src}
       <img
