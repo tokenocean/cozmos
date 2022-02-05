@@ -180,7 +180,7 @@
                 {#if artwork.list_price}
                   {currencyConversion(artwork.list_price, ticker)}
                 {:else}
-                  0 {ticker}
+                  Price not set
                 {/if}
               </div>
             </div>
