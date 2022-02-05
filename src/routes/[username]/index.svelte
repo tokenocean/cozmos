@@ -80,230 +80,224 @@
   {#if subject}
     <div class="flex justify-between flex-wrap" in:fade>
       <div class="w-full xl:w-1/3 xl:max-w-xs mb-10 md:mb-20 px-2 md:px-0">
-        <div id="line-right">
-          <div>
-            <div class="flex-auto flex-col">
-              <div class="absolute top-56">
-                <div id="avatar-container">
-                  <img
-                    src="/svg_icons/profile_shape.svg"
-                    alt="comet"
-                    id="avatar-border"
-                  />
-                  <div id="avatar">
-                    <Avatar size="xl" user={subject} border="null" />
-                  </div>
+        <div>
+          <div class="flex-auto flex-col">
+            <div class="absolute top-56">
+              <div id="avatar-container">
+                <img
+                  src="/svg_icons/profile_shape.svg"
+                  alt="comet"
+                  id="avatar-border"
+                />
+                <div id="avatar">
+                  <Avatar size="xl" user={subject} border="null" />
                 </div>
               </div>
-              <div class="flex items-center mt-32 md:mt-20">
-                <div class="flex">
-                  <h3>@{subject.username}</h3>
-                </div>
-              </div>
-              {#if subject.bio}
-                <p class="mt-5">{subject.bio}</p>
-              {/if}
             </div>
-            <div class="social-details">
-              {#if subject.instagram}
-                <a
-                  href={`https://instagram.com/${subject.instagram}`}
-                  target="_blank"
-                  rel="noreferrer"
-                >
-                  <div class="flex">
-                    <div class="my-auto">
-                      <img
-                        src="/svg_icons/Instagram-02.svg"
-                        alt="Instagram icon"
-                        class="w-12"
-                      />
-                    </div>
-                    <div class="self-center">
-                      <span>@{subject.instagram}</span>
-                    </div>
+            <div class="flex items-center mt-32 md:mt-20">
+              <div class="flex">
+                <h3 class="font-bold">@{subject.username}</h3>
+              </div>
+            </div>
+            {#if subject.bio}
+              <p class="mt-5 text-sm">{subject.bio}</p>
+            {/if}
+          </div>
+          <div class="social-details">
+            {#if subject.instagram}
+              <a
+                href={`https://instagram.com/${subject.instagram}`}
+                target="_blank"
+                rel="noreferrer"
+              >
+                <div class="flex">
+                  <div class="my-auto">
+                    <img
+                      src="/svg_icons/Instagram-02.svg"
+                      alt="Instagram icon"
+                      class="w-12"
+                    />
                   </div>
-                </a>
-              {/if}
-              {#if subject.twitter}
-                <a
-                  href={`https://twitter.com/${subject.twitter}`}
-                  target="_blank"
-                  rel="noreferrer"
-                >
-                  <div class="flex">
-                    <div class="my-auto">
-                      <img
-                        src="/svg_icons/Twitter-02.svg"
-                        alt="Twitter icon"
-                        class="w-12"
-                      />
-                    </div>
-                    <div class="self-center">
-                      <span>@{subject.twitter}</span>
-                    </div>
+                  <div class="self-center">
+                    <span>@{subject.instagram}</span>
                   </div>
-                </a>
-              {/if}
-              {#if subject.website}
-                <a
-                  href={`https://${subject.website}`}
-                  target="_blank"
-                  rel="noreferrer"
-                >
-                  <div class="flex">
-                    <div class="my-auto">
-                      <img
-                        src="/svg_icons/Website.svg"
-                        alt="website icon"
-                        class="w-12"
-                      />
-                    </div>
-                    <div class="self-center">
-                      <span>{subject.website}</span>
-                    </div>
+                </div>
+              </a>
+            {/if}
+            {#if subject.twitter}
+              <a
+                href={`https://twitter.com/${subject.twitter}`}
+                target="_blank"
+                rel="noreferrer"
+              >
+                <div class="flex">
+                  <div class="my-auto">
+                    <img
+                      src="/svg_icons/Twitter-02.svg"
+                      alt="Twitter icon"
+                      class="w-12"
+                    />
                   </div>
-                </a>
-              {/if}
-              {#if subject.youtube}
-                <a
-                  href={`https://youtube.com/${subject.youtube}`}
-                  target="_blank"
-                  rel="noreferrer"
-                >
-                  <div class="flex">
-                    <div class="my-auto">
-                      <img
-                        src="/svg_icons/Youtube.svg"
-                        alt="YouTube icon"
-                        class="w-12"
-                      />
-                    </div>
-                    <div class="self-center">
-                      <span>@{subject.youtube}</span>
-                    </div>
+                  <div class="self-center">
+                    <span>@{subject.twitter}</span>
                   </div>
-                </a>
-              {/if}
-              {#if subject.facebook}
-                <a
-                  href={`https://facebook.com/${subject.facebook}`}
-                  target="_blank"
-                  rel="noreferrer"
-                >
-                  <div class="flex">
-                    <div class="my-auto">
-                      <img
-                        src="/svg_icons/Facebook-02.svg"
-                        alt="Facebook icon"
-                        class="w-12"
-                      />
-                    </div>
-                    <div class="self-center">
-                      <span>@{subject.facebook}</span>
-                    </div>
+                </div>
+              </a>
+            {/if}
+            {#if subject.website}
+              <a
+                href={`https://${subject.website}`}
+                target="_blank"
+                rel="noreferrer"
+              >
+                <div class="flex">
+                  <div class="my-auto">
+                    <img
+                      src="/svg_icons/Website.svg"
+                      alt="website icon"
+                      class="w-12"
+                    />
                   </div>
-                </a>
-              {/if}
-              {#if subject.discord}
-                <a
-                  href={`https://discord.com`}
-                  target="_blank"
-                  rel="noreferrer"
-                >
-                  <div class="flex">
-                    <div class="my-auto">
-                      <img
-                        src="/svg_icons/Discord.svg"
-                        alt="Discord icon"
-                        class="w-12"
-                      />
-                    </div>
-                    <div class="self-center">
-                      <span>@{subject.discord}</span>
-                    </div>
+                  <div class="self-center">
+                    <span>{subject.website}</span>
                   </div>
-                </a>
-              {/if}
-              {#if subject.tiktok}
-                <a
-                  href={`https://tiktok.com/@${subject.tiktok}`}
-                  target="_blank"
-                  rel="noreferrer"
-                >
-                  <div class="flex">
-                    <div class="my-auto">
-                      <img
-                        src="/svg_icons/Tik-tok.svg"
-                        alt="TikTok icon"
-                        class="w-12"
-                      />
-                    </div>
-                    <div class="self-center">
-                      <span>@{subject.tiktok}</span>
-                    </div>
+                </div>
+              </a>
+            {/if}
+            {#if subject.youtube}
+              <a
+                href={`https://youtube.com/${subject.youtube}`}
+                target="_blank"
+                rel="noreferrer"
+              >
+                <div class="flex">
+                  <div class="my-auto">
+                    <img
+                      src="/svg_icons/Youtube.svg"
+                      alt="YouTube icon"
+                      class="w-12"
+                    />
                   </div>
-                </a>
-              {/if}
-              {#if subject.twitch}
-                <a
-                  href={`https://twitch.com/${subject.twitch}`}
-                  target="_blank"
-                  rel="noreferrer"
-                >
-                  <div class="flex">
-                    <div class="my-auto">
-                      <img
-                        src="/svg_icons/Twitch.svg"
-                        alt="Twitch icon"
-                        class="w-12"
-                      />
-                    </div>
-                    <div class="self-center">
-                      <span>@{subject.twitch}</span>
-                    </div>
+                  <div class="self-center">
+                    <span>@{subject.youtube}</span>
                   </div>
-                </a>
-              {/if}
+                </div>
+              </a>
+            {/if}
+            {#if subject.facebook}
+              <a
+                href={`https://facebook.com/${subject.facebook}`}
+                target="_blank"
+                rel="noreferrer"
+              >
+                <div class="flex">
+                  <div class="my-auto">
+                    <img
+                      src="/svg_icons/Facebook-02.svg"
+                      alt="Facebook icon"
+                      class="w-12"
+                    />
+                  </div>
+                  <div class="self-center">
+                    <span>@{subject.facebook}</span>
+                  </div>
+                </div>
+              </a>
+            {/if}
+            {#if subject.discord}
+              <a href={`https://discord.com`} target="_blank" rel="noreferrer">
+                <div class="flex">
+                  <div class="my-auto">
+                    <img
+                      src="/svg_icons/Discord.svg"
+                      alt="Discord icon"
+                      class="w-12"
+                    />
+                  </div>
+                  <div class="self-center">
+                    <span>@{subject.discord}</span>
+                  </div>
+                </div>
+              </a>
+            {/if}
+            {#if subject.tiktok}
+              <a
+                href={`https://tiktok.com/@${subject.tiktok}`}
+                target="_blank"
+                rel="noreferrer"
+              >
+                <div class="flex">
+                  <div class="my-auto">
+                    <img
+                      src="/svg_icons/Tik-tok.svg"
+                      alt="TikTok icon"
+                      class="w-12"
+                    />
+                  </div>
+                  <div class="self-center">
+                    <span>@{subject.tiktok}</span>
+                  </div>
+                </div>
+              </a>
+            {/if}
+            {#if subject.twitch}
+              <a
+                href={`https://twitch.com/${subject.twitch}`}
+                target="_blank"
+                rel="noreferrer"
+              >
+                <div class="flex">
+                  <div class="my-auto">
+                    <img
+                      src="/svg_icons/Twitch.svg"
+                      alt="Twitch icon"
+                      class="w-12"
+                    />
+                  </div>
+                  <div class="self-center">
+                    <span>@{subject.twitch}</span>
+                  </div>
+                </div>
+              </a>
+            {/if}
+          </div>
+          <div
+            class="ml-0 md:ml-6 text-sm flex md:justify-start justify-center mt-5"
+          >
+            <div
+              class="mr-3 border rounded-full py-2 px-5 border-solid border-black"
+            >
+              Followers:
+              {subject.num_followers}
             </div>
             <div
-              class="ml-0 md:ml-6 text-sm flex md:justify-start justify-center mt-5"
+              class="border rounded-full py-2 px-5 border-solid border-black"
             >
-              <div
-                class="mr-3 border rounded-full py-2 px-5 border-solid border-black"
-              >
-                Followers:
-                {subject.num_followers}
-              </div>
-              <div
-                class="border rounded-full py-2 px-5 border-solid border-black"
-              >
-                Following:
-                {subject.num_follows}
-              </div>
+              Following:
+              {subject.num_follows}
             </div>
-            <div class="mt-3 md:justify-start justify-center flex md:block">
-              {#if $user}
-                {#if $user.id === subject.id}
-                  <a
-                    class="primary-btn w-2/3 md:w-auto md:mr-6 text-sm"
-                    href={`/${$user.username}/edit`}>Edit Profile</a
-                  >
-                {/if}
+          </div>
+          <div class="mt-3 md:justify-start justify-center flex md:block">
+            {#if $user}
+              {#if $user.id === subject.id}
+                <a
+                  class="primary-btn w-2/3 md:w-auto md:mr-6 text-sm"
+                  href={`/${$user.username}/edit`}>Edit Profile</a
+                >
               {/if}
-            </div>
-            <div class="mt-5 md:mr-6">
-              {#if $user}
-                {#if !($user.id === subject.id)}
-                  <button
-                    class="p-2 primary-btn follow mt-8 w-2/3 md:w-full mx-auto text-sm"
-                    on:click={follow}
-                  >
-                    {subject.followed ? "Unfollow" : "Follow"}</button
-                  >
-                {/if}
+            {/if}
+          </div>
+          <div class="mt-5 md:mr-6">
+            {#if $user}
+              {#if !($user.id === subject.id)}
+                <button
+                  class="p-2 primary-btn follow mt-8 w-2/3 md:w-full mx-auto text-sm"
+                  on:click={follow}
+                >
+                  {subject.followed ? "Unfollow" : "Follow"}</button
+                >
               {/if}
-            </div>
+            {/if}
           </div>
         </div>
       </div>
@@ -421,10 +415,6 @@
   .social-details span {
     margin-left: 8px;
     color: black;
-  }
-
-  #line-right {
-    border-right: 1px solid black;
   }
 
   #avatar-container {
