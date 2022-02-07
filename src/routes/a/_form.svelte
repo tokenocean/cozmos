@@ -1,5 +1,5 @@
 <script>
-  import { err, goto } from "$lib/utils";
+  import { err, goto, sats, val } from "$lib/utils";
   import { FileUpload, FormItem, PhotoGallery } from "$comp";
   import { browser } from "$app/env";
   import { query } from "$lib/api";
@@ -25,19 +25,28 @@
 
   export let artwork;
   export let files = [];
-  export let title;
 
-  export let list_price, reserve_price, start, end;
-
-  let input, items, loading, timer, fiat, fiat_price;
-  let vid;
+  let list_price,
+    reserve_price,
+    start,
+    end,
+    input,
+    items,
+    loading,
+    timer,
+    fiat,
+    fiat_price,
+    vid;
   let fixed = $rate;
 
-  $: list_price = fiat_price && (fiat_price / fixed).toFixed(8);
-  $: reserve_price = fiat_price && (fiat_price / fixed).toFixed(8);
+  $: if (fiat_price) list_price = (fiat_price / fixed).toFixed(8);
+  $: if (fiat_price) reserve_price = (fiat_price / fixed).toFixed(8);
 
-  // $: artwork.list_price = sats(artwork.asking_asset, list_price);
-  /* $: artwork.auction_start = sats(artwork.asking_asset, list_price); */
+  list_price = val(artwork.asking_asset, artwork.list_price);
+  console.log("LP", list_price);
+
+  $: if (list_price)
+    artwork.list_price = sats(artwork.asking_asset, list_price);
   /* $: artwork.auction_end = sats(artwork.asking_asset, list_price); */
 
   let toggleFiat = () => {
@@ -81,12 +90,18 @@
 
   $: updateDates(start_date, start_time, end_date, end_time);
   let updateDates = () => {
-    start = parse(
+    console.log("updating dates");
+    artwork.auction_start = parse(
       `${start_date} ${start_time}`,
       "yyyy-MM-dd HH:mm",
       new Date()
     );
-    end = parse(`${end_date} ${end_time}`, "yyyy-MM-dd HH:mm", new Date());
+    artwork.auction_end = parse(
+      `${end_date} ${end_time}`,
+      "yyyy-MM-dd HH:mm",
+      new Date()
+    );
+    console.log(artwork.auction_start, artwork.auction_end);
   };
 
   $: images = files.filter((f) => f.type === "gallery");
@@ -99,17 +114,6 @@
 
     artwork[file.type] = [file];
     if (vid) vid.load();
-  };
-
-  const debounce = (v) => {
-    loading = true;
-    artwork.title = v;
-    artwork.ticker = "";
-    clearTimeout(timer);
-    timer = setTimeout(() => {
-      title = v;
-      loading = false;
-    }, 550);
   };
 
   onMount(() => {
@@ -147,18 +151,11 @@
     AUCTION: "AUCTION",
   };
 
-  export let listingType = TYPES.FIXED;
+  let listingType = TYPES.FIXED;
 
   function selectListingType(type) {
     if (type === TYPES.AUCTION) enableAuction();
     return () => {
-      list_price = "";
-      reserve_price = "";
-      fiat_price = "";
-      artwork.list_price = "";
-      artwork.reserve_price = "";
-      artwork.auction_end = "";
-      artwork.auction_start = "";
       listingType = type;
     };
   }
@@ -369,8 +366,7 @@
                 />
               </g></svg
             >
-            Time Auction<br />
-            English - Dutch auction
+            Auction<br />
           </div>
         </div>
       </div>
@@ -383,6 +379,8 @@
         {#if listingType === TYPES.FIXED}
           <FormItem title="Price">
             <div class="flex">
+              {artwork.list_price}
+              {list_price}
               {#if fiat}
                 <input
                   min="1"

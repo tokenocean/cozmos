@@ -11,6 +11,7 @@
 import { v4 } from "uuid";
 import { query, hasura } from "$lib/api";
 import { tick } from "svelte";
+import { get } from "svelte/store";
 import {
   edition as artworkCreateEditionInProgress,
   psbt,
@@ -22,8 +23,17 @@ import {
   createComment,
   updateArtworkWithRoyaltyRecipients,
 } from "$queries/artworks";
+import { createTransaction } from "$queries/transactions";
 import { btc, dev, err, kebab } from "$lib/utils";
-import { createIssuance, sign, broadcast, parseAsset } from "$lib/wallet";
+import {
+  createSwap,
+  cancelSwap,
+  createIssuance,
+  sign,
+  broadcast,
+  parseAsset,
+  signAndBroadcast,
+} from "$lib/wallet";
 import branding from "$lib/branding";
 import {
   format,
@@ -352,20 +362,18 @@ export default class Core {
       throw new Error("Start date must precede end date");
 
     if (compareAsc(parseISO(artwork.auction_end), new Date()) < 1) {
-      await requirePassword();
-
       let base64, tx;
       if (royalty_value) {
         tx = await signOver(artwork, tx);
-        artwork.auction_tx = $psbt.toBase64();
+        artwork.auction_tx = get(psbt).toBase64();
       } else {
-        $psbt = await sendToMultisig(artwork);
-        $psbt = await signAndBroadcast();
-        base64 = $psbt.toBase64();
-        tx = $psbt.extractTransaction();
+        psbt.set(await sendToMultisig(artwork));
+        psbt.set(await signAndBroadcast());
+        base64 = get(psbt).toBase64();
+        tx = get(psbt).extractTransaction();
 
         tx = await signOver(artwork, tx);
-        artwork.auction_tx = $psbt.toBase64();
+        artwork.auction_tx = get(psbt).toBase64();
 
         artwork.auction_release_tx = (
           await createRelease(artwork, tx)
@@ -378,12 +386,12 @@ export default class Core {
           artwork_id: artwork.id,
           asset: artwork.asking_asset,
           hash: tx.getId(),
-          psbt: $psbt.toBase64(),
+          psbt: get(psbt).toBase64(),
           type: "auction",
         },
       });
 
-      if (base64) $psbt = Psbt.fromBase64(base64);
+      if (base64) psbt.set(Psbt.fromBase64(base64));
     }
   }
 
@@ -391,8 +399,7 @@ export default class Core {
     if (artwork.has_royalty || !royalty_value) return true;
 
     if (!artwork.auction_end) {
-      await requirePassword();
-      $psbt = await sendToMultisig(artwork);
+      psbt.set(await sendToMultisig(artwork));
       await signAndBroadcast();
     }
 
@@ -401,8 +408,8 @@ export default class Core {
         amount: 1,
         artwork_id: artwork.id,
         asset: artwork.asking_asset,
-        hash: $psbt.extractTransaction().getId(),
-        psbt: $psbt.toBase64(),
+        hash: get(psbt).extractTransaction().getId(),
+        psbt: get(psbt).toBase64(),
         type: "royalty",
       },
     });
@@ -412,52 +419,47 @@ export default class Core {
     info("Royalties activated!");
   }
 
-  async setupSwaps(artwork, price) {
+  async setupSwaps(artwork, current) {
     if (
-      !price ||
-      (!artwork.stale && parseInt(artwork.list_price || 0) === price)
+      !artwork.list_price ||
+      (!artwork.stale &&
+        parseInt(current?.list_price || 0) === artwork.list_price)
     )
       return true;
 
     let tx;
-    if (artwork.stale) tx = $psbt.extractTransaction();
-    await requirePassword();
+    if (artwork.stale) tx = get(psbt).extractTransaction();
 
-    $psbt = await createSwap(artwork, price, tx);
+    psbt.set(await createSwap(artwork, tx));
 
     await sign(0x83);
 
-    artwork.list_price_tx = $psbt.toBase64();
+    artwork.list_price_tx = get(psbt).toBase64();
 
     await query(createTransaction, {
       transaction: {
-        amount: price,
+        amount: artwork.list_price,
         artwork_id: artwork.id,
         asset: artwork.asking_asset,
-        hash: $psbt.__CACHE.__TX.getId(),
-        psbt: $psbt.toBase64(),
+        hash: get(psbt).__CACHE.__TX.getId(),
+        psbt: get(psbt).toBase64(),
         type: "listing",
       },
     });
   }
 
-  async spendPreviousSwap(artwork, price, royalty_value) {
+  async spendPreviousSwap(artwork, current, royalty_value) {
     if (
-      !price ||
+      !artwork.list_price ||
       royalty_value ||
       artwork.auction_end ||
-      parseInt(artwork.list_price || 0) === price
+      parseInt(current?.list_price || 0) === artwork.list_price
     )
       return true;
 
-    await requirePassword();
-
     if (artwork.list_price_tx) {
-      $psbt = await cancelSwap(artwork, 500);
+      psbt.set(await cancelSwap(artwork, 500));
 
-      if (artwork.has_royalty || artwork.auction_end) {
-        $psbt = await requestSignature($psbt);
-      }
       try {
         await signAndBroadcast();
         await query(createTransaction, {
@@ -465,8 +467,8 @@ export default class Core {
             amount: artwork.list_price,
             artwork_id: artwork.id,
             asset: artwork.asking_asset,
-            hash: $psbt.extractTransaction().getId(),
-            psbt: $psbt.toBase64(),
+            hash: get(psbt).extractTransaction().getId(),
+            psbt: get(psbt).toBase64(),
             type: "cancel",
           },
         });
@@ -482,11 +484,11 @@ export default class Core {
     }
   }
 
-  async listArtwork(artwork, price, royalty_value, files) {
+  async listArtwork(artwork, current, royalty_value, files) {
     await this.setupAuction(artwork, royalty_value);
-    await this.spendPreviousSwap(artwork, price, royalty_value);
+    await this.spendPreviousSwap(artwork, current, royalty_value);
     await this.setupRoyalty(artwork, royalty_value);
-    await this.setupSwaps(artwork, price);
+    await this.setupSwaps(artwork, current);
 
     let { id } = artwork;
 
@@ -495,26 +497,17 @@ export default class Core {
       await this.createFile(id, file);
     }
 
-    let {
-      asset: a,
-      ticker,
-      slug,
-      royalty_recipients,
-      owner,
-      artist,
-      main,
-      cover,
-      thumb,
-      video,
-      gallery,
-      tags,
-      ...stripped
-    } = artwork;
+    let { list_price, reserve_price, auction_start, auction_end } = artwork;
 
-    stripped.editions = 1;
+    console.log("list artwork", auction_start, auction_end);
 
     query(updateArtworkWithRoyaltyRecipients, {
-      artwork: stripped,
+      artwork: {
+        list_price,
+        reserve_price,
+        auction_start,
+        auction_end,
+      },
       id,
       royaltyRecipients: royalty_value
         ? royalty_recipients.map((item) => {

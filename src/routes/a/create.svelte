@@ -102,10 +102,7 @@
     auction_end: null,
   };
 
-  $: artwork.list_price = sats(artwork.asking_asset, list_price);
-
-  let list_price,
-    loading,
+  let loading,
     input,
     initialized,
     reserve_price,
@@ -147,8 +144,6 @@
 
   royalty_recipients = artwork.royalty_recipients;
 
-  if (!list_price && artwork.list_price)
-    list_price = val(artwork.asking_asset, artwork.list_price);
   if (!royalty_value)
     royalty_value = royalty_recipients.reduce(
       (a, b) => a + (b["amount"] || 0),
@@ -193,23 +188,18 @@
         auction_end = end;
       }
 
+      artwork.editions = 1;
+
       let { id, asset } = await core.createArtwork({
-        artwork: {
-          ...artwork,
-          auction_start,
-          auction_end,
-          editions: 1,
-          list_price: sats(artwork.asking_asset, list_price),
-          reserve_price: sats(artwork.asking_asset, reserve_price),
-        },
+        artwork,
         generateRandomTickers: true,
       });
 
       artwork.id = id;
       artwork.asset = asset;
 
-      let price = sats(artwork.asking_asset, list_price);
-      await core.listArtwork(artwork, price, royalty_value, files);
+      console.log("LISTING", artwork);
+      await core.listArtwork(artwork, null, royalty_value, files);
 
       api.url("/asset/register").post({ asset }).json().catch(console.log);
 
@@ -272,16 +262,8 @@
             >
               <Card {artwork} {preview} />
             </div>
-            <Form
-              bind:listingType
-              bind:artwork
-              bind:list_price
-              bind:reserve_price
-              bind:files
-              bind:start
-              bind:end
-              on:submit={submit}
-            />
+
+            <Form bind:artwork bind:files on:submit={submit} />
           </div>
         </div>
       </div>

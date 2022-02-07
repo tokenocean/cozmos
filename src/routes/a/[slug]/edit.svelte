@@ -37,11 +37,15 @@
 
   export let artwork;
   const core = new Core();
+  const current = { ...artwork };
+  let royalty_value;
 
   let files = artwork.files;
 
   let update = async (e) => {
     e.preventDefault();
+
+    await requirePassword();
 
     try {
       let { id, description, filename, package_content, title, tags } = artwork;
@@ -57,6 +61,8 @@
       });
 
       await query(deleteFiles, { id });
+
+      await core.listArtwork(artwork, current, royalty_value, files);
 
       for (let i = 0; i < files.length; i++) {
         let file = files[i];
@@ -79,7 +85,8 @@
       </div>
     </a>
     <h2>Edit experience</h2>
-    <Form bind:artwork bind:files title={artwork.title} on:submit={update} />
+    {artwork.list_price}
+    <Form bind:artwork bind:files on:submit={update} />
   </div>
 </div>
 

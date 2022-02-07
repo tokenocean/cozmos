@@ -93,7 +93,7 @@
     }
 
     interval = setInterval(refresh, 60000);
-    rateInterval = setInterval(getExchangeRate, 1000);
+    rateInterval = setInterval(getExchangeRate, 5000);
   }
   let open = false;
   let y;

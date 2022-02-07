@@ -904,10 +904,10 @@ export const createRelease = async ({ asset, owner }, tx) => {
   return sign();
 };
 
-export const createSwap = async (artwork, amount, tx) => {
-  let { asset, asking_asset } = artwork;
+export const createSwap = async (artwork, tx) => {
+  let { asset, asking_asset, list_price: value } = artwork;
 
-  if (asking_asset === btc && amount < DUST)
+  if (asking_asset === btc && value < DUST)
     throw new Error(
       `Minimum asking price is ${(DUST / 100000000).toFixed(8)} L-BTC`
     );
@@ -916,7 +916,7 @@ export const createSwap = async (artwork, amount, tx) => {
     asset: asking_asset,
     nonce,
     script: singlesig().output,
-    value: amount,
+    value,
   });
 
   if (tx) {
