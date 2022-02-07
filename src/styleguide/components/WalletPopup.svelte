@@ -1,9 +1,17 @@
 <script>
+  import { onDestroy } from "svelte";
   import Fa from "svelte-fa";
   import { faUser, faCopy } from "@fortawesome/free-solid-svg-icons";
   import { hasura } from "$lib/api";
   import { getArtworksByOwner } from "$queries/artworks";
-  import { asset, balances, rate, user, token } from "$lib/store";
+  import {
+    asset,
+    balances,
+    pending as pendingBalances,
+    rate,
+    user,
+    token,
+  } from "$lib/store";
   import { assetLabel, btc, val, copy } from "$lib/utils";
   import { getBalances } from "$lib/wallet";
   import { requireLogin } from "$lib/auth";
@@ -11,8 +19,11 @@
 
   if (!$asset) $asset = btc;
 
-  let balance, loading;
+  let balance, loading, pending;
   balances.subscribe((b) => b && (balance = val($asset, b[$asset] || 0)));
+  pendingBalances.subscribe(
+    (p) => p && (pending = val($asset, p[$asset] || 0))
+  );
 
   let artworks = [];
   $: init($user);
@@ -30,6 +41,9 @@
     getBalances();
     loading = false;
   };
+
+  let interval = setInterval(getBalances, 2000);
+  onDestroy(() => clearInterval(interval));
 </script>
 
 {#if $user}
@@ -67,11 +81,25 @@
         </div>
         <div class="flex font-bold text-lg border-t">
           <div class="flex-1 text-center p-2 border-r">
-            {parseFloat(balance).toFixed(4)}
-            {assetLabel($asset)}
+            <div>
+              {parseFloat(balance).toFixed(4)}
+              {assetLabel($asset)}
+            </div>
+            {#if pending}
+              <div class="text-orange-300 text-xs">
+                + {parseFloat(pending).toFixed(4)} pending
+              </div>
+            {/if}
           </div>
           <div class="flex-1 text-center p-2 ">
-            US ${(balance * $rate).toFixed(2)}
+            <div>
+              US ${(balance * $rate).toFixed(2)}
+            </div>
+            {#if pending}
+              <div class="text-orange-300 text-xs">
+                + ${parseFloat(pending * $rate).toFixed(4)}
+              </div>
+            {/if}
           </div>
         </div>
       </div>
