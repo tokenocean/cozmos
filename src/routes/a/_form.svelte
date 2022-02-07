@@ -381,8 +381,6 @@
         {#if listingType === TYPES.FIXED}
           <FormItem title="Price">
             <div class="flex">
-              {artwork.list_price}
-              {list_price}
               {#if fiat}
                 <input
                   min="1"
