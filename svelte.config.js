@@ -19,6 +19,7 @@ export default {
           $components: path.resolve("src/components"),
           $styleguide: path.resolve("src/styleguide"),
           $queries: path.resolve("src/queries"),
+          $icons: path.resolve("src/icons"),
         },
       },
       server: {

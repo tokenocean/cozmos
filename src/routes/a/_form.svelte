@@ -5,6 +5,7 @@
   import { query } from "$lib/api";
   import Fa from "svelte-fa";
   import { faQuestionCircle } from "@fortawesome/free-regular-svg-icons";
+  import { Auction, Fixed } from "$icons";
   import { page } from "$app/stores";
   import { tick } from "svelte";
   import Select from "svelte-select";
@@ -147,6 +148,7 @@
   };
 
   const TYPES = {
+    UNLISTED: "UNLISTED",
     FIXED: "FIXED",
     AUCTION: "AUCTION",
   };
