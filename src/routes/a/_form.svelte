@@ -43,7 +43,7 @@
   $: if (fiat_price) list_price = (fiat_price / fixed).toFixed(8);
   $: if (fiat_price) reserve_price = (fiat_price / fixed).toFixed(8);
 
-  list_price = val(artwork.asking_asset, artwork.list_price);
+  list_price = val(artwork.asking_asset, artwork.list_price) || "";
 
   $: if (list_price)
     artwork.list_price = sats(artwork.asking_asset, list_price);
@@ -465,28 +465,18 @@
 </form>
 
 <style lang="scss">
+  .sell-type {
+    &.active {
+      @apply bg-black text-white;
+    }
+  }
+
   .cover {
     height: 14rem;
   }
 
   .nftimage {
     height: 14rem;
-  }
-
-  .sell-type {
-    svg {
-      path {
-        fill: #000;
-      }
-    }
-    &.active {
-      @apply bg-black text-white;
-      svg {
-        path {
-          fill: #fff;
-        }
-      }
-    }
   }
 
   :global(.selectContainer) {
