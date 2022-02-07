@@ -316,7 +316,7 @@
             class:active={listingType === TYPES.FIXED}
             class="sell-type cursor-pointer text-center mt-4 h-44 rounded-md border-gray-300 border flex flex-col justify-center items-center"
           >
-            <Fixed />
+            <Fixed active={listingType === TYPES.FIXED} />
             Fixed Price
           </div>
         </div>
@@ -326,7 +326,7 @@
             class:active={listingType === TYPES.AUCTION}
             class="sell-type cursor-pointer text-center mt-4 h-44 rounded-md border-gray-300 border flex flex-col justify-center items-center"
           >
-            <Auction />
+            <Auction active={listingType === TYPES.AUCTION} />
             Auction<br />
           </div>
         </div>

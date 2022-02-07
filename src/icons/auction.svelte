@@ -1,4 +1,9 @@
+<script>
+  export let active;
+</script>
+
 <svg
+  class:active
   class="w-12 h-12 mb-4"
   viewBox="0 0 100.4 100.4"
   xml:space="preserve"
@@ -13,3 +18,21 @@
     />
   </g></svg
 >
+
+<style lang="scss">
+  .sell-type {
+    svg {
+      path {
+        fill: #000;
+      }
+    }
+    &.active {
+      @apply bg-black text-white;
+      svg {
+        path {
+          fill: #fff;
+        }
+      }
+    }
+  }
+</style>
