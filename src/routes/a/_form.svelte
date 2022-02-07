@@ -1,11 +1,11 @@
 <script>
-  import { err, goto, sats, val } from "$lib/utils";
+  import { err, goto, sats, val, btc } from "$lib/utils";
   import { FileUpload, FormItem, PhotoGallery } from "$comp";
   import { browser } from "$app/env";
   import { query } from "$lib/api";
   import Fa from "svelte-fa";
   import { faQuestionCircle } from "@fortawesome/free-regular-svg-icons";
-  import { Auction, Fixed } from "$icons";
+  import { Auction, Fixed, Unlisted } from "$icons";
   import { page } from "$app/stores";
   import { tick } from "svelte";
   import Select from "svelte-select";
@@ -154,6 +154,7 @@
 
   function selectListingType(type) {
     if (type === TYPES.AUCTION) enableAuction();
+    if (type !== TYPES.UNLISTED) artwork.asking_asset = btc;
     return () => {
       listingType = type;
     };
@@ -309,7 +310,17 @@
 
   <div class="py-4">
     <FormItem title="Sell on marketplace">
-      <div class="md:grid md:gap-8 md:grid-cols-2 py-4">
+      <div class="md:grid md:gap-4 md:grid-cols-3 py-4">
+        <div>
+          <div
+            on:click={selectListingType(TYPES.UNLISTED)}
+            class:active={listingType === TYPES.UNLISTED}
+            class="sell-type cursor-pointer text-center mt-4 h-44 rounded-md border-gray-300 border flex flex-col justify-center items-center"
+          >
+            <Unlisted active={listingType === TYPES.UNLISTED} />
+            Unlisted
+          </div>
+        </div>
         <div>
           <div
             on:click={selectListingType(TYPES.FIXED)}
@@ -387,34 +398,39 @@
             {/if}
           </FormItem>
         {/if}
-        <button
-          type="button"
-          name="button"
-          class="border border-black rounded w-20 mt-1"
-          class:bg-black={!fiat}
-          class:text-white={!fiat}
-          on:click={toggleFiat}>L-BTC</button
-        >
-        <button
-          type="button"
-          name="button"
-          class="border border-black rounded w-20 mt-1"
-          class:bg-black={fiat}
-          class:text-white={fiat}
-          on:click={toggleFiat}>USD</button
-        >
-        <div class="mt-4">
-          <ul class="text-sm list-disc ml-4">
-            <li>
-              We take a 10% commission on the sale, take that<br />
-              into consideration when listing your experience.
-            </li>
-            <li class="mt-2">
-              1% will be donated to charity,<br />
-              our goal is to give back to the community.
-            </li>
-          </ul>
-        </div>
+        {#if listingType === TYPES.UNLISTED}
+          The experience will be minted and available for editing but will not
+          be visible in the marketplace until you list it.
+        {:else}
+          <button
+            type="button"
+            name="button"
+            class="border border-black rounded w-20 mt-1"
+            class:bg-black={!fiat}
+            class:text-white={!fiat}
+            on:click={toggleFiat}>L-BTC</button
+          >
+          <button
+            type="button"
+            name="button"
+            class="border border-black rounded w-20 mt-1"
+            class:bg-black={fiat}
+            class:text-white={fiat}
+            on:click={toggleFiat}>USD</button
+          >
+          <div class="mt-4">
+            <ul class="text-sm list-disc ml-4">
+              <li>
+                We take a 10% commission on the sale, take that<br />
+                into consideration when listing your experience.
+              </li>
+              <li class="mt-2">
+                1% will be donated to charity,<br />
+                our goal is to give back to the community.
+              </li>
+            </ul>
+          </div>
+        {/if}
       </div>
       <div class="mt-4 md:mt-0">
         {#if listingType === TYPES.AUCTION}

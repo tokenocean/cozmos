@@ -85,7 +85,6 @@
       </div>
     </a>
     <h2>Edit experience</h2>
-    {artwork.list_price}
     <Form bind:artwork bind:files on:submit={update} />
   </div>
 </div>
