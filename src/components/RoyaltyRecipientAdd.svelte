@@ -75,10 +75,10 @@
         id="recipientAddress"
       />
     </div>
-    <div class="mt-1 rounded-md w-1/5 pt-8">
+    <div class="mt-1 rounded-md pt-8">
       <input
         type="submit"
-        class="primary-btn btn-sm cursor-pointer mx-auto"
+        class="primary-btn btn-sm cursor-pointer mx-auto overflow-hidden"
         value="Add Recipient"
       />
     </div>

@@ -106,12 +106,10 @@
     input,
     initialized,
     reserve_price,
-    royalty_value,
     start,
     end,
     auction_enabled,
     auction_underway,
-    multi_royalty_recipients_enabled,
     royalty_recipients;
 
   let files = [];
@@ -144,12 +142,6 @@
 
   royalty_recipients = artwork.royalty_recipients;
 
-  if (!royalty_value)
-    royalty_value = royalty_recipients.reduce(
-      (a, b) => a + (b["amount"] || 0),
-      0
-    );
-  multi_royalty_recipients_enabled = !!royalty_value;
   if (!reserve_price && artwork.reserve_price)
     reserve_price = val(artwork.asking_asset, artwork.reserve_price);
 
@@ -199,7 +191,7 @@
       artwork.asset = asset;
 
       console.log("LISTING", artwork);
-      await core.listArtwork(artwork, null, royalty_value, files);
+      await core.listArtwork(artwork, null, files);
 
       api.url("/asset/register").post({ asset }).json().catch(console.log);
 

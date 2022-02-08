@@ -24,7 +24,7 @@ import {
   updateArtworkWithRoyaltyRecipients,
 } from "$queries/artworks";
 import { createTransaction } from "$queries/transactions";
-import { btc, dev, err, kebab } from "$lib/utils";
+import { btc, dev, err, info, kebab } from "$lib/utils";
 import {
   createSwap,
   cancelSwap,
@@ -307,27 +307,27 @@ export default class Core {
 
       artwork.asset = asset;
 
-      let {
-        royalty_recipients,
-        owner,
-        artist,
-        main,
-        cover,
-        thumb,
-        video,
-        gallery,
-        tags: t,
-        ...stripped
-      } = artwork;
+      let { id, title, description, ticker, slug, editions, package_content } =
+        artwork;
 
       let variables = {
-        artwork: stripped,
+        artwork: {
+          id,
+          title,
+          description,
+          ticker,
+          asset,
+          slug,
+          edition,
+          editions,
+          package_content,
+        },
         transaction: {
-          artwork_id: artwork.id,
+          artwork_id: id,
           type: "creation",
           hash,
           contract,
-          asset: artwork.asset,
+          asset,
           amount: 1,
           psbt: this.psbt.toBase64(),
         },
@@ -352,7 +352,7 @@ export default class Core {
     return artwork;
   }
 
-  async setupAuction(artwork, royalty_value) {
+  async setupAuction(artwork, current) {
     let { auction_start: start, auction_end: end } = artwork;
 
     if (compareAsc(parseISO(start), new Date()) < 1)
@@ -363,7 +363,7 @@ export default class Core {
 
     if (compareAsc(parseISO(artwork.auction_end), new Date()) < 1) {
       let base64, tx;
-      if (royalty_value) {
+      if (current?.royalty_recipients.length) {
         tx = await signOver(artwork, tx);
         artwork.auction_tx = get(psbt).toBase64();
       } else {
@@ -395,8 +395,8 @@ export default class Core {
     }
   }
 
-  async setupRoyalty(artwork, royalty_value) {
-    if (artwork.has_royalty || !royalty_value) return true;
+  async setupRoyalty(artwork, current) {
+    if (current?.has_royalty) return true;
 
     if (!artwork.auction_end) {
       psbt.set(await sendToMultisig(artwork));
@@ -448,10 +448,9 @@ export default class Core {
     });
   }
 
-  async spendPreviousSwap(artwork, current, royalty_value) {
+  async spendPreviousSwap(artwork, current) {
     if (
       !artwork.list_price ||
-      royalty_value ||
       artwork.auction_end ||
       parseInt(current?.list_price || 0) === artwork.list_price
     )
@@ -484,10 +483,10 @@ export default class Core {
     }
   }
 
-  async listArtwork(artwork, current, royalty_value, files) {
-    await this.setupAuction(artwork, royalty_value);
-    await this.spendPreviousSwap(artwork, current, royalty_value);
-    await this.setupRoyalty(artwork, royalty_value);
+  async listArtwork(artwork, current, files) {
+    await this.setupAuction(artwork, current);
+    await this.spendPreviousSwap(artwork, current);
+    await this.setupRoyalty(artwork, current);
     await this.setupSwaps(artwork, current);
 
     let { id } = artwork;
@@ -497,9 +496,16 @@ export default class Core {
       await this.createFile(id, file);
     }
 
-    let { list_price, reserve_price, auction_start, auction_end } = artwork;
+    let {
+      list_price,
+      asking_asset,
+      reserve_price,
+      auction_start,
+      auction_end,
+      royalty_recipients,
+    } = artwork;
 
-    console.log("list artwork", auction_start, auction_end);
+    console.log("ROY", royalty_recipients);
 
     query(updateArtworkWithRoyaltyRecipients, {
       artwork: {
@@ -507,16 +513,15 @@ export default class Core {
         reserve_price,
         auction_start,
         auction_end,
+        asking_asset,
       },
       id,
-      royaltyRecipients: royalty_value
-        ? royalty_recipients.map((item) => {
-            delete item.id;
-            item.artwork_id = id;
-            item.asking_asset = artwork.asking_asset;
-            return item;
-          })
-        : [],
+      royaltyRecipients: royalty_recipients.map((item) => {
+        delete item.id;
+        item.artwork_id = id;
+        item.asking_asset = artwork.asking_asset;
+        return item;
+      }),
     }).catch(err);
   }
 }

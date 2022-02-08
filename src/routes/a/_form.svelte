@@ -8,6 +8,7 @@
   import { Auction, Fixed, Unlisted } from "$icons";
   import { page } from "$app/stores";
   import { tick } from "svelte";
+  import { RoyaltyRecipientList } from "$comp";
   import Select from "svelte-select";
   import { onMount } from "svelte";
   import Button from "$styleguide/components/Button.svelte";
@@ -38,6 +39,7 @@
     fiat,
     fiat_price,
     vid;
+
   let fixed = $rate;
 
   $: if (fiat_price) list_price = (fiat_price / fixed).toFixed(8);
@@ -316,6 +318,17 @@
     </FormItem>
   </div>
 
+  <div class="py-4">
+    <FormItem title="Royalties">
+      <RoyaltyRecipientList
+        bind:items={artwork.royalty_recipients}
+        maxTotalRate={100}
+        askingAsset={artwork.asking_asset}
+        artist={artwork.artist}
+      />
+    </FormItem>
+  </div>
+
   <hr class="my-4" />
 
   <div class="py-4">
@@ -428,6 +441,7 @@
             class:text-white={fiat}
             on:click={toggleFiat}>USD</button
           >
+
           <div class="mt-4">
             <ul class="text-sm list-disc ml-4">
               <li>

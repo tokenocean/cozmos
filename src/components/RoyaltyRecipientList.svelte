@@ -9,9 +9,7 @@
   export let artist;
 
   const validate = (newRecipient) => {
-    const currentItemsRoyaltySum = calculateRoyaltyValue();
-
-    if (maxTotalRate - currentItemsRoyaltySum - newRecipient.amount < 0) {
+    if (maxTotalRate - royaltyValue - newRecipient.amount < 0) {
       err("Sum of royalty rates should not be more than 100%");
       return false;
     }
@@ -19,25 +17,21 @@
     return true;
   };
 
-  const calculateRoyaltyValue = () => {
-    return items.reduce((a, b) => {
-      return a + b["amount"];
-    }, 0);
-  };
+  $: royaltyValue = items.reduce((a, b) => {
+    return a + b["amount"];
+  }, 0);
 
   const addRecipient = (e) => {
     const { newRecipient, cb } = e.detail;
 
     if (validate(newRecipient)) {
       items = [...items, newRecipient];
-      royaltyValue = calculateRoyaltyValue();
       cb();
     }
   };
 
   const removeRecipient = (e) => {
     items = items.filter((recipient) => recipient.name !== e.detail);
-    royaltyValue = calculateRoyaltyValue();
   };
 
   const addressIsInList = (address) => {
