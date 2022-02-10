@@ -53,7 +53,7 @@
   });
 </script>
 
-<div class="backgroundBlack mt-20 md:mt-0 form-container px-4">
+<div class="backgroundBlack form-container px-4">
   <form
     class="mb-6 rounded-xl bg-black"
     on:submit|preventDefault={login}
@@ -144,18 +144,5 @@
 
   .underline {
     text-decoration: underline;
-  }
-
-  @media only screen and (max-width: 640px) {
-    .form-container {
-      background: none;
-      height: auto;
-    }
-
-    .form-container form {
-      box-shadow: none;
-      padding: 0.2rem;
-      margin-top: 50px;
-    }
   }
 </style>

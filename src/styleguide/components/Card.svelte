@@ -21,6 +21,7 @@
   export let titleOnly = false;
   export let textSize0 = "text-xs";
   export let textSize1 = "text-sm";
+  export let height = "h-20";
 
   let sats, val, ticker;
   $: if (artwork) [sats, val, ticker] = units(artwork.asking_asset);
@@ -70,7 +71,7 @@
     }}
     type="button"
     name="button"
-    class="w-full md:w-3/5 mb-6 md:mb-0 mx-auto backgroundGradientPurple p-2 rounded-xl text-white font-bold m-2"
+    class="w-full lg:w-3/5 mb-6 md:mb-0 mx-auto backgroundGradientPurple p-2 rounded-xl text-white font-bold m-2"
     >Explore experience</button
   >
 {/if}
@@ -121,22 +122,20 @@
     {#if artwork.reserve_price}
       <a href={`/a/${artwork.slug}`} class="w-full">
         <div
-          class="auction-item-background-gradient h-20 p-4 flex justify-between"
+          class="auction-item-background-gradient {height} p-4 flex justify-between"
           class:summary
         >
           <div class="flex-1 mr-2">
             <div class={textSize0} class:text-gray-300={summary}>
               Reserve Price
             </div>
-            <div class="{textSize1} flex justify-start font-bold">
+            <div class="{textSize1} font-bold">
               <div class:text-white={summary}>
                 {val(artwork.reserve_price)}
                 {ticker}
               </div>
-              <div class="ml-2 currency-arrow-font" class:text-white={summary}>
-                &#62;
-              </div>
-              <div class="ml-2" class:text-gray-300={summary}>
+
+              <div class:text-gray-300={summary}>
                 {currencyConversion(artwork.reserve_price)}
               </div>
             </div>
@@ -158,25 +157,20 @@
     {:else}
       <a href={`/a/${artwork.slug}`} class="w-full">
         <div
-          class="bg-gradient-to-r from-cyan-300 via-purple-500 to-pink-600 h-20 p-4 px-6 flex justify-between"
+          class="bg-gradient-to-r from-cyan-300 via-purple-500 to-pink-600 {height} p-4 px-6 flex justify-between"
           class:summary
         >
           <div class="flex-1 mr-4">
             <div class={textSize0} class:text-gray-300={summary}>Buy now</div>
-            <div class="{textSize1} text-base flex justify-start font-bold">
+            <div class="{textSize1} text-base font-bold">
               {#if artwork.list_price}
                 <div class={textSize1} class:text-white={summary}>
                   {val(artwork.list_price)}
                   {ticker}
                 </div>
               {/if}
-              <div
-                class="{textSize1} ml-2 currency-arrow-font"
-                class:text-white={summary}
-              >
-                &#62;
-              </div>
-              <div class="{textSize1} ml-2" class:text-gray-300={summary}>
+
+              <div class={textSize1} class:text-gray-300={summary}>
                 {#if artwork.list_price}
                   {currencyConversion(artwork.list_price, ticker)}
                 {:else}

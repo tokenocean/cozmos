@@ -3,7 +3,7 @@
 </script>
 
 <div
-  class="z-10 absolute left-1/2 bg-white shadow-md w-80 -ml-40 mt-16 rounded-xl overflow-hidden"
+  class="z-10 absolute left-1/2 bg-white shadow-md w-80 -ml-72 mt-16 rounded-xl overflow-hidden"
 >
   <div class="bg-black p-4 flex items-center justify-between">
     <div class="flex items-center text-white">

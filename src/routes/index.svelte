@@ -140,22 +140,22 @@
       />
     </div>
     <div
-      class="featuredBackground feature block md:flex items-center justify-center h-auto md:h-[100vh]"
+      class="featuredBackground feature block lg:flex items-center justify-center h-auto lg:h-[100vh]"
     >
-      <div class="mx-auto flex md:block justify-center w-9/12 md:w-1/2">
+      <div class="mx-auto flex lg:block justify-center w-9/12 lg:w-1/2">
         <div
-          class="drop rounded-3xl mx-auto w-auto my-6 md:my-0"
+          class="drop rounded-3xl mx-auto w-auto my-6 lg:my-0"
           style="width: 300px"
         >
           <ArtworkMedia artwork={filtered[0]} featured={true} />
         </div>
       </div>
       <div
-        class="mx-auto w-full md:w-1/2 background h-full flex justify-center items-center"
+        class="mx-auto w-full lg:w-1/2 background h-full flex justify-center items-center"
       >
-        <div class="w-full ml-0 md:ml-48 pt-6 md:pt-0">
+        <div class="w-full ml-0 lg:ml-48 pt-4 lg:pt-6 lg:pt-0">
           <h2
-            class="text-3xl text-white w-full md:w-1/2 text-center md:text-left"
+            class="text-3xl text-white w-full lg:w-1/2 text-center lg:text-left"
           >
             <Card
               artwork={filtered[0]}
@@ -165,7 +165,7 @@
             />
           </h2>
           <p
-            class="text-xl text-secondary font-bold m-2 text-center md:text-left"
+            class="text-xl text-secondary font-bold m-2 text-center lg:text-left"
           >
             Creator: <span class="font-normal"
               ><Card
@@ -176,12 +176,13 @@
               /></span
             >
           </p>
-          <div class="w-full md:w-3/5">
+          <div class="w-full lg:w-3/5">
             <Card
               artwork={filtered[0]}
               summary={true}
               textSize0={"text-lg"}
               textSize1={"text-xl"}
+              height={"h-auto"}
             />
           </div>
           <Card

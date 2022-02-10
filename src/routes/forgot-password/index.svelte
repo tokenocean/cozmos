@@ -17,10 +17,7 @@
   $: if (ref) pageChange($page);
 </script>
 
-<div
-  class="backgroundBlack mt-20 md:mt-0 form-container"
-  key={$page.url.pathname}
->
+<div class="backgroundBlack px-4 form-container" key={$page.url.pathname}>
   <form
     class="mb-6 bg-black rounded-xl"
     on:submit|preventDefault={forgot}
@@ -81,18 +78,5 @@
     border: 1px solid grey;
     background-color: black;
     color: white;
-  }
-
-  @media only screen and (max-width: 640px) {
-    .form-container {
-      background: none;
-      height: auto;
-    }
-
-    .form-container form {
-      box-shadow: none;
-      padding: 0.2rem;
-      margin-top: 50px;
-    }
   }
 </style>
