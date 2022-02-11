@@ -5,7 +5,7 @@
 <div class="container mx-auto flex py-10 md:py-20">
   <Nav />
   <div class="wallet-container px-2 md:px-0">
-    <div class="wallet-content">
+    <div class="w-full md:w-[50%]">
       <slot />
     </div>
   </div>
@@ -28,19 +28,11 @@
     position: relative;
   }
 
-  .wallet-content {
-    width: 412px;
-  }
-
   @media (max-width: 1023px) {
     .container {
       flex-wrap: wrap;
       padding-left: 0;
       padding-right: 0;
-    }
-
-    .wallet-content {
-      width: 100%;
     }
   }
 </style>

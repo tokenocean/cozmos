@@ -22,9 +22,7 @@
   $: displayMnemonic($page, $user);
 </script>
 
-<div
-  class="border border-white container bg-black rounded-xl p-10 drop text-white mt-20"
->
+<div class="border container bg-black rounded-xl p-10 drop text-white mt-20">
   {#if mnemonic}
     <p class="text-center">
       Write down the following 12 words in the correct order:
@@ -41,7 +39,7 @@
         class="pagination w-auto m-2"
         class:active={offset === 0}><Fa icon={faChevronLeft} /></button
       >
-      <div class="mx-auto px-10 border-style rounded-xl mt-4">
+      <div class="mx-auto px-4 lg:px-20 xl:px-32 border-style rounded-xl mt-4">
         {#each mnemonic.split(" ").slice(offset, offset + 6) as word, i}
           <div class="text-xl text-center mx-4 my-2">
             <p class="word"><b>{i + 1 + offset}.</b> {word}</p>
@@ -85,6 +83,10 @@
 </div>
 
 <style>
+  .border {
+    border: 1px solid grey;
+  }
+
   .pagination {
     color: lightgray;
     padding: 7px;

@@ -45,14 +45,14 @@
 
 <div class="backgroundBlack form-container px-4">
   <form
-    class="mb-6 bg-black rounded-xl"
+    class="mb-6 rounded-xl bg-black w-full xl:w-[30%]"
     on:submit|preventDefault={submit}
     autocomplete="off"
   >
     {#if loading}
       <ProgressLinear />
     {:else if registered}
-      <h2 class="mb-8 text-white">Registered!</h2>
+      <h2 class="mb-8 text-white text-center">Registered!</h2>
       <p class="text-white text-center">
         Thanks for registering. Please check your email for an activation link.
       </p>
@@ -65,7 +65,7 @@
         <a href="/login">Continue to sign in page</a></Button
       >
     {:else}
-      <h2 class="mb-8 text-white">Sign Up</h2>
+      <h2 class="mb-8 text-white text-center">Sign Up</h2>
       <div class="flex flex-col mb-4">
         <label class="mb-2 font-medium text-white" for="first_name">Email</label
         >
@@ -156,10 +156,9 @@
   }
 
   .form-container form {
-    width: 100%;
-    max-width: 450px;
+    max-width: 550px;
     padding: 40px;
-    border: 1px solid white;
+    border: 1px solid grey;
   }
 
   input {

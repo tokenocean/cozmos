@@ -19,11 +19,11 @@
 
 <div class="backgroundBlack px-4 form-container" key={$page.url.pathname}>
   <form
-    class="mb-6 bg-black rounded-xl"
+    class="mb-6 rounded-xl bg-black w-full xl:w-[30%]"
     on:submit|preventDefault={forgot}
     autocomplete="off"
   >
-    <h2 class="mb-8 text-white">Recover Password</h2>
+    <h2 class="mb-8 text-white text-center">Recover Password</h2>
     {#if sending}
       <p class="my-4 text-white">
         Thank you, please check your email for the recovery link.
@@ -65,10 +65,9 @@
   }
 
   .form-container form {
-    width: 100%;
-    max-width: 450px;
+    max-width: 550px;
     padding: 40px;
-    border: 1px solid white;
+    border: 1px solid grey;
   }
 
   input {

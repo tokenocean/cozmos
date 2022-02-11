@@ -85,27 +85,16 @@
   };
 </script>
 
-<div class="border border-white p-5 bg-black rounded-xl text-white mt-20">
-  <div class="flex flex-col">
+<div class="border p-5 bg-black rounded-xl text-white mt-20">
+  <div class="flex flex-col text-center mb-6">
     <p>Enter your backup phrase in the correct order:</p>
-
-    {#if !bulk}
-      <div class="text-right mt-5">
-        <ToggleSwitch
-          id="list-price"
-          label="Show words"
-          on:change={(e) => (show = e.target.checked)}
-          checked={show}
-        />
-      </div>
-    {/if}
   </div>
 
   {#if bulk}
     <textarea
       bind:value={typed}
       placeholder="Type or paste your seed here"
-      class="my-4 w-full"
+      class="my-4 w-full rounded-lg"
       on:blur={setMnemonic}
     />
   {:else}
@@ -120,6 +109,7 @@
                 on:keydown={(e) => keyup(i, e)}
                 key={i}
                 bind:this={inputs[i]}
+                class="rounded-lg my-1"
               />
             {:else}
               <input
@@ -128,6 +118,7 @@
                 key={i}
                 bind:this={inputs[i]}
                 type="password"
+                class="rounded-lg my-1"
               />
             {/if}
           </div>
@@ -143,6 +134,7 @@
                 on:keydown={(e) => keyup(i + 6, e)}
                 bind:this={inputs[i + 6]}
                 key={i + 6}
+                class="rounded-lg my-1"
               />
             {:else}
               <input
@@ -151,6 +143,7 @@
                 bind:this={inputs[i + 6]}
                 key={i + 6}
                 type="password"
+                class="rounded-lg my-1"
               />
             {/if}
           </div>
@@ -166,21 +159,36 @@
       {/each}
     </div>
   {/if}
-
-  <p class="my-4">
-    {#if bulk}
-      <a class="my-2" href="/" on:click|preventDefault={toggle}
-        >I want to enter one word at a time</a
-      >
-    {:else}
-      <a class="my-2" href="/" on:click|preventDefault={toggle}
-        >I want to type in a text box</a
-      >
+  <div class="block lg:flex justify-between">
+    <p class="my-4">
+      {#if bulk}
+        <a class="my-2" href="/" on:click|preventDefault={toggle}
+          >I want to enter one word at a time</a
+        >
+      {:else}
+        <a class="my-2" href="/" on:click|preventDefault={toggle}
+          >I want to type in a text box</a
+        >
+      {/if}
+    </p>
+    {#if !bulk}
+      <div class="text-right mt-5">
+        <ToggleSwitch
+          id="list-price"
+          label="Show words"
+          on:change={(e) => (show = e.target.checked)}
+          checked={show}
+        />
+      </div>
     {/if}
-  </p>
+  </div>
 </div>
 
 <style>
+  .border {
+    border: 1px solid grey;
+  }
+
   input {
     @apply pb-1;
     width: 75%;

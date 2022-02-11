@@ -9,10 +9,8 @@
   } from "@fortawesome/free-solid-svg-icons";
 </script>
 
-<div
-  class="border border-white w-full px-5 md:px-0 bg-black rounded-xl p-10 drop mt-20"
->
-  <div class="px-6 text-white">
+<div class="border w-full px-5 md:px-0 bg-black rounded-xl p-10 drop mt-20">
+  <div class="w-full md:w-2/3 mx-auto px-6 text-white">
     <p class="text-xl mb-10">
       You'll need to know your backup phrase. Some things to have in mind:
     </p>
@@ -51,6 +49,10 @@
 </div>
 
 <style>
+  .border {
+    border: 1px solid grey;
+  }
+
   li {
     margin-bottom: 30px;
   }
