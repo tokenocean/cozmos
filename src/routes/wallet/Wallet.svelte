@@ -115,7 +115,7 @@
   </div>
 {:else if $balances && $pending}
   <div class="w-full mt-20">
-    <div class="border border-white bg-black mb-2 pt-1 sm:rounded-lg">
+    <div class="border bg-black mb-2 pt-1 sm:rounded-lg">
       <div
         class="flex inline-block text-center text-white text-xl mt-5 font-bold pr-8"
       >
@@ -184,5 +184,9 @@
 
   .bg-custom-orange {
     background: $color-orange-80;
+  }
+
+  .border {
+    border: 1px solid grey;
   }
 </style>

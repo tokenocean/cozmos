@@ -124,7 +124,7 @@
 </script>
 
 {#if $user && funding}
-  <div class="border border-white bg-black mb-2 md:rounded-lg p-5">
+  <div class="border bg-black mb-2 md:rounded-lg p-5">
     <div class="flex justify-between place-items-center text-white">
       <p class="font-semibold">Fund Wallet</p>
       <!--      hide this temporary, during find the fix how to manage page.params.action and funding binding-->
@@ -243,6 +243,10 @@
 {/if}
 
 <style lang="scss">
+  .border {
+    border: 1px solid grey;
+  }
+
   .hover {
     @apply border-b-2 border-orange;
   }

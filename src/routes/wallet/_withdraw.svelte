@@ -58,7 +58,7 @@
 
 {#if $user && withdrawing}
   <form
-    class="border border-white text-white bg-black md:rounded-lg p-5 w-full flex flex-col"
+    class="border text-white bg-black md:rounded-lg p-5 w-full flex flex-col"
     on:submit|preventDefault={send}
     autocomplete="off"
   >
@@ -114,5 +114,8 @@
   select {
     @apply rounded-lg p-2 text-black;
     margin-top: 10px;
+  }
+  .border {
+    border: 1px solid grey;
   }
 </style>

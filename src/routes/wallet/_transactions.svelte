@@ -42,7 +42,7 @@
   ];
 </script>
 
-<div class="mb-4 border border-white rounded overflow-auto h-96 px-5 sm:px-0">
+<div class="mb-4 border rounded overflow-auto h-96 px-5 sm:px-0">
   {#if !txns.length}
     <p class="text-center mt-10 text-white text-lg">No transactions yet.</p>
   {/if}
@@ -86,6 +86,9 @@
 </div>
 
 <style>
+  .border {
+    border: 1px solid grey;
+  }
   .pending {
     @apply text-orange-400;
   }
