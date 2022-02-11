@@ -3,6 +3,16 @@
   import Seed from "../_seed.svelte";
   import { getMnemonic } from "$lib/wallet";
   import Button from "$styleguide/components/Button.svelte";
+  import { prompt } from "$lib/store";
+  import { WalletSuccess } from "$comp";
+
+  let showWalletSuccess = () => {
+    $prompt = {
+      component: WalletSuccess,
+      hide: true,
+      dark: true,
+    };
+  };
 
   let importWallet;
   let mnemonic;
@@ -11,6 +21,7 @@
     if (mnemonic !== getMnemonic())
       return err("Failed to validate backup phrase, please try again");
     await importWallet(mnemonic);
+    showWalletSuccess();
   };
 </script>
 

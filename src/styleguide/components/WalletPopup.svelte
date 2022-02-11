@@ -16,6 +16,8 @@
   import { getBalances } from "$lib/wallet";
   import { requireLogin } from "$lib/auth";
   import { page } from "$app/stores";
+  export let styles =
+    "wallet z-10 absolute left-1/2 bg-white shadow-md w-80 -ml-20 mt-16 rounded-xl overflow-hidden";
 
   if (!$asset) $asset = btc;
 
@@ -47,10 +49,10 @@
 </script>
 
 {#if $user}
-  <div
-    class="wallet z-10 absolute left-1/2 bg-white shadow-md w-80 -ml-20 mt-16 rounded-xl overflow-hidden"
-  >
-    <div class="bg-black h-12 p-4 flex items-center justify-between">
+  <div class={styles}>
+    <div
+      class="rounded-t-lg background h-12 p-4 flex items-center justify-between"
+    >
       <div class="flex items-center text-white">
         <a href="/wallet" class="flex items-center text-white" on:click>
           <Fa icon={faUser} class="mr-4" /> @{$user.username}
@@ -104,20 +106,20 @@
         </div>
       </div>
       <div class="text-black flex items-center mt-2">
-        <div class="flex-1 mr-4">
+        <div class="flex-1 mr-2">
           <a href="/wallet/fund">
             <button
-              class="w-full text-xs border border-gray-300 text-gray-500 rounded font-semibold py-1"
+              class="w-full text-sm border border-gray-300 text-white font-bold rounded-lg bg-gray-300 py-3"
               on:click
             >
               Fund
             </button>
           </a>
         </div>
-        <div class="flex-1 ml-4">
+        <div class="flex-1 ml-2">
           <a href="/wallet/withdraw">
             <button
-              class="w-full text-xs border border-gray-300 text-gray-500 rounded font-semibold py-1"
+              class="w-full text-sm border border-gray-300 text-white font-bold rounded-lg bg-gray-300 py-3"
               on:click
             >
               Withdraw
@@ -130,6 +132,16 @@
 {/if}
 
 <style lang="scss">
+  .background {
+    background: linear-gradient(
+      90deg,
+      #fa7900 0%,
+      #df36b4 43%,
+      #0063ea 77%,
+      #00eaaf 100%
+    );
+  }
+
   @import "../theme";
   .wallet {
     font-family: $font-family;

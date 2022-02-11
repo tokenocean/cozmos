@@ -19,7 +19,7 @@
 
   function dark() {
     if ($prompt.dark) {
-      return "bg-black";
+      return "bg-black border border-gray-500";
     }
   }
 </script>
