@@ -65,7 +65,7 @@
 </script>
 
 <div
-  class="w-full flex justify-between text-center items-center menu relative whitespace-nowrap"
+  class="flex justify-between text-center items-center menu relative whitespace-nowrap"
 >
   {#if $user}
     <div class="relative flex lg:flex">
