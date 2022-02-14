@@ -64,6 +64,7 @@
     PhotoGallery,
     ProgressLinear,
     RoyaltyInfo,
+    ConfirmRedeem,
   } from "$comp";
   import Sidebar from "./_sidebar.svelte";
   import Comments from "./_comments.svelte";
@@ -262,12 +263,16 @@
     amountInput.focus();
   };
 
-  let loading;
-  let redeem = async () => {
-    await api.url("/redeem").auth(`Bearer ${$token}`).post({
-      id: artwork.id,
-    });
+  let showConfirm = () => {
+    $prompt = {
+      component: ConfirmRedeem,
+      hide: true,
+      artwork,
+    };
   };
+
+  let loading;
+  let redeem = () => showConfirm();
 
   let buyNow = async () => {
     try {

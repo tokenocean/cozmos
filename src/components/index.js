@@ -2,6 +2,7 @@ export { default as Activity } from "./Activity.svelte";
 export { default as AcceptOffer } from "./AcceptOffer.svelte";
 export { default as ArtworkMedia } from "./ArtworkMedia.svelte";
 export { default as Avatar } from "./Avatar.svelte";
+export { default as ConfirmRedeem } from "./ConfirmRedeem.svelte";
 export { default as Congrats } from "./Congrats.svelte";
 export { default as ConnectWallet } from "./ConnectWallet.svelte";
 export { default as Dialog } from "./Dialog.svelte";
