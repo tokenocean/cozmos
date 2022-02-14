@@ -150,7 +150,7 @@
             <div class="w-full">
               <p class="font-bold text-center">Upload a profile image</p>
               <div
-                class="w-[80%] mx-auto hover:border-black border-2 border-gray-300 rounded-xl mb-8"
+                class="w-full mx-auto hover:border-black border border-gray-300 rounded-xl mb-8"
               >
                 {#if ($user.avatar_url && $user.avatar_url.length) || avatarPreviewEnable === true}
                   <img
@@ -171,7 +171,7 @@
             <div class="w-full">
               <p class="font-bold text-center">Upload a cover image</p>
               <div
-                class="w-[80%] mx-auto hover:border-black border-2 border-gray-300 rounded-xl mb-8"
+                class="w-full mx-auto hover:border-black border border-gray-300 rounded-xl mb-8"
               >
                 {#if ($user.cover_photo_url && $user.cover_photo_url.length) || coverPreviewEnable === true}
                   <img

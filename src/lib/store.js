@@ -39,3 +39,4 @@ export const token = writable();
 export const transactions = writable([]);
 export const user = writable();
 export const wallet = writable();
+export const headerHeight = writable();

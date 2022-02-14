@@ -4,6 +4,7 @@
   import Hamburger from "$components/Hamburger.svelte";
   import Menu from "./Menu.svelte";
   import Logo from "$styleguide/components/Logo.svelte";
+  import { headerHeight } from "$lib/store";
 
   export let mobileScreen = false;
   export let sidebar = false;
@@ -12,6 +13,7 @@
 <header
   class:mobileScreen
   class="px-4 py-4 sm:h-14 lg:h-auto fixed top-0 w-full"
+  bind:clientHeight={$headerHeight}
 >
   <div class="mx-auto flex container items-center justify-between">
     <nav class="flex hambuger navbar-menu">

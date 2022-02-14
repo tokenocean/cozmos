@@ -224,14 +224,14 @@
     >
       <div class="-mt-2">&times;</div>
     </div>
-    <div class="hidden lg:flex lg:flex-col md:w-[500px]">
+    <div class="hidden xl:flex xl:flex-col w-[550px]">
       <div
         class="flex-grow-1 h-full bg-black"
         style="background-image: url('/stars.png')"
       >
         <h2 class="text-white p-14">Preview experience</h2>
         <div
-          class="w-2/3 mx-auto bg-white rounded-3xl sticky top-64 mb-20 nopointer"
+          class="w-[85%] mx-auto bg-white rounded-3xl sticky top-32 mb-20 nopointer"
         >
           <Card {artwork} {preview} />
         </div>
@@ -258,7 +258,7 @@
           </div>
           <div class:invisible={loading}>
             <div
-              class="block lg:hidden w-10/12 mx-auto md:w-6/12 bg-white rounded-3xl nopointer mb-5"
+              class="block xl:hidden w-10/12 mx-auto lg:w-6/12 bg-white rounded-3xl nopointer mb-8"
             >
               <Card {artwork} {preview} />
             </div>

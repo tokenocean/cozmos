@@ -84,7 +84,7 @@
         <div>Back</div>
       </div>
     </a>
-    <h2>Edit experience</h2>
+    <h2 class="mb-8">Edit experience</h2>
     <Form bind:artwork bind:files on:submit={update} />
   </div>
 </div>

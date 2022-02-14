@@ -162,108 +162,118 @@
 </script>
 
 <form class="flex flex-col w-full mb-6" on:submit autocomplete="off">
-  <div class="md:grid md:grid-cols-2 md:text-left md:p-4">
+  <div class="md:grid md:grid-cols-2 md:text-left">
     {#if $page.url.pathname.includes("/create")}
       <FormItem title="Upload NFT Image" text="text-center">
-        <div class="text-sm text-black text-center">
-          (Cannot be changed once submitted)
+        <div class="mx-0 md:mx-2">
+          <div class="text-sm text-black text-center">
+            (Cannot be changed once submitted)
+          </div>
+          <div
+            class="w-full hover:border-black border border-gray-300 rounded-xl mb-8"
+          >
+            {#if artwork.main && artwork.main.length}
+              <img
+                src={`/api/ipfs/${artwork.main[0].hash}`}
+                alt="Main"
+                class="mx-auto w-56 mt-4 nftimage object-cover rounded"
+              />
+            {/if}
+            <FileUpload
+              {artwork}
+              type="main"
+              limits="PNG, JPG, GIF, MP4, WEBP, MAX 10MB"
+              on:upload={addFile}
+              previewEnabled={false}
+            />
+          </div>
         </div>
+      </FormItem>
+    {/if}
+    <FormItem title="Upload Card Thumbnail" text="text-center">
+      <div class="mx-0 md:mx-2">
+        <div class="text-sm text-black text-center">(Optional)</div>
         <div
-          class="w-[80%] mx-auto hover:border-black border-2 border-gray-300 rounded-xl mb-8"
+          class="w-full hover:border-black border border-gray-300 rounded-xl mb-8"
         >
-          {#if artwork.main && artwork.main.length}
+          {#if artwork.thumb && artwork.thumb.length}
             <img
-              src={`/api/ipfs/${artwork.main[0].hash}`}
-              alt="Main"
+              src={`/api/ipfs/${artwork.thumb[0].hash}`}
+              alt="Thumb"
               class="mx-auto w-56 mt-4 nftimage object-cover rounded"
             />
           {/if}
           <FileUpload
             {artwork}
-            type="main"
-            limits="PNG, JPG, GIF, MP4, WEBP, MAX 10MB"
+            title="Upload Card Thumbnail"
+            type="thumb"
+            limits="PNG, JPG, WEBP, MAX 10MB"
             on:upload={addFile}
             previewEnabled={false}
           />
         </div>
-      </FormItem>
-    {/if}
-    <FormItem title="Upload Card Thumbnail" text="text-center">
-      <div class="text-sm text-black text-center">(Optional)</div>
-      <div
-        class="w-[80%] mx-auto hover:border-black border-2 border-gray-300 rounded-xl mb-8"
-      >
-        {#if artwork.thumb && artwork.thumb.length}
-          <img
-            src={`/api/ipfs/${artwork.thumb[0].hash}`}
-            alt="Thumb"
-            class="mx-auto w-56 mt-4 nftimage object-cover rounded"
-          />
-        {/if}
-        <FileUpload
-          {artwork}
-          title="Upload Card Thumbnail"
-          type="thumb"
-          limits="PNG, JPG, WEBP, MAX 10MB"
-          on:upload={addFile}
-          previewEnabled={false}
-        />
       </div>
     </FormItem>
     <FormItem title="Upload Cover Image" text="text-center">
-      <div class="text-sm text-black text-center">(Optional)</div>
-      <div
-        class="w-[80%] mx-auto hover:border-black border-2 border-gray-300 rounded-xl mb-8"
-      >
-        {#if artwork.cover && artwork.cover.length}
-          <img
-            src={`/api/ipfs/${artwork.cover[0].hash}`}
-            alt="Cover"
-            class="mx-auto w-72 mt-4 cover object-cover rounded"
+      <div class="mx-0 md:mx-2">
+        <div class="text-sm text-black text-center">(Optional)</div>
+        <div
+          class="w-full hover:border-black border border-gray-300 rounded-xl mb-8"
+        >
+          {#if artwork.cover && artwork.cover.length}
+            <img
+              src={`/api/ipfs/${artwork.cover[0].hash}`}
+              alt="Cover"
+              class="mx-auto w-72 mt-4 cover object-cover rounded"
+            />
+          {/if}
+          <FileUpload
+            {artwork}
+            type="cover"
+            limits="PNG, JPG, WEBP, MAX 10MB"
+            on:upload={addFile}
+            previewEnabled={false}
           />
-        {/if}
-        <FileUpload
-          {artwork}
-          type="cover"
-          limits="PNG, JPG, WEBP, MAX 10MB"
-          on:upload={addFile}
-          previewEnabled={false}
-        />
+        </div>
       </div>
     </FormItem>
     <FormItem title="Upload Video" text="text-center">
-      <div class="text-sm text-black text-center">(Optional)</div>
-      <div
-        class="w-[80%] mx-auto hover:border-black border-2 border-gray-300 rounded-xl mb-8"
-      >
-        {#if artwork.video && artwork.video.length}
-          <video
-            autoplay
-            loop
-            controls
-            muted
-            disablepictureinpicture
-            controlslist="nodownload"
-            key={artwork.video[0].hash}
-            bind:this={vid}
-            class="mx-auto w-72 mt-4 cover object-cover rounded"
-          >
-            <source src={`/api/ipfs/${artwork.video[0].hash}`} />
-          </video>
-        {/if}
-        <FileUpload
-          {artwork}
-          type="video"
-          limits="MP4, MAX 100MB"
-          on:upload={addFile}
-          previewEnabled={false}
-        />
+      <div class="mx-0 md:mx-2">
+        <div class="text-sm text-black text-center">(Optional)</div>
+        <div
+          class="w-full hover:border-black border border-gray-300 rounded-xl mb-8"
+        >
+          {#if artwork.video && artwork.video.length}
+            <video
+              autoplay
+              loop
+              controls
+              muted
+              disablepictureinpicture
+              controlslist="nodownload"
+              key={artwork.video[0].hash}
+              bind:this={vid}
+              class="mx-auto w-72 mt-4 cover object-cover rounded"
+            >
+              <source src={`/api/ipfs/${artwork.video[0].hash}`} />
+            </video>
+          {/if}
+          <FileUpload
+            {artwork}
+            type="video"
+            limits="MP4, MAX 100MB"
+            on:upload={addFile}
+            previewEnabled={false}
+          />
+        </div>
       </div>
     </FormItem>
-    <FormItem title="Upload Gallery Photo" text="text-center">
+  </div>
+  <FormItem title="Upload Gallery Photo" text="text-center">
+    <div class="w-full">
       <div class="text-sm text-black text-center">(Optional)</div>
       <div
-        class="w-[80%] mx-auto hover:border-black border-2 border-gray-300 rounded-xl mb-8"
+        class="w-full hover:border-black border border-gray-300 rounded-xl mb-8"
       >
         {#if artwork.gallery && artwork.gallery.length}
           <div class="mt-4 mx-auto">
@@ -278,8 +288,8 @@
           previewEnabled={false}
         />
       </div>
-    </FormItem>
-  </div>
+    </div>
+  </FormItem>
 
   <!-- Artwork title -->
 

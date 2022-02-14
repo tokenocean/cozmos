@@ -20,8 +20,8 @@
   export let artworkButton = false;
   export let titleOnly = false;
   export let textSize0 = "text-xs";
-  export let textSize1 = "text-sm";
-  export let height = "h-20";
+  export let textSize1 = "text-lg";
+  export let bottomHeight = "h-32";
 
   let sats, val, ticker;
   $: if (artwork) [sats, val, ticker] = units(artwork.asking_asset);
@@ -71,7 +71,7 @@
     }}
     type="button"
     name="button"
-    class="w-full lg:w-3/5 mb-6 md:mb-0 mx-auto backgroundGradientPurple p-2 rounded-xl text-white font-bold m-2"
+    class="w-full mb-6 md:mb-0 mx-auto backgroundGradientPurple p-2 rounded-xl text-white font-bold m-2"
     >Explore experience</button
   >
 {/if}
@@ -86,7 +86,7 @@
   {/if}
   {#if showDetails}
     {#if !summary}
-      <div class="bg-black flex h-32 px-6 pt-4">
+      <div class="bg-black flex h-28 px-6 pt-4">
         <a href={`/a/${artwork.slug}`} class="w-full">
           <div class="relative pt-8">
             <div class="mb-1 absolute -top-12 z rounded-full w-16">
@@ -122,20 +122,20 @@
     {#if artwork.reserve_price}
       <a href={`/a/${artwork.slug}`} class="w-full">
         <div
-          class="auction-item-background-gradient {height} p-4 flex justify-between"
+          class="auction-item-background-gradient {bottomHeight} p-4 flex justify-between"
           class:summary
         >
           <div class="flex-1 mr-2">
             <div class={textSize0} class:text-gray-300={summary}>
               Reserve Price
             </div>
-            <div class="{textSize1} font-bold">
-              <div class:text-white={summary}>
+            <div>
+              <div class="font-bold {textSize1}" class:text-white={summary}>
                 {val(artwork.reserve_price)}
                 {ticker}
               </div>
 
-              <div class:text-gray-300={summary}>
+              <div class="text-sm" class:text-gray-300={summary}>
                 {currencyConversion(artwork.reserve_price)}
               </div>
             </div>
@@ -145,10 +145,12 @@
               <div class="{textSize0} whitespace-nowrap">
                 Current bid by @{artwork.bid.user.username}
               </div>
-              <div class="{textSize1} flex justify-start font-bold">
-                <div>{val(artwork.bid.amount)} {ticker}</div>
+              <div class="flex justify-start font-bold">
+                <div class={textSize1}>{val(artwork.bid.amount)} {ticker}</div>
                 <div class="ml-2 currency-arrow-font">&#62;</div>
-                <div class="ml-2">{currencyConversion(artwork.bid.amount)}</div>
+                <div class="ml-2 text-sm">
+                  {currencyConversion(artwork.bid.amount)}
+                </div>
               </div>
             </div>
           {/if}
@@ -157,20 +159,20 @@
     {:else}
       <a href={`/a/${artwork.slug}`} class="w-full">
         <div
-          class="bg-gradient-to-r from-cyan-300 via-purple-500 to-pink-600 {height} p-4 px-6 flex justify-between"
+          class="bg-gradient-to-r from-cyan-300 via-purple-500 to-pink-600 {bottomHeight} p-4 px-6 flex justify-between items-center"
           class:summary
         >
           <div class="flex-1 mr-4">
             <div class={textSize0} class:text-gray-300={summary}>Buy now</div>
-            <div class="{textSize1} text-base font-bold">
+            <div class="text-base">
               {#if artwork.list_price}
-                <div class={textSize1} class:text-white={summary}>
+                <div class="{textSize1} font-bold" class:text-white={summary}>
                   {val(artwork.list_price)}
                   {ticker}
                 </div>
               {/if}
 
-              <div class={textSize1} class:text-gray-300={summary}>
+              <div class="text-sm" class:text-gray-300={summary}>
                 {#if artwork.list_price}
                   {currencyConversion(artwork.list_price, ticker)}
                 {:else}
@@ -183,7 +185,14 @@
           {#if artwork.auction_end}
             <div class:text-secondary={summary}>
               {#if end_counter}
-                <div class={textSize0}>Time left:</div>
+                <div class="flex justify-center items-center">
+                  <img
+                    src="/static/Time_Auction_colour.png"
+                    alt="clock"
+                    class="w-6 mr-2 md:mr-6"
+                  />
+                  <div class={textSize0}>Time left:</div>
+                </div>
                 <div class="font-bold text-lg">{end_counter}</div>
               {/if}
             </div>

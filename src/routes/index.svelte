@@ -153,7 +153,7 @@
       <div
         class="mx-auto w-full lg:w-1/2 background h-full flex justify-center items-center"
       >
-        <div class="w-full ml-0 lg:ml-48 pt-4 lg:pt-6 lg:pt-0">
+        <div class="w-full md:w-[60%] mx-auto pt-4 lg:pt-6">
           <h2
             class="text-3xl text-white w-full lg:w-1/2 text-center lg:text-left"
           >
@@ -165,7 +165,7 @@
             />
           </h2>
           <p
-            class="text-xl text-secondary font-bold m-2 text-center lg:text-left"
+            class="text-xl text-secondary font-bold my-2 text-center lg:text-left"
           >
             Creator: <span class="font-normal"
               ><Card
@@ -176,7 +176,7 @@
               /></span
             >
           </p>
-          <div class="w-full lg:w-3/5">
+          <div class="w-full">
             <Card
               artwork={filtered[0]}
               summary={true}
