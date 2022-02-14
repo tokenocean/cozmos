@@ -231,7 +231,7 @@
       >
         <h2 class="text-white p-14">Preview experience</h2>
         <div
-          class="w-[85%] mx-auto bg-white rounded-3xl sticky top-32 mb-20 nopointer"
+          class="w-full md:w-[85%] mx-auto bg-white rounded-3xl sticky top-32 mb-20 nopointer"
         >
           <Card {artwork} {preview} />
         </div>

@@ -21,7 +21,7 @@
   export let titleOnly = false;
   export let textSize0 = "text-xs";
   export let textSize1 = "text-lg";
-  export let bottomHeight = "h-32";
+  export let bottomHeight = "h-28 md:h-32";
 
   let sats, val, ticker;
   $: if (artwork) [sats, val, ticker] = units(artwork.asking_asset);
@@ -79,14 +79,16 @@
 <div class="slide rounded-3xl overflow-hidden boxed" in:fade>
   {#if !summary}
     <a href={`/a/${artwork.slug}`} class="w-full">
-      <div class="h-72 overflow-hidden flex justify-center items-center">
+      <div
+        class="h-64 md:h-72 overflow-hidden flex justify-center items-center"
+      >
         <ArtworkMedia {artwork} {showDetails} {popup} bind:thumb {preview} />
       </div></a
     >
   {/if}
   {#if showDetails}
     {#if !summary}
-      <div class="bg-black flex h-28 px-6 pt-4">
+      <div class="bg-black flex h-24 md:h-28 px-6 pt-4">
         <a href={`/a/${artwork.slug}`} class="w-full">
           <div class="relative pt-8">
             <div class="mb-1 absolute -top-12 z rounded-full w-16">
