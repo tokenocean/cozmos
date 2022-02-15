@@ -101,6 +101,8 @@
   };
 
   let showPopup = false;
+
+  let test = true;
 </script>
 
 {#if artwork?.thumb?.length && artwork.thumb[0]}
@@ -148,14 +150,16 @@
     {/if}
     {#if artwork.redeemed === true}
       <div
-        class="bg-black p-6 h-full w-full opacity-70 absolute top-0 z flex justify-center items-center"
+        class="h-full w-full greyed absolute top-0 z flex justify-center items-center"
         on:click={() => {
           if (popupImage === true) {
             showPopup = !showPopup;
           }
         }}
       >
-        <h1 class="text-2xl text-center gradient w-full text-white rounded-lg">
+        <h1
+          class="-skew-y-[35deg] text-xl py-6 text-center gradient w-full text-white"
+        >
           Experience Redeemed
         </h1>
       </div>
@@ -210,14 +214,16 @@
     {/if}
     {#if artwork.redeemed === true}
       <div
-        class="bg-black p-6 h-full w-full opacity-70 absolute top-0 z flex justify-center items-center"
+        class="h-full w-full greyed absolute top-0 z flex justify-center items-center"
         on:click={() => {
           if (popupImage === true) {
             showPopup = !showPopup;
           }
         }}
       >
-        <h1 class="text-2xl text-center gradient w-full text-white rounded-lg">
+        <h1
+          class="-skew-y-[35deg] text-xl py-6 text-center gradient w-full text-white"
+        >
           Experience Redeemed
         </h1>
       </div>
@@ -270,14 +276,16 @@
 
     {#if artwork.redeemed === true}
       <div
-        class="bg-black p-6 h-full w-full opacity-70 absolute top-0 z flex justify-center items-center"
+        class="h-full w-full greyed absolute top-0 z flex justify-center items-center"
         on:click={() => {
           if (popupImage === true) {
             showPopup = !showPopup;
           }
         }}
       >
-        <h1 class="text-2xl text-center gradient w-full text-white rounded-lg">
+        <h1
+          class="-skew-y-[35deg] text-xl py-6 text-center gradient w-full text-white"
+        >
           Experience Redeemed
         </h1>
       </div>
@@ -286,6 +294,10 @@
 {/if}
 
 <style>
+  .greyed {
+    box-shadow: inset 0 0 0 1000px rgba(0, 0, 0, 0.5);
+  }
+
   .gradient {
     background: linear-gradient(
       90deg,
