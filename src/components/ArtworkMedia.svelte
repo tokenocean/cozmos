@@ -146,6 +146,20 @@
         Featured experience
       </p>
     {/if}
+    {#if artwork.redeemed === true}
+      <div
+        class="bg-black p-6 h-full w-full opacity-70 absolute top-0 z flex justify-center items-center"
+        on:click={() => {
+          if (popupImage === true) {
+            showPopup = !showPopup;
+          }
+        }}
+      >
+        <h1 class="text-2xl text-center gradient w-full text-white rounded-lg">
+          Experience Redeemed
+        </h1>
+      </div>
+    {/if}
   </div>
 {:else if artwork?.main?.length && artwork.main[0].filetype && artwork.main[0].filetype.includes("video")}
   <div
@@ -181,6 +195,32 @@
       >
         <Fa icon={muted ? faVolumeMute : faVolumeUp} size="1.5x" />
       </button>
+    {/if}
+    {#if featured}
+      <img
+        src="/svg_icons/profile_featured.svg"
+        alt="Profile featured icon"
+        class="absolute top-4 left-4 bg-black/50 rounded-lg index w-16"
+      />
+      <p
+        class="absolute index bottom-[0.5px] py-4 text-white font-bold bg-black/50 w-full text-center"
+      >
+        Featured experience
+      </p>
+    {/if}
+    {#if artwork.redeemed === true}
+      <div
+        class="bg-black p-6 h-full w-full opacity-70 absolute top-0 z flex justify-center items-center"
+        on:click={() => {
+          if (popupImage === true) {
+            showPopup = !showPopup;
+          }
+        }}
+      >
+        <h1 class="text-2xl text-center gradient w-full text-white rounded-lg">
+          Experience Redeemed
+        </h1>
+      </div>
     {/if}
   </div>
 {:else}
@@ -227,10 +267,35 @@
         Featured experience
       </p>
     {/if}
+
+    {#if artwork.redeemed === true}
+      <div
+        class="bg-black p-6 h-full w-full opacity-70 absolute top-0 z flex justify-center items-center"
+        on:click={() => {
+          if (popupImage === true) {
+            showPopup = !showPopup;
+          }
+        }}
+      >
+        <h1 class="text-2xl text-center gradient w-full text-white rounded-lg">
+          Experience Redeemed
+        </h1>
+      </div>
+    {/if}
   </div>
 {/if}
 
 <style>
+  .gradient {
+    background: linear-gradient(
+      90deg,
+      #fa7900 0%,
+      #df36b4 43%,
+      #0063ea 77%,
+      #00eaaf 100%
+    );
+  }
+
   .index {
     z-index: 2;
   }
