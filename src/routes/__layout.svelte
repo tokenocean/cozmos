@@ -106,8 +106,8 @@
   onMount(() => {
     if (!$password) $password = window.sessionStorage.getItem("password");
   });
-
-  $: margin = `!mt-[${$headerHeight}px]`;
+  let margin;
+  $: margin && (margin.style.marginTop = `${$headerHeight}px`);
 </script>
 
 <svelte:window bind:scrollY={y} />
@@ -126,9 +126,10 @@
 
 <main>
   <div
-    class="mx-auto min-h-screen {margin}"
+    class="mx-auto min-h-screen"
     class:stars={$page.url.pathname.includes("/wallet")}
     class:padding={$page.url.pathname.includes("transfer")}
+    bind:this={margin}
   >
     <slot />
   </div>
