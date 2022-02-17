@@ -82,8 +82,10 @@
           registered are personal and will not be used by any other person. You
           must inform us immediately of any breach of security, loss, theft or
           unauthorized use of your username, password or security information at
-          <a href="mailto:support@{branding.projectName}.com"
-            >support@{branding.projectName}.com</a
+          <a
+            href="https://discord.com/invite/K393aHGV3M"
+            target="_blank"
+            rel="noreferrer">Support</a
           >
         </p>
 

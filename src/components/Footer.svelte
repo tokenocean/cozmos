@@ -36,7 +36,11 @@
         </li>
         <li><a href="/faq">FAQs</a></li>
         <li>
-          <a href="mailto:{branding.emails.support}">Support</a>
+          <a
+            href="https://discord.com/invite/K393aHGV3M"
+            target="_blank"
+            rel="noreferrer">Support</a
+          >
         </li>
         <li><a href="/privacy-policy">Privacy Policy</a></li>
         <li>

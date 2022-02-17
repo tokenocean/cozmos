@@ -25,7 +25,13 @@
           sveltekit:prefetch
           href={`/${$session.user.username}`}
           class="border-y border-gray-300/30"
-          ><button on:click={toggle} class="text-left">YOUR PROFILE</button></a
+          ><button on:click={toggle} class="flex justify-between items-center"
+            >YOUR PROFILE<img
+              src="/svg_icons/profile_mobile.png"
+              alt="profile icon"
+              class="w-4"
+            /></button
+          ></a
         >
         <a sveltekit:prefetch href="/wallet" class="border-y border-gray-300/30"
           ><button on:click={toggle} class="text-left">YOUR WALLET</button></a

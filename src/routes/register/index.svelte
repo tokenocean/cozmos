@@ -61,7 +61,7 @@
         alt=""
         class="linkIcon mx-auto"
       />
-      <Button primary class="mx-auto">
+      <Button primary class="mx-auto" height="">
         <a href="/login">Continue to sign in page</a></Button
       >
     {:else}

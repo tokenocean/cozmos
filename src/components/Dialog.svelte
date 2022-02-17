@@ -2,7 +2,7 @@
   import { browser } from "$app/env";
   import Fa from "svelte-fa";
   import { faTimes } from "@fortawesome/free-solid-svg-icons";
-  import { prompt } from "$lib/store";
+  import { prompt, headerHeight } from "$lib/store";
   import { onMount, tick } from "svelte";
   let comp;
   let ok;
@@ -22,10 +22,13 @@
       return "bg-black border border-gray-500";
     }
   }
+
+  let margin;
+  $: margin && (margin.style.marginTop = `${$headerHeight}px`);
 </script>
 
 {#if $prompt}
-  <div class="fixed z-10 inset-0 overflow-y-auto">
+  <div class="fixed z-10 inset-0 overflow-y-auto" bind:this={margin}>
     <div
       class="dialog-container flex items-end justify-center min-h-screen text-center sm:block sm:p-0"
     >

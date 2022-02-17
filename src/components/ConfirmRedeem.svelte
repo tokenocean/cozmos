@@ -13,7 +13,7 @@
   };
 </script>
 
-<div class="p-4">
+<div class="py-[14rem] md:p-4">
   <h1 class="text-3xl">Are you sure you want to redeem this experience?</h1>
   <p>You can only redeem an experience once.</p>
   <div class="flex justify-center space-x-4 mt-10">

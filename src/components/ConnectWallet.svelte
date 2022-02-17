@@ -7,7 +7,7 @@
   };
 </script>
 
-<div class="container text-center bg-white p-10 z-100">
+<div class="container text-center bg-white py-[4.5rem] md:p-10 z-100">
   <h2 class="mb-6 text-3xl">Connect your wallet</h2>
   <p>
     By connecting your wallet, you agree to our

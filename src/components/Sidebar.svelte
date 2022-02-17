@@ -58,7 +58,9 @@
       >
 
       <a
-        href="mailto:support@cozmos.coinos.io"
+        href="https://discord.com/invite/K393aHGV3M"
+        target="_blank"
+        rel="noreferrer"
         class="border-y border-gray-300/30"
         ><button on:click={toggle} class="text-left">SUPPORT</button></a
       >
