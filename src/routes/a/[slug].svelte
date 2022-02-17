@@ -67,6 +67,7 @@
     ConfirmRedeem,
   } from "$comp";
   import Sidebar from "./_sidebar.svelte";
+  import Sidebar2 from "./_sidebar2.svelte";
   import Comments from "./_comments.svelte";
   import { tick, onDestroy } from "svelte";
   import {

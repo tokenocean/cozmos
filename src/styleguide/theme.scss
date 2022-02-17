@@ -134,6 +134,32 @@ $mobile-sidebar--transition-time: 0.25s;
   }
 }
 
+@mixin mobileSidebarAnimations2() {
+  @keyframes hide {
+    0% {
+      right: 0;
+      background: $mobile-sidebar--overlay-color;
+    }
+    99% {
+      background: $mobile-sidebar--overlay-color--opacity-0;
+      right: 0;
+    }
+    100% {
+      right: -100%;
+      background: $mobile-sidebar--overlay-color--opacity-0;
+    }
+  }
+
+  @keyframes open {
+    0% {
+      background: $mobile-sidebar--overlay-color--opacity-0;
+    }
+    100% {
+      background: $mobile-sidebar--overlay-color;
+    }
+  }
+}
+
 //
 // = = = = SEARCH = = = =
 //

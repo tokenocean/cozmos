@@ -24,6 +24,7 @@ export { default as Results } from "./Results.svelte";
 export { default as Row } from "./Row.svelte";
 export { default as Search } from "./Search.svelte";
 export { default as Sidebar } from "./Sidebar.svelte";
+export { default as Sidebar2 } from "./Sidebar2.svelte";
 export { default as Snack } from "./Snack.svelte";
 export { default as Summary } from "./Summary.svelte";
 export { default as ThankYou } from "./ThankYou.svelte";

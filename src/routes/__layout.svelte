@@ -38,7 +38,7 @@
   import { browser } from "$app/env";
   import { page, session } from "$app/stores";
   import decode from "jwt-decode";
-  import { Sidebar, Dialog, Footer, Snack, Head } from "$comp";
+  import { Sidebar, Sidebar2, Dialog, Footer, Snack, Head } from "$comp";
   import {
     addresses as a,
     meta,
@@ -97,6 +97,7 @@
     rateInterval = setInterval(getExchangeRate, 5000);
   }
   let open = false;
+  let openProfile = false;
   let y;
 
   let stopPolling = () => $poll.map(clearInterval);
@@ -117,10 +118,10 @@
 {/if}
 
 <Snack />
-
+<Sidebar2 bind:openProfile />
 <Sidebar bind:open />
 <div>
-  <Navbar bind:sidebar={open} />
+  <Navbar bind:sidebar={open} bind:sidebar2={openProfile} />
 </div>
 <Dialog />
 

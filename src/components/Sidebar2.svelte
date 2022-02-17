@@ -1,0 +1,106 @@
+<script>
+  import { Avatar, Search } from "$comp";
+  import { session } from "$app/stores";
+
+  export let openProfile = false;
+  let toggle = () => {
+    openProfile = !openProfile;
+  };
+</script>
+
+<aside
+  class="-right-full top-0 z-20 fixed w-full h-full shadow-lg sideBar {openProfile
+    ? 'open'
+    : 'close'}"
+  on:click={() => (openProfile = false)}
+  class:openProfile
+>
+  <div class="menu-header bg-black h-14" />
+  <div
+    class="p-5 menu-container -right-full background rounded text-white absolute"
+  >
+    <div class="menu relative">
+      {#if $session?.user}
+        <a
+          sveltekit:prefetch
+          href={`/${$session.user.username}`}
+          class="border-y border-gray-300/30"
+          ><button on:click={toggle} class="text-left">YOUR PROFILE</button></a
+        >
+        <a sveltekit:prefetch href="/wallet" class="border-y border-gray-300/30"
+          ><button on:click={toggle} class="text-left">YOUR WALLET</button></a
+        >
+
+        <a
+          sveltekit:prefetch
+          href="/a/create"
+          class="border-y border-gray-300/30"
+          ><button on:click={toggle} class="text-left"
+            >CREATE NFT-EXPERIENCE</button
+          ></a
+        >
+
+        <a href="/logout"
+          ><button on:click={toggle} class="text-xs p-2 bg-black rounded-full"
+            >DISCONNECT</button
+          ></a
+        >
+      {/if}
+    </div>
+  </div>
+</aside>
+
+<style lang="scss">
+  @import "../styleguide/theme";
+
+  @include mobileSidebarAnimations2;
+
+  aside {
+    transition: $mobile-sidebar--transition-time ease;
+    background-color: $mobile-sidebar--overlay-color;
+  }
+
+  .background {
+    background: linear-gradient(
+      90deg,
+      #fa7900 0%,
+      #df36b4 43%,
+      #0063ea 77%,
+      #00eaaf 100%
+    );
+  }
+
+  aside.close {
+    animation: hide $mobile-sidebar--transition-time linear forwards;
+  }
+
+  aside.open {
+    animation: open $mobile-sidebar--transition-time linear forwards;
+  }
+
+  .menu-container {
+    transition: $mobile-sidebar--transition-time linear;
+    width: 80%;
+  }
+
+  .open {
+    transition: $mobile-sidebar--transition-time;
+    @apply right-0;
+    .menu-container {
+      @apply right-0;
+    }
+  }
+
+  .menu a {
+    font-size: 16px;
+    display: block;
+    width: 100%;
+    padding: 10px;
+  }
+
+  @screen lg {
+    aside {
+      @apply hidden;
+    }
+  }
+</style>

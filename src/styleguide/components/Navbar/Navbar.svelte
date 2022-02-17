@@ -1,13 +1,16 @@
 <script>
-  import Fa from "svelte-fa";
-  import { faSearch } from "@fortawesome/free-solid-svg-icons";
   import Hamburger from "$components/Hamburger.svelte";
+  import ProfileMobile from "$components/ProfileMobile.svelte";
   import Menu from "./Menu.svelte";
   import Logo from "$styleguide/components/Logo.svelte";
   import { headerHeight } from "$lib/store";
+  import { session } from "$app/stores";
+  import Fa from "svelte-fa";
+  import { faSearch } from "@fortawesome/free-solid-svg-icons";
 
   export let mobileScreen = false;
   export let sidebar = false;
+  export let sidebar2 = false;
 </script>
 
 <header
@@ -24,9 +27,15 @@
         <Logo class="w-44 lg:w-48 z-20 relative" />
       </a>
     </div>
-    <a class="mobileSearch z-20 relative" href="/#market">
-      <Fa icon={faSearch} />
-    </a>
+    {#if $session?.user}
+      <nav class="flex hambuger navbar-menu">
+        <ProfileMobile bind:open={sidebar2} />
+      </nav>
+    {:else}
+      <a class="mobileSearch z-20 relative" href="/#market">
+        <Fa icon={faSearch} />
+      </a>
+    {/if}
     <nav class="hidden text-bold lg:block">
       <Menu />
     </nav>

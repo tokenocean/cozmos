@@ -7,10 +7,8 @@
   <div
     class="container footer mx-auto flex justify-between flex-wrap text-white pt-12"
   >
-    <div
-      class="flex flex-col text-sm w-full lg:w-2/4 order-last lg:order-first mb-4 md:mb-0"
-    >
-      <div class="w-96 flex justify-center items-center">
+    <div class="flex flex-col text-sm w-full lg:w-2/4 mb-4 md:mb-0">
+      <div class="w-full md:w-1/2 flex justify-center items-center">
         <a href="/"
           ><img
             src="/svg_icons/01-Isotype Cozmos.svg"
@@ -26,7 +24,7 @@
       <button
         type="button"
         name="button"
-        class="border border-white rounded-xl font-medium text-white w-72 py-2"
+        class="border border-white rounded-xl font-medium text-white w-2/3 md:w-1/2 py-2"
         >About Cozmos</button
       >
     </div>

@@ -1,8 +1,26 @@
 <script>
   import { Avatar, Search } from "$comp";
   import { session } from "$app/stores";
+
+  import { prompt } from "$lib/store";
+
+  import { ConnectWallet } from "$comp";
   export let open = false;
-  let toggle = () => (open = !open);
+  let toggle = () => {
+    open = !open;
+  };
+
+  let toggleAndPrompt = () => {
+    open = !open;
+    showConnect();
+  };
+
+  let showConnect = () => {
+    $prompt = {
+      component: ConnectWallet,
+      hide: true,
+    };
+  };
 </script>
 
 <aside
@@ -13,42 +31,48 @@
   class:open
 >
   <div class="menu-header bg-black h-14" />
-  <div class="menu-container -left-full bg-black rounded text-white absolute">
-    {#if $session?.user}
-      <div class="mt-6 flex justify-center items-center space-x-2">
-        <div>Signed in as:</div>
-        <a href={`/${$session.user.username}`}>
-          <div class="flex space-x-2 mx-auto">
-            <Avatar user={$session.user} />
-            <button on:click={toggle}>{$session.user.username}</button>
-          </div></a
-        >
-      </div>
-    {/if}
+  <div
+    class="p-5 menu-container -left-full background rounded text-white absolute"
+  >
     <div class="menu relative">
-      <a sveltekit:prefetch href="/"><button on:click={toggle}>Home</button></a>
-      <a sveltekit:prefetch href="/#market"
-        ><button on:click={toggle}>Explore</button></a
+      <a sveltekit:prefetch href="/#market" class="border-y border-gray-300/30"
+        ><button on:click={toggle} class="text-left">EXPLORE MARKETPLACE</button
+        ></a
       >
       {#if $session?.user}
-        <a sveltekit:prefetch href="/a/create"
-          ><button on:click={toggle}>Create</button></a
+        <a
+          sveltekit:prefetch
+          href="/a/create"
+          class="border-y border-gray-300/30"
+          ><button on:click={toggle} class="text-left"
+            >CREATE NFT-EXPERIENCE</button
+          ></a
+        >
+      {:else}<a href="/login" class="border-y border-gray-300/30"
+          ><button on:click={toggle} class="text-left">SIGN IN</button></a
         >
       {/if}
-      <a sveltekit:prefetch href="/wallet"
-        ><button on:click={toggle}>Wallet</button></a
-      >
-      <a sveltekit:prefetch href="/about"
-        ><button on:click={toggle}>About</button></a
+
+      <a sveltekit:prefetch href="/about" class="border-y border-gray-300/30"
+        ><button on:click={toggle} class="text-left">ABOUT COZMOS</button></a
       >
 
-      <a href="/support"><button on:click={toggle}>Support</button></a>
+      <a
+        href="mailto:support@cozmos.coinos.io"
+        class="border-y border-gray-300/30"
+        ><button on:click={toggle} class="text-left">SUPPORT</button></a
+      >
       {#if $session?.user}
-        <a sveltekit:prefetch href="/logout"
-          ><button on:click={toggle}>Sign Out</button></a
+        <a sveltekit:prefetch href="/logout" class="border-y border-gray-300/30"
+          ><button on:click={toggle} class="text-left">DISCONNECT</button></a
         >
-      {:else}<a href="/login"><button on:click={toggle}>Sign In</button></a
-        >{/if}
+      {:else}<a href="/register"
+          ><button
+            on:click={toggleAndPrompt}
+            class="text-xs p-2 bg-black rounded-full">CONNECT WALLET</button
+          ></a
+        >
+      {/if}
     </div>
   </div>
 </aside>
@@ -63,6 +87,16 @@
     background-color: $mobile-sidebar--overlay-color;
   }
 
+  .background {
+    background: linear-gradient(
+      90deg,
+      #fa7900 0%,
+      #df36b4 43%,
+      #0063ea 77%,
+      #00eaaf 100%
+    );
+  }
+
   aside.close {
     animation: hide $mobile-sidebar--transition-time linear forwards;
   }
@@ -73,7 +107,7 @@
 
   .menu-container {
     transition: $mobile-sidebar--transition-time linear;
-    width: 70%;
+    width: 80%;
   }
 
   .open {

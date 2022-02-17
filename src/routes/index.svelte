@@ -28,14 +28,16 @@
     sortCriteria as sc,
     token,
     user,
+    prompt,
   } from "$lib/store";
   import { info, err, goto } from "$lib/utils";
-  import { Gallery, Results, Search } from "$comp";
+  import { Gallery, Results, Search, ConnectWallet } from "$comp";
   import Filter from "./_filter.svelte";
   import Sort from "./_sort.svelte";
   import { requirePassword } from "$lib/auth";
   import { compareAsc, differenceInMilliseconds, parseISO } from "date-fns";
   import { browser } from "$app/env";
+  import Button from "$styleguide/components/Button.svelte";
 
   export let total;
   export let initialArtworks = [];
@@ -87,61 +89,94 @@
 
   let muted = "muted";
   let soundIcon;
+
+  let showConnect = () => {
+    $prompt = {
+      component: ConnectWallet,
+      hide: true,
+    };
+  };
 </script>
 
 <Results />
 {#if filtered.length}
   <div class="stars mx-auto w-full">
-    <div class="h-[100vh] splashBackground flex justify-center items-center">
+    <div
+      class="w-full h-[100vh] backgroundImage splashBackground flex justify-center items-center"
+    >
       <video
         src={`/landing_video.mp4`}
         preload
         autoplay
         loop
         {muted}
-        class="w-full absolute z-0"
+        class="hidden md:block w-full absolute z-0"
       />
-      <div class="w-full md:w-1/2 z">
-        <div class="mt-0 md:mt-72 h-auto md:h-72 mb-72 md:mb-0">
-          <h2 class="text-sm md:text-lg text-gray-300 text-center">
-            We are disrupting the NFT industry.
-          </h2>
-          <h1 class="text-white text-2xl md:text-4xl text-center">
-            The first marketplace for NFT experiences.
-          </h1>
+      <div class="z w-full md:w-1/2">
+        <div>
+          <div class="my-auto h-auto">
+            <h2
+              class="text-sm mb-4 md:mb-0 md:text-lg text-gray-300 text-center tracking-widest"
+            >
+              WE ARE DISRUPTING THE NFT INDUSTRY.
+            </h2>
+            <h1
+              class="text-white mb-6 md:mb-0 text-3xl md:text-4xl text-center"
+            >
+              The first marketplace for NFT experiences.
+            </h1>
+          </div>
+          <img
+            src="/svg_icons/mouse.svg"
+            alt="mouse icon"
+            class="hidden md:block w-36 mx-auto text-white"
+          />
+          <p class="hidden md:block text-white text-center">E X P L O R E</p>
+          <div
+            class="hidden md:flex text-white justify-center cursor-pointer w-10 mx-auto"
+            on:click={() => animateScroll.scrollTo({ element: "#market" })}
+          >
+            <Fa icon={faChevronDown} />
+          </div>
         </div>
         <img
-          src="/svg_icons/mouse.svg"
-          alt="mouse icon"
-          class="w-36 mx-auto text-white"
+          src="/svg_icons/mute.svg"
+          alt="mute icon"
+          class="hidden md:block right-20 bottom-20 absolute w-36 text-white cursor-pointer"
+          bind:this={soundIcon}
+          on:click={() => {
+            if (muted === "muted") {
+              muted = "";
+              soundIcon.src = "/svg_icons/sound_on.svg";
+            } else {
+              muted = "muted";
+              soundIcon.src = "/svg_icons/mute.svg";
+            }
+          }}
         />
-        <p class="text-white text-center">E X P L O R E</p>
-        <div
-          class="text-white flex justify-center cursor-pointer w-10 mx-auto"
-          on:click={() => animateScroll.scrollTo({ element: "#market" })}
-        >
-          <Fa icon={faChevronDown} />
+        <div class="flex md:hidden justify-center space-x-4 items-center px-6">
+          <a href="/#market" class="w-full"
+            ><Button primary rounded="rounded-full">Explore</Button></a
+          >
+          <a
+            href="/wallet"
+            class="w-full bg-black rounded-full font-bold text-white py-2"
+            ><button on:click|preventDefault={showConnect}
+              >Connect wallet</button
+            ></a
+          >
         </div>
       </div>
-      <img
-        src="/svg_icons/mute.svg"
-        alt="mute icon"
-        class="right-[1px] bottom-[300px] md:right-10 md:bottom-10 absolute w-36 text-white cursor-pointer"
-        bind:this={soundIcon}
-        on:click={() => {
-          if (muted === "muted") {
-            muted = "";
-            soundIcon.src = "/svg_icons/sound_on.svg";
-          } else {
-            muted = "muted";
-            soundIcon.src = "/svg_icons/mute.svg";
-          }
-        }}
-      />
     </div>
+
     <div
       class="featuredBackground feature block lg:flex items-center justify-center h-auto lg:h-[100vh]"
     >
+      <p class="block md:hidden text-center text-white pt-10">
+        FEATURED EXPERIENCE <span class="text-gray-400"
+          >&#11835;&#11835;&#11835;</span
+        >
+      </p>
       <div class="mx-auto flex lg:block justify-center w-9/12 lg:w-1/2">
         <div
           class="drop rounded-3xl mx-auto w-auto my-6 lg:my-0"
@@ -153,9 +188,9 @@
       <div
         class="mx-auto w-full lg:w-1/2 background h-full flex justify-center items-center"
       >
-        <div class="w-full md:w-[60%] mx-auto pt-4 lg:pt-6">
+        <div class="w-full md:w-[60%] mx-auto pt-6 lg:pt-6">
           <h2
-            class="text-3xl text-white w-full lg:w-1/2 text-center lg:text-left"
+            class="mx-2 md:mx-0 pt-4 md:pt-0 border-t-[1px] border-gray-400 md:border-0 text-3xl text-white text-center lg:text-left"
           >
             <Card
               artwork={filtered[0]}
@@ -164,9 +199,7 @@
               titleOnly={true}
             />
           </h2>
-          <p
-            class="text-xl text-secondary font-bold my-2 text-center lg:text-left"
-          >
+          <p class="text-xl text-secondary font-bold my-2 px-4 md:px-0">
             Creator: <span class="font-normal"
               ><Card
                 artwork={filtered[0]}
@@ -176,7 +209,7 @@
               /></span
             >
           </p>
-          <div class="w-full">
+          <div class="w-full px-4 md:px-0">
             <Card
               artwork={filtered[0]}
               summary={true}
@@ -185,18 +218,21 @@
               height={"h-auto"}
             />
           </div>
-          <Card
-            artwork={filtered[0]}
-            showDetails={false}
-            summary={true}
-            artworkButton={true}
-          />
+          <div
+            class="px-4 md:px-0 border-b-[1px] border-gray-400 md:border-0 mx-2 md:mx-0"
+          >
+            <Card
+              artwork={filtered[0]}
+              showDetails={false}
+              summary={true}
+              artworkButton={true}
+            />
+          </div>
         </div>
       </div>
     </div>
     <div
-      class="w-full h-20 my-14 md:my-20 flex justify-center items-center background-gradient"
-      id="market"
+      class="hidden md:flex w-full h-20 my-14 md:my-20 justify-center items-center background-gradient"
     >
       <marquee>
         <h2 class="text-white text-xl text-center md:text-left">
@@ -204,16 +240,16 @@
         </h2></marquee
       >
     </div>
-    <div class="mx-auto container">
+    <div class="mx-auto container" id="market">
       <div
-        class="block md:flex justify-between m-10 p-0 md:p-4 border-b-[1px] border-gray-500"
+        class="block md:flex justify-between m-10 p-0 md:p-4 md:border-b-[1px] border-gray-500"
       >
         <h2
-          class="text-white text-lg rounded-full border border-white w-48 px-10 text-center mx-auto md:mx-0 mb-2 md:mb-0"
+          class="text-white text-lg rounded-full md:border border-white w-48 px-10 text-center mx-auto md:mx-0 mb-2 md:mb-0 pt-10 md:pt-0"
         >
           Market
         </h2>
-        <h2 class="text-white text-lg text-center md:text-left mb-2 md:mb-0">
+        <h2 class="text-white text-sm text-center md:text-left mb-2 md:mb-0">
           Out of this world experiences
         </h2>
       </div>
@@ -223,33 +259,38 @@
       class="background-gradient w-full block md:flex justify-center items-center py-20"
     >
       <div>
-        <h2 class="text-center text-black text-xl">
-          FROM CREATORS FOR EVERYONE
-        </h2>
+        <h2 class="text-center text-black text-xl">FROM CREATORS</h2>
+        <h2 class="text-center text-black text-xl">FOR EVERYONE</h2>
         <p class="text-center text-black font-bold">
           An NFT marketplace with real-life experiences based on the L-BTC
           blockchain.
         </p>
 
         <div class="block md:flex justify-center items-center text-black">
-          <div class="w-72 text-center mx-auto md:mx-20 h-auto md:h-96">
-            <img src="/svg_icons/icons-28.svg" alt="low fees" class="w-72" />
+          <div
+            class="w-[80%] md:w-[20%] text-center mx-auto md:mx-20 h-auto md:h-96"
+          >
+            <img src="/svg_icons/icons-28.svg" alt="low fees" class="w-full" />
             Forget about gas wars and astronomical fees, minting is free and transaction
             fees are literally less than $0.5.
           </div>
-          <div class="w-72 text-center mx-auto md:mx-20 h-auto md:h-96">
+          <div
+            class="w-[80%] md:w-[20%] text-center mx-auto md:mx-20 h-auto md:h-96"
+          >
             <img
               src="/svg_icons/icons-29.svg"
               alt="amazing experiences"
-              class="w-72"
+              class="w-full"
             />
             Buy, sell and trade amazing life changing experiences.
           </div>
-          <div class="w-72 text-center mx-auto md:mx-20 h-auto md:h-96">
+          <div
+            class="w-[80%] md:w-[20%] text-center mx-auto md:mx-20 h-auto md:h-96"
+          >
             <img
               src="/svg_icons/icons-30.svg"
               alt="awesome community"
-              class="w-72"
+              class="w-full"
             />
             Engage with an amazing new community. Join private discords and get early
             access, perks and exlcusive air drops. This is the secret door to your
@@ -264,6 +305,12 @@
 {/if}
 
 <style>
+  .backgroundImage {
+    background: black url("/surfing_mobile.jpg");
+    background-size: cover;
+    background-position: center;
+  }
+
   .z {
     z-index: 1;
   }
@@ -278,6 +325,10 @@
     );
   }
 
+  .stars {
+    background-color: #171717;
+  }
+
   .splashBackground {
     box-shadow: inset 0 0 0 1000px rgba(0, 0, 0, 0.25);
   }
@@ -285,17 +336,28 @@
   .drop {
     box-shadow: -5px 5px 5px black;
   }
-
   .background {
-    background-color: rgba(0, 0, 0, 0.5);
-  }
-  .stars {
-    background: black url("/stars.png");
-    box-shadow: inset 0 0 0 1000px rgba(0, 0, 0, 0.5);
+    background-color: none;
   }
 
   .featuredBackground {
-    background-image: url("/berta.jpg");
-    background-size: cover;
+    background-color: #171717;
+  }
+
+  @media (min-width: 768px) {
+    .featuredBackground {
+      background-image: url("/berta.jpg");
+      background-size: cover;
+    }
+    .background {
+      background-color: rgba(0, 0, 0, 0.5);
+    }
+    .stars {
+      background: black url("/stars.png");
+      box-shadow: inset 0 0 0 1000px rgba(0, 0, 0, 0.5);
+    }
+    .backgroundImage {
+      background: none;
+    }
   }
 </style>

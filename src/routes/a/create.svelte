@@ -219,7 +219,7 @@
 <div class="container mx-auto p-6 md:p-20">
   <div class="flex w-full mx-auto bg-gray-100 submitArtwork mb-4 md:mb-0">
     <div
-      class="absolute right-2 md:right-16 rounded-full border-black border-l border-t w-8 h-8 -mt-4 z-50 bg-black text-4xl text-center text-white cursor-pointer"
+      class="absolute z-10 right-2 md:right-16 rounded-full border-black border-l border-t w-8 h-8 -mt-4 bg-black text-4xl text-center text-white cursor-pointer"
       on:click={close}
     >
       <div class="-mt-2">&times;</div>
