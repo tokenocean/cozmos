@@ -10,6 +10,8 @@
       r.json()
     );
 
+    console.log("PROPS", props);
+
     return {
       props,
     };
@@ -62,7 +64,7 @@
 
       await query(deleteFiles, { id });
 
-      await core.listArtwork(artwork, current, royalty_value, files);
+      await core.listArtwork(artwork, current, files);
 
       for (let i = 0; i < files.length; i++) {
         let file = files[i];

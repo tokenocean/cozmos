@@ -2,8 +2,9 @@ const { api, ipfs, q, electrs, registry } = require("./api");
 const { formatISO, compareAsc, parseISO, subMinutes } = require("date-fns");
 const reverse = require("buffer-reverse");
 const fs = require("fs");
-const { networks, Psbt } = require("liquidjs-lib");
+const { Psbt } = require("liquidjs-lib");
 const sleep = (n) => new Promise((r) => setTimeout(r, n));
+const { btc, network } = require("./wallet");
 
 const {
   cancelBid,
@@ -28,11 +29,6 @@ const {
   updateUser,
 } = require("./queries");
 
-const network = process.env.LIQUID_ELECTRS_URL.includes("blockstream")
-  ? networks.liquid
-  : networks.regtest;
-
-const btc = network.assetHash;
 const txcache = {};
 const hexcache = {};
 
@@ -75,6 +71,7 @@ const isSpent = async ({ ins }, artwork_id) => {
     let { transactions } = await q(getLastTransaction, { artwork_id });
 
     if (
+      !transactions.length ||
       compareAsc(
         parseISO(transactions[0].created_at),
         subMinutes(new Date(), 2)
@@ -108,6 +105,7 @@ const checkBids = async () => {
     for (let i = 0; i < activebids.length; i++) {
       let tx = activebids[i];
 
+      await sleep(1000);
       let p = Psbt.fromBase64(tx.psbt);
       try {
         if (await isSpent(p.data.globalMap.unsignedTx.tx, tx.artwork_id))
@@ -194,7 +192,7 @@ app.post("/asset/register", async (req, res) => {
   fs.writeFileSync("/export/proofs.json", JSON.stringify(proofs));
 
   try {
-    let { transactions } = await q(getContract, asset);
+    let { transactions } = await q(getContract, { asset });
     let { contract } = transactions[0];
 
     r = await registry
@@ -325,10 +323,12 @@ let updateTransactions = async (address, user_id) => {
       let type = total[asset] < 0 ? "withdrawal" : "deposit";
 
       if (
-        total[asset] === 0 ||
         transactions.find(
           (tx) =>
-            tx.user_id === user_id && tx.hash === txid && tx.asset === asset && tx.type === type
+            tx.user_id === user_id &&
+            tx.hash === txid &&
+            tx.asset === asset &&
+            tx.type === type
         )
       )
         continue;
@@ -400,8 +400,11 @@ let scanUtxos = async (address) => {
     (tx) => !outs.length || tx.sequence > outs[0].sequence
   );
 
-  transactions.map(({ id, hash, asset: txAsset, json, confirmed }) => {
-    JSON.parse(json).vout.map(
+  transactions.map(async ({ id, hash, asset: txAsset, json, confirmed }) => {
+    if (!json) json = await electrs.url(`/tx/${hash}`).get().json();
+    else json = JSON.parse(json);
+
+    json.vout.map(
       ({ value, asset, scriptpubkey_address }, vout) =>
         scriptpubkey_address === address &&
         asset === txAsset &&
@@ -419,8 +422,11 @@ let scanUtxos = async (address) => {
     );
   });
 
-  transactions.map(({ json }) => {
-    JSON.parse(json).vin.map(({ txid, vout }) => {
+  transactions.map(async ({ hash, json }) => {
+    if (!json) json = await electrs.url(`/tx/${hash}`).get().json();
+    else json = JSON.parse(json);
+
+    json.vin.map(({ txid, vout }) => {
       let spent = [];
 
       outs = outs.filter((o) =>
