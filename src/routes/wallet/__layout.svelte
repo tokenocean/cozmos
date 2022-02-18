@@ -2,7 +2,7 @@
   import Nav from "./_nav.svelte";
 </script>
 
-<div class="container mx-auto flex py-10 md:py-20">
+<div class="container mx-auto flex pb-10 md:pb-0 md:py-20">
   <Nav />
   <div class="wallet-container px-2 md:px-0">
     <div class="w-full md:w-[50%]">
