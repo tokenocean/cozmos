@@ -33,6 +33,7 @@ import {
   broadcast,
   parseAsset,
   signAndBroadcast,
+  sendToMultisig,
 } from "$lib/wallet";
 import branding from "$lib/branding";
 import {
