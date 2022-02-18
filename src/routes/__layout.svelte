@@ -93,8 +93,10 @@
       $token = $session.jwt;
     }
 
+    clearInterval(interval);
+    clearInterval(rateInterval);
     interval = setInterval(refresh, 60000);
-    rateInterval = setInterval(getExchangeRate, 5000);
+    rateInterval = setInterval(getExchangeRate, 30000);
   }
   let open = false;
   let openProfile = false;
