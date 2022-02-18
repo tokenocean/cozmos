@@ -109,7 +109,7 @@
 
   .menu-container {
     transition: $mobile-sidebar--transition-time linear;
-    width: 80%;
+    width: 100%;
   }
 
   .open {

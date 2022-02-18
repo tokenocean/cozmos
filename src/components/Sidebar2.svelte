@@ -34,7 +34,13 @@
           ></a
         >
         <a sveltekit:prefetch href="/wallet" class="border-y border-gray-300/30"
-          ><button on:click={toggle} class="text-left">YOUR WALLET</button></a
+          ><button on:click={toggle} class="flex justify-between items-center"
+            >YOUR WALLET<img
+              src="/svg_icons/mobile_wallet.png"
+              alt="wallet icon"
+              class="w-4"
+            />
+          </button></a
         >
 
         <a
@@ -86,7 +92,7 @@
 
   .menu-container {
     transition: $mobile-sidebar--transition-time linear;
-    width: 80%;
+    width: 100%;
   }
 
   .open {

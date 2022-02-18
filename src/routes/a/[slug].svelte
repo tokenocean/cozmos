@@ -45,6 +45,7 @@
   import {
     faChevronDown,
     faChevronUp,
+    faChevronRight,
     faGift,
     faShareAlt,
     faTimes,
@@ -345,6 +346,8 @@
   }
 
   let showPopup = false;
+
+  let historyToggle = "hidden";
 </script>
 
 <Head {metadata} />
@@ -392,44 +395,7 @@
 
 <div class="nft-container mx-auto pt-4 md:pt-24 mb-10 px-4 md:px-0">
   <div class="md:flex">
-    <div class="md:w-1/3 md:mr-16">
-      <div
-        class="cursor-pointer overflow-hidden rounded-2xl nft-box-shadow mb-8"
-      >
-        <ArtworkMedia {artwork} popupImage={true} />
-      </div>
-      {#if $user && $user.id === artwork.owner_id}
-        <a href={`/a/${artwork.slug}/edit`}>
-          <Button primary class="w-full mb-2">Edit</Button>
-        </a>
-        <a href={`/a/${artwork.slug}/transfer`}>
-          <Button primary class="w-full mb-2" {disabled}>Transfer</Button>
-        </a>
-      {/if}
-      {#if $user && $user.id === artwork.artist_id && !artwork.redeemed}
-        <Button primary on:click={redeem} class="w-full mb-2">Redeem</Button>
-      {/if}
-      <div class="mt-12 border border-gray rounded-xl p-4">
-        <div class="text-2xl font-bold">History</div>
-        <div class="mt-4 text-sm">
-          {#each artwork.transactions.slice(0, showActivity ? artwork.transactions.length : 3) as transaction}
-            <Activity {transaction} />
-          {/each}
-          {#if artwork.transactions.length > 3}
-            <div
-              class="flex text-xs cursor-pointer"
-              on:click={() => (showActivity = !showActivity)}
-            >
-              <div>View {showActivity ? "less" : "more"}</div>
-              <div class="my-auto ml-1">
-                <Fa icon={showActivity ? faChevronUp : faChevronDown} />
-              </div>
-            </div>
-          {/if}
-        </div>
-      </div>
-    </div>
-    <div class="md:w-3/4 md:ml-16">
+    <div class="order-2 md:w-3/4 md:ml-16">
       <!-- Artwork title -->
       <div class="font-title text-center md:text-left">
         {artwork.title || "Untitled"}
@@ -437,43 +403,48 @@
       <!-- Creator/Owner & controls (like,share,gift)-->
       <div class="mt-2 md:mt-16">
         <div class="md:flex">
-          <!-- Avatar -->
-          <div class="flex justify-center md:block">
-            <div>
-              <a
-                href={`/${artwork.artist.username}`}
-                class="text-gray-800 flex"
-              >
-                <div>
-                  <Avatar user={artwork.artist} />
-                </div>
-                <div>
-                  <div class="ml-2 h-full flex flex-col justify-center">
-                    <div class="text-sm text-black font-bold">Creator</div>
-                    <div class="text-sm text-gray-800">
-                      @{artwork.artist.username}
+          <div class="flex justify-between md:justify-start">
+            <!-- Avatar -->
+            <div class="flex justify-center md:block">
+              <div>
+                <a
+                  href={`/${artwork.artist.username}`}
+                  class="text-gray-800 flex"
+                >
+                  <div>
+                    <Avatar user={artwork.artist} />
+                  </div>
+                  <div>
+                    <div class="ml-2 h-full flex flex-col justify-center">
+                      <div class="text-sm text-black font-bold">Creator</div>
+                      <div class="text-sm text-gray-800">
+                        @{artwork.artist.username}
+                      </div>
                     </div>
                   </div>
-                </div>
-              </a>
+                </a>
+              </div>
             </div>
-          </div>
-          <!-- Avatar -->
-          <div class="flex justify-center md:block my-4 md:my-0">
-            <div class="md:ml-24">
-              <a href={`/${artwork.owner.username}`} class="text-gray-800 flex">
-                <div>
-                  <Avatar user={artwork.owner} />
-                </div>
-                <div>
-                  <div class="ml-2 h-full flex flex-col justify-center">
-                    <div class="text-sm text-black font-bold">Owner</div>
-                    <div class="text-sm text-gray-800">
-                      @{artwork.owner.username}
+            <!-- Avatar -->
+            <div class="flex justify-center md:block">
+              <div class="md:ml-24">
+                <a
+                  href={`/${artwork.owner.username}`}
+                  class="text-gray-800 flex"
+                >
+                  <div>
+                    <Avatar user={artwork.owner} />
+                  </div>
+                  <div>
+                    <div class="ml-2 h-full flex flex-col justify-center">
+                      <div class="text-sm text-black font-bold">Owner</div>
+                      <div class="text-sm text-gray-800">
+                        @{artwork.owner.username}
+                      </div>
                     </div>
                   </div>
-                </div>
-              </a>
+                </a>
+              </div>
             </div>
           </div>
 
@@ -632,8 +603,37 @@
                 </div>
               </div>
             {/if}
+
+            {#if $user && $user.id === artwork.owner_id}
+              <a href={`/a/${artwork.slug}/edit`} class="block md:hidden">
+                <Button class="w-full border border-black mt-4">Edit</Button>
+              </a>
+            {/if}
           </div>
         </div>
+
+        <div class="block md:hidden mt-10 order-1 md:w-1/3 md:mr-16">
+          <div
+            class="cursor-pointer overflow-hidden rounded-2xl nft-box-shadow mb-8"
+          >
+            <ArtworkMedia {artwork} popupImage={true} />
+          </div>
+          <div class="flex justify-between w-full">
+            {#if $user && $user.id === artwork.owner_id}
+              <a href={`/a/${artwork.slug}/transfer`}>
+                <Button class="w-36 border border-black" {disabled}
+                  >Transfer</Button
+                >
+              </a>
+            {/if}
+            {#if $user && $user.id === artwork.artist_id && !artwork.redeemed}
+              <Button on:click={redeem} class="w-36 border border-black"
+                >Redeem</Button
+              >
+            {/if}
+          </div>
+        </div>
+
         <!-- Description -->
         <div class="mt-12">
           <div class="text-2xl font-bold">Description</div>
@@ -661,8 +661,79 @@
           </div>
         {/if}
 
+        <!-- History mobile -->
+        <div class="block md:hidden mt-12 border border-gray rounded-xl p-4">
+          <div
+            class="text-2xl font-bold flex justify-between items-center"
+            on:click={() => {
+              if (historyToggle === "hidden") {
+                historyToggle = "block";
+              } else {
+                historyToggle = "hidden";
+              }
+            }}
+          >
+            History <Fa
+              icon={historyToggle === "block" ? faChevronDown : faChevronRight}
+            />
+          </div>
+          <div class="mt-4 text-sm {historyToggle}">
+            {#each artwork.transactions.slice(0, showActivity ? artwork.transactions.length : 3) as transaction}
+              <Activity {transaction} />
+            {/each}
+            {#if artwork.transactions.length > 3}
+              <div
+                class="flex text-xs cursor-pointer"
+                on:click={() => (showActivity = !showActivity)}
+              >
+                <div>View {showActivity ? "less" : "more"}</div>
+                <div class="my-auto ml-1">
+                  <Fa icon={showActivity ? faChevronUp : faChevronDown} />
+                </div>
+              </div>
+            {/if}
+          </div>
+        </div>
+
         <!-- Comments -->
         <Comments bind:artwork bind:fetch />
+      </div>
+    </div>
+    <div class="hidden md:block order-1 md:w-1/3 md:mr-16">
+      <div
+        class="cursor-pointer overflow-hidden rounded-2xl nft-box-shadow mb-8"
+      >
+        <ArtworkMedia {artwork} popupImage={true} />
+      </div>
+      {#if $user && $user.id === artwork.owner_id}
+        <a href={`/a/${artwork.slug}/edit`}>
+          <Button primary class="w-full mb-2">Edit</Button>
+        </a>
+        <a href={`/a/${artwork.slug}/transfer`}>
+          <Button primary class="w-full mb-2" {disabled}>Transfer</Button>
+        </a>
+      {/if}
+      {#if $user && $user.id === artwork.artist_id && !artwork.redeemed}
+        <Button primary on:click={redeem} class="w-full mb-2">Redeem</Button>
+      {/if}
+      <div class="mt-12 border border-gray rounded-xl p-4">
+        <div class="text-2xl font-bold">History</div>
+        <div class="mt-4 text-sm">
+          {#each artwork.transactions.slice(0, showActivity ? artwork.transactions.length : 3) as transaction}
+            <Activity {transaction} />
+          {/each}
+          {#if artwork.transactions.length > 3}
+            <div
+              class="flex text-xs cursor-pointer"
+              on:click={() => (showActivity = !showActivity)}
+            >
+              <div>View {showActivity ? "less" : "more"}</div>
+              <div class="my-auto ml-1">
+                <Fa icon={showActivity ? faChevronUp : faChevronDown} />
+              </div>
+            </div>
+          {/if}
+        </div>
       </div>
     </div>
   </div>
