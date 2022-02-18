@@ -173,7 +173,11 @@
     AUCTION: "AUCTION",
   };
 
-  let listingType = TYPES.FIXED;
+  let listingType = artwork.list_price
+    ? TYPES.FIXED
+    : artwork.auction_end
+    ? TYPES.AUCTION
+    : TYPES.UNLISTED;
 </script>
 
 <form class="flex flex-col w-full mb-6" on:submit autocomplete="off">
@@ -416,7 +420,6 @@
                 min="1"
                 type="number"
                 step="0.01"
-                required
                 bind:value={fiat_price}
                 placeholder="Minimum bid"
                 class="text-sm appearance-none h-12 rounded-md bg-gray-100 border border-gray-300 mt-2 w-full"
@@ -426,7 +429,6 @@
                 min="0.00001000"
                 type="number"
                 step="0.00001"
-                required
                 bind:value={reserve_price}
                 placeholder="Minimum bid"
                 class="text-sm appearance-none h-12 rounded-md bg-gray-100 border border-gray-300 mt-2 w-full"
