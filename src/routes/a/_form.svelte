@@ -20,6 +20,7 @@
     addDays,
     compareAsc,
     isWithinInterval,
+    isValid,
     parse,
     parseISO,
     addMinutes,
@@ -47,8 +48,10 @@
 
   list_price = val(artwork.asking_asset, artwork.list_price) || "";
 
-  $: if (list_price)
+  $: if (list_price && listingType === TYPES.FIXED)
     artwork.list_price = sats(artwork.asking_asset, list_price);
+  else artwork.list_price = undefined;
+
   /* $: artwork.auction_end = sats(artwork.asking_asset, list_price); */
 
   let toggleFiat = () => {
@@ -80,6 +83,8 @@
   }
 
   let enableAuction = () => {
+    listingType = TYPES.AUCTION;
+
     if (!start_date) {
       start_date = format(addMinutes(new Date(), 15), "yyyy-MM-dd");
       start_time = format(addMinutes(new Date(), 15), "HH:mm");
@@ -90,18 +95,34 @@
     }
   };
 
-  $: updateDates(start_date, start_time, end_date, end_time);
+  let enableFixedPrice = () => {
+    listingType = TYPES.FIXED;
+  };
+
+  let enableUnlisted = () => {
+    listingType = TYPES.UNLISTED;
+  };
+
+  $: updateDates(start_date, start_time, end_date, end_time, listingType);
   let updateDates = () => {
-    artwork.auction_start = parse(
-      `${start_date} ${start_time}`,
-      "yyyy-MM-dd HH:mm",
-      new Date()
-    );
-    artwork.auction_end = parse(
-      `${end_date} ${end_time}`,
-      "yyyy-MM-dd HH:mm",
-      new Date()
-    );
+    if (listingType === TYPES.AUCTION) {
+      artwork.auction_start = parse(
+        `${start_date} ${start_time}`,
+        "yyyy-MM-dd HH:mm",
+        new Date()
+      );
+      artwork.auction_end = parse(
+        `${end_date} ${end_time}`,
+        "yyyy-MM-dd HH:mm",
+        new Date()
+      );
+
+      if (!isValid(artwork.auction_start)) artwork.auction_start = undefined;
+      if (!isValid(artwork.auction_end)) artwork.auction_end = undefined;
+    } else {
+      artwork.auction_start = undefined;
+      artwork.auction_end = undefined;
+    }
   };
 
   $: images = files.filter((f) => f.type === "gallery");
@@ -153,14 +174,6 @@
   };
 
   let listingType = TYPES.FIXED;
-
-  function selectListingType(type) {
-    if (type === TYPES.AUCTION) enableAuction();
-    if (type !== TYPES.UNLISTED) artwork.asking_asset = btc;
-    return () => {
-      listingType = type;
-    };
-  }
 </script>
 
 <form class="flex flex-col w-full mb-6" on:submit autocomplete="off">
@@ -336,7 +349,7 @@
       <div class="md:grid md:gap-4 md:grid-cols-3 py-4">
         <div>
           <div
-            on:click={selectListingType(TYPES.UNLISTED)}
+            on:click={() => (listingType = TYPES.UNLISTED)}
             class:active={listingType === TYPES.UNLISTED}
             class="sell-type cursor-pointer text-center mt-4 h-44 rounded-md border-gray-300 border flex flex-col justify-center items-center"
           >
@@ -346,7 +359,7 @@
         </div>
         <div>
           <div
-            on:click={selectListingType(TYPES.FIXED)}
+            on:click={enableFixedPrice}
             class:active={listingType === TYPES.FIXED}
             class="sell-type cursor-pointer text-center mt-4 h-44 rounded-md border-gray-300 border flex flex-col justify-center items-center"
           >
@@ -356,7 +369,7 @@
         </div>
         <div>
           <div
-            on:click={selectListingType(TYPES.AUCTION)}
+            on:click={enableAuction}
             class:active={listingType === TYPES.AUCTION}
             class="sell-type cursor-pointer text-center mt-4 h-44 rounded-md border-gray-300 border flex flex-col justify-center items-center"
           >
