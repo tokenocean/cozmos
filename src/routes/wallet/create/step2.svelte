@@ -22,7 +22,9 @@
   $: displayMnemonic($page, $user);
 </script>
 
-<div class="border container bg-black rounded-xl p-10 drop text-white mt-20">
+<div
+  class="border border-transparent container md:bg-black rounded-xl p-10 drop md:text-white mt-20"
+>
   {#if mnemonic}
     <p class="text-center">
       Write down the following 12 words in the correct order:
@@ -37,7 +39,8 @@
           }
         }}
         class="pagination w-auto m-2"
-        class:active={offset === 0}><Fa icon={faChevronLeft} /></button
+        class:active={offset === 0}
+        ><Fa icon={faChevronLeft} class="text-black md:text-white" /></button
       >
       <div class="mx-auto px-4 lg:px-20 xl:px-32 border-style rounded-xl mt-4">
         {#each mnemonic.split(" ").slice(offset, offset + 6) as word, i}
@@ -55,7 +58,8 @@
           }
         }}
         class="pagination w-auto m-2"
-        class:active={offset === 6}><Fa icon={faChevronRight} /></button
+        class:active={offset === 6}
+        ><Fa icon={faChevronRight} class="text-black md:text-white" /></button
       >
     </div>
 
@@ -70,23 +74,26 @@
       <button
         on:click={() =>
           offset === 0 ? goto("/wallet/create/step1") : (offset -= 6)}
-        class="w-2/4 m-2 rounded-lg border border-white text-white">Back</button
+        class="w-2/4 m-2 rounded-lg border border-black md:border-white md:text-white"
+        >Back</button
       >
       <Button
         primary
         on:click={() =>
           offset === 6 ? goto("/wallet/create/step3") : (offset += 6)}
-        class="w-2/4 m-2">Next</Button
+        class="hidden md:block w-2/4 m-2">Next</Button
+      >
+      <Button
+        on:click={() =>
+          offset === 6 ? goto("/wallet/create/step3") : (offset += 6)}
+        class="w-2/4 m-2 bg-black text-white font-bold block md:hidden"
+        >Next</Button
       >
     </div>
   {/if}
 </div>
 
 <style>
-  .border {
-    border: 1px solid grey;
-  }
-
   .pagination {
     color: lightgray;
     padding: 7px;
@@ -95,10 +102,22 @@
   .word b {
     margin-right: 10px;
     font-size: 15px;
-    color: gray;
+    color: black;
   }
 
   .border-style {
-    border: 0.5px solid grey;
+    border: 0.5px solid black;
+  }
+
+  @media (min-width: 768px) {
+    .border {
+      border: 1px solid grey;
+    }
+    .border-style {
+      border: 0.5px solid grey;
+    }
+    .word b {
+      color: gray;
+    }
   }
 </style>

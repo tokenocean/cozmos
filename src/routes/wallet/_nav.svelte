@@ -11,7 +11,7 @@
 
 {#if $user}
   <div class="wallet-nav-container">
-    <h2 class="px-5 md:px-0 text-white"><a href="/wallet">Wallet</a></h2>
+    <h2 class="px-5 md:px-0 md:text-white"><a href="/wallet">Wallet</a></h2>
 
     <div class="wallet-nav flex flex-col uppercase">
       <a href="/wallet/setup" class="bg-black">

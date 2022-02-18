@@ -146,7 +146,19 @@
   }
 
   .stars {
-    background-image: url("/background_black.png");
-    background-size: cover;
+    background: linear-gradient(
+      90deg,
+      #fa7900 0%,
+      #df36b4 43%,
+      #0063ea 77%,
+      #00eaaf 100%
+    );
+  }
+
+  @media (min-width: 768px) {
+    .stars {
+      background-image: url("/background_black.png");
+      background-size: cover;
+    }
   }
 </style>

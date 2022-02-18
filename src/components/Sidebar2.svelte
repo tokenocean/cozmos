@@ -1,5 +1,5 @@
 <script>
-  import { Avatar, Search } from "$comp";
+  import { Search } from "$comp";
   import { session } from "$app/stores";
 
   export let openProfile = false;

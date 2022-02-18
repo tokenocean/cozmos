@@ -85,7 +85,9 @@
   };
 </script>
 
-<div class="border p-5 bg-black rounded-xl text-white mt-20">
+<div
+  class="border border-transparent p-5 md:bg-black rounded-xl md:text-white mt-6 md:mt-20"
+>
   <div class="flex flex-col text-center mb-6">
     <p>Enter your backup phrase in the correct order:</p>
   </div>
@@ -94,7 +96,7 @@
     <textarea
       bind:value={typed}
       placeholder="Type or paste your seed here"
-      class="my-4 w-full rounded-lg"
+      class="my-4 w-full rounded-lg bg-transparent"
       on:blur={setMnemonic}
     />
   {:else}
@@ -109,7 +111,7 @@
                 on:keydown={(e) => keyup(i, e)}
                 key={i}
                 bind:this={inputs[i]}
-                class="rounded-lg my-1"
+                class="rounded-lg my-1 bg-transparent"
               />
             {:else}
               <input
@@ -118,7 +120,7 @@
                 key={i}
                 bind:this={inputs[i]}
                 type="password"
-                class="rounded-lg my-1"
+                class="rounded-lg my-1 bg-transparent"
               />
             {/if}
           </div>
@@ -134,7 +136,7 @@
                 on:keydown={(e) => keyup(i + 6, e)}
                 bind:this={inputs[i + 6]}
                 key={i + 6}
-                class="rounded-lg my-1"
+                class="rounded-lg my-1 bg-transparent"
               />
             {:else}
               <input
@@ -143,7 +145,7 @@
                 bind:this={inputs[i + 6]}
                 key={i + 6}
                 type="password"
-                class="rounded-lg my-1"
+                class="rounded-lg my-1 bg-transparent"
               />
             {/if}
           </div>
@@ -185,23 +187,21 @@
 </div>
 
 <style>
-  .border {
-    border: 1px solid grey;
-  }
-
   input {
     @apply pb-1;
     width: 75%;
     margin-left: 20px;
-    background-color: black;
-    color: white;
-    border: 1px solid grey;
+
+    color: black;
+    border: 1px solid black;
   }
 
   textarea {
-    background-color: black;
-    color: white;
-    border: 1px solid grey;
+    color: black;
+    border: 1px solid black;
+    &::placeholder {
+      color: black;
+    }
   }
 
   @media only screen and (max-width: 640px) {
@@ -210,6 +210,25 @@
       bottom: 80px;
       left: 0;
       width: 100vw;
+    }
+  }
+
+  @media (min-width: 768px) {
+    input {
+      background-color: black;
+      color: white;
+      border: 1px solid grey;
+    }
+    .border {
+      border: 1px solid grey;
+    }
+    textarea {
+      background-color: black;
+      color: white;
+      border: 1px solid grey;
+      &::placeholder {
+        color: grey;
+      }
     }
   }
 </style>

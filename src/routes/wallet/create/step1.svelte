@@ -9,8 +9,10 @@
   } from "@fortawesome/free-solid-svg-icons";
 </script>
 
-<div class="border w-full px-5 md:px-0 bg-black rounded-xl p-10 drop mt-20">
-  <div class="w-full md:w-2/3 mx-auto px-6 text-white">
+<div
+  class="border border-transparent w-full px-5 md:px-0 md:bg-black rounded-xl p-10 drop mt-6 md:mt-20"
+>
+  <div class="w-full md:w-2/3 mx-auto px-6 md:text-white">
     <p class="text-xl mb-10">
       You'll need to know your backup phrase. Some things to have in mind:
     </p>
@@ -43,20 +45,26 @@
     </ul>
 
     <a href="/wallet/create/step2">
-      <Button primary class="w-full">I'm ready to start</Button>
+      <Button primary class="w-full hidden md:block">I'm ready to start</Button>
+      <Button
+        class="w-full block md:hidden bg-black rounded-full text-white font-bold"
+        >I'm ready to start</Button
+      >
     </a>
   </div>
 </div>
 
 <style>
-  .border {
-    border: 1px solid grey;
-  }
-
   li {
     margin-bottom: 30px;
   }
   li span {
     margin-left: 20px;
+  }
+
+  @media (min-width: 768px) {
+    .border {
+      border: 1px solid grey;
+    }
   }
 </style>

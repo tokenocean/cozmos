@@ -19,28 +19,39 @@
 
 <div class="backgroundBlack px-4 form-container" key={$page.url.pathname}>
   <form
-    class="mb-6 rounded-xl bg-black w-full xl:w-[30%]"
+    class="mb-6 rounded-xl md:bg-black w-full xl:w-[30%]"
     on:submit|preventDefault={forgot}
     autocomplete="off"
   >
-    <h2 class="mb-8 text-white text-center">Recover Password</h2>
+    <h2 class="mb-8 md:text-white text-center">Recover Password</h2>
     {#if sending}
-      <p class="my-4 text-white">
+      <p class="my-4 md:text-white">
         Thank you, please check your email for the recovery link.
       </p>
     {:else}
-      <p class="my-4 text-white">
+      <p class="my-4 md:text-white">
         We'll send a recovery link to the email associated with your account.
       </p>
       <div class="flex flex-col mb-4">
-        <label class="mb-2 font-medium text-white" for="email">Email</label>
-        <input placeholder="Email" bind:value={email} bind:this={ref} />
+        <label class="mb-2 font-medium md:text-white" for="email">Email</label>
+        <input
+          class="bg-transparent md:bg-black"
+          placeholder="Email"
+          bind:value={email}
+          bind:this={ref}
+        />
       </div>
       <div class="flex">
-        <Button class="ml-auto mb-4" primary type="submit">Send</Button>
+        <Button class="ml-auto mb-4 hidden md:block" primary type="submit"
+          >Send</Button
+        >
+        <Button
+          class="block md:hidden w-full bg-black rounded-full text-white font-bold"
+          type="submit">Send</Button
+        >
       </div>
     {/if}
-    <a href="/login" class="text-white">
+    <a href="/login" class="md:text-white">
       <div class="flex">
         <Fa icon={faChevronLeft} class="my-auto mr-1" />
         <div>Back to sign in</div>
@@ -51,8 +62,13 @@
 
 <style>
   .backgroundBlack {
-    background-image: url("/background_black.png");
-    background-size: cover;
+    background: linear-gradient(
+      90deg,
+      #fa7900 0%,
+      #df36b4 43%,
+      #0063ea 77%,
+      #00eaaf 100%
+    );
   }
 
   .form-container {
@@ -67,15 +83,36 @@
   .form-container form {
     max-width: 550px;
     padding: 40px;
-    border: 1px solid grey;
   }
 
   input {
     @apply appearance-none rounded text-gray-700 leading-tight;
     padding: 0;
     padding: 10px;
-    border: 1px solid grey;
-    background-color: black;
-    color: white;
+    border: 1px solid black;
+
+    color: black;
+    &::placeholder {
+      color: black;
+    }
+  }
+
+  @media (min-width: 768px) {
+    .backgroundBlack {
+      background-image: url("/background_black.png");
+      background-size: cover;
+    }
+    input {
+      border: 1px solid grey;
+      background-color: black;
+      color: white;
+      &::placeholder {
+        color: grey;
+      }
+    }
+
+    .form-container form {
+      border: 1px solid grey;
+    }
   }
 </style>

@@ -45,15 +45,15 @@
 
 <div class="backgroundBlack form-container px-4">
   <form
-    class="mb-6 rounded-xl bg-black w-full xl:w-[30%]"
+    class="mb-6 rounded-xl md:bg-black w-full xl:w-[30%]"
     on:submit|preventDefault={submit}
     autocomplete="off"
   >
     {#if loading}
       <ProgressLinear />
     {:else if registered}
-      <h2 class="mb-8 text-white text-center">Registered!</h2>
-      <p class="text-white text-center">
+      <h2 class="mb-8 md:text-white text-center">Registered!</h2>
+      <p class="md:text-white text-center">
         Thanks for registering. Please check your email for an activation link.
       </p>
       <img
@@ -61,42 +61,49 @@
         alt=""
         class="linkIcon mx-auto"
       />
-      <Button primary class="mx-auto" height="">
-        <a href="/login">Continue to sign in page</a></Button
+      <Button primary class="mx-auto hidden md:block p-2" height="">
+        <a href="/login">Sign In</a></Button
+      >
+      <Button
+        class="block md:hidden w-full bg-black rounded-full text-white font-bold"
+        ><a href="/login">Sign In</a></Button
       >
     {:else}
-      <h2 class="mb-8 text-white text-center">Sign Up</h2>
+      <h2 class="mb-8 md:text-white text-center">Sign Up</h2>
       <div class="flex flex-col mb-4">
-        <label class="mb-2 font-medium text-white" for="first_name">Email</label
+        <label class="mb-2 font-medium md:text-white" for="first_name"
+          >Email</label
         >
         <input
           id="email"
           name="email"
           placeholder="Email"
+          class="bg-transparent md:bg-black"
           bind:value={email}
           bind:this={ref}
         />
       </div>
       <div class="flex flex-col mb-4">
-        <label class="mb-2 font-medium text-white" for="first_name"
+        <label class="mb-2 font-medium md:text-white" for="first_name"
           >Username</label
         >
         <input
           id="username"
           name="username"
           placeholder="Username"
+          class="bg-transparent md:bg-black"
           autocapitalize="off"
           bind:value={username}
         />
       </div>
       <div class="flex flex-col mb-4">
-        <label class="mb-2 font-medium text-white" for="last_name"
+        <label class="mb-2 font-medium md:text-white" for="last_name"
           >Password</label
         >
         <div class="relative">
           {#if show}
             <input
-              class="w-full"
+              class="w-full bg-transparent md:bg-black"
               bind:value={password}
               autocapitalize="off"
               id="password"
@@ -105,7 +112,7 @@
             />
           {:else}
             <input
-              class="w-full"
+              class="w-full bg-transparent md:bg-black"
               type="password"
               bind:value={password}
               autocapitalize="off"
@@ -119,21 +126,30 @@
             type="button"
             on:click|preventDefault|stopPropagation={() => (show = !show)}
           >
-            <Fa icon={show ? faEyeSlash : faEye} class="my-auto mr-1" />
+            <Fa
+              icon={show ? faEyeSlash : faEye}
+              class="my-auto mr-1 text-black md:text-white"
+            />
           </button>
         </div>
       </div>
-      <span class="block w-full text-white text-sm"
+      <span class="block w-full md:text-white text-sm"
         >By signing up, you agree to the
         <a href="/terms-and-conditions">Terms and Conditions</a>
         and
         <a href="/privacy-policy">Privacy Policy</a></span
       >
       <div class="flex my-5 justify-end">
-        <Button primary class="w-full" type="submit">Register</Button>
+        <Button primary class="w-full hidden md:block" type="submit"
+          >Register</Button
+        >
+        <Button
+          class="block md:hidden w-full bg-black rounded-full text-white font-bold"
+          type="submit">Register</Button
+        >
       </div>
 
-      <a href="/login" class="text-white">
+      <a href="/login" class="md:text-white">
         Already have an account? <span class="underline">Sign in</span></a
       >
     {/if}
@@ -142,8 +158,13 @@
 
 <style>
   .backgroundBlack {
-    background-image: url("/background_black.png");
-    background-size: cover;
+    background: linear-gradient(
+      90deg,
+      #fa7900 0%,
+      #df36b4 43%,
+      #0063ea 77%,
+      #00eaaf 100%
+    );
   }
 
   .form-container {
@@ -158,16 +179,17 @@
   .form-container form {
     max-width: 550px;
     padding: 40px;
-    border: 1px solid grey;
   }
 
   input {
     @apply appearance-none rounded text-gray-700 leading-tight;
     padding: 0;
     padding: 10px;
-    border: 1px solid grey;
-    color: white;
-    background-color: black;
+    border: 1px solid black;
+    color: black;
+    &::placeholder {
+      color: black;
+    }
   }
 
   span {
@@ -180,5 +202,24 @@
 
   .linkIcon {
     width: 15rem;
+  }
+
+  @media (min-width: 768px) {
+    .backgroundBlack {
+      background-image: url("/background_black.png");
+      background-size: cover;
+    }
+
+    input {
+      border: 1px solid grey;
+      color: white;
+      background-color: black;
+      &::placeholder {
+        color: white;
+      }
+    }
+    .form-container form {
+      border: 1px solid grey;
+    }
   }
 </style>
