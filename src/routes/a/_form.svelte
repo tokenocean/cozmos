@@ -335,7 +335,7 @@
     </FormItem>
   </div>
 
-  <div class="py-4">
+  <div class="py-4 w-full lg:w-1/2">
     <FormItem title="Royalties">
       <RoyaltyRecipientList
         bind:items={artwork.royalty_recipients}
