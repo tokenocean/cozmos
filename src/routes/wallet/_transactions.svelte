@@ -42,7 +42,9 @@
   ];
 </script>
 
-<div class="mb-10 md:mb-20 border rounded overflow-auto h-96 px-5 sm:px-0">
+<div
+  class="mb-10 md:mb-20 border rounded bg-black md:bg-transparent overflow-auto h-96 px-5 sm:px-0"
+>
   {#if !txns.length}
     <p class="text-center mt-10 text-white text-lg">No transactions yet.</p>
   {/if}

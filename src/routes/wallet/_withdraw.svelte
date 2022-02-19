@@ -100,7 +100,12 @@
             rows={4}
           />
         </div>
-        <Button primary type="submit" class="w-full mt-5"
+        <Button primary type="submit" class="hidden md:block w-full mt-5"
+          >Complete withdraw</Button
+        >
+        <Button
+          type="submit"
+          class="border border-white rounded-lg font-bold block md:hidden w-full mt-5"
           >Complete withdraw</Button
         >
       </div>

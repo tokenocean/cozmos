@@ -52,8 +52,8 @@
     {#if loading}
       <ProgressLinear />
     {:else if registered}
-      <h2 class="mb-8 md:text-white text-center">Registered!</h2>
-      <p class="md:text-white text-center">
+      <h2 class="mb-8 text-black md:text-white text-center">Registered!</h2>
+      <p class="text-black md:text-white text-center">
         Thanks for registering. Please check your email for an activation link.
       </p>
       <img
@@ -69,10 +69,11 @@
         ><a href="/login">Sign In</a></Button
       >
     {:else}
-      <h2 class="mb-8 md:text-white text-center">Sign Up</h2>
+      <h2 class="mb-8 text-black md:text-white md:text-center">Sign Up</h2>
       <div class="flex flex-col mb-4">
-        <label class="mb-2 font-medium md:text-white" for="first_name"
-          >Email</label
+        <label
+          class="mb-2 font-medium text-black md:text-white"
+          for="first_name">Email</label
         >
         <input
           id="email"
@@ -84,8 +85,9 @@
         />
       </div>
       <div class="flex flex-col mb-4">
-        <label class="mb-2 font-medium md:text-white" for="first_name"
-          >Username</label
+        <label
+          class="mb-2 font-medium text-black md:text-white"
+          for="first_name">Username</label
         >
         <input
           id="username"
@@ -97,7 +99,7 @@
         />
       </div>
       <div class="flex flex-col mb-4">
-        <label class="mb-2 font-medium md:text-white" for="last_name"
+        <label class="mb-2 font-medium text-black md:text-white" for="last_name"
           >Password</label
         >
         <div class="relative">
@@ -133,7 +135,7 @@
           </button>
         </div>
       </div>
-      <span class="block w-full md:text-white text-sm"
+      <span class="block w-full text-black md:text-white text-sm"
         >By signing up, you agree to the
         <a href="/terms-and-conditions">Terms and Conditions</a>
         and
@@ -149,7 +151,7 @@
         >
       </div>
 
-      <a href="/login" class="md:text-white">
+      <a href="/login" class="text-black md:text-white">
         Already have an account? <span class="underline">Sign in</span></a
       >
     {/if}
@@ -159,11 +161,11 @@
 <style>
   .backgroundBlack {
     background: linear-gradient(
-      90deg,
-      #fa7900 0%,
-      #df36b4 43%,
-      #0063ea 77%,
-      #00eaaf 100%
+      135deg,
+      #f28400 0%,
+      #ef4baf 43%,
+      #173af7 77%,
+      #5fefbb 100%
     );
   }
 
@@ -178,7 +180,7 @@
 
   .form-container form {
     max-width: 550px;
-    padding: 40px;
+    padding: 20px;
   }
 
   input {
@@ -220,6 +222,7 @@
     }
     .form-container form {
       border: 1px solid grey;
+      padding: 40px;
     }
   }
 </style>

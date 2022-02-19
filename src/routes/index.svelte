@@ -161,8 +161,7 @@
           <a
             href="/wallet"
             class="w-full bg-black rounded-full font-bold text-white py-2"
-            ><button on:click|preventDefault={showConnect}
-              >Connect wallet</button
+            ><button on:click|preventDefault={showConnect}>Create wallet</button
             ></a
           >
         </div>

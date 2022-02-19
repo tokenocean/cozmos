@@ -17,14 +17,14 @@
 >
   <div class="menu-header bg-black h-14" />
   <div
-    class="p-5 menu-container -right-full background rounded text-white absolute"
+    class="p-5 pb-10 menu-container -right-full background rounded text-white absolute"
   >
     <div class="menu relative">
       {#if $session?.user}
         <a
           sveltekit:prefetch
           href={`/${$session.user.username}`}
-          class="border-y border-gray-300/30"
+          class="border-b border-white"
           ><button on:click={toggle} class="flex justify-between items-center"
             >YOUR PROFILE<img
               src="/svg_icons/profile_mobile.png"
@@ -33,7 +33,7 @@
             /></button
           ></a
         >
-        <a sveltekit:prefetch href="/wallet" class="border-y border-gray-300/30"
+        <a sveltekit:prefetch href="/wallet" class="border-b border-white"
           ><button on:click={toggle} class="flex justify-between items-center"
             >YOUR WALLET<img
               src="/svg_icons/mobile_wallet.png"
@@ -43,20 +43,19 @@
           </button></a
         >
 
-        <a
-          sveltekit:prefetch
-          href="/a/create"
-          class="border-y border-gray-300/30"
+        <a sveltekit:prefetch href="/a/create" class="border-b border-white"
           ><button on:click={toggle} class="text-left"
             >CREATE NFT-EXPERIENCE</button
           ></a
         >
 
         <a href="/logout"
-          ><button on:click={toggle} class="text-xs p-2 bg-black rounded-full"
+          ><button on:click={toggle} class="text-sm p-3 bg-black rounded-full"
             >DISCONNECT</button
           ></a
         >
+      {:else}
+        <p class="text-center">Not signed in.</p>
       {/if}
     </div>
   </div>

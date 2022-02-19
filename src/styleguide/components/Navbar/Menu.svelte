@@ -128,7 +128,7 @@
     <a
       href="/wallet"
       class="w-40 mx-2 bg-black rounded-full border border-white text-white px-4 py-1"
-      ><button on:click|preventDefault={showConnect}>Connect wallet</button></a
+      ><button on:click|preventDefault={showConnect}>Create wallet</button></a
     >
     <a
       href="/login"

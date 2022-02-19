@@ -12,7 +12,7 @@
 <div
   class="border border-transparent w-full px-5 md:px-0 md:bg-black rounded-xl p-10 drop mt-6 md:mt-20"
 >
-  <div class="w-full md:w-2/3 mx-auto px-6 md:text-white">
+  <div class="w-full md:w-2/3 mx-auto px-6 text-black md:text-white">
     <p class="text-xl mb-10">
       You'll need to know your backup phrase. Some things to have in mind:
     </p>

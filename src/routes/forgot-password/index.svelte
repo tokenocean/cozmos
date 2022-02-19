@@ -23,17 +23,21 @@
     on:submit|preventDefault={forgot}
     autocomplete="off"
   >
-    <h2 class="mb-8 md:text-white text-center">Recover Password</h2>
+    <h2 class="mb-8 text-black md:text-white md:text-center">
+      Recover Password
+    </h2>
     {#if sending}
-      <p class="my-4 md:text-white">
+      <p class="my-4 text-black md:text-white">
         Thank you, please check your email for the recovery link.
       </p>
     {:else}
-      <p class="my-4 md:text-white">
+      <p class="my-4 text-black md:text-white">
         We'll send a recovery link to the email associated with your account.
       </p>
       <div class="flex flex-col mb-4">
-        <label class="mb-2 font-medium md:text-white" for="email">Email</label>
+        <label class="mb-2 font-medium text-black md:text-white" for="email"
+          >Email</label
+        >
         <input
           class="bg-transparent md:bg-black"
           placeholder="Email"
@@ -51,7 +55,7 @@
         >
       </div>
     {/if}
-    <a href="/login" class="md:text-white">
+    <a href="/login" class="text-black md:text-white">
       <div class="flex">
         <Fa icon={faChevronLeft} class="my-auto mr-1" />
         <div>Back to sign in</div>
@@ -63,11 +67,11 @@
 <style>
   .backgroundBlack {
     background: linear-gradient(
-      90deg,
-      #fa7900 0%,
-      #df36b4 43%,
-      #0063ea 77%,
-      #00eaaf 100%
+      135deg,
+      #f28400 0%,
+      #ef4baf 43%,
+      #173af7 77%,
+      #5fefbb 100%
     );
   }
 
@@ -82,7 +86,7 @@
 
   .form-container form {
     max-width: 550px;
-    padding: 40px;
+    padding: 20px;
   }
 
   input {
@@ -113,6 +117,7 @@
 
     .form-container form {
       border: 1px solid grey;
+      padding: 40px;
     }
   }
 </style>

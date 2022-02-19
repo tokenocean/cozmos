@@ -215,13 +215,13 @@
             </div>
           </div>
         {/if}
-        <div class="flex justify-center text-white">
+        <div class="block md:flex justify-center text-white">
           {#if tab === "liquid"}
             <button
-              class="justify-center flex center font-medium uppercase mt-4 mr-4"
+              class="justify-center flex center font-medium uppercase mt-4 md:mr-4"
               on:click={toggleConfidential}
             >
-              <div class="my-auto mr-1">
+              <div class="my-auto mr-2">
                 <Fa icon={faUserSecret} />
               </div>
               <div>{confidential ? "Unconfidential" : "Confidential"}</div>

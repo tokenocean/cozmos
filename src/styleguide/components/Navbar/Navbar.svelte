@@ -5,8 +5,6 @@
   import Logo from "$styleguide/components/Logo.svelte";
   import { headerHeight } from "$lib/store";
   import { session } from "$app/stores";
-  import Fa from "svelte-fa";
-  import { faSearch } from "@fortawesome/free-solid-svg-icons";
 
   export let mobileScreen = false;
   export let sidebar = false;
@@ -19,23 +17,20 @@
   bind:clientHeight={$headerHeight}
 >
   <div class="mx-auto flex container items-center justify-between">
-    <nav class="flex hambuger navbar-menu">
-      <Hamburger bind:open={sidebar} />
-    </nav>
     <div>
       <a href="/">
         <Logo class="w-44 lg:w-48 z-20 relative" />
       </a>
     </div>
-    {#if $session?.user}
+    <div class="flex justify-center space-x-6 items-center">
+      <nav class="flex hambuger navbar-menu">
+        <Hamburger bind:open={sidebar} />
+      </nav>
+
       <nav class="flex hambuger navbar-menu">
         <ProfileMobile bind:open={sidebar2} />
       </nav>
-    {:else}
-      <a class="mobileSearch z-20 relative" href="/#market">
-        <Fa icon={faSearch} />
-      </a>
-    {/if}
+    </div>
     <nav class="hidden text-bold lg:block">
       <Menu />
     </nav>

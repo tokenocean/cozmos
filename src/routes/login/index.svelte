@@ -59,9 +59,9 @@
     on:submit|preventDefault={login}
     autocomplete="off"
   >
-    <h2 class="mb-8 md:text-white text-center">Sign In</h2>
+    <h2 class="mb-8 text-black md:text-white md:text-center">Sign In</h2>
     <div class="flex flex-col mb-4">
-      <label class="mb-2 font-medium md:text-white" for="first_name"
+      <label class="mb-2 font-medium text-black md:text-white" for="first_name"
         >Email or username</label
       >
       <input
@@ -73,7 +73,7 @@
       />
     </div>
     <div class="flex flex-col mb-4">
-      <label class="mb-2 font-medium md:text-white" for="last_name"
+      <label class="mb-2 font-medium text-black md:text-white" for="last_name"
         >Password</label
       >
       <div class="relative">
@@ -104,7 +104,7 @@
         </button>
       </div>
     </div>
-    <a href="/forgot-password" class="block w-full md:text-white"
+    <a href="/forgot-password" class="block w-full text-black md:text-white"
       >Forgot password?</a
     >
     <div class="flex my-5 justify-end">
@@ -116,7 +116,7 @@
         type="submit">Sign In</Button
       >
     </div>
-    <a href="/register" class="md:text-white"
+    <a href="/register" class="text-black md:text-white"
       >Don't have an account? <span class="underline">Sign up</span></a
     >
   </form>
@@ -125,11 +125,11 @@
 <style>
   .backgroundBlack {
     background: linear-gradient(
-      90deg,
-      #fa7900 0%,
-      #df36b4 43%,
-      #0063ea 77%,
-      #00eaaf 100%
+      135deg,
+      #f28400 0%,
+      #ef4baf 43%,
+      #173af7 77%,
+      #5fefbb 100%
     );
   }
 
@@ -144,7 +144,7 @@
 
   .form-container form {
     max-width: 550px;
-    padding: 40px;
+    padding: 20px;
   }
 
   input {
@@ -167,6 +167,7 @@
 
     .form-container form {
       border: 1px solid grey;
+      padding: 40px;
     }
     input {
       border: 1px solid grey;

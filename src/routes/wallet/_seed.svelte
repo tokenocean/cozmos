@@ -86,7 +86,7 @@
 </script>
 
 <div
-  class="border border-transparent p-5 md:bg-black rounded-xl md:text-white mt-6 md:mt-20"
+  class="border border-transparent p-5 md:bg-black rounded-xl text-black md:text-white mt-6 md:mt-20"
 >
   <div class="flex flex-col text-center mb-6">
     <p>Enter your backup phrase in the correct order:</p>

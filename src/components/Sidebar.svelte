@@ -32,28 +32,25 @@
 >
   <div class="menu-header bg-black h-14" />
   <div
-    class="p-5 menu-container -left-full background rounded text-white absolute"
+    class="p-5 pb-10 menu-container -left-full background rounded text-white absolute"
   >
     <div class="menu relative">
-      <a sveltekit:prefetch href="/#market" class="border-y border-gray-300/30"
+      <a sveltekit:prefetch href="/#market" class="border-b border-white"
         ><button on:click={toggle} class="text-left">EXPLORE MARKETPLACE</button
         ></a
       >
       {#if $session?.user}
-        <a
-          sveltekit:prefetch
-          href="/a/create"
-          class="border-y border-gray-300/30"
+        <a sveltekit:prefetch href="/a/create" class="border-b border-white"
           ><button on:click={toggle} class="text-left"
             >CREATE NFT-EXPERIENCE</button
           ></a
         >
-      {:else}<a href="/login" class="border-y border-gray-300/30"
+      {:else}<a href="/login" class="border-b border-white"
           ><button on:click={toggle} class="text-left">SIGN IN</button></a
         >
       {/if}
 
-      <a sveltekit:prefetch href="/about" class="border-y border-gray-300/30"
+      <a sveltekit:prefetch href="/about" class="border-b border-white"
         ><button on:click={toggle} class="text-left">ABOUT COZMOS</button></a
       >
 
@@ -61,17 +58,17 @@
         href="https://discord.com/invite/K393aHGV3M"
         target="_blank"
         rel="noreferrer"
-        class="border-y border-gray-300/30"
+        class="border-b border-white"
         ><button on:click={toggle} class="text-left">SUPPORT</button></a
       >
       {#if $session?.user}
-        <a sveltekit:prefetch href="/logout" class="border-y border-gray-300/30"
+        <a sveltekit:prefetch href="/logout" class="border-b border-white"
           ><button on:click={toggle} class="text-left">DISCONNECT</button></a
         >
       {:else}<a href="/register"
           ><button
             on:click={toggleAndPrompt}
-            class="text-xs p-2 bg-black rounded-full">CONNECT WALLET</button
+            class="text-sm p-3 bg-black rounded-full">CREATE WALLET</button
           ></a
         >
       {/if}

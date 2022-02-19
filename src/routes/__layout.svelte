@@ -147,11 +147,11 @@
 
   .stars {
     background: linear-gradient(
-      90deg,
-      #fa7900 0%,
-      #df36b4 43%,
-      #0063ea 77%,
-      #00eaaf 100%
+      135deg,
+      #f28400 0%,
+      #ef4baf 43%,
+      #173af7 77%,
+      #5fefbb 100%
     );
   }
 

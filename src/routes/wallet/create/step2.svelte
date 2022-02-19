@@ -23,7 +23,7 @@
 </script>
 
 <div
-  class="border border-transparent container md:bg-black rounded-xl p-10 drop md:text-white mt-20"
+  class="border border-transparent container md:bg-black rounded-xl p-10 drop text-black md:text-white mt-20"
 >
   {#if mnemonic}
     <p class="text-center">
@@ -42,7 +42,7 @@
         class:active={offset === 0}
         ><Fa icon={faChevronLeft} class="text-black md:text-white" /></button
       >
-      <div class="mx-auto px-4 lg:px-20 xl:px-32 border-style rounded-xl mt-4">
+      <div class="w-full mx-auto border-style rounded-xl mt-4">
         {#each mnemonic.split(" ").slice(offset, offset + 6) as word, i}
           <div class="text-xl text-center mx-4 my-2">
             <p class="word"><b>{i + 1 + offset}.</b> {word}</p>
