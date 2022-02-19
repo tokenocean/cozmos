@@ -82,7 +82,7 @@
       <div class="w-full xl:w-1/3 xl:max-w-xs mb-10 md:mb-20 px-2 md:px-0">
         <div>
           <div class="flex-auto flex-col">
-            <div class="absolute top-60 md:top-56">
+            <div class="absolute top-72">
               <div id="avatar-container">
                 <img
                   src="/svg_icons/profile_circle.svg"
