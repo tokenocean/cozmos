@@ -397,7 +397,7 @@ export default class Core {
   }
 
   async setupRoyalty(artwork, current) {
-    if (current?.has_royalty) return true;
+    if (current?.has_royalty || !artwork.royalty_recipients.length) return true;
 
     if (!artwork.auction_end) {
       psbt.set(await sendToMultisig(artwork));
@@ -499,22 +499,26 @@ export default class Core {
 
     let {
       list_price,
+      list_price_tx,
       asking_asset,
       reserve_price,
       auction_start,
       auction_end,
       royalty_recipients,
+      auction_tx,
+      auction_release_tx,
     } = artwork;
-
-    console.log("ROY", royalty_recipients);
 
     query(updateArtworkWithRoyaltyRecipients, {
       artwork: {
         list_price,
+        list_price_tx,
         reserve_price,
         auction_start,
         auction_end,
         asking_asset,
+        auction_tx,
+        auction_release_tx,
       },
       id,
       royaltyRecipients: royalty_recipients.map((item) => {
