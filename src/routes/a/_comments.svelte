@@ -7,6 +7,8 @@
     faChevronDown,
     faChevronRight,
   } from "@fortawesome/free-solid-svg-icons";
+  import { requireLogin } from "$lib/auth";
+
   export let artwork;
   export let fetch;
 
@@ -15,6 +17,7 @@
   const core = new Core();
   let comment;
   async function createComment() {
+    await requireLogin();
     loading = true;
     await core.createComment(artwork.id, comment);
     await fetch();
