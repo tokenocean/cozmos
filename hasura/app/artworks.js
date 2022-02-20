@@ -11,6 +11,7 @@ const {
   getCurrentUser,
   getTransactionArtwork,
   getTransactionUser,
+  redeemArtwork,
   setHeld,
   setOwner,
   setPsbt,
@@ -344,6 +345,18 @@ app.post("/issue", auth, async (req, res) => {
 app.get("/issuance", auth, async (req, res) => {
   try {
     res.send(issuance[req.body.issuance]);
+  } catch (e) {
+    console.log(e);
+    res.code(500).send(e.message);
+  }
+});
+
+app.post("/redeem", auth, async (req, res) => {
+  try {
+    let { data } = await api(req.headers)
+      .post({ query: redeemArtwork, variables: req.body })
+      .json();
+    res.send(data);
   } catch (e) {
     console.log(e);
     res.code(500).send(e.message);

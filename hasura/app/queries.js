@@ -365,4 +365,9 @@ module.exports = {
       id
     } 
   }`,
+  redeemArtwork: `mutation ($id: uuid!) {
+    update_artworks_by_pk(pk_columns: { id: $id }, _set: { redeemed: true }) {
+      id
+    }
+  }`,
 };
