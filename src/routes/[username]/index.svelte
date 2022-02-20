@@ -70,13 +70,15 @@
 
 {#if subject.cover_photo_url}
   <div
-    class="w-full h-96 bg-center bg-cover flex justify-center items-center"
+    class="w-full h-[17.5rem] md:h-96 bg-center bg-cover flex justify-center items-center"
     style="background-image: url({`/api/public/${subject.cover_photo_url}`});"
   />
 {:else}
-  <div class="w-full h-96 bg-black flex justify-center items-center" />
+  <div
+    class="w-full h-[17.5rem] md:h-96 bg-black flex justify-center items-center"
+  />
 {/if}
-<div class="container mx-auto mb-20 mt-5 md:mt-20">
+<div class="container mx-auto mb-20 md:mt-20">
   {#if subject}
     <div class="flex justify-between flex-wrap" in:fade>
       <div class="w-full xl:w-1/3 xl:max-w-xs mb-10 md:mb-20 px-2 md:px-0">
@@ -90,17 +92,22 @@
                   id="avatar-border"
                 />
                 <div id="avatar">
-                  <Avatar size="xl" user={subject} border="null" />
+                  <span class="hidden md:block"
+                    ><Avatar size="xl" user={subject} border="null" /></span
+                  >
+                  <span class="block md:hidden"
+                    ><Avatar size="lgx" user={subject} border="null" /></span
+                  >
                 </div>
               </div>
             </div>
-            <div class="flex items-center mt-32 md:mt-20">
+            <div class="ml-[8px] flex items-center mt-20">
               <div class="flex">
                 <h3 class="font-bold">@{subject.username}</h3>
               </div>
             </div>
             {#if subject.bio}
-              <p class="mt-5 text-sm">{subject.bio}</p>
+              <p class="mt-5 text-sm ml-[8px]">{subject.bio}</p>
             {/if}
           </div>
           <div class="social-details">
@@ -409,7 +416,7 @@
     flex-direction: column;
   }
   .social-details a {
-    margin-top: 15px;
+    margin-top: 5px;
   }
 
   .social-details span {
@@ -422,13 +429,25 @@
   }
 
   #avatar-border {
-    width: 100%;
+    width: 42.5%;
   }
 
   #avatar {
     position: absolute;
     top: 50%;
-    left: 50%;
+    left: 21.25%;
     transform: translate(-50%, -50%);
+  }
+  @media (min-width: 768px) {
+    #avatar-border {
+      width: 100%;
+    }
+
+    #avatar {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+    }
   }
 </style>

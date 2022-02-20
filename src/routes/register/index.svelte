@@ -45,7 +45,7 @@
 
 <div class="backgroundBlack form-container px-4">
   <form
-    class="mb-6 rounded-xl md:bg-black w-full xl:w-[30%]"
+    class="h-[100vh] md:h-auto mt-10 md:mt-0 mb-6 rounded-xl md:bg-black w-full xl:w-[30%]"
     on:submit|preventDefault={submit}
     autocomplete="off"
   >
@@ -69,7 +69,9 @@
         ><a href="/login">Sign In</a></Button
       >
     {:else}
-      <h2 class="mb-8 text-black md:text-white md:text-center">Sign Up</h2>
+      <h2 class="mb-8 text-black md:text-white md:text-center text-5xl">
+        Sign Up
+      </h2>
       <div class="flex flex-col mb-4">
         <label
           class="mb-2 font-medium text-black md:text-white"
@@ -186,7 +188,7 @@
   input {
     @apply appearance-none rounded text-gray-700 leading-tight;
     padding: 0;
-    padding: 10px;
+    padding: 16px;
     border: 1px solid black;
     color: black;
     &::placeholder {

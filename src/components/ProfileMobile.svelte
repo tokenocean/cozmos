@@ -1,4 +1,6 @@
 <script>
+  import { Avatar } from "$comp";
+  import { session } from "$app/stores";
   export let open = false;
 </script>
 
@@ -8,6 +10,6 @@
   on:click={() => (open = !open)}
 >
   <a class="mobileSearch z-20 relative" href="">
-    <img src="/svg_icons/profile_mobile.png" alt="profile icon" class="w-4" />
+    <Avatar size="xs" user={$session.user} />
   </a>
 </span>

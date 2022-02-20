@@ -50,10 +50,10 @@
         aria-modal="true"
         aria-labelledby="modal-headline"
       >
-        <div class="{dark()} p-4">
+        <div class="{dark()} p-4" class:rainbow={$prompt.rainbow}>
           <div class="flow-root p-0 m-0">
             <div
-              class="cursor-pointer float-right bg-black border border-white text-white p-0 m-0 w-8 rounded-full flex justify-center font-bold"
+              class="cursor-pointer float-right bg-black md:border border-white text-white p-0 m-0 w-8 rounded-full flex justify-center font-bold"
               on:click={close}
             >
               X
@@ -93,6 +93,16 @@
 {/if}
 
 <style>
+  .rainbow {
+    background: linear-gradient(
+      135deg,
+      #f28400 0%,
+      #ef4baf 43%,
+      #173af7 77%,
+      #5fefbb 100%
+    );
+  }
+
   .secondary-btn {
     background-color: whitesmoke;
     border: 1px solid whitesmoke;

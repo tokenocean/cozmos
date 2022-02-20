@@ -7,5 +7,9 @@
   class:open
   on:click={() => (open = !open)}
 >
-  <img src="/svg_icons/hamburger.png" alt="hamburger" class="w-6" />
+  {#if open}
+    <img src="/svg_icons/x.png" alt="x" class="w-4" />
+  {:else}
+    <img src="/svg_icons/hamburger.png" alt="hamburger" class="w-6" />
+  {/if}
 </span>

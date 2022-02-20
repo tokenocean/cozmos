@@ -94,6 +94,7 @@
     $prompt = {
       component: ConnectWallet,
       hide: true,
+      rainbow: true,
     };
   };
 </script>
@@ -102,7 +103,7 @@
 {#if filtered.length}
   <div class="stars mx-auto w-full">
     <div
-      class="w-full h-[100vh] backgroundImage splashBackground flex justify-center items-center"
+      class="w-full h-[80vh] backgroundImage splashBackground flex justify-center items-center"
     >
       <video
         src={`/landing_video.mp4`}
@@ -118,7 +119,7 @@
             <h2
               class="text-sm mb-4 md:mb-0 md:text-lg text-gray-300 text-center tracking-widest"
             >
-              WE ARE DISRUPTING THE NFT INDUSTRY.
+              WE ARE DISRUPTING<br /> THE NFT INDUSTRY.
             </h2>
             <h1
               class="text-white mb-6 md:mb-0 text-3xl md:text-4xl text-center"
@@ -142,7 +143,7 @@
         <img
           src="/svg_icons/mute.svg"
           alt="mute icon"
-          class="hidden md:block right-20 bottom-20 absolute w-36 text-white cursor-pointer"
+          class="hidden md:block right-20 bottom-60 xl:bottom-20 absolute w-36 text-white cursor-pointer"
           bind:this={soundIcon}
           on:click={() => {
             if (muted === "muted") {

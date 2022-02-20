@@ -19,16 +19,25 @@
   <div class="mx-auto flex container items-center justify-between">
     <div>
       <a href="/">
-        <Logo class="w-44 lg:w-48 z-20 relative" />
+        <Logo class="w-36 lg:w-42 z-20 relative" />
       </a>
     </div>
     <div class="flex justify-center space-x-6 items-center">
+      {#if $session?.user}
+        <nav class="flex hambuger navbar-menu">
+          <ProfileMobile bind:open={sidebar2} />
+        </nav>
+      {:else}
+        <a class="mobileSearch z-20 relative" href="/register">
+          <img
+            src="/svg_icons/profile_mobile.png"
+            alt="profile icon"
+            class="w-4"
+          />
+        </a>
+      {/if}
       <nav class="flex hambuger navbar-menu">
         <Hamburger bind:open={sidebar} />
-      </nav>
-
-      <nav class="flex hambuger navbar-menu">
-        <ProfileMobile bind:open={sidebar2} />
       </nav>
     </div>
     <nav class="hidden text-bold lg:block">

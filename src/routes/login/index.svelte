@@ -55,11 +55,13 @@
 
 <div class="backgroundBlack form-container px-4">
   <form
-    class="mb-6 rounded-xl md:bg-black w-full xl:w-[30%]"
+    class="h-[100vh] md:h-auto mt-10 md:mt-0 mb-6 rounded-xl md:bg-black w-full xl:w-[30%]"
     on:submit|preventDefault={login}
     autocomplete="off"
   >
-    <h2 class="mb-8 text-black md:text-white md:text-center">Sign In</h2>
+    <h2 class="mb-8 text-black md:text-white md:text-center text-5xl">
+      Sign In
+    </h2>
     <div class="flex flex-col mb-4">
       <label class="mb-2 font-medium text-black md:text-white" for="first_name"
         >Email or username</label

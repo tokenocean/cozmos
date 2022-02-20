@@ -34,12 +34,20 @@
 </div>
 
 <style>
+  .xs {
+    @apply w-10 h-10;
+  }
+
   .sm {
     @apply w-12 h-12;
   }
 
   .lg {
     @apply w-16 h-16;
+  }
+
+  .lgx {
+    @apply w-24 h-24;
   }
 
   .xl {
