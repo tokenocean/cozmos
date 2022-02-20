@@ -142,6 +142,22 @@
               </div>
             </div>
           </div>
+
+          {#if artwork.auction_end}
+            <div class:text-secondary={summary}>
+              {#if end_counter}
+                <div class="flex justify-center items-center">
+                  <img
+                    src="/static/Time_Auction_colour.png"
+                    alt="clock"
+                    class="w-6 mr-2 md:mr-6"
+                  />
+                  <div class={textSize0}>Time left:</div>
+                </div>
+                <div class="font-bold text-lg">{end_counter}</div>
+              {/if}
+            </div>
+          {/if}
           {#if artwork.bid && artwork.bid.user}
             <div class="ml-2" class:text-secondary={summary}>
               <div class="{textSize0} whitespace-nowrap">
@@ -183,22 +199,6 @@
               </div>
             </div>
           </div>
-
-          {#if artwork.auction_end}
-            <div class:text-secondary={summary}>
-              {#if end_counter}
-                <div class="flex justify-center items-center">
-                  <img
-                    src="/static/Time_Auction_colour.png"
-                    alt="clock"
-                    class="w-6 mr-2 md:mr-6"
-                  />
-                  <div class={textSize0}>Time left:</div>
-                </div>
-                <div class="font-bold text-lg">{end_counter}</div>
-              {/if}
-            </div>
-          {/if}
         </div></a
       >
     {/if}
