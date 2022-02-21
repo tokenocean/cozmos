@@ -3,7 +3,7 @@
   import Fa from "svelte-fa";
 </script>
 
-<div class="bg-black p-2 colored-border relative pb-16">
+<div class="bg-black p-2 relative pb-16">
   <div
     class="container footer mx-auto flex justify-between flex-wrap text-white pt-12"
   >
@@ -90,25 +90,3 @@
     </div>
   </div>
 </div>
-
-<style lang="scss">
-  .colored-border {
-    &:before {
-      content: "";
-      display: block;
-      position: absolute;
-      left: 0;
-      top: -20px;
-      right: 0;
-      height: 20px;
-      background: #fa7900; /* Old browsers */
-      background: linear-gradient(
-        90deg,
-        #fa7900 0%,
-        #df36b4 43%,
-        #0063ea 77%,
-        #00eaaf 100%
-      );
-    }
-  }
-</style>

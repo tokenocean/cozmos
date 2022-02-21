@@ -10,6 +10,6 @@
   on:click={() => (open = !open)}
 >
   <a class="mobileSearch z-20 relative" href="">
-    <Avatar size="xs" user={$session.user} />
+    <Avatar border="" size="xs" user={$session.user} />
   </a>
 </span>
