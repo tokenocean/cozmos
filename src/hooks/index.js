@@ -12,7 +12,7 @@ export async function handle({ event, resolve }) {
     url: { pathname },
   } = event;
 
-  const cookies = cookie.parse(headers.get('cookie') || "");
+  const cookies = cookie.parse(headers.get("cookie") || "");
   let { refresh_token, token: jwt } = cookies;
 
   let user, setCookie;
