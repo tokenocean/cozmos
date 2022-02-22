@@ -13,6 +13,7 @@
 </script>
 
 <script>
+  import { session } from "$app/stores";
   import * as animateScroll from "svelte-scrollto";
   import ArtworkMedia from "$components/ArtworkMedia.svelte";
   import Card from "$styleguide/components/Card.svelte";
@@ -159,12 +160,14 @@
           <a href="/#market" class="w-full"
             ><Button primary rounded="rounded-full">Explore</Button></a
           >
-          <a
-            href="/wallet"
-            class="w-full bg-black rounded-full font-bold text-white py-2"
-            ><button on:click|preventDefault={showConnect}>Create wallet</button
-            ></a
-          >
+          {#if !$session?.user}
+            <a
+              href="/wallet"
+              class="w-full bg-black rounded-full font-bold text-white py-2"
+              ><button on:click|preventDefault={showConnect}
+                >Create wallet</button
+              ></a
+            >{/if}
         </div>
       </div>
     </div>

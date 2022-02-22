@@ -5,7 +5,7 @@
   export const close = () => goto("/#market");
 </script>
 
-<div class="container text-center bg-white py-[5.5rem] md:p-10">
+<div class="container text-center bg-white md:p-10">
   <h1 class="text-4xl mb-4 text-transparent bg-clip-text text-gradient">
     Great!!
   </h1>
