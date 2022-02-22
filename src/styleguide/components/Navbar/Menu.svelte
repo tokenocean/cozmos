@@ -5,7 +5,7 @@
   import UserPopup from "$styleguide/components/UserPopup.svelte";
   import Fa from "svelte-fa";
   import { faWallet, faUser } from "@fortawesome/free-solid-svg-icons";
-  import { user } from "$lib/store";
+  import { session } from "$app/stores";
   import { clickOutside } from "$lib/svelte-actions";
   import { prompt } from "$lib/store";
   import { ConnectWallet } from "$comp";
@@ -67,7 +67,7 @@
 <div
   class="flex justify-between text-center items-center menu relative whitespace-nowrap"
 >
-  {#if $user}
+  {#if $session?.user}
     <div class="relative flex lg:flex">
       <Button
         primary

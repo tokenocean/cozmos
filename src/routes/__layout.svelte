@@ -107,7 +107,8 @@
 
   onDestroy(() => clearInterval(interval));
   onMount(() => {
-    if (!$password) $password = window.sessionStorage.getItem("password");
+    if (browser && !$password)
+      $password = window.sessionStorage.getItem("password");
   });
   let margin;
   $: margin && (margin.style.marginTop = `${$headerHeight}px`);

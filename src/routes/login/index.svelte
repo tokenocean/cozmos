@@ -21,7 +21,7 @@
   import cryptojs from "crypto-js";
   import { tick } from "svelte";
   import { keypair, singlesig, multisig } from "$lib/wallet";
-  import { token, user } from "$lib/store";
+  import { password as pw, token, user } from "$lib/store";
   import { onMount } from "svelte";
 
   let show;
@@ -34,12 +34,15 @@
   $: if (emailInput) pageChange($page);
 
   let login = async () => {
-    window.sessionStorage.setItem("password", password);
     try {
       let res = await post("/auth/login", { email, password }, fetch).json();
+
+      $pw = password;
       $user = res.user;
-      $token = res.jwt_token;
-      $session = { user: $user };
+      $session = { user: res.user, jwt: res.jwt_token };
+      $token = $session.jwt;
+      window.sessionStorage.setItem("password", password);
+
       goto("/");
     } catch (e) {
       err(e);
