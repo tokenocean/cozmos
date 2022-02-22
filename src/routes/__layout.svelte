@@ -67,6 +67,8 @@
   let interval, rateInterval;
 
   let refresh = async () => {
+    if (!$session.jwt) return;
+
     try {
       let { jwt_token } = await get("/auth/refresh.json", fetch);
       $token = jwt_token;

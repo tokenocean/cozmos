@@ -39,9 +39,10 @@ export async function get({ request: { headers } }) {
       },
     };
   } catch (e) {
+    console.log("refresh failed", e);
     return {
       body: {},
-      status: 200,
+      status: 500,
       headers: new Headers({
         "set-cookie": [
           cookie.serialize("token", "", {
