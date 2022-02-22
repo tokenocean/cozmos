@@ -99,7 +99,7 @@
             </div>
             {#if pending}
               <div class="text-orange-300 text-xs">
-                + ${parseFloat(pending * $rate).toFixed(4)}
+                + ${parseFloat(pending * $rate).toFixed(2)}
               </div>
             {/if}
           </div>
