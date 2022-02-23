@@ -451,36 +451,34 @@ export default class Core {
 
   async spendPreviousSwap(artwork, current) {
     if (
-      !artwork.list_price ||
+      !(current.list_price && current.list_price_tx) ||
       artwork.auction_end ||
       parseInt(current?.list_price || 0) === artwork.list_price
     )
       return true;
 
-    if (artwork.list_price_tx) {
-      psbt.set(await cancelSwap(artwork, 500));
+    psbt.set(await cancelSwap(artwork, 500));
 
-      try {
-        await signAndBroadcast();
-        await query(createTransaction, {
-          transaction: {
-            amount: artwork.list_price,
-            artwork_id: artwork.id,
-            asset: artwork.asking_asset,
-            hash: get(psbt).extractTransaction().getId(),
-            psbt: get(psbt).toBase64(),
-            type: "cancel",
-          },
-        });
+    try {
+      await signAndBroadcast();
+      await query(createTransaction, {
+        transaction: {
+          amount: artwork.list_price,
+          artwork_id: artwork.id,
+          asset: artwork.asking_asset,
+          hash: get(psbt).extractTransaction().getId(),
+          psbt: get(psbt).toBase64(),
+          type: "cancel",
+        },
+      });
 
-        artwork.stale = true;
-      } catch (e) {
-        if (e.message.includes("already"))
-          throw new Error(
-            "Please wait a block before changing the listing price"
-          );
-        else throw e;
-      }
+      artwork.stale = true;
+    } catch (e) {
+      if (e.message.includes("already"))
+        throw new Error(
+          "Please wait a block before changing the listing price"
+        );
+      else throw e;
     }
   }
 
