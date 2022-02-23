@@ -16,9 +16,9 @@
   export let cover = false;
   export let featured = false;
   export let popupImage = false;
-  export let filetype;
+  export let filetype = undefined;
   export let src = undefined;
-  export let square;
+  export let square = false;
 
   $: isVideo =
     filetype?.includes("video") ||
