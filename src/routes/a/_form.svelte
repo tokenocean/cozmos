@@ -1,6 +1,6 @@
 <script>
   import { err, goto, sats, val, btc } from "$lib/utils";
-  import { FileUpload, FormItem, PhotoGallery } from "$comp";
+  import { ArtworkMedia, FileUpload, FormItem, PhotoGallery } from "$comp";
   import { browser } from "$app/env";
   import { query } from "$lib/api";
   import Fa from "svelte-fa";
@@ -131,14 +131,13 @@
 
   $: images = files.filter((f) => f.type === "gallery");
 
-  const addFile = ({ detail: file }) => {
+  const addFile = async ({ detail: file }) => {
     files = [
       ...files.filter((f) => f.type === "gallery" || f.type !== file.type),
       file,
     ];
 
     artwork[file.type] = [file];
-    if (vid) vid.load();
   };
 
   onMount(() => {
@@ -187,7 +186,7 @@
 <form class="flex flex-col w-full mb-6" on:submit autocomplete="off">
   <div class="md:grid md:grid-cols-2 md:text-left">
     {#if $page.url.pathname.includes("/create")}
-      <FormItem title="Upload NFT Image" text="text-center">
+      <FormItem title="Upload NFT File" text="text-center">
         <div class="mx-0 md:mx-2">
           <div class="text-sm text-black text-center">
             (Cannot be changed once submitted)
@@ -196,10 +195,10 @@
             class="w-full hover:border-black border border-gray-300 rounded-xl mb-8"
           >
             {#if artwork.main && artwork.main.length}
-              <img
+              <ArtworkMedia
                 src={`/api/ipfs/${artwork.main[0].hash}`}
-                alt="Main"
-                class="mx-auto w-56 mt-4 nftimage object-cover rounded"
+                filetype={artwork.main[0].filetype}
+                square={true}
               />
             {/if}
             <FileUpload
@@ -220,10 +219,10 @@
           class="w-full hover:border-black border border-gray-300 rounded-xl mb-8"
         >
           {#if artwork.thumb && artwork.thumb.length}
-            <img
+            <ArtworkMedia
               src={`/api/ipfs/${artwork.thumb[0].hash}`}
-              alt="Thumb"
-              class="mx-auto w-56 mt-4 nftimage object-cover rounded"
+              filetype={artwork.thumb[0].filetype}
+              square={true}
             />
           {/if}
           <FileUpload
@@ -244,10 +243,10 @@
           class="w-full hover:border-black border border-gray-300 rounded-xl mb-8"
         >
           {#if artwork.cover && artwork.cover.length}
-            <img
+            <ArtworkMedia
               src={`/api/ipfs/${artwork.cover[0].hash}`}
-              alt="Cover"
-              class="mx-auto w-72 mt-4 cover object-cover rounded"
+              filetype={artwork.cover[0].filetype}
+              square={true}
             />
           {/if}
           <FileUpload
@@ -267,19 +266,11 @@
           class="w-full hover:border-black border border-gray-300 rounded-xl mb-8"
         >
           {#if artwork.video && artwork.video.length}
-            <video
-              autoplay
-              loop
-              controls
-              muted
-              disablepictureinpicture
-              controlslist="nodownload"
-              key={artwork.video[0].hash}
-              bind:this={vid}
-              class="mx-auto w-72 mt-4 cover object-cover rounded"
-            >
-              <source src={`/api/ipfs/${artwork.video[0].hash}`} />
-            </video>
+            <ArtworkMedia
+              src={`/api/ipfs/${artwork.video[0].hash}`}
+              filetype={artwork.video[0].filetype}
+              square={true}
+            />
           {/if}
           <FileUpload
             {artwork}
@@ -528,14 +519,6 @@
     &.active {
       @apply bg-black text-white;
     }
-  }
-
-  .cover {
-    height: 14rem;
-  }
-
-  .nftimage {
-    height: 14rem;
   }
 
   :global(.selectContainer) {

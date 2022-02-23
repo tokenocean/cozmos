@@ -16,22 +16,35 @@
   export let cover = false;
   export let featured = false;
   export let popupImage = false;
+  export let filetype;
+  export let src = undefined;
+  export let square;
+
+  $: isVideo =
+    filetype?.includes("video") ||
+    (artwork?.main?.length &&
+      artwork.main[0].filetype &&
+      artwork.main[0].filetype.includes("video"));
+  $: title = artwork?.title || "";
 
   let img, vid;
   $: path =
-    artwork &&
-    artwork.main &&
-    artwork.main[0] &&
-    (thumb
-      ? `/api/public/${artwork.main[0].hash}.${
-          artwork.main[0].filetype.split("/")[1]
-        }`
-      : `/api/ipfs/${artwork.main[0].hash}`);
+    src ||
+    (artwork &&
+      artwork.main &&
+      artwork.main[0] &&
+      (thumb
+        ? `/api/public/${artwork.main[0].hash}.${
+            artwork.main[0].filetype.split("/")[1]
+          }`
+        : `/api/ipfs/${artwork.main[0].hash}`));
 
   $: cover = !showDetails;
   $: contain = showDetails;
   $: setLoaded(img, vid);
   let setLoaded = (img, vid) => {
+    if (!artwork) return;
+
     img &&
       (img.onload = () => {
         $loaded[artwork.id] = true;
@@ -54,7 +67,8 @@
     );
   }
 
-  let loadVideo = () => {
+  let loadVideo = async () => {
+    await new Promise((r) => setTimeout(r, 50));
     if (!vid) return;
     if ("IntersectionObserver" in window) {
       var lazyVideoObserver = new IntersectionObserver(function (
@@ -85,8 +99,8 @@
   };
 
   onMount(loadVideo);
-  $: loadVideo(preview);
-  $: reloadVideo(artwork);
+  $: loadVideo(preview || src);
+  $: reloadVideo(artwork || src);
   let reloadVideo = () => (vid && vid.currentTime) || loadVideo();
 
   let muted = true;
@@ -105,19 +119,20 @@
   let test = true;
 </script>
 
-{#if artwork?.thumb?.length && artwork.thumb[0]}
+{#if thumb && artwork?.thumb?.length && artwork.thumb[0]}
   <div class:cover class:contain>
     <img
       src={`/api/ipfs/${artwork.thumb[0].hash}`}
-      alt={artwork.title}
+      alt={title}
       bind:this={img}
       on:click={() => {
         if (popupImage === true) {
           showPopup = !showPopup;
         }
       }}
-      class="z relative h-[400px] object-cover"
+      class="z relative"
       class:featured
+      class:square
     />
     {#if showPopup}
       <div
@@ -130,7 +145,7 @@
         >
         <img
           src={`/api/ipfs/${artwork.thumb[0].hash}`}
-          alt={artwork.title}
+          alt={title}
           on:click={() => (showPopup = !showPopup)}
           class="w-1/2 cursor-pointer"
         />
@@ -148,7 +163,7 @@
         Featured experience
       </p>
     {/if}
-    {#if artwork.redeemed === true}
+    {#if artwork?.redeemed === true}
       <div
         class="h-full w-full greyed absolute top-0 z flex justify-center items-center"
         on:click={() => {
@@ -165,7 +180,7 @@
       </div>
     {/if}
   </div>
-{:else if artwork?.main?.length && artwork.main[0].filetype && artwork.main[0].filetype.includes("video")}
+{:else if isVideo}
   <div
     class="w-full"
     class:inline-block={!popup}
@@ -178,6 +193,7 @@
     on:blur={out}
   >
     <video
+      class:square
       class="lazy"
       autoplay
       muted
@@ -212,7 +228,7 @@
         Featured experience
       </p>
     {/if}
-    {#if artwork.redeemed === true}
+    {#if artwork?.redeemed === true}
       <div
         class="h-full w-full greyed absolute top-0 z flex justify-center items-center"
         on:click={() => {
@@ -233,14 +249,15 @@
   <div class="w-full" class:cover class:contain>
     <img
       src={preview || path}
-      alt={artwork.title}
+      alt={title}
       bind:this={img}
       on:click={() => {
         if (popupImage === true) {
           showPopup = !showPopup;
         }
       }}
-      class="z relative h-[400px] object-cover rounded-t-xl"
+      class="z relative"
+      class:square
       class:featured
     />
     {#if showPopup}
@@ -254,7 +271,7 @@
         >
         <img
           src={preview || path}
-          alt={artwork.title}
+          alt={title}
           on:click={() => (showPopup = !showPopup)}
           class="w-1/2 cursor-pointer"
         />
@@ -274,7 +291,7 @@
       </p>
     {/if}
 
-    {#if artwork.redeemed === true}
+    {#if artwork?.redeemed === true}
       <div
         class="h-full w-full greyed absolute top-0 z flex justify-center items-center"
         on:click={() => {
@@ -417,5 +434,9 @@
     .featured {
       height: 400px;
     }
+  }
+
+  .square {
+    @apply mx-auto h-56 w-56 mt-4 object-cover rounded;
   }
 </style>

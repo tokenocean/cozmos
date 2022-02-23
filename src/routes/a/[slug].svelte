@@ -703,7 +703,7 @@
       <div
         class="cursor-pointer overflow-hidden rounded-2xl nft-box-shadow mb-8"
       >
-        <ArtworkMedia {artwork} popupImage={true} />
+        <ArtworkMedia {artwork} popupImage={true} thumb={false} />
       </div>
       {#if $user && $user.id === artwork.owner_id}
         <a href={`/a/${artwork.slug}/edit`}>

@@ -451,7 +451,7 @@ export default class Core {
 
   async spendPreviousSwap(artwork, current) {
     if (
-      !(current.list_price && current.list_price_tx) ||
+      !(current && current.list_price && current.list_price_tx) ||
       artwork.auction_end ||
       parseInt(current?.list_price || 0) === artwork.list_price
     )
