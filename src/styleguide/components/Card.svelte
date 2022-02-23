@@ -148,7 +148,7 @@
               {#if end_counter}
                 <div class="flex justify-center items-center">
                   <img
-                    src="/static/Time_Auction_colour.png"
+                    src="/Time_Auction_colour.png"
                     alt="clock"
                     class="w-6 mr-2 md:mr-6"
                   />
