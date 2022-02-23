@@ -28,7 +28,7 @@
           <ProfileMobile bind:open={sidebar2} />
         </nav>
       {:else}
-        <a class="mobileSearch z-20 relative" href="/register">
+        <a class="mobileSearch z-20 relative" href="/login">
           <img
             src="/svg_icons/profile_mobile.png"
             alt="profile icon"
