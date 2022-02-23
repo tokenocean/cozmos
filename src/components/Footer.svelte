@@ -1,6 +1,9 @@
 <script>
   import branding from "$lib/branding";
   import Fa from "svelte-fa";
+
+  let date = new Date();
+  let year = date.getFullYear();
 </script>
 
 <div class="bg-black p-2 relative pb-16">
@@ -73,7 +76,7 @@
       >
     </div>
     <div class="flex justify-center items-center mt-4 md:mt-0">
-      <p class="text-sm">Copyright 2021 {branding.projectName}.</p>
+      <p class="text-sm">Copyright {year} {branding.projectName}.</p>
       <a
         href={branding.urls.external.instagram}
         target="_blank"
