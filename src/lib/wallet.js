@@ -1,6 +1,6 @@
 import { tick } from "svelte";
 import { get } from "svelte/store";
-import { api, electrs, hasura } from "$lib/api";
+import { api, get as g, electrs, hasura } from "$lib/api";
 // import * as middlewares from "wretch-middlewares";
 import { mnemonicToSeedSync } from "bip39";
 import { fromSeed } from "bip32";
@@ -80,10 +80,10 @@ export const getBalances = async () => {
     .get()
     .json();
 
+  let { titles: t } = await g("/addresses.json", fetch);
+  titles.set(t);
   Object.keys(c).map(async (a) => {
-    let artwork = get(titles).find(
-      (t) => t.asset === a && t.owner_id !== get(user).id
-    );
+    let artwork = t.find((t) => t.asset === a && t.owner_id !== get(user).id);
 
     if (artwork) {
       await api
