@@ -618,20 +618,20 @@
           >
             <ArtworkMedia {artwork} popupImage={true} />
           </div>
-          <div class="flex justify-between w-full">
-            {#if $user && $user.id === artwork.owner_id}
-              <a href={`/a/${artwork.slug}/transfer`}>
-                <Button class="w-36 border border-black" {disabled}
-                  >Transfer</Button
-                >
-              </a>
-            {/if}
-            {#if $user && $user.id === artwork.artist_id && !artwork.redeemed}
-              <Button on:click={redeem} class="w-36 border border-black"
-                >Redeem</Button
+
+          {#if $user && $user.id === artwork.owner_id}
+            <a href={`/a/${artwork.slug}/transfer`}>
+              <Button class="my-2 mx-auto w-full border border-black" {disabled}
+                >Transfer</Button
               >
-            {/if}
-          </div>
+            </a>
+          {/if}
+          {#if $user && $user.id === artwork.artist_id && !artwork.redeemed}
+            <Button
+              on:click={redeem}
+              class="my-2 w-full mx-auto border border-black">Redeem</Button
+            >
+          {/if}
         </div>
 
         <!-- Description -->

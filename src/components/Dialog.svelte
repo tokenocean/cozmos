@@ -24,16 +24,17 @@
   }
 
   let margin;
-  $: margin && (margin.style.marginTop = `${$headerHeight}px`);
+  let mql = browser && window.matchMedia("(max-width: 768px)");
+  $: margin && mql.matches && (margin.style.marginTop = `${$headerHeight}px`);
 </script>
 
 {#if $prompt}
   <div class="fixed z-10 inset-0 overflow-y-auto" bind:this={margin}>
     <div
-      class="dialog-container flex items-end justify-center min-h-screen text-center sm:block sm:p-0"
+      class="dialog-container flex items-start md:items-center justify-center min-h-screen text-center"
     >
       <div
-        class="fixed inset-0 transition-opacity"
+        class="hidden md:block fixed inset-0 transition-opacity"
         aria-hidden="true"
         on:click={close}
       >
@@ -53,10 +54,10 @@
         <div class="{dark()} p-4" class:rainbow={$prompt.rainbow}>
           <div class="flow-root p-0 m-0">
             <div
-              class="cursor-pointer float-right bg-black md:border border-white text-white p-0 m-0 w-8 rounded-full flex justify-center font-bold"
+              class="cursor-pointer float-right bg-black md:border border-white text-white p-2 m-0 w-8 rounded-full flex justify-center font-bold"
               on:click={close}
             >
-              X
+              <img src="/svg_icons/x.png" alt="x" class="w-4" />
             </div>
           </div>
           <div class="sm:flex sm:items-start">

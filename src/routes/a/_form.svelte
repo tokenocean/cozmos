@@ -508,10 +508,13 @@
       </div>
     </div>
   </div>
-
-  <Button type="submit" primary class="w-full mt-8">
-    Submit an experience
-  </Button>
+  {#if $page.url.pathname.includes("/create")}
+    <Button type="submit" primary class="w-full mt-8">
+      Submit an experience
+    </Button>
+  {:else}
+    <Button type="submit" primary class="w-full mt-8">Edit experience</Button>
+  {/if}
 </form>
 
 <style lang="scss">

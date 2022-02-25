@@ -5,10 +5,10 @@
   let image = `/api/ipfs/${artwork.main[0].hash}`;
 </script>
 
-<div class="container text-center p-10">
+<div class="h-[100vh] md:h-auto container text-center p-10">
   <div class="flex justify-center">
     <h1
-      class="text-4xl font-extrabold text-transparent bg-clip-text text-gradient"
+      class="text-3xl font-extrabold text-transparent bg-clip-text text-gradient"
     >
       Congratulations!
     </h1>
