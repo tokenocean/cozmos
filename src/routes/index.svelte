@@ -300,7 +300,7 @@
     </div>
   </div>
 {:else}
-  No experiences have been uploaded
+  No experiences have been uploaded.
 {/if}
 
 <style>
