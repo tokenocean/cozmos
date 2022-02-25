@@ -37,7 +37,7 @@
     class="p-5 pb-10 menu-container h-full -left-full background rounded text-white absolute"
   >
     <div class="menu relative">
-      <a sveltekit:prefetch href="/#market" class="border-b border-white"
+      <a sveltekit:prefetch href="/#market" class="mt-4 border-b border-white"
         ><button on:click={toggle} class="text-left">EXPLORE MARKETPLACE</button
         ></a
       >
@@ -70,31 +70,31 @@
       {:else}<a href="/register"
           ><button
             on:click={toggleAndPrompt}
-            class="mt-2 text-sm p-3 bg-black rounded-full">CREATE WALLET</button
+            class="mt-4 text-sm p-3 bg-black rounded-full">CREATE WALLET</button
           ></a
         >
       {/if}
-      <div class="flex justify-center items-center">
+      <div class="mt-5 flex justify-between space-x-20 items-center">
         <a
           href={branding.urls.external.instagram}
           target="_blank"
           rel="noreferrer"
         >
-          <img src="/Instagram-02.svg" alt="Instagram" class="w-20" />
+          <img src="/Instagram-02.png" alt="Instagram" />
         </a>
         <a
           href={branding.urls.external.discord}
           target="_blank"
           rel="noreferrer"
         >
-          <img src="/Discord.svg" alt="Discord" class="w-20" />
+          <img src="/Discord.png" alt="Discord" />
         </a>
         <a
           href={branding.urls.external.twitter}
           target="_blank"
           rel="noreferrer"
         >
-          <img src="/Twitter-02.svg" alt="Twitter" class="w-20" />
+          <img src="/Twitter-02.png" alt="Twitter" />
         </a>
       </div>
     </div>
@@ -146,7 +146,7 @@
     font-size: 16px;
     display: block;
     width: 100%;
-    padding: 10px;
+    padding: 10px 0px;
   }
 
   @screen lg {

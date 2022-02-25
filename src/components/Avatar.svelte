@@ -47,7 +47,7 @@
   }
 
   .lgx {
-    @apply w-24 h-24;
+    @apply w-20 h-20;
   }
 
   .xl {

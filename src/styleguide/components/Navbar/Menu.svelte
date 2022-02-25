@@ -11,6 +11,7 @@
   import { ConnectWallet } from "$comp";
   import Button from "$styleguide/components/Button.svelte";
   import { goto } from "$lib/utils";
+  import { Avatar } from "$comp";
 
   export let open = false;
   let toggle = () => (open = !open);
@@ -107,11 +108,7 @@
         on:click={toggleUser}
         bind:this={userToggleHandler}
       >
-        <img
-          src="/svg_icons/profile.svg"
-          alt="Profile icon"
-          class="border border-white rounded-full w-12"
-        />
+        <Avatar border="" size="sm" user={$session.user} />
       </button>
       <div use:clickOutside on:clickOutside={handleUserClickOutside}>
         {#if displayUser}

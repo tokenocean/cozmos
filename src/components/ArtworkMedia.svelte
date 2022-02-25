@@ -194,13 +194,19 @@
   >
     <video
       class:square
-      class="lazy"
+      class="lazy rounded"
       autoplay
       muted
       playsinline
       loop
       bind:this={vid}
       controls={popup}
+      on:click={() => {
+        if (popupImage === true) {
+          showPopup = !showPopup;
+          console.log(showPopup);
+        }
+      }}
     >
       <track kind="captions" />
       <source data-src={preview || path} />
@@ -215,6 +221,28 @@
       >
         <Fa icon={muted ? faVolumeMute : faVolumeUp} size="1.5x" />
       </button>
+    {/if}
+    {#if showPopup}
+      <div class:showPopup class="popup cursor-default rounded">
+        <span class="closeButton" on:click={() => (showPopup = !showPopup)}
+          ><Fa icon={faTimes} /></span
+        >
+        <video
+          class:square
+          class="lazy rounded"
+          autoplay
+          playsinline
+          loop
+          bind:this={vid}
+          controls
+          disablepictureinpicture
+          controlslist="nodownload"
+        >
+          <track kind="captions" />
+          <source data-src={preview || path} />
+          Your browser does not support HTML5 video.
+        </video>
+      </div>
     {/if}
     {#if featured}
       <img

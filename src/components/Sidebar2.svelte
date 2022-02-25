@@ -24,7 +24,7 @@
         <a
           sveltekit:prefetch
           href={`/${$session.user.username}`}
-          class="border-b border-white"
+          class="border-b border-white mt-4"
           ><button on:click={toggle} class="flex justify-between items-center"
             >YOUR PROFILE<img
               src="/svg_icons/profile_mobile.png"
@@ -52,33 +52,33 @@
         <a href="/logout"
           ><button
             on:click={toggle}
-            class="text-sm mt-2 p-3 bg-black rounded-full">DISCONNECT</button
+            class="text-sm mt-4 p-3 bg-black rounded-full">DISCONNECT</button
           ></a
         >
       {:else}
         <p class="text-center">Not signed in.</p>
       {/if}
-      <div class="flex justify-center items-center">
+      <div class="mt-5 flex justify-between space-x-20 items-center">
         <a
           href={branding.urls.external.instagram}
           target="_blank"
           rel="noreferrer"
         >
-          <img src="/Instagram-02.svg" alt="Instagram" class="w-20" />
+          <img src="/Instagram-02.png" alt="Instagram" />
         </a>
         <a
           href={branding.urls.external.discord}
           target="_blank"
           rel="noreferrer"
         >
-          <img src="/Discord.svg" alt="Discord" class="w-20" />
+          <img src="/Discord.png" alt="Discord" />
         </a>
         <a
           href={branding.urls.external.twitter}
           target="_blank"
           rel="noreferrer"
         >
-          <img src="/Twitter-02.svg" alt="Twitter" class="w-20" />
+          <img src="/Twitter-02.png" alt="Twitter" />
         </a>
       </div>
     </div>
@@ -130,7 +130,7 @@
     font-size: 16px;
     display: block;
     width: 100%;
-    padding: 10px;
+    padding: 10px 0px;
   }
 
   @screen lg {

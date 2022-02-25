@@ -268,7 +268,9 @@
               </a>
             {/if}
           </div>
-          <div class="text-sm flex md:justify-start justify-center mt-5">
+          <div
+            class="px-2 md:px-0 text-sm flex md:justify-start justify-center mt-5"
+          >
             <div
               class="text-center w-full mr-3 border rounded-full py-2 px-5 border-solid border-black"
             >
@@ -283,7 +285,7 @@
             </div>
           </div>
           <div
-            class="w-full mt-3 md:justify-start justify-center flex md:block"
+            class="px-2 md:px-0 w-full mt-3 md:justify-start justify-center flex md:block"
           >
             {#if $user}
               {#if $user.id === subject.id}
@@ -429,13 +431,13 @@
   }
 
   #avatar-border {
-    width: 42.5%;
+    width: 36%;
   }
 
   #avatar {
     position: absolute;
     top: 50%;
-    left: 21.25%;
+    left: 18%;
     transform: translate(-50%, -50%);
   }
   @media (min-width: 768px) {

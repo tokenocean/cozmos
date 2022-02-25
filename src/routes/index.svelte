@@ -104,7 +104,7 @@
 {#if filtered.length}
   <div class="stars mx-auto w-full">
     <div
-      class="w-full h-[80vh] backgroundImage splashBackground flex justify-center items-center"
+      class="w-full h-[80vh] md:h-[100vh] backgroundImage splashBackground flex justify-center items-center"
     >
       <video
         src={`/landing_video.mp4`}
@@ -192,9 +192,7 @@
         class="mx-auto w-full lg:w-1/2 background h-full flex justify-center items-center"
       >
         <div class="w-full md:w-[60%] mx-auto pt-6 lg:pt-6">
-          <h2
-            class="mx-2 md:mx-0 pt-4 md:pt-0 border-t-[1px] border-gray-400 md:border-0 text-3xl text-white text-center lg:text-left"
-          >
+          <h2 class="mx-2 md:mx-0 pt-4 md:pt-0 text-3xl text-white text-left">
             <Card
               artwork={filtered[0]}
               showDetails={false}
@@ -202,7 +200,7 @@
               titleOnly={true}
             />
           </h2>
-          <p class="text-xl text-secondary font-bold my-2 px-4 md:px-0">
+          <p class="text-xl text-secondary font-bold my-2 px-2 md:px-0">
             Creator: <span class="font-normal"
               ><Card
                 artwork={filtered[0]}
@@ -212,7 +210,7 @@
               /></span
             >
           </p>
-          <div class="w-full px-4 md:px-0">
+          <div class="w-full px-2 md:px-0">
             <Card
               artwork={filtered[0]}
               summary={true}
@@ -221,9 +219,7 @@
               height={"h-auto"}
             />
           </div>
-          <div
-            class="px-4 md:px-0 border-b-[1px] border-gray-400 md:border-0 mx-2 md:mx-0"
-          >
+          <div class="border-b-[1px] border-gray-400 md:border-0 mx-2 md:mx-0">
             <Card
               artwork={filtered[0]}
               showDetails={false}
