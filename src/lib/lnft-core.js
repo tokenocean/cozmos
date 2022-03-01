@@ -25,11 +25,14 @@ import {
 } from "$queries/artworks";
 import { createTransaction } from "$queries/transactions";
 import { btc, dev, err, info, kebab } from "$lib/utils";
+import { Psbt } from "liquidjs-lib";
 import {
+  createRelease,
   createSwap,
   cancelSwap,
   createIssuance,
   sign,
+  signOver,
   broadcast,
   parseAsset,
   signAndBroadcast,
@@ -354,6 +357,8 @@ export default class Core {
   }
 
   async setupAuction(artwork, current) {
+    if (current) return;
+
     let { auction_start: start, auction_end: end } = artwork;
 
     if (compareAsc(parseISO(start), new Date()) < 1)
@@ -362,38 +367,37 @@ export default class Core {
     if (compareAsc(parseISO(start), parseISO(end)) > 0)
       throw new Error("Start date must precede end date");
 
-    if (compareAsc(parseISO(artwork.auction_end), new Date()) < 1) {
-      let base64, tx;
-      if (current?.royalty_recipients.length) {
-        tx = await signOver(artwork, tx);
-        artwork.auction_tx = get(psbt).toBase64();
-      } else {
-        psbt.set(await sendToMultisig(artwork));
-        psbt.set(await signAndBroadcast());
-        base64 = get(psbt).toBase64();
-        tx = get(psbt).extractTransaction();
+    let base64, tx;
+    if (artwork.royalty_recipients.length) {
+      tx = await signOver(artwork, tx);
+      artwork.auction_tx = get(psbt).toBase64();
+    } else {
+      psbt.set(await sendToMultisig(artwork));
+      psbt.set(await signAndBroadcast());
 
-        tx = await signOver(artwork, tx);
-        artwork.auction_tx = get(psbt).toBase64();
+      base64 = get(psbt).toBase64();
+      tx = get(psbt).extractTransaction();
 
-        artwork.auction_release_tx = (
-          await createRelease(artwork, tx)
-        ).toBase64();
-      }
+      tx = await signOver(artwork, tx);
+      artwork.auction_tx = get(psbt).toBase64();
 
-      await query(createTransaction, {
-        transaction: {
-          amount: 1,
-          artwork_id: artwork.id,
-          asset: artwork.asking_asset,
-          hash: tx.getId(),
-          psbt: get(psbt).toBase64(),
-          type: "auction",
-        },
-      });
-
-      if (base64) psbt.set(Psbt.fromBase64(base64));
+      artwork.auction_release_tx = (
+        await createRelease(artwork, tx)
+      ).toBase64();
     }
+
+    await query(createTransaction, {
+      transaction: {
+        amount: 1,
+        artwork_id: artwork.id,
+        asset: artwork.asking_asset,
+        hash: tx.getId(),
+        psbt: get(psbt).toBase64(),
+        type: "auction",
+      },
+    });
+
+    if (base64) psbt.set(Psbt.fromBase64(base64));
   }
 
   async setupRoyalty(artwork, current) {

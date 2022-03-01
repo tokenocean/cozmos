@@ -467,7 +467,14 @@ const fund = async (
       }
 
       if (total < amount) {
-        let e = { message: "Insufficient funds", amount, asset, total };
+        let e = {
+          message: "Insufficient funds",
+          amount,
+          asset,
+          total,
+          address,
+          multisig,
+        };
         console.log(e);
         throw e;
       }

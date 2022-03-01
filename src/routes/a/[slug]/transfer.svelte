@@ -48,13 +48,13 @@
 
     loading = true;
     try {
-      let address = artwork.has_royalty
+      let address = isMultisig(artwork)
         ? recipient.multisig
         : recipient.address;
       $psbt = await pay(artwork, address, 1);
       await sign();
 
-      if (artwork.has_royalty) {
+      if (isMultisig(artwork)) {
         $psbt = await requestSignature($psbt);
       }
 
