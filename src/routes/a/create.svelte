@@ -166,9 +166,7 @@
     }
   }
 
-  let close = () => {
-    goto("/#market");
-  };
+  let close = () => goto("/market");
 </script>
 
 <div class="container mx-auto p-6 md:p-20">

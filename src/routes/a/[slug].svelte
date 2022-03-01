@@ -51,7 +51,7 @@
     faTimes,
     faPlay,
   } from "@fortawesome/free-solid-svg-icons";
-  import { getArtworkBySlug } from "$queries/artworks";
+  import { getArtworkBySlug, deleteArtwork } from "$queries/artworks";
   import { faHeart, faImage } from "@fortawesome/free-regular-svg-icons";
   import { page } from "$app/stores";
   import { compareAsc, format, parseISO } from "date-fns";
@@ -274,6 +274,16 @@
 
   let loading;
   let redeem = () => showConfirm();
+  let del = async () => {
+    try {
+      await query(deleteArtwork, { id: artwork.id });
+      info("Artwork deleted successfully");
+      goto("/#market");
+    } catch (e) {
+      console.log(e);
+      err("Problem deleting artwork");
+    }
+  };
 
   let buyNow = async () => {
     try {
@@ -626,10 +636,17 @@
               >
             </a>
           {/if}
+
           {#if $user && $user.id === artwork.artist_id && !artwork.redeemed}
             <Button
               on:click={redeem}
               class="my-2 w-full mx-auto border border-black">Redeem</Button
+            >
+          {/if}
+          {#if $user && $user.id === artwork.artist_id && $user.id === artwork.owner_id}
+            <Button
+              on:click={del}
+              class="my-2 w-full mx-auto border border-black">Delete</Button
             >
           {/if}
         </div>
@@ -715,6 +732,9 @@
       {/if}
       {#if $user && $user.id === artwork.artist_id && !artwork.redeemed}
         <Button primary on:click={redeem} class="w-full mb-2">Redeem</Button>
+      {/if}
+      {#if $user && $user.id === artwork.artist_id && $user.id === artwork.owner_id}
+        <Button on:click={del} primary class="w-full mb-2">Delete</Button>
       {/if}
       <div class="mt-12 border border-gray rounded-xl p-4">
         <div class="text-2xl font-bold">History</div>

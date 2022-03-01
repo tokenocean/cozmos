@@ -56,8 +56,6 @@
     artwork.reserve_price = sats(artwork.asking_asset, reserve_price);
   else artwork.reserve_price = undefined;
 
-  /* $: artwork.auction_end = sats(artwork.asking_asset, list_price); */
-
   let toggleFiat = () => {
     fiat = !fiat;
     if (fiat) {

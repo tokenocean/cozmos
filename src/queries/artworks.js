@@ -271,6 +271,12 @@ export const createComment = `mutation ($comment: comments_insert_input!) {
   }
 }`;
 
+export const deleteArtwork = `mutation($id: uuid!) {
+  delete_artworks_by_pk(id: $id) {
+    id
+  }
+}`;
+
 export const deleteFiles = `mutation($id: uuid!) {
   delete_files(where: { artwork_id: { _eq: $id }}) {
     affected_rows
