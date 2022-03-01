@@ -1,5 +1,5 @@
 <script>
-  import { err, goto, sats, val, btc } from "$lib/utils";
+  import { err, goto, sats, val, btc, types } from "$lib/utils";
   import { ArtworkMedia, FileUpload, FormItem, PhotoGallery } from "$comp";
   import { browser } from "$app/env";
   import { query } from "$lib/api";
@@ -48,11 +48,11 @@
 
   list_price = val(artwork.asking_asset, artwork.list_price) || "";
 
-  $: if (list_price && listingType === TYPES.FIXED)
+  $: if (list_price && listingType === types.FIXED)
     artwork.list_price = sats(artwork.asking_asset, list_price);
   else artwork.list_price = undefined;
 
-  $: if (reserve_price && listingType === TYPES.AUCTION)
+  $: if (reserve_price && listingType === types.AUCTION)
     artwork.reserve_price = sats(artwork.asking_asset, reserve_price);
   else artwork.reserve_price = undefined;
 
@@ -87,7 +87,7 @@
   }
 
   let enableAuction = () => {
-    listingType = TYPES.AUCTION;
+    listingType = types.AUCTION;
 
     if (!start_date) {
       start_date = format(addMinutes(new Date(), 15), "yyyy-MM-dd");
@@ -100,16 +100,16 @@
   };
 
   let enableFixedPrice = () => {
-    listingType = TYPES.FIXED;
+    listingType = types.FIXED;
   };
 
   let enableUnlisted = () => {
-    listingType = TYPES.UNLISTED;
+    listingType = types.UNLISTED;
   };
 
   $: updateDates(start_date, start_time, end_date, end_time, listingType);
   let updateDates = () => {
-    if (listingType === TYPES.AUCTION) {
+    if (listingType === types.AUCTION) {
       artwork.auction_start = parse(
         `${start_date} ${start_time}`,
         "yyyy-MM-dd HH:mm",
@@ -127,6 +127,9 @@
       artwork.auction_start = undefined;
       artwork.auction_end = undefined;
     }
+
+    if (listingType === types.UNLISTED || !listingType)
+      artwork.asking_asset = undefined;
   };
 
   $: images = files.filter((f) => f.type === "gallery");
@@ -170,17 +173,11 @@
     }
   };
 
-  const TYPES = {
-    UNLISTED: "UNLISTED",
-    FIXED: "FIXED",
-    AUCTION: "AUCTION",
-  };
-
   let listingType = artwork.list_price
-    ? TYPES.FIXED
+    ? types.FIXED
     : artwork.auction_end
-    ? TYPES.AUCTION
-    : TYPES.UNLISTED;
+    ? types.AUCTION
+    : types.UNLISTED;
 </script>
 
 <form class="flex flex-col w-full mb-6" on:submit autocomplete="off">
@@ -348,31 +345,31 @@
       <div class="md:grid md:gap-4 md:grid-cols-3 py-4">
         <div>
           <div
-            on:click={() => (listingType = TYPES.UNLISTED)}
-            class:active={listingType === TYPES.UNLISTED}
+            on:click={() => (listingType = types.UNLISTED)}
+            class:active={listingType === types.UNLISTED}
             class="sell-type cursor-pointer text-center mt-4 h-44 rounded-md border-gray-300 border flex flex-col justify-center items-center"
           >
-            <Unlisted active={listingType === TYPES.UNLISTED} />
+            <Unlisted active={listingType === types.UNLISTED} />
             Unlisted
           </div>
         </div>
         <div>
           <div
             on:click={enableFixedPrice}
-            class:active={listingType === TYPES.FIXED}
+            class:active={listingType === types.FIXED}
             class="sell-type cursor-pointer text-center mt-4 h-44 rounded-md border-gray-300 border flex flex-col justify-center items-center"
           >
-            <Fixed active={listingType === TYPES.FIXED} />
+            <Fixed active={listingType === types.FIXED} />
             Fixed Price
           </div>
         </div>
         <div>
           <div
             on:click={enableAuction}
-            class:active={listingType === TYPES.AUCTION}
+            class:active={listingType === types.AUCTION}
             class="sell-type cursor-pointer text-center mt-4 h-44 rounded-md border-gray-300 border flex flex-col justify-center items-center"
           >
-            <Auction active={listingType === TYPES.AUCTION} />
+            <Auction active={listingType === types.AUCTION} />
             Auction<br />
           </div>
         </div>
@@ -383,7 +380,7 @@
   <div>
     <div class="md:grid md:gap-8 md:grid-cols-2 py-4">
       <div>
-        {#if listingType === TYPES.FIXED}
+        {#if listingType === types.FIXED}
           <FormItem title="Price">
             <div class="flex">
               {#if fiat}
@@ -408,7 +405,7 @@
             </div></FormItem
           >
         {/if}
-        {#if listingType === TYPES.AUCTION}
+        {#if listingType === types.AUCTION}
           <FormItem title="Minimum bid">
             {#if fiat}
               <input
@@ -431,7 +428,7 @@
             {/if}
           </FormItem>
         {/if}
-        {#if listingType === TYPES.UNLISTED}
+        {#if listingType === types.UNLISTED}
           The experience will be minted and available for editing but will not
           be visible in the marketplace until you list it.
         {:else}
@@ -467,7 +464,7 @@
         {/if}
       </div>
       <div class="mt-4 md:mt-0">
-        {#if listingType === TYPES.AUCTION}
+        {#if listingType === types.AUCTION}
           <FormItem title="Starting date">
             <div class="grid grid-cols-2 gap-4">
               <input

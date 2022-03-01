@@ -84,7 +84,6 @@
 
   let files = [];
 
-  if (!artwork.asking_asset) artwork.asking_asset = btc;
   auction_enabled =
     auction_enabled ||
     compareAsc(parseISO(artwork.auction_end), new Date()) === 1;
@@ -120,7 +119,7 @@
   let hidden = true;
   $: preview = files.find((f) => f.type === "main")?.preview;
 
-  let hash, tx, listingType;
+  let hash, tx;
 
   async function submit(e) {
     e.preventDefault();
@@ -143,12 +142,6 @@
         $prompt = Issuing;
       }
       loading = true;
-
-      let auction_start, auction_end;
-      if (listingType === "AUCTION") {
-        auction_start = start;
-        auction_end = end;
-      }
 
       artwork.editions = 1;
 

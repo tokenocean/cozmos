@@ -275,6 +275,12 @@ function post(endpoint, data) {
   });
 }
 
+const types = {
+  UNLISTED: "UNLISTED",
+  FIXED: "FIXED",
+  AUCTION: "AUCTION",
+};
+
 export {
   addressLabel,
   addressUser,
@@ -300,6 +306,7 @@ export {
   kebab,
   ticker,
   tickers,
+  types,
   units,
   usd,
   val,
