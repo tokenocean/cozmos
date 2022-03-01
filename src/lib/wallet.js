@@ -467,7 +467,9 @@ const fund = async (
       }
 
       if (total < amount) {
-        throw { message: "Insufficient funds", amount, asset, total };
+        let e = { message: "Insufficient funds", amount, asset, total };
+        console.log(e);
+        throw e;
       }
     } else {
       total += utxos[i].value;
