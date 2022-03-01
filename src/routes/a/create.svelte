@@ -24,7 +24,7 @@
   import Core from "$lib/lnft-core";
   import { page } from "$app/stores";
   import { onMount, tick } from "svelte";
-  import { prompt, token, psbt, fee, password, sighash } from "$lib/store";
+  import { prompt, token } from "$lib/store";
   import { ProgressLinear, PhotoGallery, ThankYou } from "$comp";
   import {
     create,
@@ -32,30 +32,13 @@
     updateArtworkWithRoyaltyRecipients,
   } from "$queries/artworks";
   import { requirePassword } from "$lib/auth";
-  import {
-    broadcast,
-    cancelSwap,
-    createIssuance,
-    createRelease,
-    createSwap,
-    keypair,
-    parseAsset,
-    requestSignature,
-    sendToMultisig,
-    sign,
-    signAndBroadcast,
-    signOver,
-  } from "$lib/wallet";
-  import reverse from "buffer-reverse";
   import { ArtworkMedia, RoyaltyRecipientList } from "$comp";
   import branding from "$lib/branding";
 
   import Form from "./_form.svelte";
   import Issuing from "./_issuing.svelte";
 
-  import { Psbt } from "liquidjs-lib";
   import { api, query } from "$lib/api";
-  import { createTransaction } from "$queries/transactions";
   import {
     format,
     addDays,
@@ -65,20 +48,7 @@
     parseISO,
     addMinutes,
   } from "date-fns";
-  import {
-    btc,
-    fade,
-    kebab,
-    goto,
-    err,
-    info,
-    units,
-    sats,
-    val,
-    tickers,
-    assetLabel,
-    royaltyRecipientSystemType,
-  } from "$lib/utils";
+  import { btc, goto, err, royaltyRecipientSystemType } from "$lib/utils";
   import Select from "svelte-select";
 
   export let default_royalty_recipients, user;

@@ -428,9 +428,7 @@ export default class Core {
     )
       return true;
 
-    let tx;
-    if (artwork.stale) tx = get(psbt).extractTransaction();
-
+    let tx = get(psbt).extractTransaction();
     psbt.set(await createSwap(artwork, tx));
 
     await sign(0x83);
@@ -457,8 +455,6 @@ export default class Core {
       parseInt(current?.list_price || 0) === artwork.list_price
     )
       return true;
-
-    console.log("CANCELLING SWAP");
 
     psbt.set(await cancelSwap(artwork, 500));
 
