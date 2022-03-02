@@ -326,7 +326,7 @@ const splitUp = async (tx) => {
   let p3;
   if (type === "bid") p3 = await createOffer(artwork, value, input, fee);
   else {
-    ({ hash, index } = ins[1]);
+    let { hash, index } = ins[1];
     p3 = new Psbt()
       .addInput(input)
       .addInput({
@@ -476,6 +476,7 @@ const fund = async (
           multisig,
         };
         console.log(e);
+        console.trace();
         throw e;
       }
     } else {
@@ -1172,3 +1173,18 @@ function varIntSerializeSize(val) {
 
   return 9;
 }
+
+export const getInputs = async () => {
+  let utxos = await electrs
+    .url(`/address/${singlesig().address}/utxo`)
+    .get()
+    .json();
+
+  let txns = [];
+  let a = utxos.filter((o) => o.asset === btc && o.value > DUST);
+  for (let i = 0; i < a.length; i++) {
+    txns.push(Transaction.fromHex(await getHex(a[i].txid)));
+  }
+
+  return [txns, utxos.reduce((a, b) => a + b.value, 0)];
+};

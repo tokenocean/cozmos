@@ -9,7 +9,7 @@
  */
 
 import { v4 } from "uuid";
-import { query, hasura } from "$lib/api";
+import { api, query, hasura } from "$lib/api";
 import { tick } from "svelte";
 import { get } from "svelte/store";
 import {
@@ -17,6 +17,7 @@ import {
   psbt,
   user,
   token,
+  txcache,
 } from "$lib/store";
 import {
   create,
@@ -27,14 +28,16 @@ import { createTransaction } from "$queries/transactions";
 import { btc, dev, err, info, kebab } from "$lib/utils";
 import { Psbt } from "liquidjs-lib";
 import {
+  broadcast,
   createRelease,
   createSwap,
   cancelSwap,
   createIssuance,
+  getInputs,
   sign,
   signOver,
-  broadcast,
   parseAsset,
+  parseVal,
   signAndBroadcast,
   sendToMultisig,
 } from "$lib/wallet";
@@ -68,12 +71,7 @@ export default class Core {
     });
   }
 
-  /**
-   * Generates specific count of free tickers with a check within database
-   * @param {number} count - count of tickers
-   * @returns {Promise<*[]>} - returns array of tickers
-   */
-  async generateFreeTickers({ count = 1 }) {
+  async generateTickers(count) {
     const randomTicker = () => {
       let a = "ABCDEFGHIJKLMNOPQRSTUVWXYZ".split("");
       let ticker = "";
@@ -118,34 +116,6 @@ export default class Core {
   }
 
   /**
-   * Generates specific count of free tickers based on ticker provided by user
-   * Mostly used when user creates multiple editions of Artwork with specified ticker
-   * @param {number} count
-   * @param {string} ticker
-   * @returns {Promise<*[string]>}
-   */
-  async generateTickersBasedOnMainTicker({ count, ticker }) {
-    let tickers = [];
-
-    let a = "ABCDEFGHIJKLMNOPQRSTUVWXYZ".split("");
-    let b = [];
-    for (let i = 0; i < a.length; i++) {
-      for (let j = 0; j < a.length; j++) {
-        b.push(a[i] + a[j]);
-      }
-    }
-    let c = [...a, ...b];
-
-    for (let edition = 1; edition <= count; edition++) {
-      if (edition > 1)
-        ticker = ticker.substr(0, 3) + c[c.indexOf(ticker.substr(3)) + 1];
-      tickers.push(ticker.toUpperCase());
-    }
-
-    return tickers;
-  }
-
-  /**
    * Checks that tickers are free to use in database
    * @param {string[]} tickers
    * @returns {Promise<{error: string, tickersUnavailable: (string|*|string)[]}|{success: boolean}>}
@@ -176,39 +146,6 @@ export default class Core {
    * @param artwork - Artwork Object
    * @returns {Promise<{contract: string, asset, hash: string}>}
    */
-  async issueToken({ artwork }) {
-    let contract;
-    let tx;
-
-    let domain =
-      this.user.username === branding.superUserName
-        ? branding.urls.base
-        : `${this.user.username.toLowerCase()}.${branding.urls.base}`;
-
-    try {
-      contract = await createIssuance(artwork, domain, tx);
-
-      await sign();
-      await broadcast(true);
-      await tick();
-    } catch (e) {
-      throw new Error("Issuance failed: " + e.message);
-    }
-
-    tx = this.psbt.extractTransaction();
-    let asset = parseAsset(
-      tx.outs.find((o) => parseAsset(o.asset) !== btc).asset
-    );
-
-    let hash = tx.getId();
-
-    return {
-      contract: JSON.stringify(contract),
-      hash: hash,
-      asset: asset,
-    };
-  }
-
   async createComment(artwork_id, comment) {
     let variables = {
       comment: { artwork_id, comment },
@@ -248,13 +185,10 @@ export default class Core {
   /**
    * Creates a new artwork
    * @param artwork
-   * @param generateRandomTickers - in case if user doesn't specify the Ticker - we should generate random tickers,
-   * false by default
    * @returns {Promise<{filetype}|{filename}|*>}
    */
-  async createArtwork({ artwork, generateRandomTickers = false }) {
-    // check that artwork match expectations
-
+  async createArtwork(artwork) {
+    let transactions = [];
     if (!dev) {
       if (!artwork.title) throw new Error("Please enter a title");
       if (!artwork.description) throw new Error("Description is required");
@@ -268,98 +202,76 @@ export default class Core {
     if (artwork.reserve_price && !artwork.auction_end)
       throw new Error("Auction end date required");
 
-    let { ticker } = artwork;
-    let tickers = [];
+    let edition;
 
-    // if artwork has multiple editions - generate the array of tickers for each artwork
-    if (generateRandomTickers) {
-      tickers = await this.generateFreeTickers({ count: artwork.editions });
-    } else {
-      tickers = await this.generateTickersBasedOnMainTicker({
-        count: artwork.editions,
-        ticker,
-      });
-      const result = await this.checkTickers({ tickers: tickers });
+    let tickers = await this.generateTickers(artwork.editions);
+    await this.checkTickers(tickers);
 
-      if (result.error) throw new Error(result.error);
-    }
+    let required = 0;
+    let [inputs, total] = await getInputs();
+    let issueToken = async () => {
+      let contract, tx;
 
-    // create artworks & push to blockchain/database
-    for (let edition = 1; edition <= artwork.editions; edition++) {
-      // write to store the number of current edition in progress
-      // this will be used in Issuing popup
-      artworkCreateEditionInProgress.set(edition);
+      let domain =
+        this.user.username === branding.superUserName
+          ? branding.urls.base
+          : `${this.user.username.toLowerCase()}.${branding.urls.base}`;
 
-      artwork.ticker = tickers[edition - 1].toUpperCase();
-      if (edition > 1) {
-        await new Promise((r) => setTimeout(r, 5000));
-      }
+      try {
+        contract = await createIssuance(artwork, domain, tx);
+        await sign(1, false);
+        await tick();
 
-      artwork.id = v4();
-      artwork.edition = edition;
-      artwork.slug = kebab(artwork.title || "untitled");
+        tx = get(psbt).extractTransaction();
+        required += parseVal(tx.outs.find((o) => o.script.length === 0).value);
+        get(txcache)[tx.getId()] = tx;
+        inputs.unshift(tx);
+        transactions.push({ contract, psbt: get(psbt).toBase64() });
 
-      if (edition > 1) artwork.slug += "-" + edition;
-      artwork.slug += "-" + artwork.id.substr(0, 5);
+        let asset = parseAsset(
+          tx.outs.find((o) => parseAsset(o.asset) !== btc).asset
+        );
 
-      let tags = artwork.tags.map(({ tag }) => ({
-        tag,
-        artwork_id: artwork.id,
-      }));
-
-      let { hash, contract, asset } = await this.issueToken({ artwork });
-
-      artwork.asset = asset;
-
-      let { id, title, description, ticker, slug, editions, package_content } =
-        artwork;
-
-      let variables = {
-        artwork: {
-          id,
-          title,
-          description,
-          ticker,
+        let hash = tx.getId();
+        transactions.push({ contract, psbt: get(psbt).toBase64() });
+        return {
           asset,
-          slug,
-          edition,
-          editions,
-          package_content,
-        },
-        transaction: {
-          artwork_id: id,
-          type: "creation",
+          contract: JSON.stringify(contract),
           hash,
-          contract,
-          asset,
-          amount: 1,
-          psbt: this.psbt.toBase64(),
-        },
-        tags,
-      };
-
-      let result = await hasura
-        .auth(`Bearer ${this.token}`)
-        .post({
-          query: create,
-          variables,
-        })
-        .json();
-
-      if (result.error) throw new Error(result.error.message);
-      if (result.errors) {
-        const messages = result.errors.map((error) => error.message).join("\n");
-        throw new Error(messages);
+        };
+      } catch (e) {
+        console.log(e);
+        throw new Error("Issuance failed: " + e.message);
       }
+    };
+
+    for (edition = 1; edition <= artwork.editions; edition++) {
+      await issueToken();
     }
+
+    if (total < required)
+      throw { message: "Insufficient funds", required, btc, total };
+
+    let { id, asset, issuance, slug } = await api
+      .url("/issue")
+      .auth(`Bearer ${this.token}`)
+      .post({
+        artwork,
+        tickers,
+        transactions,
+      })
+      .json();
+
+    artwork.slug = slug;
+    artwork.id = id;
+    artwork.asset = asset;
 
     return artwork;
   }
 
   async setupAuction(artwork, current) {
-    if (current) return;
-
     let { auction_start: start, auction_end: end } = artwork;
+    if (current || !(start && end)) return;
 
     if (compareAsc(parseISO(start), new Date()) < 1)
       throw new Error("Start date can't be in the past");
@@ -433,6 +345,7 @@ export default class Core {
       return true;
 
     let tx = get(psbt).extractTransaction();
+    console.log("TX", tx);
     psbt.set(await createSwap(artwork, tx));
 
     await sign(0x83);

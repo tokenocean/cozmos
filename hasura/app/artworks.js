@@ -251,9 +251,10 @@ const issue = async (
   let tries = 0;
   let i = 0;
 
-  while (transactions.length && tries < 40) {
+  while (i < transactions.length - 1 && tries < 40) {
+    let slug;
     try {
-      artwork.ticker = tickers[0].toUpperCase();
+      artwork.ticker = tickers[i].toUpperCase();
       artwork.id = ids[i];
       artwork.edition = i + 1;
       artwork.slug = kebab(artwork.title || "untitled");
@@ -263,7 +264,7 @@ const issue = async (
       artwork.slug += "-" + artwork.id.substr(0, 5);
       if (i === 0) slug = artwork.slug;
 
-      let { contract, psbt } = transactions[0];
+      let { contract, psbt } = transactions[i];
       let p = Psbt.fromBase64(psbt);
       await broadcast(p);
       let tx = p.extractTransaction();
@@ -278,19 +279,37 @@ const issue = async (
         artwork_id: artwork.id,
       }));
 
-      let artworkSansTags = { ...artwork };
-      delete artworkSansTags.tags;
+      let {
+        id,
+        asset,
+        title,
+        description,
+        ticker,
+        edition,
+        editions,
+        package_content,
+      } = artwork;
 
       let variables = {
-        artwork: artworkSansTags,
+        artwork: {
+          id,
+          title,
+          description,
+          ticker,
+          asset,
+          slug,
+          edition,
+          editions,
+          package_content,
+        },
         transaction: {
-          artwork_id: artwork.id,
+          artwork_id: id,
           type: "creation",
           hash,
           contract,
-          asset: artwork.asset,
+          asset,
           amount: 1,
-          psbt,
+          psbt: p.toBase64(),
         },
         tags,
       };
@@ -299,12 +318,14 @@ const issue = async (
         .post({ query: createArtwork, variables })
         .json());
 
-      if (errors) throw new Error(errors[0].message);
+      if (errors) {
+        console.log(variables);
+        throw new Error(errors[0].message);
+      }
 
       tries = 0;
-      transactions.shift();
-      tickers.shift();
       issuances[issuance].i = ++i;
+      issuances[issuance].asset = artwork.asset;
     } catch (e) {
       console.log("failed issuance", e);
       await sleep(5000);
@@ -333,9 +354,9 @@ app.post("/issue", auth, async (req, res) => {
     let slug =
       kebab(req.body.artwork.title || "untitled") + "-" + ids[0].substr(0, 5);
 
-    await wait(() => issuances[issuance].i > 0 || console.log(issuances));
+    await wait(() => issuances[issuance].i > 0);
 
-    res.send({ issuance, slug });
+    res.send({ id: ids[0], asset: issuances[issuance].asset, issuance, slug });
   } catch (e) {
     console.log(e);
     res.code(500).send(e.message);

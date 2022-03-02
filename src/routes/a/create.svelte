@@ -145,15 +145,11 @@
 
       artwork.editions = 1;
 
-      let { id, asset } = await core.createArtwork({
-        artwork,
-        generateRandomTickers: true,
-      });
+      let { id, asset } = await core.createArtwork(artwork);
 
       artwork.id = id;
       artwork.asset = asset;
 
-      console.log("LISTING", artwork);
       await core.listArtwork(artwork, null, files);
 
       api.url("/asset/register").post({ asset }).json().catch(console.log);

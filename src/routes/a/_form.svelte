@@ -128,6 +128,7 @@
 
     if (listingType === types.UNLISTED || !listingType)
       artwork.asking_asset = undefined;
+    else artwork.asking_asset = btc;
   };
 
   $: images = files.filter((f) => f.type === "gallery");
@@ -222,7 +223,6 @@
           {/if}
           <FileUpload
             {artwork}
-            title="Upload Card Thumbnail"
             type="thumb"
             limits="PNG, JPG, WEBP, MAX 10MB"
             on:upload={addFile}
@@ -330,7 +330,6 @@
       <RoyaltyRecipientList
         bind:items={artwork.royalty_recipients}
         maxTotalRate={100}
-        askingAsset={artwork.asking_asset}
         artist={artwork.artist}
       />
     </FormItem>
