@@ -73,6 +73,7 @@
       <Button
         primary
         class="mr-6 w-40"
+        height="h-10"
         rounded="rounded-full"
         on:click={async () => {
           await goto("/");
@@ -82,6 +83,7 @@
       <Button
         primary
         class="mr-8 w-40"
+        height="h-10"
         rounded="rounded-full"
         on:click={() => goto("/a/create")}>Create</Button
       >

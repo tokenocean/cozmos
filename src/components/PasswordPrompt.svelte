@@ -72,7 +72,7 @@
         type="button"
         on:click|preventDefault|stopPropagation={() => (show = !show)}
       >
-        <Fa icon={show ? faEyeSlash : faEye} class="my-auto mr-1" />
+        <Fa icon={show ? faEyeSlash : faEye} class="text-black my-auto mr-1" />
       </button>
     </div>
     <div class="text-right text-sm">

@@ -45,8 +45,8 @@
 
   let updateTitle = () => {
     if (artwork.title) {
-      if (artwork.title.length > 30) {
-        return `${artwork.title.substr(0, 30)}...`;
+      if (artwork.title.length > 37) {
+        return `${artwork.title.substr(0, 37)}...`;
       } else {
         return artwork.title;
       }
@@ -146,14 +146,8 @@
           {#if artwork.auction_end}
             <div class:text-secondary={summary}>
               {#if end_counter}
-                <div class="flex justify-center items-center">
-                  <img
-                    src="/Time_Auction_colour.png"
-                    alt="clock"
-                    class="w-6 mr-2 md:mr-6"
-                  />
-                  <div class={textSize0}>Time left:</div>
-                </div>
+                <div class={textSize0}>Time left:</div>
+
                 <div class="font-bold text-lg">{end_counter}</div>
               {/if}
             </div>

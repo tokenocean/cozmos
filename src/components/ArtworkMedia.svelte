@@ -130,7 +130,7 @@
           showPopup = !showPopup;
         }
       }}
-      class="z relative"
+      class="w-full h-[350px] object-cover z relative"
       class:featured
       class:square
     />
@@ -194,7 +194,7 @@
   >
     <video
       class:square
-      class="lazy rounded"
+      class="w-full h-[350px] object-cover lazy rounded"
       autoplay
       muted
       playsinline
@@ -284,7 +284,7 @@
           showPopup = !showPopup;
         }
       }}
-      class="z relative"
+      class="w-full h-[350px] object-cover z relative"
       class:square
       class:featured
     />

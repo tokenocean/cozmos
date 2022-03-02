@@ -144,7 +144,7 @@
         <img
           src="/svg_icons/mute.svg"
           alt="mute icon"
-          class="hidden md:block right-20 bottom-60 xl:bottom-20 absolute w-36 text-white cursor-pointer"
+          class="hidden md:block right-20 bottom-60 md:bottom-24 xl:bottom-20 absolute w-36 text-white cursor-pointer"
           bind:this={soundIcon}
           on:click={() => {
             if (muted === "muted") {

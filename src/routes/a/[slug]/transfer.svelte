@@ -109,13 +109,14 @@
       <ProgressLinear />
     {:else}
       <div
-        class="bg-white border border-black rounded p-10 w-full max-w-lg text-center my-8 mx-auto"
+        class="border border-black rounded p-10 w-full max-w-lg text-center my-8 mx-auto"
       >
         <AutoComplete
           hideArrow={true}
           placeholder="Recipient"
           items={$addresses.filter((a) => a.id !== $user.id)}
           className="w-full border border-gray-400 rounded"
+          inputClassName="bg-gray-100"
           labelFieldName="username"
           bind:selectedItem={recipient}
         >
@@ -128,7 +129,8 @@
           href="/"
           on:click|preventDefault={send}
           class:disabled
-          class="block mt-8 text-center text-sm secondary-btn w-full">Send</a
+          class="!text-gray-600 block mt-8 text-center text-sm secondary-btn w-full"
+          >Send</a
         >
       </div>
     {/if}
