@@ -50,7 +50,7 @@
     faTimes,
     faPlay,
   } from "@fortawesome/free-solid-svg-icons";
-  import { getArtworkBySlug, deleteArtwork } from "$queries/artworks";
+  import { getArtworkBySlug } from "$queries/artworks";
   import { faHeart, faImage } from "@fortawesome/free-regular-svg-icons";
   import { page } from "$app/stores";
   import { compareAsc, format, parseISO } from "date-fns";
@@ -65,6 +65,7 @@
     ProgressLinear,
     RoyaltyInfo,
     ConfirmRedeem,
+    ConfirmDelete,
   } from "$comp";
   import Sidebar from "./_sidebar.svelte";
   import Comments from "./_comments.svelte";
@@ -271,18 +272,17 @@
     };
   };
 
+  let showConfirmDelete = () => {
+    $prompt = {
+      component: ConfirmDelete,
+      hide: true,
+      artwork,
+    };
+  };
+
   let loading;
   let redeem = () => showConfirm();
-  let del = async () => {
-    try {
-      await query(deleteArtwork, { id: artwork.id });
-      info("Artwork deleted successfully");
-      goto("/#market");
-    } catch (e) {
-      console.log(e);
-      err("Problem deleting artwork");
-    }
-  };
+  let del = () => showConfirmDelete();
 
   let buyNow = async () => {
     try {
