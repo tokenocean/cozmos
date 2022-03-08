@@ -32,7 +32,6 @@
     updateArtworkWithRoyaltyRecipients,
   } from "$queries/artworks";
   import { requirePassword } from "$lib/auth";
-  import { ArtworkMedia, RoyaltyRecipientList } from "$comp";
   import branding from "$lib/branding";
 
   import Form from "./_form.svelte";
