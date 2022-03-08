@@ -929,8 +929,6 @@ export const createSwap = async (artwork, tx) => {
     value,
   });
 
-  console.log("MS", isMultisig(artwork));
-
   if (tx) {
     let index = tx.outs.findIndex((o) => parseAsset(o.asset) === asset);
 

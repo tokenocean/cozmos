@@ -348,13 +348,24 @@ const issue = async (
 
 app.post("/issue", auth, async (req, res) => {
   try {
+    let { artwork, transactions } = req.body;
     let issuance = v4();
-    let ids = req.body.transactions.map((t) => v4());
+    let ids = transactions.map((t) => v4());
     issue(issuance, ids, req);
-    let slug =
-      kebab(req.body.artwork.title || "untitled") + "-" + ids[0].substr(0, 5);
+    let slug = kebab(artwork.title || "untitled") + "-" + ids[0].substr(0, 5);
 
-    await wait(() => issuances[issuance] && issuances[issuance].i > 0);
+    await wait(async () => {
+      try {
+        if (!issuances[issuance]) return;
+        let utxos = await lnft
+          .url(`/address/${artwork.owner.address}/utxo`)
+          .get()
+          .json();
+        return utxos.find((tx) => tx.asset === issuances[issuance].asset);
+      } catch (e) {
+        console.log("failed to get utxos", e);
+      }
+    });
 
     res.send({ id: ids[0], asset: issuances[issuance].asset, issuance, slug });
   } catch (e) {

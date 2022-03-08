@@ -346,7 +346,6 @@ export default class Core {
       return true;
 
     let tx = get(psbt).extractTransaction();
-    console.log("TX", tx);
     psbt.set(await createSwap(artwork, tx));
 
     await sign(0x83);
