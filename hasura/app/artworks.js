@@ -251,7 +251,7 @@ const issue = async (
   let tries = 0;
   let i = 0;
 
-  while (i < transactions.length - 1 && tries < 40) {
+  while (i < transactions.length && tries < 40) {
     let slug;
     try {
       artwork.ticker = tickers[i].toUpperCase();
@@ -354,7 +354,7 @@ app.post("/issue", auth, async (req, res) => {
     let slug =
       kebab(req.body.artwork.title || "untitled") + "-" + ids[0].substr(0, 5);
 
-    await wait(() => issuances[issuance].i > 0);
+    await wait(() => issuances[issuance] && issuances[issuance].i > 0);
 
     res.send({ id: ids[0], asset: issuances[issuance].asset, issuance, slug });
   } catch (e) {

@@ -245,14 +245,9 @@ module.exports = {
         address: {_eq: $address}, 
         type: {_in: ["deposit", "withdrawal"]}
       },
-      limit: 25,
       order_by: [{ sequence: desc }]
     ) {
       hash
-      type
-      asset
-      address
-      user_id
     }
   }`,
   getTransactions: `query($id: uuid!, $limit: Int) {

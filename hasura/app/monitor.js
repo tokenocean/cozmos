@@ -260,21 +260,20 @@ let getTxns = async (address, latest) => {
 
   let txns = [...curr];
 
-  while (curr.length === 25 && !curr.find((tx) => latest.includes(tx.txid))) {
+  while (curr.length >= 25) {
     curr = await electrs
-      .url(`/address/${address}/txs/chain/${curr[24].txid}`)
+      .url(`/address/${address}/txs/chain/${curr[curr.length - 1].txid}`)
       .get()
       .json();
     txns.push(...curr);
   }
 
-  let index = txns.reduce((a, b, i) => (latest.includes(b.txid) ? a : i), 0);
-  ++index >= 0 && txns.splice(index);
   return txns;
 };
 
 let updateTransactions = async (address, user_id) => {
   let { transactions } = await q(getLastTransactionsForAddress, { address });
+
   let txns = (
     await getTxns(
       address,
@@ -359,8 +358,6 @@ let updateTransactions = async (address, user_id) => {
       }
     }
   }
-
-  if (txns.length) console.log("done");
 
   return txns;
 };
@@ -458,6 +455,7 @@ let scanUtxos = async (address) => {
         },
       });
     } catch (e) {
+      console.log(e);
       continue;
     }
   }

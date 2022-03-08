@@ -226,6 +226,7 @@ export default class Core {
         required += parseVal(tx.outs.find((o) => o.script.length === 0).value);
         get(txcache)[tx.getId()] = tx;
         inputs.unshift(tx);
+
         transactions.push({ contract, psbt: get(psbt).toBase64() });
 
         let asset = parseAsset(
@@ -233,7 +234,7 @@ export default class Core {
         );
 
         let hash = tx.getId();
-        transactions.push({ contract, psbt: get(psbt).toBase64() });
+
         return {
           asset,
           contract: JSON.stringify(contract),
@@ -365,7 +366,6 @@ export default class Core {
   }
 
   async spendPreviousSwap(artwork, current) {
-    console.log(current);
     if (
       !(current && current.list_price && current.list_price_tx) ||
       artwork.auction_end ||
