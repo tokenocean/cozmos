@@ -333,6 +333,7 @@ export default class Core {
     });
 
     artwork.stale = true;
+    artwork.has_royalty = true;
 
     info("Royalties activated!");
   }
