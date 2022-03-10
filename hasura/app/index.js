@@ -5,13 +5,14 @@ const path = require("path");
 
 require("make-promises-safe");
 
-app = require("fastify")();
+app = require("fastify")({
+  bodyLimit: 50048576,
+});
 
 app.register(require("fastify-static"), {
   root: path.join("/export"),
   prefix: "/public/", // optional: default '/'
 });
-
 
 require("./auth");
 require("./artworks");
