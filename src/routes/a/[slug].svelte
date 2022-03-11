@@ -602,7 +602,7 @@
               </div>
             {/if}
 
-            {#if $user && $user.id === artwork.owner_id}
+            {#if $user && $user.id === artwork.artist_id}
               <a href={`/a/${artwork.slug}/edit`} class="block md:hidden">
                 <Button class="w-full border border-black mt-4">Edit</Button>
               </a>
@@ -711,10 +711,12 @@
         <ArtworkMedia {artwork} popupImage={true} thumb={false} />
       </div>
       <RoyaltyInfo {artwork} />
-      {#if $user && $user.id === artwork.owner_id}
+      {#if $user && $user.id === artwork.artist_id}
         <a href={`/a/${artwork.slug}/edit`}>
           <Button primary class="w-full mb-2">Edit</Button>
         </a>
+      {/if}
+      {#if $user && $user.id === artwork.owner_id}
         <a href={`/a/${artwork.slug}/transfer`}>
           <Button primary class="w-full mb-2" {disabled}>Transfer</Button>
         </a>
