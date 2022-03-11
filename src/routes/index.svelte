@@ -1,12 +1,14 @@
 <script context="module">
   import { post } from "$lib/api";
   export async function load({ fetch }) {
-    const r = await post("/artworks.json", {}, fetch).json();
-
+    const artworksData = await post("/artworks.json", {}, fetch).json();
+    const featuredArtworkData = await post("/artworks/featured.json", {}, fetch).json();
+ d
     return {
       props: {
-        total: r.total,
-        initialArtworks: r.artworks,
+        total: artworksData.total,
+        initialArtworks: artworksData.artworks,
+        featuredArtwork: featuredArtworkData.featured
       },
     };
   }
@@ -42,9 +44,11 @@
 
   export let total;
   export let initialArtworks = [];
+  export let featuredArtwork;
 
   let showFilters;
   let filtered = [...initialArtworks];
+  let displayedFeaturedArtwork = featuredArtwork.length ? featuredArtwork[0].artwork : filtered[0]
 
   $: filtersUpdated($fc, $sc);
   let filtersUpdated = () => {
@@ -185,7 +189,7 @@
           class="drop rounded-3xl mx-auto w-auto my-6 lg:my-0"
           style="width: 300px"
         >
-          <ArtworkMedia artwork={filtered[0]} featured={true} />
+          <ArtworkMedia artwork={displayedFeaturedArtwork} featured={true} />
         </div>
       </div>
       <div
@@ -194,7 +198,7 @@
         <div class="w-full md:w-[60%] mx-auto pt-6 lg:pt-6">
           <h2 class="mx-2 md:mx-0 pt-4 md:pt-0 text-3xl text-white text-left">
             <Card
-              artwork={filtered[0]}
+              artwork={displayedFeaturedArtwork}
               showDetails={false}
               summary={true}
               titleOnly={true}
@@ -203,7 +207,7 @@
           <p class="text-xl text-secondary font-bold my-2 px-2 md:px-0">
             Creator: <span class="font-normal"
               ><Card
-                artwork={filtered[0]}
+                artwork={displayedFeaturedArtwork}
                 showDetails={false}
                 summary={true}
                 usernameOnly={true}
@@ -212,7 +216,7 @@
           </p>
           <div class="w-full px-2 md:px-0">
             <Card
-              artwork={filtered[0]}
+              artwork={displayedFeaturedArtwork}
               summary={true}
               textSize0={"text-lg"}
               textSize1={"text-xl"}
@@ -221,7 +225,7 @@
           </div>
           <div class="border-b-[1px] border-gray-400 md:border-0 mx-2 md:mx-0">
             <Card
-              artwork={filtered[0]}
+              artwork={displayedFeaturedArtwork}
               showDetails={false}
               summary={true}
               artworkButton={true}

@@ -168,6 +168,17 @@ export const getFeatured = `query {
     }
   }
 }`;
+export const getLastFeatured = `query {
+  featured (limit: 1, order_by: {end_date: desc}, where: {end_date: {_gte: "now()"}, start_date: {_lte: "now()"}}) {
+     id
+     start_date
+     end_date
+     white
+     artwork {
+       ${fields}
+     }
+   }
+ }`;
 
 export const getLimited = `query($where: artworks_bool_exp!, $limit: Int, $offset: Int, $order_by: artworks_order_by!) {
  artworks(where: $where, limit: $limit, offset: $offset, order_by: [$order_by]) {
