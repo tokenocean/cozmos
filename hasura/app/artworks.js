@@ -23,18 +23,21 @@ const { kebab, sleep, wait } = require("./utils");
 
 const crypto = require("crypto");
 
+const getUser = async ({ headers }) => {
+  let { data, errors } = await api(headers)
+    .post({ query: getCurrentUser })
+    .json();
+
+  if (errors) throw new Error(errors[0].message);
+  return data.currentuser[0];
+};
+
 app.post("/cancel", auth, async (req, res) => {
   try {
     let { id } = req.body;
     let { transactions_by_pk: tx } = await q(getTransactionUser, { id });
 
-    let { data, errors } = await api(req.headers)
-      .post({ query: getCurrentUser })
-      .json();
-
-    if (errors) throw new Error(errors[0].message);
-    let user = data.currentuser[0];
-
+    let user = await getUser(req);
     if (tx.user_id !== user.id) return res.code(401).send();
 
     res.send(await q(cancelBid, { id }));
@@ -51,8 +54,6 @@ app.post("/transfer", auth, async (req, res) => {
     let utxos = await lnft.url(`/address/${address}/utxo`).get().json();
     let attempts = 0;
     let received = () => utxos.find((tx) => tx.asset === transaction.asset);
-
-    console.log("transferring", transaction);
 
     while (!received() && attempts < 5) {
       await new Promise((r) => setTimeout(r, 2000));
@@ -104,12 +105,7 @@ app.post("/claim", auth, async (req, res) => {
       artwork: { asset, id },
     } = req.body;
 
-    let { data } = await api(req.headers)
-      .post({ query: getCurrentUser })
-      .json();
-    let user = data.currentuser[0];
-
-    let { address, multisig } = user;
+    let { address, multisig } = await getUser(req);
 
     let utxos = [
       ...(await lnft.url(`/address/${address}/utxo`).get().json()),
@@ -156,14 +152,8 @@ app.post("/transaction", auth, async (req, res) => {
     }
 
     if (transaction.type === "purchase") {
-      let { data, errors } = await api(req.headers)
-        .post({ query: getCurrentUser })
-        .json();
-
-      if (errors) throw new Error(errors[0].message);
-      let user = data.currentuser[0];
-
-      await q(setOwner, { id: artwork_id, owner_id: user.id });
+      let { id: owner_id } = await getUser(req);
+      await q(setOwner, { id: artwork_id, owner_id });
     }
 
     let locals = {
@@ -352,14 +342,12 @@ app.post("/issue", auth, async (req, res) => {
     let ids = transactions.map((t) => v4());
     issue(issuance, ids, req);
     let slug = kebab(artwork.title || "untitled") + "-" + ids[0].substr(0, 5);
+    let { address } = await getUser(req);
 
     await wait(async () => {
       try {
         if (!issuances[issuance]) return;
-        let utxos = await lnft
-          .url(`/address/${artwork.owner.address}/utxo`)
-          .get()
-          .json();
+        let utxos = await lnft.url(`/address/${address}/utxo`).get().json();
         return utxos.find((tx) => tx.asset === issuances[issuance].asset);
       } catch (e) {
         console.log("failed to get utxos", e);
