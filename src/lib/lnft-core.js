@@ -349,6 +349,8 @@ export default class Core {
       auction_release_tx,
     } = artwork;
 
+    console.log("ASKING ASSET", asking_asset);
+
     query(updateArtworkWithRoyaltyRecipients, {
       artwork: {
         list_price,
@@ -364,7 +366,7 @@ export default class Core {
       royaltyRecipients: royalty_recipients.map((item) => {
         delete item.id;
         item.artwork_id = id;
-        item.asking_asset = artwork.asking_asset;
+        item.asking_asset = btc;
         return item;
       }),
     }).catch(err);
