@@ -2,13 +2,17 @@
   import { post } from "$lib/api";
   export async function load({ fetch }) {
     const artworksData = await post("/artworks.json", {}, fetch).json();
-    const featuredArtworkData = await post("/artworks/featured.json", {}, fetch).json();
- d
+    const featuredArtworkData = await post(
+      "/artworks/featured.json",
+      {},
+      fetch
+    ).json();
+
     return {
       props: {
         total: artworksData.total,
         initialArtworks: artworksData.artworks,
-        featuredArtwork: featuredArtworkData.featured
+        featuredArtwork: featuredArtworkData.featured,
       },
     };
   }
@@ -48,7 +52,9 @@
 
   let showFilters;
   let filtered = [...initialArtworks];
-  let displayedFeaturedArtwork = featuredArtwork.length ? featuredArtwork[0].artwork : filtered[0]
+  let displayedFeaturedArtwork = featuredArtwork.length
+    ? featuredArtwork[0].artwork
+    : filtered[0];
 
   $: filtersUpdated($fc, $sc);
   let filtersUpdated = () => {
