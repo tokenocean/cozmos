@@ -71,76 +71,6 @@ export default class Core {
     });
   }
 
-  async generateTickers(count) {
-    const randomTicker = () => {
-      let a = "ABCDEFGHIJKLMNOPQRSTUVWXYZ".split("");
-      let ticker = "";
-      for (let j = 0; j < 5; j++) {
-        const random = Math.floor(Math.random() * (a.length - 1));
-        ticker = `${ticker}${a[random]}`;
-      }
-      return ticker;
-    };
-
-    let tickers = [];
-    for (let i = 0; i < count; i++) {
-      let randTicker = randomTicker();
-
-      // check that ticker is unique in our tickers array
-      while (tickers.indexOf(randTicker) !== -1) {
-        randTicker = randomTicker();
-      }
-
-      tickers.push(randTicker);
-    }
-
-    let tickersOK = false;
-
-    // if at least one ticker exist in database we need to generate new one
-    while (!tickersOK) {
-      const result = await this.checkTickers({
-        tickers,
-      });
-
-      if (result.success) tickersOK = true;
-
-      if (result.error && result.tickersUnavailable.length) {
-        result.tickersUnavailable.forEach((ticker) => {
-          const index = tickers.indexOf(ticker);
-          tickers[index] = randomTicker();
-        });
-      }
-    }
-
-    return tickers;
-  }
-
-  /**
-   * Checks that tickers are free to use in database
-   * @param {string[]} tickers
-   * @returns {Promise<{error: string, tickersUnavailable: (string|*|string)[]}|{success: boolean}>}
-   */
-  async checkTickers({ tickers }) {
-    let { data } = await hasura
-      .auth(`Bearer ${this.token}`)
-      .post({
-        query: `query { artworks(where: { ticker: { _in: ${JSON.stringify(
-          tickers
-        )} }}) { ticker }}`,
-      })
-      .json();
-
-    if (data.artworks && data.artworks.length)
-      return {
-        error: `Ticker(s) not available: ${data.artworks
-          .map((a) => a.ticker)
-          .join(", ")}`,
-        tickersUnavailable: data.artworks.map((a) => a.ticker),
-      };
-
-    return { success: true };
-  }
-
   /**
    * Issues Liquid Token that represents NFT version of Artwork
    * @param artwork - Artwork Object
@@ -204,9 +134,6 @@ export default class Core {
 
     let edition;
 
-    let tickers = await this.generateTickers(artwork.editions);
-    await this.checkTickers(tickers);
-
     let required = 0;
     let [inputs, total] = await getInputs();
     let issueToken = async () => {
@@ -258,7 +185,6 @@ export default class Core {
       .auth(`Bearer ${this.token}`)
       .post({
         artwork,
-        tickers,
         transactions,
       })
       .json();

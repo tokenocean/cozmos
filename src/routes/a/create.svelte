@@ -56,7 +56,6 @@
     title: "",
     description: "",
     main: [],
-    ticker: "",
     package_content: "",
     asset: "",
     edition: 1,
