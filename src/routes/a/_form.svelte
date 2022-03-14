@@ -388,6 +388,7 @@
                   step="0.01"
                   bind:value={fiat_price}
                   placeholder="Price for NFT experience"
+                  required
                 />
               {:else}
                 <input
@@ -397,6 +398,7 @@
                   step="0.00001"
                   bind:value={list_price}
                   placeholder="Price for NFT experience"
+                  required
                 />
               {/if}
             </div></FormItem
@@ -412,6 +414,7 @@
                 bind:value={fiat_price}
                 placeholder="Minimum bid"
                 class="text-sm appearance-none h-12 rounded-md bg-gray-100 border border-gray-300 mt-2 w-full"
+                required
               />
             {:else}
               <input
@@ -421,6 +424,7 @@
                 bind:value={reserve_price}
                 placeholder="Minimum bid"
                 class="text-sm appearance-none h-12 rounded-md bg-gray-100 border border-gray-300 mt-2 w-full"
+                required
               />
             {/if}
           </FormItem>
@@ -470,6 +474,7 @@
                 name="startdate"
                 bind:value={start_date}
                 class="text-sm appearance-none h-12 rounded-md bg-gray-100 border border-gray-300 mt-2 w-full"
+                required
               />
               <input
                 id="starttime"
@@ -477,6 +482,7 @@
                 name="starttime"
                 bind:value={start_time}
                 class="text-sm appearance-none h-12 rounded-md bg-gray-100 border border-gray-300 mt-2 w-full"
+                required
               />
             </div>
           </FormItem>
@@ -488,6 +494,7 @@
                 name="enddate"
                 bind:value={end_date}
                 class="text-sm appearance-none h-12 rounded-md bg-gray-100 border border-gray-300 mt-2 w-full"
+                required
               />
               <input
                 id="endtime"
@@ -495,6 +502,7 @@
                 name="endtime"
                 bind:value={end_time}
                 class="text-sm appearance-none h-12 rounded-md bg-gray-100 border border-gray-300 mt-2 w-full"
+                required
               />
             </div>
           </FormItem>
