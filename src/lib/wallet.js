@@ -1129,7 +1129,7 @@ export const sendToMultisig = async (artwork, tx) => {
         p.addOutput({
           asset: btc,
           nonce,
-          script,
+          script: singlesig().output,
           value,
         });
       } else {
