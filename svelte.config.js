@@ -12,6 +12,9 @@ export default {
     adapter: node(),
     // target: "#svelte",
     vite: {
+      build: {
+        sourcemap: true,
+      },
       plugins: [shim()],
       resolve: {
         alias: {
