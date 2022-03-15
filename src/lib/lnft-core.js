@@ -207,24 +207,16 @@ export default class Core {
       throw new Error("Start date must precede end date");
 
     let base64, tx;
-    if (artwork.royalty_recipients.length) {
-      tx = get(psbt).extractTransaction();
-      tx = await signOver(artwork, tx);
-      artwork.auction_tx = get(psbt).toBase64();
-    } else {
-      psbt.set(await sendToMultisig(artwork));
-      psbt.set(await signAndBroadcast());
+    psbt.set(await sendToMultisig(artwork));
+    psbt.set(await signAndBroadcast());
 
-      base64 = get(psbt).toBase64();
-      tx = get(psbt).extractTransaction();
+    base64 = get(psbt).toBase64();
+    tx = get(psbt).extractTransaction();
 
-      tx = await signOver(artwork, tx);
-      artwork.auction_tx = get(psbt).toBase64();
+    tx = await signOver(artwork, tx);
+    artwork.auction_tx = get(psbt).toBase64();
 
-      artwork.auction_release_tx = (
-        await createRelease(artwork, tx)
-      ).toBase64();
-    }
+    artwork.auction_release_tx = (await createRelease(artwork, tx)).toBase64();
 
     await query(createTransaction, {
       transaction: {

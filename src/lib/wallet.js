@@ -459,7 +459,12 @@ const fund = async (
           for (let k = 0; k < arr.length; k++) {
             try {
               let { input, amt } = await splitUp(arr[k]);
-              utxos.push({ input });
+              utxos.push({
+                input,
+                txid: input.hash,
+                vout: input.index,
+                hex: input.nonWitnessUtxo.toString("hex"),
+              });
               total += amt;
               i++;
               if (total >= amount) break;
