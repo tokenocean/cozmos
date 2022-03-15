@@ -208,6 +208,7 @@ export default class Core {
 
     let base64, tx;
     if (artwork.royalty_recipients.length) {
+      tx = get(psbt).extractTransaction();
       tx = await signOver(artwork, tx);
       artwork.auction_tx = get(psbt).toBase64();
     } else {
