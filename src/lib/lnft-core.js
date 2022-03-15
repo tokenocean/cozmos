@@ -242,8 +242,9 @@ export default class Core {
   async setupRoyalty(artwork, current) {
     if (current?.has_royalty || !artwork.royalty_recipients.length) return true;
 
+    let tx = get(psbt).extractTransaction();
     if (!artwork.auction_end) {
-      psbt.set(await sendToMultisig(artwork));
+      psbt.set(await sendToMultisig(artwork, tx));
       await signAndBroadcast();
     }
 
@@ -348,8 +349,6 @@ export default class Core {
       auction_tx,
       auction_release_tx,
     } = artwork;
-
-    console.log("ASKING ASSET", asking_asset);
 
     query(updateArtworkWithRoyaltyRecipients, {
       artwork: {

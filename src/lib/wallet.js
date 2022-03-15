@@ -37,6 +37,7 @@ import { compareAsc, parseISO } from "date-fns";
 
 // const { retry } = middlewares.default || middlewares;
 
+const sleep = async (n) => new Promise((r) => setTimeout(r, n));
 const DUST = 800;
 const satsPerByte = 0.15;
 
@@ -395,6 +396,7 @@ const splitUp = async (tx) => {
   };
 };
 
+let fundingTries = 0;
 const fund = async (
   p,
   out,
@@ -404,6 +406,8 @@ const fund = async (
   multisig = false
 ) => {
   let { address, redeem, output } = out;
+
+  await sleep(1000);
 
   let utxos = await api.url(`/address/${address}/utxo`).get().json();
   let l = (await getLocked(asset))
@@ -477,13 +481,22 @@ const fund = async (
         };
         console.log(e);
         console.trace();
-        throw e;
+        if (fundingTries < 5) {
+          await sleep(1000);
+          fundingTries++;
+          return fund(p, out, asset, amount, sighashType, multisig);
+        } else {
+          fundingTries = 0;
+          throw e;
+        }
       }
     } else {
       total += utxos[i].value;
       i++;
     }
   }
+
+  fundingTries = 0;
 
   for (var j = 0; j < i; j++) {
     let prevout = utxos[j];
@@ -1070,7 +1083,7 @@ export const createOffer = async (artwork, amount, input, f = 150) => {
   }
 };
 
-export const sendToMultisig = async (artwork) => {
+export const sendToMultisig = async (artwork, tx) => {
   let out = singlesig();
   let { output: script } = multisig();
   let { asset } = artwork;
@@ -1083,12 +1096,61 @@ export const sendToMultisig = async (artwork) => {
     value,
   });
 
-  await fund(p, out, asset, value);
-  await fund(p, out, btc, get(fee));
+  let p2 = Psbt.fromBase64(p.toBase64());
+
+  let construct = async (p) => {
+    if (tx) {
+      let index = tx.outs.findIndex((o) => parseAsset(o.asset) === asset);
+      let btcIndex = tx.outs.findIndex(
+        (o) =>
+          parseAsset(o.asset) === btc &&
+          o.script.toString("hex") === singlesig().output.toString("hex")
+      );
+
+      p.addInput({
+        index,
+        hash: tx.getId(),
+        nonWitnessUtxo: Buffer.from(tx.toHex(), "hex"),
+        redeemScript: singlesig().redeem.output,
+        sighashType: singleAnyoneCanPay,
+      });
+
+      if (btcIndex > -1) {
+        p.addInput({
+          index: btcIndex,
+          hash: tx.getId(),
+          nonWitnessUtxo: Buffer.from(tx.toHex(), "hex"),
+          redeemScript: singlesig().redeem.output,
+          sighashType: singleAnyoneCanPay,
+        });
+
+        let value = parseVal(tx.outs[btcIndex].value) - get(fee);
+
+        p.addOutput({
+          asset: btc,
+          nonce,
+          script,
+          value,
+        });
+      } else {
+        await fund(p, out, btc, get(fee));
+      }
+    } else {
+      await fund(p, out, asset, value);
+      await fund(p, out, btc, get(fee));
+    }
+  };
+
+  await construct(p);
   addFee(p);
 
-  psbt.set(p);
-  return p;
+  estimateFee(p);
+  await construct(p2);
+
+  addFee(p2);
+
+  psbt.set(p2);
+  return p2;
 };
 
 export const requestSignature = async (psbt) => {
