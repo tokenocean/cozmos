@@ -146,6 +146,7 @@ select_permissions:
     - is_denied
     - location
     - multisig
+    - prompt_sign
     - pubkey
     - tiktok
     - twitch
@@ -177,6 +178,7 @@ select_permissions:
     - location
     - mnemonic
     - multisig
+    - prompt_sign
     - pubkey
     - twitter
     - updated_at
@@ -207,6 +209,7 @@ select_permissions:
     - is_denied
     - location
     - multisig
+    - prompt_sign
     - pubkey
     - tiktok
     - twitch
@@ -227,6 +230,7 @@ update_permissions:
     columns:
     - is_artist
     - is_denied
+    - prompt_sign
     filter: {}
   role: approver
 - permission:
@@ -248,6 +252,7 @@ update_permissions:
     - location
     - mnemonic
     - multisig
+    - prompt_sign
     - pubkey
     - tiktok
     - twitch

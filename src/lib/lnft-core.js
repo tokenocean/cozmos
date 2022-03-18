@@ -136,7 +136,7 @@ export default class Core {
 
     let required = 0;
     let [inputs, total] = await getInputs();
-    let issueToken = async () => {
+    let issueToken = async (editionCount) => {
       let contract, tx;
 
       let domain =
@@ -146,7 +146,7 @@ export default class Core {
 
       try {
         contract = await createIssuance(artwork, domain, tx);
-        await sign(1, false);
+        await sign(1, editionCount > 1 ? false : true);
         await tick();
 
         tx = get(psbt).extractTransaction();
@@ -174,7 +174,7 @@ export default class Core {
     };
 
     for (edition = 1; edition <= artwork.editions; edition++) {
-      await issueToken();
+      await issueToken(edition);
     }
 
     if (total < required)

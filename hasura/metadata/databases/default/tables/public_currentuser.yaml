@@ -24,6 +24,7 @@ select_permissions:
     - location
     - mnemonic
     - multisig
+    - prompt_sign
     - pubkey
     - tiktok
     - twitch
