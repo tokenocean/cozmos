@@ -234,9 +234,11 @@
                     <div>{username}</div>
                   {/if}
                   <div class="my-auto ml-auto">
-                    {#if val(asset, Math.abs(totals[username][asset])) !== "1"}
+                    {#if val(asset, Math.abs(totals[username][asset]))}
                       <div class="mr-1 ml-auto">
-                        {val(asset, Math.abs(totals[username][asset]))}
+                        {parseFloat(
+                          val(asset, Math.abs(totals[username][asset]))
+                        ).toFixed(8)}
                       </div>
                     {/if}
                   </div>
