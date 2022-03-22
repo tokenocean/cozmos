@@ -41,6 +41,15 @@ export const marketFields = `
   redeemed
   slug
   created_at
+  royalty_recipients {
+    id
+    name
+    artwork_id
+    asking_asset
+    amount
+    address
+    type
+  }
   ${artworkFiles}
   owner {
     id

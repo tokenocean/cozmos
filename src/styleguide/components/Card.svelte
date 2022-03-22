@@ -40,8 +40,8 @@
   };
   count();
 
-  let currencyConversion = (amount, ticker) =>
-    `$${(val(amount) * $rate).toFixed(0)} USD`;
+  let currencyConversion = (amount) =>
+    $rate ? `$${(val(amount) * $rate).toFixed(0)} USD` : "";
 
   let updateTitle = () => {
     if (artwork.title) {
@@ -56,6 +56,15 @@
   };
 
   $: title = updateTitle(artwork.title);
+  $: list_price = val(
+    artwork.list_price +
+      Math.round(
+        artwork.royalty_recipients.reduce(
+          (a, b) => a + b.amount * artwork.list_price,
+          0
+        ) / 100
+      )
+  );
 </script>
 
 {#if titleOnly}
@@ -177,16 +186,16 @@
           <div class="flex-1 mr-4">
             <div class={textSize0} class:text-gray-300={summary}>Buy now</div>
             <div class="text-base">
-              {#if artwork.list_price}
+              {#if list_price}
                 <div class="{textSize1} font-bold" class:text-white={summary}>
-                  {val(artwork.list_price)}
+                  {list_price}
                   {ticker}
                 </div>
               {/if}
 
               <div class="text-sm" class:text-gray-300={summary}>
-                {#if artwork.list_price}
-                  {currencyConversion(artwork.list_price, ticker)}
+                {#if list_price}
+                  {currencyConversion(sats(list_price))}
                 {:else}
                   Price not set
                 {/if}

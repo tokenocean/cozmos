@@ -148,7 +148,15 @@
     count();
 
     [sats, val, ticker] = units(artwork && artwork.asking_asset);
-    list_price = val(artwork.list_price);
+    list_price = val(
+      artwork.list_price +
+        Math.round(
+          artwork.royalty_recipients.reduce(
+            (a, b) => a + b.amount * artwork.list_price,
+            0
+          ) / 100
+        )
+    );
     reserve_price = val(artwork.reserve_price);
     if (!fiat) fiat = (list_price * $rate).toFixed(0);
     if (!reserveFiat) reserveFiat = (reserve_price * $rate).toFixed(0);
