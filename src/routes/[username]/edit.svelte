@@ -255,7 +255,14 @@
               class="w-full"
             />
           </div>
-
+          <div class="flex flex-col mb-4">
+            <label for="prompt_sign">Request transactions signing</label>
+            <input
+              type="checkbox"
+              id="prompt_sign"
+              bind:checked={form.prompt_sign}
+            />
+          </div>
           <div class="flex mt-8">
             <Button type="submit" primary class="w-full mt-8">
               Save changes
@@ -297,6 +304,22 @@
     font-family: "Zen Dots", cursive;
     font-size: 2em;
     line-height: 1.25em;
+  }
+
+  input[type="checkbox"] {
+    appearance: none;
+    border: 5px solid #000;
+    outline: 1px solid #fff;
+    background-color: #fff;
+    padding: 2px;
+    border-radius: 0;
+    width: 25px;
+    height: 25px;
+  }
+  input[type="checkbox"]:checked {
+    border: 5px solid #fff;
+    outline: 2px solid #000;
+    background-color: #000;
   }
 
   @media only screen and (max-width: 1024px) {

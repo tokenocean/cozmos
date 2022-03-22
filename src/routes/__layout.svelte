@@ -38,7 +38,7 @@
   import { browser } from "$app/env";
   import { page, session } from "$app/stores";
   import decode from "jwt-decode";
-  import { Sidebar, Sidebar2, Dialog, Footer, Snack, Head } from "$comp";
+  import { Sidebar, Sidebar2, Dialog, StandardDialog, Footer, Snack, Head } from "$comp";
   import {
     addresses as a,
     meta,
@@ -128,6 +128,8 @@
 <div>
   <Navbar bind:sidebar={open} bind:sidebar2={openProfile} />
 </div>
+
+<StandardDialog />
 <Dialog />
 
 <main>
