@@ -24,6 +24,7 @@ const btc = network.assetHash;
 const mnemonic = process.env.SIGNING_SERVER_MNEMONIC;
 
 const path = "m/84'/0'/0'/0/0";
+const DUST = 800;
 
 const keypair = () => {
   let seed = mnemonicToSeedSync(mnemonic);
@@ -82,6 +83,7 @@ module.exports = {
   btc,
   broadcast,
   combine,
+  DUST,
   keypair,
   parseAsset,
 

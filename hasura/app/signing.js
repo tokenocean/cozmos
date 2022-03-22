@@ -1,4 +1,4 @@
-const { keypair, parse, sign } = require("./wallet");
+const { DUST, keypair, parse, sign } = require("./wallet");
 const { hasura } = require("./api");
 const { parseISO, isWithinInterval } = require("date-fns");
 const { address: Address } = require("liquidjs-lib");
@@ -138,6 +138,9 @@ const check = async (psbt) => {
 
           for (let i = 0; i < royalty_recipients.length; i++) {
             const element = royalty_recipients[i];
+            const recipientValue = Math.round((toOwner * element.amount) / 100);
+            if (recipientValue < DUST || element.address === owner.address)
+              continue;
 
             amountDue += Math.round((toOwner * element.amount) / 100);
           }

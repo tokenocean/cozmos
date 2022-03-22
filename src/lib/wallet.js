@@ -312,9 +312,15 @@ const splitUp = async (tx) => {
 
   let totalValue = total - change - fee;
   let value = totalValue;
-  if (has_royalty && artist_id !== owner_id) {
-    let totalRoyalty = royalty_recipients.reduce((a, b) => (a += b.amount), 0);
-    value = Math.round((value * 100) / (100 + totalRoyalty));
+  if (has_royalty) {
+    for (let i = 0; i < royalty_recipients.length; i++) {
+      const element = royalty_recipients[i];
+
+      const recipientValue = Math.round((totalValue * element.amount) / 100);
+      if (recipientValue < DUST || element.address === artwork.owner.address)
+        continue;
+      value += recipientValue;
+    }
   }
 
   let input = {
@@ -743,11 +749,13 @@ export const executeSwap = async (artwork) => {
     value: 1,
   });
 
-  if (artist_id !== owner_id && has_royalty) {
+  if (has_royalty) {
     for (let i = 0; i < royalty_recipients.length; i++) {
       const element = royalty_recipients[i];
 
       const recipientValue = Math.round((list_price * element.amount) / 100);
+      if (recipientValue < DUST || element.address === artwork.owner.address)
+        continue;
       total += recipientValue;
 
       p.addOutput({
@@ -1010,22 +1018,23 @@ export const createOffer = async (artwork, amount, input, f = 150) => {
   let pubkey = fromBase58(owner.pubkey, network).publicKey;
 
   if (has_royalty) {
-    if (artist_id !== owner_id) {
-      for (let i = 0; i < royalty_recipients.length; i++) {
-        const element = royalty_recipients[i];
+    for (let i = 0; i < royalty_recipients.length; i++) {
+      const element = royalty_recipients[i];
 
-        const recipientValue = Math.round(
-          (parseInt(amount) * element.amount) / 100
-        );
-        total += recipientValue;
+      const recipientValue = Math.round(
+        (parseInt(amount) * element.amount) / 100
+      );
 
-        p.addOutput({
-          asset,
-          value: recipientValue,
-          nonce,
-          script: Address.toOutputScript(element.address, network),
-        });
-      }
+      if (recipientValue < DUST || element.address === artwork.owner.address)
+        continue;
+      total += recipientValue;
+
+      p.addOutput({
+        asset,
+        value: recipientValue,
+        nonce,
+        script: Address.toOutputScript(element.address, network),
+      });
     }
 
     p.addOutput({
