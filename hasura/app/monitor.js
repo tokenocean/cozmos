@@ -260,7 +260,7 @@ let getTxns = async (address, latest) => {
 
   let txns = [...curr];
 
-  while (curr.length >= 25) {
+  while (curr.length >= 25 && !curr.find((tx) => latest.includes(tx.txid))) {
     curr = await electrs
       .url(`/address/${address}/txs/chain/${curr[curr.length - 1].txid}`)
       .get()
@@ -367,12 +367,7 @@ let scanUtxos = async (address) => {
   if (!users.length) return [];
   let { id } = users[0];
 
-  await updateTransactions(address, id);
-
-  let { transactions } = await q(getTransactions, { id });
-
   let { utxos } = await q(getUtxos, { address });
-
   let outs = utxos.map(
     ({
       id,
@@ -393,9 +388,14 @@ let scanUtxos = async (address) => {
     })
   );
 
-  transactions = transactions.filter(
-    (tx) => !outs.length || tx.sequence > outs[0].sequence
-  );
+  await updateTransactions(address, id);
+
+  let uniq = (a, k) => [...new Map(a.map((x) => [k(x), x])).values()];
+  let { transactions } = await q(getTransactions, { id });
+  transactions = uniq(
+    transactions.sort((a, b) => a.sequence - b.sequence),
+    (tx) => tx.hash
+  ).filter((tx) => !outs.length || tx.sequence > outs[0].sequence);
 
   transactions.map(async ({ id, hash, asset: txAsset, json, confirmed }) => {
     if (!json) json = await electrs.url(`/tx/${hash}`).get().json();
@@ -455,7 +455,7 @@ let scanUtxos = async (address) => {
         },
       });
     } catch (e) {
-      console.log(e);
+      console.log(e, transaction_id, vout);
       continue;
     }
   }
