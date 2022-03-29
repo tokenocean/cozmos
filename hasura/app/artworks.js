@@ -105,14 +105,14 @@ app.post("/claim", auth, async (req, res) => {
       artwork: { asset, id },
     } = req.body;
 
-    let { address, multisig } = await getUser(req);
+    let { id: userId, address, multisig } = await getUser(req);
 
     let utxos = [
       ...(await lnft.url(`/address/${address}/utxo`).get().json()),
       ...(await lnft.url(`/address/${multisig}/utxo`).get().json()),
     ];
 
-    res.send(await q(setOwner, { id, owner_id: user.id }));
+    res.send(await q(setOwner, { id, owner_id: userId }));
   } catch (e) {
     console.log(e);
     res.code(500).send(e.message);
