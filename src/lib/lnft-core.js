@@ -20,7 +20,7 @@ import {
   txcache,
 } from "$lib/store";
 import {
-  create,
+  deleteFiles,
   createComment,
   updateArtworkWithRoyaltyRecipients,
 } from "$queries/artworks";
@@ -325,6 +325,8 @@ export default class Core {
     await this.setupSwaps(artwork, current);
 
     let { id } = artwork;
+
+    await query(deleteFiles, { id });
 
     for (let i = 0; i < files.length; i++) {
       let file = files[i];

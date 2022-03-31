@@ -27,8 +27,6 @@
   import { page } from "$app/stores";
   import Form from "../_form.svelte";
   import {
-    getArtwork,
-    deleteFiles,
     updateArtwork,
     updateTags,
   } from "$queries/artworks";
@@ -62,14 +60,7 @@
         id,
       });
 
-      await query(deleteFiles, { id });
-
       await core.listArtwork(artwork, current, files);
-
-      for (let i = 0; i < files.length; i++) {
-        let file = files[i];
-        await core.createFile(id, file);
-      }
 
       goto(`/a/${artwork.slug}`);
     } catch (e) {
