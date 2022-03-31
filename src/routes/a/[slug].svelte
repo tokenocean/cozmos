@@ -729,7 +729,7 @@
           <Button primary class="w-full mb-2" {disabled}>Transfer</Button>
         </a>
       {/if}
-      {#if $user && $user.id === artwork.artist_id && !artwork.redeemed}
+      {#if $user && $user.id === artwork.owner_id && !artwork.redeemed}
         <Button primary on:click={redeem} class="w-full mb-2">Redeem</Button>
       {/if}
       {#if $user && $user.id === artwork.artist_id && $user.id === artwork.owner_id}
