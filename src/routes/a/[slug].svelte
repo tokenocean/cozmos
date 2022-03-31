@@ -719,7 +719,7 @@
         <ArtworkMedia {artwork} popupImage={true} thumb={false} />
       </div>
       <RoyaltyInfo {artwork} />
-      {#if $user && $user.id === artwork.artist_id}
+      {#if $user && $user.id === artwork.artist_id && $user.id === artwork.owner_id}
         <a href={`/a/${artwork.slug}/edit`}>
           <Button primary class="w-full mb-2">Edit</Button>
         </a>
