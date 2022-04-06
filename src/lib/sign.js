@@ -4,8 +4,8 @@ import { get } from "svelte/store";
 import { sign } from "$lib/wallet";
 import { requirePassword } from "$lib/auth";
 
-export default async () => {
+export default async (promptSign = true) => {
   await requirePassword();
-  psbt.set(sign(get(sighash) || 1));
+  psbt.set(sign(get(sighash) || 1, promptSign));
   await tick();
 };
