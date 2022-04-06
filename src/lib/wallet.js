@@ -727,8 +727,9 @@ export const sign = async (sighash, promptSign = true) => {
   return p;
 };
 
-export const broadcast = (disableRetries = false) => {
-  let tx = get(psbt).extractTransaction();
+export const broadcast = async (disableRetries = false) => {
+  let p = await get(psbt);
+  let tx = p.extractTransaction();
   let hex = tx.toHex();
   let middlewares = [
     retry({
