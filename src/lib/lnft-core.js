@@ -266,7 +266,8 @@ export default class Core {
     )
       return true;
 
-    let tx = get(psbt).extractTransaction();
+    let tx;
+    if (!current) tx = get(psbt).extractTransaction();
     psbt.set(await createSwap(artwork, tx));
 
     await sign(0x83);
@@ -288,6 +289,7 @@ export default class Core {
   async spendPreviousSwap(artwork, current) {
     if (
       !(current && current.list_price && current.list_price_tx) ||
+      artwork.has_royalty ||
       artwork.auction_end ||
       parseInt(current?.list_price || 0) === artwork.list_price
     )
@@ -344,6 +346,11 @@ export default class Core {
       auction_tx,
       auction_release_tx,
     } = artwork;
+
+    if (!list_price) list_price = null;
+    if (!list_price_tx) list_price_tx = null;
+    if (!asking_asset) asking_asset = null;
+    if (!reserve_price) reserve_price = null;
 
     query(updateArtworkWithRoyaltyRecipients, {
       artwork: {

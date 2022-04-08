@@ -20,6 +20,7 @@
 </script>
 
 <script>
+  import * as animateScroll from "svelte-scrollto";
   import Card from "$styleguide/components/Card.svelte";
   import Core from "$lib/lnft-core";
   import { page } from "$app/stores";
@@ -120,6 +121,7 @@
   let hash, tx;
 
   async function submit(e) {
+    animateScroll.scrollTo(0);
     e.preventDefault();
 
     await requirePassword();

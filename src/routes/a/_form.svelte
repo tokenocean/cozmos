@@ -101,10 +101,6 @@
     listingType = types.FIXED;
   };
 
-  let enableUnlisted = () => {
-    listingType = types.UNLISTED;
-  };
-
   $: updateDates(start_date, start_time, end_date, end_time, listingType);
   let updateDates = () => {
     if (listingType === types.AUCTION) {
@@ -122,13 +118,15 @@
       if (!isValid(artwork.auction_start)) artwork.auction_start = undefined;
       if (!isValid(artwork.auction_end)) artwork.auction_end = undefined;
     } else {
-      artwork.auction_start = undefined;
-      artwork.auction_end = undefined;
+      artwork.auction_start = null;
+      artwork.auction_end = null;
     }
 
-    if (listingType === types.UNLISTED || !listingType)
-      artwork.asking_asset = undefined;
-    else artwork.asking_asset = btc;
+    if (listingType === types.UNLISTED || !listingType) {
+      artwork.asking_asset = null;
+      artwork.list_price = null;
+      artwork.list_price_tx = null;
+    } else artwork.asking_asset = btc;
   };
 
   $: images = files.filter((f) => f.type === "gallery");
