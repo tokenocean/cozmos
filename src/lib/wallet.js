@@ -29,7 +29,7 @@ import {
   transactions,
   token,
   signStatus,
-  promptStandard
+  promptStandard,
 } from "$lib/store";
 import cryptojs from "crypto-js";
 import { btc, info } from "$lib/utils";
@@ -38,8 +38,8 @@ import { getActiveBids } from "$queries/transactions";
 import { compareAsc, parseISO } from "date-fns";
 import { SignaturePrompt } from "$comp";
 
-export const CANCELLED = 'cancelled';
-export const ACCEPTED = 'accepted';
+export const CANCELLED = "cancelled";
+export const ACCEPTED = "accepted";
 
 const { retry } = middlewares.default || middlewares;
 
@@ -688,11 +688,10 @@ export const cancelSwap = async (artwork) => {
 export const requireSign = async () => {
   signStatus.set(false);
 
-  return await new Promise(
-    (resolve) =>
-      (signStatus.subscribe((signedSub) => {
-        signedSub ? resolve(signedSub) : promptStandard.set(SignaturePrompt);
-      }))
+  return await new Promise((resolve) =>
+    signStatus.subscribe((signedSub) => {
+      signedSub ? resolve(signedSub) : promptStandard.set(SignaturePrompt);
+    })
   );
 };
 

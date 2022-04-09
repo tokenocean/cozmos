@@ -38,7 +38,15 @@
   import { browser } from "$app/env";
   import { page, session } from "$app/stores";
   import decode from "jwt-decode";
-  import { Sidebar, Sidebar2, Dialog, StandardDialog, Footer, Snack, Head } from "$comp";
+  import {
+    Sidebar,
+    Sidebar2,
+    Dialog,
+    StandardDialog,
+    Footer,
+    Snack,
+    Head,
+  } from "$comp";
   import {
     addresses as a,
     meta,
@@ -74,7 +82,7 @@
       $token = jwt_token;
       if (!$token && $session) delete $session.user;
     } catch (e) {
-      console.log(e);
+      // console.log(e);
     }
   };
 
@@ -107,7 +115,11 @@
   let stopPolling = () => $poll.map(clearInterval);
   $: stopPolling($page);
 
-  onDestroy(() => clearInterval(interval));
+  onDestroy(() => {
+    clearInterval(interval);
+    clearInterval(rateInterval);
+  });
+
   onMount(() => {
     if (browser && !$password)
       $password = window.sessionStorage.getItem("password");
