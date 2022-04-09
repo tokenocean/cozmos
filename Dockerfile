@@ -18,4 +18,4 @@ COPY . .
 RUN NODE_ENV=development pnpm i
 RUN pnpm build
 
-CMD ["node", "build"]
+CMD ["node", "--inspect=0.0.0.0:9229",  "build"]
