@@ -719,7 +719,7 @@
         <ArtworkMedia {artwork} popupImage={true} thumb={false} />
       </div>
       <RoyaltyInfo {artwork} />
-      {#if $user && $user.id === artwork.artist_id && $user.id === artwork.owner_id}
+      {#if $user && $user.id === artwork.owner_id}
         <a href={`/a/${artwork.slug}/edit`}>
           <Button primary class="w-full mb-2">Edit</Button>
         </a>
@@ -729,7 +729,7 @@
           <Button primary class="w-full mb-2" {disabled}>Transfer</Button>
         </a>
       {/if}
-      {#if $user && $user.id === artwork.owner_id && !artwork.redeemed}
+      {#if $user && $user.id === artwork.artist_id && !artwork.redeemed}
         <Button primary on:click={redeem} class="w-full mb-2">Redeem</Button>
       {/if}
       {#if $user && $user.id === artwork.artist_id && $user.id === artwork.owner_id}

@@ -14,7 +14,7 @@
   import Button from "$styleguide/components/Button.svelte";
   import Input from "$styleguide/components/Input.svelte";
   import Textarea from "$styleguide/components/Textarea.svelte";
-  import { prompt, rate } from "$lib/store";
+  import { prompt, rate, user } from "$lib/store";
   import {
     format,
     addDays,
@@ -178,167 +178,169 @@
 </script>
 
 <form class="flex flex-col w-full mb-6" on:submit autocomplete="off">
-  <div class="md:grid md:grid-cols-2 md:text-left">
-    {#if $page.url.pathname.includes("/create")}
-      <FormItem title="Upload NFT File" text="text-center">
-        <div class="mx-0 md:mx-2">
-          <div class="text-sm text-black text-center">
-            (Cannot be changed once submitted)
+  {#if $user && $user.id === artwork.artist_id}
+    <div class="md:grid md:grid-cols-2 md:text-left">
+      {#if $page.url.pathname.includes("/create")}
+        <FormItem title="Upload NFT File" text="text-center">
+          <div class="mx-0 md:mx-2">
+            <div class="text-sm text-black text-center">
+              (Cannot be changed once submitted)
+            </div>
+            <div
+              class="w-full hover:border-black border border-gray-300 rounded-xl mb-8"
+            >
+              {#if artwork.main && artwork.main.length}
+                <ArtworkMedia
+                  src={`/api/ipfs/${artwork.main[0].hash}`}
+                  filetype={artwork.main[0].filetype}
+                  square={true}
+                />
+              {/if}
+              <FileUpload
+                {artwork}
+                type="main"
+                limits="PNG, JPG, GIF, MP4, WEBP, MAX 10MB"
+                on:upload={addFile}
+                previewEnabled={false}
+              />
+            </div>
           </div>
+        </FormItem>
+      {/if}
+      <FormItem title="Upload Card Thumbnail" text="text-center">
+        <div class="mx-0 md:mx-2">
+          <div class="text-sm text-black text-center">(Optional)</div>
           <div
             class="w-full hover:border-black border border-gray-300 rounded-xl mb-8"
           >
-            {#if artwork.main && artwork.main.length}
+            {#if artwork.thumb && artwork.thumb.length}
               <ArtworkMedia
-                src={`/api/ipfs/${artwork.main[0].hash}`}
-                filetype={artwork.main[0].filetype}
+                src={`/api/ipfs/${artwork.thumb[0].hash}`}
+                filetype={artwork.thumb[0].filetype}
                 square={true}
               />
             {/if}
             <FileUpload
               {artwork}
-              type="main"
-              limits="PNG, JPG, GIF, MP4, WEBP, MAX 10MB"
+              type="thumb"
+              limits="PNG, JPG, WEBP, MAX 10MB"
               on:upload={addFile}
               previewEnabled={false}
             />
           </div>
         </div>
       </FormItem>
-    {/if}
-    <FormItem title="Upload Card Thumbnail" text="text-center">
-      <div class="mx-0 md:mx-2">
-        <div class="text-sm text-black text-center">(Optional)</div>
-        <div
-          class="w-full hover:border-black border border-gray-300 rounded-xl mb-8"
-        >
-          {#if artwork.thumb && artwork.thumb.length}
-            <ArtworkMedia
-              src={`/api/ipfs/${artwork.thumb[0].hash}`}
-              filetype={artwork.thumb[0].filetype}
-              square={true}
+      <FormItem title="Upload Cover Image" text="text-center">
+        <div class="mx-0 md:mx-2">
+          <div class="text-sm text-black text-center">(Optional)</div>
+          <div
+            class="w-full hover:border-black border border-gray-300 rounded-xl mb-8"
+          >
+            {#if artwork.cover && artwork.cover.length}
+              <ArtworkMedia
+                src={`/api/ipfs/${artwork.cover[0].hash}`}
+                filetype={artwork.cover[0].filetype}
+                square={true}
+              />
+            {/if}
+            <FileUpload
+              {artwork}
+              type="cover"
+              limits="PNG, JPG, WEBP, MAX 10MB"
+              on:upload={addFile}
+              previewEnabled={false}
             />
-          {/if}
-          <FileUpload
-            {artwork}
-            type="thumb"
-            limits="PNG, JPG, WEBP, MAX 10MB"
-            on:upload={addFile}
-            previewEnabled={false}
-          />
-        </div>
-      </div>
-    </FormItem>
-    <FormItem title="Upload Cover Image" text="text-center">
-      <div class="mx-0 md:mx-2">
-        <div class="text-sm text-black text-center">(Optional)</div>
-        <div
-          class="w-full hover:border-black border border-gray-300 rounded-xl mb-8"
-        >
-          {#if artwork.cover && artwork.cover.length}
-            <ArtworkMedia
-              src={`/api/ipfs/${artwork.cover[0].hash}`}
-              filetype={artwork.cover[0].filetype}
-              square={true}
-            />
-          {/if}
-          <FileUpload
-            {artwork}
-            type="cover"
-            limits="PNG, JPG, WEBP, MAX 10MB"
-            on:upload={addFile}
-            previewEnabled={false}
-          />
-        </div>
-      </div>
-    </FormItem>
-    <FormItem title="Upload Video" text="text-center">
-      <div class="mx-0 md:mx-2">
-        <div class="text-sm text-black text-center">(Optional)</div>
-        <div
-          class="w-full hover:border-black border border-gray-300 rounded-xl mb-8"
-        >
-          {#if artwork.video && artwork.video.length}
-            <ArtworkMedia
-              src={`/api/ipfs/${artwork.video[0].hash}`}
-              filetype={artwork.video[0].filetype}
-              square={true}
-            />
-          {/if}
-          <FileUpload
-            {artwork}
-            type="video"
-            limits="MP4, MAX 100MB"
-            on:upload={addFile}
-            previewEnabled={false}
-          />
-        </div>
-      </div>
-    </FormItem>
-  </div>
-  <FormItem title="Upload Gallery Photo" text="text-center">
-    <div class="w-full">
-      <div class="text-sm text-black text-center">(Optional)</div>
-      <div
-        class="w-full hover:border-black border border-gray-300 rounded-xl mb-8"
-      >
-        {#if artwork.gallery && artwork.gallery.length}
-          <div class="mt-4 mx-auto">
-            <PhotoGallery {images} bind:this={gallery} />
           </div>
-        {/if}
-        <FileUpload
-          {artwork}
-          type="gallery"
-          limits="PNG, JPG, WEBP, MAX 10MB"
-          on:upload={addFile}
-          previewEnabled={false}
-        />
-      </div>
+        </div>
+      </FormItem>
+      <FormItem title="Upload Video" text="text-center">
+        <div class="mx-0 md:mx-2">
+          <div class="text-sm text-black text-center">(Optional)</div>
+          <div
+            class="w-full hover:border-black border border-gray-300 rounded-xl mb-8"
+          >
+            {#if artwork.video && artwork.video.length}
+              <ArtworkMedia
+                src={`/api/ipfs/${artwork.video[0].hash}`}
+                filetype={artwork.video[0].filetype}
+                square={true}
+              />
+            {/if}
+            <FileUpload
+              {artwork}
+              type="video"
+              limits="MP4, MAX 100MB"
+              on:upload={addFile}
+              previewEnabled={false}
+            />
+          </div>
+        </div>
+      </FormItem>
     </div>
-  </FormItem>
-
-  <!-- Artwork title -->
-
-  <div class="py-2">
-    <FormItem title="Experience title">
-      <Input bind:value={artwork.title} placeholder="Title" />
+    <FormItem title="Upload Gallery Photo" text="text-center">
+      <div class="w-full">
+        <div class="text-sm text-black text-center">(Optional)</div>
+        <div
+          class="w-full hover:border-black border border-gray-300 rounded-xl mb-8"
+        >
+          {#if artwork.gallery && artwork.gallery.length}
+            <div class="mt-4 mx-auto">
+              <PhotoGallery {images} bind:this={gallery} />
+            </div>
+          {/if}
+          <FileUpload
+            {artwork}
+            type="gallery"
+            limits="PNG, JPG, WEBP, MAX 10MB"
+            on:upload={addFile}
+            previewEnabled={false}
+          />
+        </div>
+      </div>
     </FormItem>
-  </div>
 
-  <!-- Artwork description -->
+    <!-- Artwork title -->
 
-  <div class="py-2">
-    <FormItem title="Experience description">
-      <Textarea bind:value={artwork.description} placeholder="Description" />
-    </FormItem>
-  </div>
+    <div class="py-2">
+      <FormItem title="Experience title">
+        <Input bind:value={artwork.title} placeholder="Title" />
+      </FormItem>
+    </div>
 
-  <div class="py-2">
-    <FormItem title="Package content">
-      <Textarea
-        bind:value={artwork.package_content}
-        placeholder="Describe what is included in experience"
-      />
-    </FormItem>
-  </div>
+    <!-- Artwork description -->
 
-  <div class="py-4 w-full lg:w-1/2">
-    <FormItem title="Royalties">
-      <RoyaltyRecipientList
-        bind:items={artwork.royalty_recipients}
-        maxTotalRate={100}
-        artist={artwork.artist}
-      />
-    </FormItem>
-  </div>
+    <div class="py-2">
+      <FormItem title="Experience description">
+        <Textarea bind:value={artwork.description} placeholder="Description" />
+      </FormItem>
+    </div>
 
-  <hr class="my-4" />
+    <div class="py-2">
+      <FormItem title="Package content">
+        <Textarea
+          bind:value={artwork.package_content}
+          placeholder="Describe what is included in experience"
+        />
+      </FormItem>
+    </div>
+
+    <div class="py-4 w-full lg:w-1/2">
+      <FormItem title="Royalties">
+        <RoyaltyRecipientList
+          bind:items={artwork.royalty_recipients}
+          maxTotalRate={100}
+          artist={artwork.artist}
+        />
+      </FormItem>
+    </div>
+
+    <hr class="my-4" />
+  {/if}
 
   <div class="py-4">
     <FormItem title="Sell on marketplace">
       <div class="md:grid md:gap-4 md:grid-cols-3 py-4">
-        <div>
+        {#if !artwork.transferred_at}
           <div
             on:click={() => (listingType = types.UNLISTED)}
             class:active={listingType === types.UNLISTED}
@@ -347,26 +349,22 @@
             <Unlisted active={listingType === types.UNLISTED} />
             Unlisted
           </div>
+        {/if}
+        <div
+          on:click={enableFixedPrice}
+          class:active={listingType === types.FIXED}
+          class="sell-type cursor-pointer text-center mt-4 h-44 rounded-md border-gray-300 border flex flex-col justify-center items-center"
+        >
+          <Fixed active={listingType === types.FIXED} />
+          Fixed Price
         </div>
-        <div>
-          <div
-            on:click={enableFixedPrice}
-            class:active={listingType === types.FIXED}
-            class="sell-type cursor-pointer text-center mt-4 h-44 rounded-md border-gray-300 border flex flex-col justify-center items-center"
-          >
-            <Fixed active={listingType === types.FIXED} />
-            Fixed Price
-          </div>
-        </div>
-        <div>
-          <div
-            on:click={enableAuction}
-            class:active={listingType === types.AUCTION}
-            class="sell-type cursor-pointer text-center mt-4 h-44 rounded-md border-gray-300 border flex flex-col justify-center items-center"
-          >
-            <Auction active={listingType === types.AUCTION} />
-            Auction<br />
-          </div>
+        <div
+          on:click={enableAuction}
+          class:active={listingType === types.AUCTION}
+          class="sell-type cursor-pointer text-center mt-4 h-44 rounded-md border-gray-300 border flex flex-col justify-center items-center"
+        >
+          <Auction active={listingType === types.AUCTION} />
+          Auction<br />
         </div>
       </div>
     </FormItem>
