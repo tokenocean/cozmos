@@ -100,7 +100,7 @@
       if (!artwork.royalty_recipients.find((e) => e.address === address)) {
         artwork.royalty_recipients.push({
           address,
-          amount: artwork.transferred_at ? 2 : amount,
+          amount,
           name,
           type: royaltyRecipientSystemType,
         });
