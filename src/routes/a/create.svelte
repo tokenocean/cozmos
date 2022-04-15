@@ -154,6 +154,11 @@
 
       api.url("/asset/register").post({ asset }).json().catch(console.log);
 
+      await api.url("/mail-artwork-minted").auth(`Bearer ${$token}`).post({
+        userId: user.id,
+        artworkId: artwork.id,
+      });
+
       showThanks();
     } catch (e) {
       err(e);

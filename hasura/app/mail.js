@@ -14,7 +14,7 @@ const { SMTP_HOST, SMTP_USER, SMTP_PASS, SMTP_PORT, SMTP_SENDER } = process.env;
 let transport = nodemailer.createTransport({
   host: SMTP_HOST,
   port: SMTP_PORT,
-  secure: true,
+  secure: false, // upgrade later with STARTTLS
   auth: {
     user: SMTP_USER,
     pass: SMTP_PASS,
@@ -44,6 +44,11 @@ app.post("/mail-artist-application-approved", auth, async (req, res) => {
     await mail.send({
       template: "artist-application-approved",
       locals: {
+        httpsUrl: constants.urls.protocol,
+        projectName: constants.projectName,
+        twitterUrl: constants.urls.external.twitter,
+        telegramUrl: constants.urls.external.telegram,
+        supportEmail: constants.emails.support,
         artistName: user.full_name,
       },
       message: {
@@ -69,6 +74,10 @@ app.post("/mail-artist-application-denied", auth, async (req, res) => {
     await mail.send({
       template: "artist-application-denied",
       locals: {
+        httpsUrl: constants.urls.protocol,
+        projectName: constants.projectName,
+        twitterUrl: constants.urls.external.twitter,
+        telegramUrl: constants.urls.external.telegram,
         artistName: user.full_name,
       },
       message: {
@@ -119,6 +128,10 @@ app.post("/offer-notifications", auth, async (req, res) => {
       (await mail.send({
         template: "outbid",
         locals: {
+          httpsUrl: constants.urls.protocol,
+          projectName: constants.projectName,
+          twitterUrl: constants.urls.external.twitter,
+          telegramUrl: constants.urls.external.telegram,
           userName: highestBidTransaction.user.full_name
             ? highestBidTransaction.user.full_name
             : "",
@@ -134,6 +147,10 @@ app.post("/offer-notifications", auth, async (req, res) => {
     await mail.send({
       template: "bid-processed",
       locals: {
+        httpsUrl: constants.urls.protocol,
+        projectName: constants.projectName,
+        twitterUrl: constants.urls.external.twitter,
+        telegramUrl: constants.urls.external.telegram,
         userName: currentUser.full_name,
         bidAmount: `${transaction.amount / 100000000} L-BTC`,
         artworkTitle: artwork.title,
@@ -147,6 +164,10 @@ app.post("/offer-notifications", auth, async (req, res) => {
     await mail.send({
       template: "someone-bid",
       locals: {
+        httpsUrl: constants.urls.protocol,
+        projectName: constants.projectName,
+        twitterUrl: constants.urls.external.twitter,
+        telegramUrl: constants.urls.external.telegram,
         userName: artwork.owner.full_name ? artwork.owner.full_name : "",
         bidAmount: `${transaction.amount / 100000000} L-BTC`,
         artworkTitle: artwork.title,
@@ -183,6 +204,10 @@ app.post("/mail-purchase-successful", auth, async (req, res) => {
     await mail.send({
       template: "purchase-successful",
       locals: {
+        httpsUrl: constants.urls.protocol,
+        projectName: constants.projectName,
+        twitterUrl: constants.urls.external.twitter,
+        telegramUrl: constants.urls.external.telegram,
         userName: user.full_name,
         bidAmount: `${artwork.list_price / 100000000} L-BTC`,
         artworkTitle: artwork.title,
@@ -219,6 +244,10 @@ app.post("/mail-artwork-minted", auth, async (req, res) => {
     await mail.send({
       template: "artwork-minted",
       locals: {
+        httpsUrl: constants.urls.protocol,
+        projectName: constants.projectName,
+        twitterUrl: constants.urls.external.twitter,
+        telegramUrl: constants.urls.external.telegram,
         userName: user.full_name,
         artworkTitle: artwork.title,
         artworkUrl: `${constants.urls.protocol}/a/${artwork.slug}`,
@@ -254,6 +283,10 @@ app.post("/mail-artwork-sold", auth, async (req, res) => {
     await mail.send({
       template: "artwork-sold",
       locals: {
+        httpsUrl: constants.urls.protocol,
+        projectName: constants.projectName,
+        twitterUrl: constants.urls.external.twitter,
+        telegramUrl: constants.urls.external.telegram,
         userName: user.full_name,
         bidAmount: artwork.list_price,
         artworkTitle: artwork.title,

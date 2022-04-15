@@ -48,8 +48,7 @@
         .url("/mail-artist-application-approved")
         .auth(`Bearer ${$token}`)
         .post({
-          to: user.email,
-          artistName: user.full_name ? user.full_name : "",
+          userId: user.id,
         }));
 
     users = users.filter((u) => u.id !== user.id);
@@ -65,8 +64,7 @@
         .auth(`Bearer ${$token}`)
         .url("/mail-artist-application-denied")
         .post({
-          to: user.email,
-          artistName: user.full_name ? user.full_name : "",
+          userId: user.id,
         })
         .json());
 

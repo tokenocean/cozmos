@@ -1,125 +1,124 @@
 <!DOCTYPE html>
 <html>
+  <head>
+    <meta charset="utf-8" />
+    <style>
+      body {
+        margin: 0;
+        font-family: sans-serif;
+        color: #eeeeee;
+        background-color: #2d2e32;
+      }
 
-<head>
-	<meta charset="utf-8" />
-	<style>
-		body {
-			margin: 0;
-			font-family: sans-serif;
-			color: #2d2e32;
-		}
+      p {
+        line-height: 1.7;
+      }
 
-		p {
-			line-height: 1.7;
-		}
+      .container {
+        width: 600px;
+        margin: 0 auto;
+        background-color: #2d2e32;
+        padding-top: 60px;
+      }
 
-		.container {
-			width: 600px;
-			margin: 0 auto;
-			background: white;
-			padding-top: 60px;
-		}
+      .logo {
+        width: 100%;
+        margin: 0 auto;
+        text-align: center;
+      }
 
-		.logo {
-			width: 100%;
-			margin: 0 auto;
-			text-align: center;
-		}
+      .logo img {
+        height: 40px;
+        margin: 0 auto;
+      }
 
-		.logo img {
-			height: 40px;
-			margin: 0 auto;
-		}
+      .link {
+        display: block;
+        margin-top: 30px;
+        color: #52b9ff;
+        text-decoration: none;
+      }
 
-		.link {
-			display: block;
-			margin-top: 30px;
-			color: #0f828a;
-			text-decoration: none;
-		}
+      hr {
+        border-color: whitesmoke;
+        margin-bottom: 30px;
+      }
 
-		hr {
-			border-color: whitesmoke;
-			margin-bottom: 30px;
-		}
+      .confirm-container {
+        display: flex;
+        justify-content: flex-end;
+      }
 
-		.confirm-container {
-			display: flex;
-			justify-content: flex-end;
-		}
+      .confirm {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 120px;
+        margin: 40px 0;
+        text-decoration: none;
+        border-radius: 30px;
+        padding: 12px 24px !important;
+        color: #444444;
+        font-weight: bold;
+        background: #00eaaf;
+        background: linear-gradient(
+          90deg,
+          #fa7900 0%,
+          #df36b4 43%,
+          #0063ea 77%,
+          #00eaaf 100%
+        );
+        border: 0px solid white;
+      }
 
-		.confirm {
-			display: flex;
-			align-items: center;
-			justify-content: center;
-			width: 120px;
-			margin: 40px 0;
-			text-decoration: none;
-			border-radius: 30px;
-			padding: 0.8rem 1.5rem !important;
-			color: #444444;
-			font-weight: bold;
-			background: rgb(143, 238, 245);
-			background: linear-gradient(90deg,
-					rgba(143, 238, 245, 1) 0%,
-					rgba(127, 228, 235, 1) 50%,
-					rgba(110, 216, 224, 1) 100%);
-			border: 0px solid white;
-		}
+      .footer p {
+        font-size: 13px;
+      }
 
-		.footer p {
-			font-size: 13px;
-		}
+      .footer .social {
+        display: flex;
+        justify-content: flex-start;
+        margin-bottom: 20px;
+      }
 
-		.footer .social {
-			display: flex;
-			justify-content: flex-start;
-			margin-bottom: 20px;
-		}
+      .footer .social a {
+        margin-right: 20px;
+      }
 
-		.footer .social a {
-			margin-right: 20px;
-		}
+      .footer .visit {
+        color: #eeeeee;
+        font-size: 13px;
+      }
+    </style>
+  </head>
 
-		.footer .visit {
-			color: #2d2e32;
-			font-size: 13px;
-		}
-	</style>
-</head>
-
-<body>
-	<div class="container">
-		<div class="logo">
-			<img src="https://cozmos.io/branding/logo.png" />
-		</div>
-		<p>Hi <%= userName %></p>
-		<p>
-			This email confirms that your bid on
-			<a href="<%= artworkUrl %>"><%= artworkTitle %></a> for <%= bidAmount %>
-			has been successful. You will be notified again via email if you are
-			then outbid or win the auction.
-		</p>
-		<p>Best, <br />Cozmos Team</p>
-		<hr />
-		<div class="footer">
-			<p>Follow Us</p>
-			<div class="social">
-				<a href="https://instagram.com/cozmosnft">
-					<img style="width: 20px" src="https://cozmos.io/Instagram-02.svg" />
-				</a>
-				<a href="https://discord.com/invite/K393aHGV3M">
-					<img style="width: 20px" src="https://cozmos.io/Discord.svg" />
-				</a>
-				<a href="https://www.twitter.com/cozmosnft">
-					<img style="width: 20px" src="https://cozmos.io/Twitter-02.svg" />
-				</a>
-			</div>
-			<a class="visit" href="https://cozmos.io">Visit website</a>
-			<p>© Cozmos 2021</p>
-		</div>
-	</div>
-</body>
-
+  <body>
+    <div class="container">
+      <div class="logo">
+        <img src="<%= httpsUrl %>/logo.png" />
+      </div>
+      <p>Hi <%= userName %></p>
+      <p>
+        This email confirms that your bid on
+        <a href="<%= artworkUrl %>"><%= artworkTitle %></a> for <%= bidAmount %>
+        has been successful. You will be notified again via email if you are
+        then outbid or win the auction.
+      </p>
+      <p>Best, <br /><%= projectName %> Team</p>
+      <hr />
+      <div class="footer">
+        <p>Follow Us</p>
+        <div class="social">
+          <a href="<%= twitterUrl %>">
+            <img style="width: 20px" src="<%= httpsUrl %>/twitter.png" />
+          </a>
+          <a href="<%= telegramUrl %>">
+            <img style="width: 20px" src="<%= httpsUrl %>/telegram.png" />
+          </a>
+        </div>
+        <a class="visit" href="<%= httpsUrl %>">Visit website</a>
+        <p>© <%= projectName %> <%= new Date().getFullYear() %></p>
+      </div>
+    </div>
+  </body>
 </html>

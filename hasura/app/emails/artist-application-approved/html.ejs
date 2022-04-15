@@ -97,13 +97,37 @@
       <div class="logo">
         <img src="<%= httpsUrl %>/logo.png" />
       </div>
-      <p>Hi <%= userName %></p>
+      <p>Hi <%= artistName %></p>
       <p>
-        We regret to inform you that you were outbid on
-        <a href="<%= artworkUrl %>"><%= artworkTitle %></a>. Please place a bid
-        higher than <%= bidAmount %> if you would like to stay in the running.
-        Do we foresee a bidding war?
+        Your artist application has been approved! Please take the time to read
+        the ‘<a href="<%= httpsUrl %>/guide"><%= projectName %> Quick Guide</a>’
+        document to help guide you through the minting process on the platform.
       </p>
+      <p>
+        A reminder that <%= projectName %> is a curated digital and physical art
+        marketplace, and thus, there are a few requirements for art pieces:
+      </p>
+      <ul>
+        <li>
+          Artistry has some relation to Bitcoin (e.g., p2p, cypherpunk, BTC
+          memes, Liquid, Lightning, etc.)
+        </li>
+        <li>No nudity or profanity</li>
+        <li>High quality mint (<%= projectName %> allows for up to 400MB)</li>
+      </ul>
+      <p>
+        You can read the full Terms & Conditions
+        <a href="<%= httpsUrl %>/terms-and-conditions">here</a>. These
+        guidelines help us prevent spam and create a family-friendly environment
+        for all hodlers to enjoy.
+      </p>
+      <p>
+        If you have any questions or specific issues, you can email us at
+        <a href="mailto:<%= supportEmail %>"><%= supportEmail %></a> or find us
+        on the
+        <a href="<%= telegramUrl %>"><%= projectName %> Telegram</a>
+      </p>
+      <p>Good luck in your artistic endeavors, and happy minting!</p>
       <p>Best, <br /><%= projectName %> Team</p>
       <hr />
       <div class="footer">

@@ -72,7 +72,7 @@ services:
       HASURA_GRAPHQL_UNAUTHORIZED_ROLE: "anonymous"
   hbp:
     container_name: hbp
-    image: nhost/hasura-backend-plus:v2.2.4
+    image: nhost/hasura-backend-plus:v2.4.0
     depends_on:
       - hasura
     ports:
@@ -84,7 +84,6 @@ services:
       JWT_ALGORITHM: "${JWT_ALGORITHM}"
       JWT_KEY: "${JWT_KEY}"
       AUTO_MIGRATE: "true"
-      AUTO_ACTIVATE_NEW_USERS: "true"
       STORAGE_ENABLE: "false"
       MAX_REQUESTS: 10000
       LOST_PASSWORD_ENABLE: "true"
@@ -94,6 +93,9 @@ services:
       SMTP_USER: "${SMTP_USER}"
       SMTP_PASS: "${SMTP_PASS}"
       SMTP_SENDER: "${SMTP_SENDER}"
+      AUTO_ACTIVATE_NEW_USERS: "false"
+      VERIFY_EMAILS: "true"
+      SMTP_SECURE: "true"
     volumes:
       - ./custom:/app/custom
   ipfs:

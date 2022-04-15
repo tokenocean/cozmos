@@ -14,6 +14,7 @@ export const register = async (email, username, password) => {
     .post({
       email,
       password,
+      ticket: "none",
       username,
       ...createWallet(
         generateMnemonic(undefined, undefined, wordlist),
