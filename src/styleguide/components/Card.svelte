@@ -1,4 +1,5 @@
 <script>
+  import { onDestroy, onMount } from "svelte";
   import Avatar from "$components/Avatar.svelte";
   import ArtworkMedia from "$components/ArtworkMedia.svelte";
   import Heart from "$styleguide/components/Heart.svelte";
@@ -36,9 +37,11 @@
     if (!artwork) return;
     start_counter = countdown(new Date(artwork.auction_start));
     end_counter = countdown(new Date(artwork.auction_end));
-    setTimeout(count, 1000);
+    timeout = setTimeout(count, 1000);
   };
-  count();
+
+  onMount(count);
+  onDestroy(() => clearTimeout(timeout));
 
   let currencyConversion = (amount) =>
     $rate ? `$${(val(amount) * $rate).toFixed(0)} USD` : "";
