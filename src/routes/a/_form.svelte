@@ -178,7 +178,7 @@
 </script>
 
 <form class="flex flex-col w-full mb-6" on:submit autocomplete="off">
-  {#if $user && $user.id === artwork.artist_id}
+  {#if $user && $user.id === artwork.artist.id}
     <div class="md:grid md:grid-cols-2 md:text-left">
       {#if $page.url.pathname.includes("/create")}
         <FormItem title="Upload NFT File" text="text-center">

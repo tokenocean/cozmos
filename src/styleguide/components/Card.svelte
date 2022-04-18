@@ -33,6 +33,7 @@
   }
 
   let start_counter, end_counter;
+  let timeout;
   let count = () => {
     if (!artwork) return;
     start_counter = countdown(new Date(artwork.auction_start));
