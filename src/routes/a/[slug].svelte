@@ -554,9 +554,13 @@
               </div>
             {/if}
 
-            {#if $user && $user.id === artwork.artist_id}
+            {#if $user && $user.id === artwork.owner_id}
               <a href={`/a/${artwork.slug}/edit`} class="block md:hidden">
-                <Button class="w-full border border-black mt-4">Edit</Button>
+                <Button class="w-full border border-black mt-4"
+                  >{user.id !== artwork.artist_id
+                    ? "Set price"
+                    : "Edit"}</Button
+                >
               </a>
             {/if}
           </div>
@@ -665,7 +669,9 @@
       <RoyaltyInfo {artwork} />
       {#if $user && $user.id === artwork.owner_id}
         <a href={`/a/${artwork.slug}/edit`}>
-          <Button primary class="w-full mb-2">Edit</Button>
+          <Button primary class="w-full mb-2"
+            >{user.id !== artwork.artist_id ? "Set price" : "Edit"}</Button
+          >
         </a>
       {/if}
       {#if $user && $user.id === artwork.owner_id}
