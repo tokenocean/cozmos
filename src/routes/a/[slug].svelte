@@ -445,7 +445,15 @@
                   </div>
                 {/if}
 
-                {#if artwork.reserve_price}
+                {#if artwork.bid}
+                  <div class="text-white text-sm mb-4 font-medium">
+                    Current bid
+                  </div>
+                  <div class="text-white text-3xl font-bold flex">
+                    <div>{val(artwork.bid.amount)} {ticker}</div>
+                    <div class="text-gray-500 ml-8">${reserveFiat}</div>
+                  </div>
+                {:else if artwork.reserve_price}
                   <div class="text-white text-sm mb-4 font-medium">
                     Reserve price
                   </div>

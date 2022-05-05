@@ -26,6 +26,7 @@ require("./mail");
 
 app.listen(8091, "0.0.0.0", function (err, address) {
   if (err) {
+    console.log(err);
     app.log.error(err);
     process.exit(1);
   }
