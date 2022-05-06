@@ -13,6 +13,7 @@ import { api, query, hasura } from "$lib/api";
 import { tick } from "svelte";
 import { get } from "svelte/store";
 import {
+  titles,
   edition as artworkCreateEditionInProgress,
   psbt,
   user,
@@ -29,7 +30,6 @@ import { btc, dev, err, info, kebab } from "$lib/utils";
 import { Psbt } from "liquidjs-lib";
 import {
   broadcast,
-  createRelease,
   createSwap,
   cancelSwap,
   createIssuance,
@@ -117,6 +117,7 @@ export default class Core {
    * @returns {Promise<{filetype}|{filename}|*>}
    */
   async createArtwork(artwork) {
+
     let transactions = [];
     if (!dev) {
       if (!artwork.title) throw new Error("Please enter a title");
@@ -145,6 +146,14 @@ export default class Core {
 
       try {
         contract = await createIssuance(artwork, domain, inputs.pop());
+
+        ({ tx } = get(psbt).data.globalMap.unsignedTx);
+        let asset = parseAsset(
+          tx.outs.find((o) => parseAsset(o.asset) !== btc).asset
+        );
+
+        titles.set([...get(titles), { ...artwork, asset }]);
+
         await sign(1, editionCount > 1 ? false : true);
         await tick();
 
@@ -154,10 +163,6 @@ export default class Core {
         inputs.unshift(tx);
 
         transactions.push({ contract, psbt: get(psbt).toBase64() });
-
-        let asset = parseAsset(
-          tx.outs.find((o) => parseAsset(o.asset) !== btc).asset
-        );
 
         let hash = tx.getId();
 
@@ -208,8 +213,6 @@ export default class Core {
     let base64;
     let tx = await signOver(artwork);
     artwork.auction_tx = get(psbt).toBase64();
-
-    artwork.auction_release_tx = (await createRelease(artwork, tx)).toBase64();
 
     await query(createTransaction, {
       transaction: {
@@ -310,7 +313,6 @@ export default class Core {
       auction_end,
       royalty_recipients,
       auction_tx,
-      auction_release_tx,
     } = artwork;
 
     if (!list_price) list_price = null;
@@ -327,7 +329,6 @@ export default class Core {
         auction_end,
         asking_asset,
         auction_tx,
-        auction_release_tx,
       },
       id,
       royaltyRecipients: royalty_recipients.map((item) => {

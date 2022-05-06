@@ -238,7 +238,7 @@
                       </div>
                     {/if}
                   </div>
-                  <div class="ml-auto mr-2 my-auto">
+                  <div class="my-auto text-right">
                     {assetLabel(asset)}
                   </div>
                 {/if}
@@ -284,7 +284,7 @@
                       ).toFixed(8)}
                     </div>
                   </div>
-                  <div class="ml-4 my-auto">
+                  <div class="my-auto text-right">
                     {assetLabel(asset)}
                   </div>
                 {/if}
@@ -299,7 +299,7 @@
             <div class="my-auto ml-auto">
               {val(btc, Math.abs(totals["Fee"][btc]))}
             </div>
-            <div class="ml-auto mr-2 my-auto">L-BTC</div>
+            <div class="ml-auto my-auto">L-BTC</div>
           </div>
         {/if}
       </div>
