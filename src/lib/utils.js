@@ -65,9 +65,6 @@ const assetLabel = (asset) => {
   let $titles = get(titles);
   let r = $titles && $titles.find((u) => u.asset === asset);
 
-  console.log($titles);
-  console.log(asset, r);
-
   return r
     ? r.title
       ? r.title + (r.editions > 1 ? ` ${r.edition}/${r.editions}` : "")
