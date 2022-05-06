@@ -12,6 +12,7 @@
   import { AcceptOffer } from "$comp";
   import { api } from "$lib/api";
   import { err } from "$lib/utils";
+  import Button from "$styleguide/components/Button.svelte";
 
   export let transaction;
 
@@ -86,6 +87,15 @@
       <span class="pending">Pending</span>
     {/if}
   </div>
+  {#if canAccept(transaction)}
+    <Button
+      class="w-full mt-3"
+      primary
+      on:click={() => comp.accept(transaction)}
+    >
+      Accept Offer
+    </Button>
+  {/if}
 {/if}
 
 <style>
