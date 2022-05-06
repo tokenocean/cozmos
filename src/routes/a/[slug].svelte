@@ -565,7 +565,7 @@
             {#if $user && $user.id === artwork.owner_id}
               <a href={`/a/${artwork.slug}/edit`} class="block md:hidden">
                 <Button class="w-full border border-black mt-4"
-                  >{user.id !== artwork.artist_id
+                  >{$user.id !== artwork.artist_id
                     ? "Set price"
                     : "Edit"}</Button
                 >
@@ -678,7 +678,7 @@
       {#if $user && $user.id === artwork.owner_id}
         <a href={`/a/${artwork.slug}/edit`}>
           <Button primary class="w-full mb-2"
-            >{user.id !== artwork.artist_id ? "Set price" : "Edit"}</Button
+            >{$user.id !== artwork.artist_id ? "Set price" : "Edit"}</Button
           >
         </a>
       {/if}
