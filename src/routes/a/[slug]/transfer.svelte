@@ -15,9 +15,7 @@
 </script>
 
 <script>
-  import Fa from "svelte-fa";
-
-  import { faChevronLeft } from "@fortawesome/free-solid-svg-icons";
+  import { session } from "$app/stores";
   import { Avatar, ProgressLinear } from "$comp";
   import AutoComplete from "simple-svelte-autocomplete";
   import { addresses, art, psbt, user, token } from "$lib/store";
@@ -25,6 +23,7 @@
   import { updateArtwork } from "$queries/artworks";
   import { createTransaction } from "$queries/transactions";
   import { api, query } from "$lib/api";
+  import { v4 as uuidv4 } from "uuid";
   import { page } from "$app/stores";
   import {
     broadcast,
@@ -37,86 +36,57 @@
 
   export let artwork;
 
-  $: disabled = !recipient;
+  $: disabled = !recipient && !address;
 
   let recipient;
+  $: address = recipient ?  recipient.multisig : "";
 
   let loading;
 
   let send = async (e) => {
-    await requirePassword();
+    await requirePassword($session);
 
     loading = true;
+
     try {
-      let address = isMultisig(artwork)
-        ? recipient.multisig
-        : recipient.address;
       $psbt = await pay(artwork, address, 1);
       await sign();
-
-      if (isMultisig(artwork)) {
-        $psbt = await requestSignature($psbt);
-      }
-
-      await broadcast();
-
-      let transaction = {
-        amount: 1,
-        artwork_id: artwork.id,
-        asset: artwork.asset,
-        hash: $psbt.extractTransaction().getId(),
-        psbt: $psbt.toBase64(),
-        type: "transfer",
-      };
-
-      query(createTransaction, { transaction });
+      $psbt = await requestSignature($psbt);
 
       await api
         .auth(`Bearer ${$token}`)
         .url("/transfer")
-        .post({ address, id: recipient.id, transaction })
+        .post({ address, artwork, psbt: $psbt.toBase64() })
         .json();
 
-      query(updateArtwork, {
-        artwork: {
-          owner_id: recipient.id,
-        },
-        id: artwork.id,
-      }).catch(err);
-
-      info(`Artwork sent to ${recipient.username}!`);
+      info(
+        `Artwork sent to ${
+          recipient ? recipient.username : `${address.slice(0, 21)}...`
+        }!`
+      );
       goto(`/a/${artwork.slug}`);
     } catch (e) {
       err(e);
     }
+
     loading = false;
   };
 </script>
 
 {#if $addresses}
-  <div
-    class="shadow bg-gray-100 container mx-auto sm:justify-between mt-36 p-4"
-  >
-    <a class="block ml-6 mt-6 text-black" href={`/a/${artwork.slug}`}>
-      <div class="flex">
-        <Fa icon={faChevronLeft} class="my-auto mr-1" />
-        <div>Back</div>
-      </div>
-    </a>
-    <h2 class="text-center mb-4">Transfer Experience</h2>
+  <div class="container mx-auto sm:justify-between mt-10 md:mt-20">
+    <h2 class="mb-4">Transfer Artwork</h2>
 
     {#if loading}
       <ProgressLinear />
     {:else}
-      <div
-        class="border border-black rounded p-10 w-full max-w-lg text-center my-8 mx-auto"
-      >
+      <div class="w-full max-w-lg text-center my-8 mx-auto">
         <AutoComplete
           hideArrow={true}
-          placeholder="Recipient"
-          items={$addresses.filter((a) => a.id !== $user.id)}
-          className="w-full border border-gray-400 rounded"
-          inputClassName="bg-gray-100"
+          placeholder="Username"
+          items={$addresses.filter((a) => a.id !== $session.user.id)}
+          className="w-full"
+          inputClassName="huh text-center"
           labelFieldName="username"
           bind:selectedItem={recipient}
         >
@@ -125,12 +95,23 @@
             <div class="ml-1 my-auto">{item.username}</div>
           </div>
         </AutoComplete>
+        <p class="font-bold mt-10 mb-7">OR</p>
+
+        <input
+          type="text"
+          class="w-full rounded-lg p-3 text-center"
+          placeholder="Address"
+          value={recipient ? "" : address}
+          on:keyup={(e) => {
+            recipient = undefined;
+            address = e.target.value;
+          }}
+        />
         <a
           href="/"
           on:click|preventDefault={send}
           class:disabled
-          class="!text-gray-600 block mt-8 text-center text-sm secondary-btn w-full"
-          >Send</a
+          class="block mt-8 text-center text-sm secondary-btn w-full">Send</a
         >
       </div>
     {/if}
@@ -138,11 +119,11 @@
 {/if}
 
 <style>
-  .shadow {
-    box-shadow: 6px 5px 12px 2px #ccc;
-  }
-
   .disabled {
     @apply text-gray-400 border-gray-400;
+  }
+
+  :global(.huh) {
+    @apply rounded-lg px-8 py-4 text-black w-full !important;
   }
 </style>

@@ -1,5 +1,6 @@
 import { writable } from "svelte/store";
 
+export const acceptStatus = writable();
 export const addresses = writable();
 export const art = writable();
 export const artworks = writable([]);

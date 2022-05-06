@@ -1,15 +1,31 @@
-const Email = require("email-templates");
-const nodemailer = require("nodemailer");
-const { q: query, api } = require("./api");
-const {
+import Email from "email-templates";
+import nodemailer from "nodemailer";
+import path from "path";
+import { q as query, api } from "./api.js";
+import { app } from "./app.js";
+import { auth } from "./auth.js";
+
+import {
   getUser,
   getArtworkWithBidTransactionByHash,
-  getArtworkByPk,
+  getArtwork,
   getCurrentUser,
-} = require("./queries");
-const constants = require("./const");
+  getTransferTransactionsByPsbt,
+} from "./queries.js";
 
-const { SMTP_HOST, SMTP_USER, SMTP_PASS, SMTP_PORT, SMTP_SENDER } = process.env;
+import constants from "./const.js";
+
+const {
+  SMTP_HOST,
+  SMTP_USER,
+  SMTP_PASS,
+  SMTP_PORT,
+  SMTP_SENDER,
+  AUTH_EVENT_VALUE,
+} = process.env;
+const TRANSACTION_DEPOSIT = "deposit";
+const TRANSACTION_RECEIPT = "receipt";
+const TRANSACTION_WITHDRAWAL = "withdrawal";
 
 let transport = nodemailer.createTransport({
   host: SMTP_HOST,
@@ -21,12 +37,12 @@ let transport = nodemailer.createTransport({
   },
 });
 
-mail = new Email({
+export const mail = new Email({
   transport,
   message: { from: SMTP_SENDER },
   send: true,
   views: {
-    // root: path.resolve(process.env.PWD || ".", "../custom/emails"),
+    root: path.resolve(process.env.PWD || ".", "emails"),
     options: {
       extension: "ejs",
     },
@@ -44,11 +60,6 @@ app.post("/mail-artist-application-approved", auth, async (req, res) => {
     await mail.send({
       template: "artist-application-approved",
       locals: {
-        httpsUrl: constants.urls.protocol,
-        projectName: constants.projectName,
-        twitterUrl: constants.urls.external.twitter,
-        telegramUrl: constants.urls.external.telegram,
-        supportEmail: constants.emails.support,
         artistName: user.full_name,
       },
       message: {
@@ -74,10 +85,6 @@ app.post("/mail-artist-application-denied", auth, async (req, res) => {
     await mail.send({
       template: "artist-application-denied",
       locals: {
-        httpsUrl: constants.urls.protocol,
-        projectName: constants.projectName,
-        twitterUrl: constants.urls.external.twitter,
-        telegramUrl: constants.urls.external.telegram,
         artistName: user.full_name,
       },
       message: {
@@ -105,7 +112,10 @@ app.post("/offer-notifications", auth, async (req, res) => {
 
     const { artworks_by_pk: artwork, transactions } = await query(
       getArtworkWithBidTransactionByHash,
-      { id: artworkId, hash: transactionHash }
+      {
+        id: artworkId,
+        hash: transactionHash,
+      }
     );
 
     const transaction = transactions.length ? transactions[0] : null;
@@ -120,37 +130,32 @@ app.post("/offer-notifications", auth, async (req, res) => {
       (a, b) => b.amount - a.amount
     );
 
-    const highestBidTransaction = sortedBidTransactions.length
-      ? sortedBidTransactions[0]
-      : null;
+    const outbiddedTransaction =
+      sortedBidTransactions.length > 1 ? sortedBidTransactions[1] : null;
 
-    highestBidTransaction &&
+    const highestBidderIsCurrentBidder =
+      outbiddedTransaction?.user?.display_name === currentUser.display_name;
+
+    outbiddedTransaction &&
+      !highestBidderIsCurrentBidder &&
       (await mail.send({
         template: "outbid",
         locals: {
-          httpsUrl: constants.urls.protocol,
-          projectName: constants.projectName,
-          twitterUrl: constants.urls.external.twitter,
-          telegramUrl: constants.urls.external.telegram,
-          userName: highestBidTransaction.user.full_name
-            ? highestBidTransaction.user.full_name
+          userName: outbiddedTransaction.user.full_name
+            ? outbiddedTransaction.user.full_name
             : "",
           bidAmount: `${transaction.amount / 100000000} L-BTC`,
           artworkTitle: artwork.title,
           artworkUrl: `${constants.urls.protocol}/a/${artwork.slug}`,
         },
         message: {
-          to: highestBidTransaction.user.display_name,
+          to: outbiddedTransaction.user.display_name,
         },
       }));
 
     await mail.send({
       template: "bid-processed",
       locals: {
-        httpsUrl: constants.urls.protocol,
-        projectName: constants.projectName,
-        twitterUrl: constants.urls.external.twitter,
-        telegramUrl: constants.urls.external.telegram,
         userName: currentUser.full_name,
         bidAmount: `${transaction.amount / 100000000} L-BTC`,
         artworkTitle: artwork.title,
@@ -164,10 +169,6 @@ app.post("/offer-notifications", auth, async (req, res) => {
     await mail.send({
       template: "someone-bid",
       locals: {
-        httpsUrl: constants.urls.protocol,
-        projectName: constants.projectName,
-        twitterUrl: constants.urls.external.twitter,
-        telegramUrl: constants.urls.external.telegram,
         userName: artwork.owner.full_name ? artwork.owner.full_name : "",
         bidAmount: `${transaction.amount / 100000000} L-BTC`,
         artworkTitle: artwork.title,
@@ -193,7 +194,7 @@ app.post("/mail-purchase-successful", auth, async (req, res) => {
     }
     let { users_by_pk: user } = await query(getUser, { id });
 
-    const { artworks_by_pk: artwork } = await query(getArtworkByPk, {
+    const { artworks_by_pk: artwork } = await query(getArtwork, {
       id: artworkId,
     });
 
@@ -204,10 +205,6 @@ app.post("/mail-purchase-successful", auth, async (req, res) => {
     await mail.send({
       template: "purchase-successful",
       locals: {
-        httpsUrl: constants.urls.protocol,
-        projectName: constants.projectName,
-        twitterUrl: constants.urls.external.twitter,
-        telegramUrl: constants.urls.external.telegram,
         userName: user.full_name,
         bidAmount: `${artwork.list_price / 100000000} L-BTC`,
         artworkTitle: artwork.title,
@@ -233,7 +230,7 @@ app.post("/mail-artwork-minted", auth, async (req, res) => {
     }
     let { users_by_pk: user } = await query(getUser, { id });
 
-    const { artworks_by_pk: artwork } = await query(getArtworkByPk, {
+    const { artworks_by_pk: artwork } = await query(getArtwork, {
       id: artworkId,
     });
 
@@ -244,10 +241,6 @@ app.post("/mail-artwork-minted", auth, async (req, res) => {
     await mail.send({
       template: "artwork-minted",
       locals: {
-        httpsUrl: constants.urls.protocol,
-        projectName: constants.projectName,
-        twitterUrl: constants.urls.external.twitter,
-        telegramUrl: constants.urls.external.telegram,
         userName: user.full_name,
         artworkTitle: artwork.title,
         artworkUrl: `${constants.urls.protocol}/a/${artwork.slug}`,
@@ -272,7 +265,7 @@ app.post("/mail-artwork-sold", auth, async (req, res) => {
     }
     let { users_by_pk: user } = await query(getUser, { id });
 
-    const { artworks_by_pk: artwork } = await query(getArtworkByPk, {
+    const { artworks_by_pk: artwork } = await query(getArtwork, {
       id: artworkId,
     });
 
@@ -283,10 +276,6 @@ app.post("/mail-artwork-sold", auth, async (req, res) => {
     await mail.send({
       template: "artwork-sold",
       locals: {
-        httpsUrl: constants.urls.protocol,
-        projectName: constants.projectName,
-        twitterUrl: constants.urls.external.twitter,
-        telegramUrl: constants.urls.external.telegram,
         userName: user.full_name,
         bidAmount: artwork.list_price,
         artworkTitle: artwork.title,
@@ -302,4 +291,110 @@ app.post("/mail-artwork-sold", auth, async (req, res) => {
     console.error(err);
     return res.code(400).send();
   }
+});
+
+app.post("/mail-event-actions", async (req, res) => {
+  if (!req.headers.auth_event || req.headers.auth_event !== AUTH_EVENT_VALUE) {
+    res.status(401).send("Unauthorized!");
+  }
+  const transaction = req.body.event.data.new;
+
+  const getUserById = async (userId) => {
+    let { users_by_pk: user } = userId
+      ? await query(getUser, { id: userId })
+      : { users_by_pk: null };
+
+    return user;
+  };
+
+  const getArtworkById = async (artworkId) => {
+    let { artworks_by_pk: artwork } = artworkId
+      ? await query(getArtwork, {
+          id: artworkId,
+        })
+      : { artworks_by_pk: null };
+
+    return artwork;
+  };
+
+  const getTransferTransaction = async (psbt) => {
+    let { transactions } = psbt
+      ? await query(getTransferTransactionsByPsbt, {
+          psbt,
+        })
+      : { transactions: null };
+
+    return transactions.length ? transactions[0] : null;
+  };
+
+  switch (transaction.type) {
+    case TRANSACTION_DEPOSIT:
+      if (transaction.amount > 1) {
+        // send deposit email
+        const user = await getUserById(transaction.user_id);
+
+        await mail.send({
+          template: "wallet-funded",
+          locals: {
+            userName: user ? user.username : "",
+            amount: `${transaction.amount / 100000000} L-BTC`,
+          },
+          message: {
+            to: user.display_name,
+          },
+        });
+
+        console.info(`Email sent for ${transaction.type} transaction type.`);
+      }
+      break;
+    case TRANSACTION_RECEIPT:
+      if (transaction.amount === 1) {
+        // send transfer artwork email
+        const receiver = await getUserById(transaction.user_id);
+        const transferTransaction = await getTransferTransaction(
+          transaction.psbt
+        );
+        const sender = await getUserById(transferTransaction.user_id);
+        const artwork = await getArtworkById(transaction.artwork_id);
+
+        await mail.send({
+          template: "artwork-transfered",
+          locals: {
+            userName: receiver ? receiver.username : "",
+            artworkName: artwork.title,
+            senderName: sender ? sender.username : "",
+          },
+          message: {
+            to: receiver.display_name,
+          },
+        });
+
+        console.info(`Email sent for ${transaction.type} transaction type.`);
+      }
+      break;
+    case TRANSACTION_WITHDRAWAL:
+      if (transaction.amount < -1000) {
+        // send withdrawal email
+        const user = await getUserById(transaction.user_id);
+
+        await mail.send({
+          template: "wallet-withdrawal",
+          locals: {
+            userName: user ? user.username : "",
+            amount: `${Math.abs(transaction.amount / 100000000)} L-BTC`,
+          },
+          message: {
+            to: user.display_name,
+          },
+        });
+
+        console.info(`Email sent for ${transaction.type} transaction type.`);
+      }
+      break;
+
+    default:
+      console.info(`No email action for ${transaction.type} configured.`);
+  }
+
+  return res.send("ok");
 });

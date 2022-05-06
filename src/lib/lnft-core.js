@@ -39,7 +39,6 @@ import {
   parseAsset,
   parseVal,
   signAndBroadcast,
-  sendToMultisig,
 } from "$lib/wallet";
 import branding from "$lib/branding";
 import {
@@ -145,7 +144,7 @@ export default class Core {
           : `${this.user.username.toLowerCase()}.${branding.urls.base}`;
 
       try {
-        contract = await createIssuance(artwork, domain, tx);
+        contract = await createIssuance(artwork, domain, inputs.pop());
         await sign(1, editionCount > 1 ? false : true);
         await tick();
 
@@ -198,7 +197,7 @@ export default class Core {
 
   async setupAuction(artwork, current) {
     let { auction_start: start, auction_end: end } = artwork;
-    if (current || !(start && end)) return;
+    if (!(start && end)) return;
 
     if (compareAsc(parseISO(start), new Date()) < 1)
       throw new Error("Start date can't be in the past");
@@ -206,14 +205,8 @@ export default class Core {
     if (compareAsc(parseISO(start), parseISO(end)) > 0)
       throw new Error("Start date must precede end date");
 
-    let base64, tx;
-    psbt.set(await sendToMultisig(artwork));
-    psbt.set(await signAndBroadcast());
-
-    base64 = get(psbt).toBase64();
-    tx = get(psbt).extractTransaction();
-
-    tx = await signOver(artwork, tx);
+    let base64;
+    let tx = await signOver(artwork);
     artwork.auction_tx = get(psbt).toBase64();
 
     artwork.auction_release_tx = (await createRelease(artwork, tx)).toBase64();
@@ -232,32 +225,6 @@ export default class Core {
     if (base64) psbt.set(Psbt.fromBase64(base64));
   }
 
-  async setupRoyalty(artwork, current) {
-    if (current?.has_royalty || !artwork.royalty_recipients.length) return true;
-
-    if (!artwork.auction_end) {
-      let tx = get(psbt).extractTransaction();
-      psbt.set(await sendToMultisig(artwork, tx));
-      await signAndBroadcast();
-    }
-
-    await query(createTransaction, {
-      transaction: {
-        amount: 1,
-        artwork_id: artwork.id,
-        asset: artwork.asking_asset,
-        hash: get(psbt).extractTransaction().getId(),
-        psbt: get(psbt).toBase64(),
-        type: "royalty",
-      },
-    });
-
-    artwork.stale = true;
-    artwork.has_royalty = true;
-
-    info("Royalties activated!");
-  }
-
   async setupSwaps(artwork, current) {
     if (
       !artwork.list_price ||
@@ -268,7 +235,7 @@ export default class Core {
 
     let tx;
     if (!current) tx = get(psbt).extractTransaction();
-    psbt.set(await createSwap(artwork, tx));
+    psbt.set(await createSwap(artwork, artwork.list_price, tx));
 
     await sign(0x83);
 
@@ -323,7 +290,6 @@ export default class Core {
   async listArtwork(artwork, current, files) {
     await this.setupAuction(artwork, current);
     await this.spendPreviousSwap(artwork, current);
-    await this.setupRoyalty(artwork, current);
     await this.setupSwaps(artwork, current);
 
     let { id } = artwork;

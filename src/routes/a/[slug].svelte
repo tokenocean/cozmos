@@ -261,10 +261,7 @@
 
       $psbt = await executeSwap(artwork);
       $psbt = await sign();
-
-      if (artwork.has_royalty || artwork.auction_end) {
-        $psbt = await requestSignature($psbt);
-      }
+      $psbt = await requestSignature($psbt);
 
       await broadcast($psbt);
 

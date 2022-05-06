@@ -1,13 +1,9 @@
-const config = require("./config");
-
-const defaultConst = {
-  projectName: "Cozmos",
+export default {
+  projectName: "Raretoshi",
   urls: {
-    protocol: "https://cozmos.coinos.io",
+    protocol: "https://raretoshi.com",
   },
   emails: {
-    support: "support@cozmos.io",
+    support: "support@raretoshi.com",
   },
 };
-
-module.exports = { ...defaultConst, ...config };

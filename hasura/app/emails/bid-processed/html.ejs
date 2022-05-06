@@ -6,8 +6,7 @@
       body {
         margin: 0;
         font-family: sans-serif;
-        color: #eeeeee;
-        background-color: #2d2e32;
+        color: #2d2e32;
       }
 
       p {
@@ -17,7 +16,7 @@
       .container {
         width: 600px;
         margin: 0 auto;
-        background-color: #2d2e32;
+        background: white;
         padding-top: 60px;
       }
 
@@ -35,7 +34,7 @@
       .link {
         display: block;
         margin-top: 30px;
-        color: #52b9ff;
+        color: #0f828a;
         text-decoration: none;
       }
 
@@ -57,16 +56,15 @@
         margin: 40px 0;
         text-decoration: none;
         border-radius: 30px;
-        padding: 12px 24px !important;
+        padding: 0.8rem 1.5rem !important;
         color: #444444;
         font-weight: bold;
-        background: #00eaaf;
+        background: rgb(143, 238, 245);
         background: linear-gradient(
           90deg,
-          #fa7900 0%,
-          #df36b4 43%,
-          #0063ea 77%,
-          #00eaaf 100%
+          rgba(143, 238, 245, 1) 0%,
+          rgba(127, 228, 235, 1) 50%,
+          rgba(110, 216, 224, 1) 100%
         );
         border: 0px solid white;
       }
@@ -86,7 +84,7 @@
       }
 
       .footer .visit {
-        color: #eeeeee;
+        color: #2d2e32;
         font-size: 13px;
       }
     </style>
@@ -95,7 +93,7 @@
   <body>
     <div class="container">
       <div class="logo">
-        <img src="<%= httpsUrl %>/logo.png" />
+        <img src="https://raretoshi.com/raretoshi.png" />
       </div>
       <p>Hi <%= userName %></p>
       <p>
@@ -104,20 +102,20 @@
         has been successful. You will be notified again via email if you are
         then outbid or win the auction.
       </p>
-      <p>Best, <br /><%= projectName %> Team</p>
+      <p>Best, <br />Raretoshi Team</p>
       <hr />
       <div class="footer">
         <p>Follow Us</p>
         <div class="social">
-          <a href="<%= twitterUrl %>">
-            <img style="width: 20px" src="<%= httpsUrl %>/twitter.png" />
+          <a href="https://www.twitter.com/raretoshi">
+            <img style="width: 20px" src="https://raretoshi.com/twitter.png" />
           </a>
-          <a href="<%= telegramUrl %>">
-            <img style="width: 20px" src="<%= httpsUrl %>/telegram.png" />
+          <a href="https://t.me/raretoshi">
+            <img style="width: 20px" src="https://raretoshi.com/telegram.png" />
           </a>
         </div>
-        <a class="visit" href="<%= httpsUrl %>">Visit website</a>
-        <p>© <%= projectName %> <%= new Date().getFullYear() %></p>
+        <a class="visit" href="https://raretoshi.com">Visit website</a>
+        <p>© Raretoshi 2022</p>
       </div>
     </div>
   </body>
