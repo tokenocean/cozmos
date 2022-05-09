@@ -55,6 +55,9 @@
   let displayedFeaturedArtwork = featuredArtwork.length
     ? featuredArtwork[0].artwork
     : filtered[0];
+  let displayedFeaturedBackground = featuredArtwork.length
+    ? featuredArtwork[0].background
+    : "/berta.jpg";
 
   $: filtersUpdated($fc, $sc);
   let filtersUpdated = () => {
@@ -184,6 +187,7 @@
 
     <div
       class="featuredBackground feature block lg:flex items-center justify-center h-auto lg:h-[100vh]"
+      style={`background-image: url(${displayedFeaturedBackground});`}
     >
       <p class="block md:hidden text-center text-white pt-10">
         FEATURED EXPERIENCE <span class="text-gray-400"
@@ -355,7 +359,6 @@
 
   @media (min-width: 768px) {
     .featuredBackground {
-      background-image: url("/berta.jpg");
       background-size: cover;
     }
     .background {
