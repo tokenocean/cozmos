@@ -355,12 +355,11 @@
 
   .featuredBackground {
     background-color: #171717;
+    background-size: cover;
+    background-position: center;
   }
 
   @media (min-width: 768px) {
-    .featuredBackground {
-      background-size: cover;
-    }
     .background {
       background-color: rgba(0, 0, 0, 0.5);
     }
