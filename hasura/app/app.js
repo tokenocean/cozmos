@@ -2,7 +2,9 @@ import fastify from "fastify";
 import fastifyStatic from "fastify-static";
 import path from "path";
 
-export const app = fastify();
+export const app = fastify({
+  bodyLimit: 50048576,
+});
 
 app.register(fastifyStatic, {
   root: path.join("/export"),
