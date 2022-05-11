@@ -15,7 +15,7 @@
   import { assetLabel, btc, val, copy } from "$lib/utils";
   import { getBalances } from "$lib/wallet";
   import { requireLogin } from "$lib/auth";
-  import { page } from "$app/stores";
+  import { session, page } from "$app/stores";
   export let styles =
     "wallet z-10 absolute left-1/2 bg-white shadow-md w-80 -ml-20 mt-16 rounded-xl overflow-hidden";
 
@@ -40,11 +40,11 @@
       .json();
 
     if (data) ({ artworks } = data);
-    getBalances();
+    getBalances($session);
     loading = false;
   };
 
-  let interval = setInterval(getBalances, 2000);
+  let interval = setInterval(() => getBalances($session), 2000);
   onDestroy(() => clearInterval(interval));
 </script>
 

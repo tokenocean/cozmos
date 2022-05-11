@@ -11,6 +11,7 @@
   import { ConnectWallet } from "$comp";
   import Button from "$styleguide/components/Button.svelte";
   import { goto } from "$lib/utils";
+  import { requirePassword } from "$lib/auth";
   import { Avatar } from "$comp";
 
   export let open = false;
@@ -24,7 +25,8 @@
 
   let walletToggleHandler;
   let displayWallet = false;
-  let toggleWallet = () => {
+  let toggleWallet = async () => {
+    if (!displayWallet) await requirePassword();
     displayWallet = !displayWallet;
   };
 
