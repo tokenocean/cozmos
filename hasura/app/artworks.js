@@ -18,6 +18,7 @@ import {
   getUserByAddress,
   getTransactionArtwork,
   getTransactionUser,
+  redeemArtwork,
   updateArtwork,
   setHeld,
   setOwner,
@@ -310,8 +311,6 @@ const issue = async (
         if (!e.message.includes("already")) throw e;
       }
 
-      console.log("BROADCAST");
-
       let tx = p.extractTransaction();
       let hash = tx.getId();
       contract = JSON.stringify(contract);
@@ -453,6 +452,18 @@ app.post("/comment", auth, async (req, res) => {
     let r = await q(createComment, { comment });
 
     res.send({ ok: true });
+  } catch (e) {
+    console.log(e);
+    res.code(500).send(e.message);
+  }
+});
+
+app.post("/redeem", auth, async (req, res) => {
+  try {
+    let { data } = await api(req.headers)
+      .post({ query: redeemArtwork, variables: req.body })
+      .json();
+    res.send(data);
   } catch (e) {
     console.log(e);
     res.code(500).send(e.message);

@@ -943,7 +943,7 @@ export const createRelease = async ({ asset, owner }, tx) => {
 };
 
 export const createSwap = async (artwork, amount, tx) => {
-  let { asset, asking_asset, royalty_recipients } = artwork;
+  let { asset, asking_asset, royalty_recipients, transferred_at } = artwork;
 
   let p = new Psbt();
   let outputs = [];
