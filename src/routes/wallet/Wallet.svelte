@@ -2,7 +2,7 @@
   import Fa from "svelte-fa";
   import { faChevronDown } from "@fortawesome/free-solid-svg-icons";
   import { border, bg } from "./_colors";
-  import { page } from "$app/stores";
+  import { page, session } from "$app/stores";
   import { electrs, hasura } from "$lib/api";
   import { onDestroy, onMount, tick } from "svelte";
   import {
@@ -97,7 +97,7 @@
 
   let poll;
   let pollBalances = async () => {
-    await getBalances();
+    await getBalances($session);
     poll = setTimeout(pollBalances, 5000);
   };
 

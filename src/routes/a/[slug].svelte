@@ -148,15 +148,7 @@
     count();
 
     [sats, val, ticker] = units(artwork && artwork.asking_asset);
-    list_price = val(
-      artwork.list_price +
-        Math.round(
-          artwork.royalty_recipients.reduce(
-            (a, b) => a + b.amount * artwork.list_price,
-            0
-          ) / 100
-        )
-    );
+    list_price = val(artwork.list_price);
     reserve_price = val(artwork.reserve_price);
     if (!fiat) fiat = (list_price * $rate).toFixed(0);
     if (!reserveFiat) reserveFiat = (reserve_price * $rate).toFixed(0);
@@ -440,9 +432,7 @@
                     <div>{list_price}{ticker}</div>
                     <div class="text-gray-500 ml-8">${fiat}</div>
                   </div>
-                {/if}
-
-                {#if artwork.bid}
+                {:else if artwork.bid}
                   <div class="text-white text-sm mb-4 font-medium">
                     Current bid
                   </div>
