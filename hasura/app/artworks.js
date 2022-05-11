@@ -459,11 +459,13 @@ app.post("/comment", auth, async (req, res) => {
 });
 
 app.post("/redeem", auth, async (req, res) => {
+  let user = await getUser(req);
+  let { artworks_by_pk: artwork } = await q(getArtwork, { id: req.body.id });
+
   try {
-    let { data } = await api(req.headers)
-      .post({ query: redeemArtwork, variables: req.body })
-      .json();
-    res.send(data);
+    if (user.id !== artwork.artist.id) throw new Error("only artist can redeem");
+    let result = await q(redeemArtwork, req.body);
+    res.send(result);
   } catch (e) {
     console.log(e);
     res.code(500).send(e.message);
