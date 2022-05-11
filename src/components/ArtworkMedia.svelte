@@ -7,6 +7,7 @@
     faTimes,
   } from "@fortawesome/free-solid-svg-icons";
   import { loaded } from "$lib/store";
+  import Avatar from "$components/Avatar.svelte";
 
   export let artwork;
   export let showDetails = false;
@@ -306,11 +307,9 @@
       </div>
     {/if}
     {#if featured}
-      <img
-        src="/svg_icons/profile_featured.svg"
-        alt="Profile featured icon"
-        class="absolute top-4 left-4 bg-black/50 rounded-lg index w-16"
-      />
+      <div class="absolute top-4 left-4 index">
+        <Avatar user={artwork.artist} size="lg" />
+      </div>
 
       <p
         class="absolute index bottom-[0.01px] py-4 text-white font-bold bg-black/50 w-full text-center rounded-b-3xl"
