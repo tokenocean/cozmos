@@ -240,7 +240,7 @@ export default class Core {
     if (!current) tx = get(psbt).extractTransaction();
     psbt.set(await createSwap(artwork, artwork.list_price, tx));
 
-    await sign(0x83);
+    await sign(0x83, false);
 
     artwork.list_price_tx = get(psbt).toBase64();
 
