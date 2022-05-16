@@ -47,10 +47,10 @@
   let currencyConversion = (amount) =>
     $rate ? `$${(val(amount) * $rate).toFixed(0)} USD` : "";
 
-  let updateTitle = () => {
+  let updateTitle = (title, length) => {
     if (artwork.title) {
-      if (artwork.title.length > 37) {
-        return `${artwork.title.substr(0, 37)}...`;
+      if (artwork.title.length > length) {
+        return `${artwork.title.substr(0, length)}...`;
       } else {
         return artwork.title;
       }
@@ -59,7 +59,8 @@
     }
   };
 
-  $: title = updateTitle(artwork.title);
+  $: title = updateTitle(artwork.title, 41);
+  $: titleMobile = updateTitle(artwork.title, 33);
   $: list_price = val(
     artwork.list_price +
       Math.round(
@@ -111,7 +112,12 @@
               @{artwork.artist.username}
             </div>
             <div class="text-base pb-1 title-font description">
-              {title}
+              <span class="hidden md:block">
+                {title}
+              </span>
+              <span class="block md:hidden">
+                {titleMobile}
+              </span>
             </div>
           </div></a
         >
