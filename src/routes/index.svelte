@@ -123,7 +123,7 @@
       class="w-full h-[80vh] md:h-[100vh] backgroundImage splashBackground flex justify-center items-center"
     >
       <video
-        src={displayedFeaturedVideo}
+        src="/landing_video.mp4"
         preload
         autoplay
         loop
