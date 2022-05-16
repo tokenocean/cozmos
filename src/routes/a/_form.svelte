@@ -344,7 +344,7 @@
           <div
             on:click={() => (listingType = types.UNLISTED)}
             class:active={listingType === types.UNLISTED}
-            class="sell-type cursor-pointer text-center mt-4 h-44 rounded-md border-gray-300 border flex flex-col justify-center items-center"
+            class="sell-type cursor-pointer text-center mt-4 h-22 md:h-44 rounded-md border-gray-300 border flex md:flex-col justify-around md:justify-center items-center py-2 md:py-0"
           >
             <Unlisted active={listingType === types.UNLISTED} />
             Unlisted
@@ -353,7 +353,7 @@
         <div
           on:click={enableFixedPrice}
           class:active={listingType === types.FIXED}
-          class="sell-type cursor-pointer text-center mt-4 h-44 rounded-md border-gray-300 border flex flex-col justify-center items-center"
+          class="sell-type cursor-pointer text-center mt-4 h-22 md:h-44 rounded-md border-gray-300 border flex md:flex-col justify-around md:justify-center items-center py-2 md:py-0"
         >
           <Fixed active={listingType === types.FIXED} />
           Fixed Price
@@ -361,7 +361,7 @@
         <div
           on:click={enableAuction}
           class:active={listingType === types.AUCTION}
-          class="sell-type cursor-pointer text-center mt-4 h-44 rounded-md border-gray-300 border flex flex-col justify-center items-center"
+          class="sell-type cursor-pointer text-center mt-4 h-22 md:h-44 rounded-md border-gray-300 border flex md:flex-col justify-around md:justify-center items-center py-2 md:py-0"
         >
           <Auction active={listingType === types.AUCTION} />
           Auction<br />

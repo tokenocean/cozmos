@@ -39,7 +39,7 @@
   $: disabled = !recipient && !address;
 
   let recipient;
-  $: address = recipient ?  recipient.multisig : "";
+  $: address = recipient ? recipient.multisig : "";
 
   let loading;
 
@@ -99,7 +99,7 @@
 
         <input
           type="text"
-          class="w-full rounded-lg p-3 text-center"
+          class="w-full rounded-lg p-3 border border-black text-center"
           placeholder="Address"
           value={recipient ? "" : address}
           on:keyup={(e) => {
@@ -124,6 +124,6 @@
   }
 
   :global(.huh) {
-    @apply rounded-lg px-8 py-4 text-black w-full !important;
+    @apply rounded-lg px-8 py-4 text-black w-full border border-black !important;
   }
 </style>

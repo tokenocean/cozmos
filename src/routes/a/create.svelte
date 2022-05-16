@@ -171,7 +171,7 @@
 </script>
 
 <div class="container mx-auto p-6 md:p-20">
-  <div class="flex w-full mx-auto bg-gray-100 submitArtwork mb-4 md:mb-0">
+  <div class="flex w-full mx-auto md:bg-gray-100 submitArtwork mb-4 md:mb-0">
     <div
       class="absolute z-10 right-2 md:right-16 rounded-full border-black border-l border-t w-8 h-8 -mt-4 bg-black text-4xl text-center text-white cursor-pointer"
       on:click={close}
@@ -192,7 +192,9 @@
       </div>
     </div>
     <div class="md:p-14 p-2">
-      <div class="w-full md:w-3/5 mx-auto text-center mb-4 md:mb-12">
+      <div
+        class="leading-normal w-full md:w-3/5 mx-auto text-center mb-4 md:mb-12"
+      >
         <h2 class="my-4 md:my-0">Create Experience</h2>
         <p>
           Here at Cozmos we value the experience more than the "Art" itself, in
@@ -238,8 +240,10 @@
     margin-top: 5rem;
   }
 
-  .submitArtwork {
-    box-shadow: 6px 5px 12px 2px #ccc;
+  @media only screen and (min-width: 640px) {
+    .submitArtwork {
+      box-shadow: 6px 5px 12px 2px #ccc;
+    }
   }
 
   @media only screen and (max-width: 1023px) {

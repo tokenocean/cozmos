@@ -4,7 +4,7 @@
 
 <svg
   class:active
-  class="w-12 h-12 mb-4"
+  class="w-12 h-12 md:mb-4"
   viewBox="0 0 59.997 59.997"
   xml:space="preserve"
   xmlns="http://www.w3.org/2000/svg"

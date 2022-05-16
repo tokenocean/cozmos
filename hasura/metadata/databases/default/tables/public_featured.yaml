@@ -13,6 +13,7 @@ select_permissions:
         - end_date
         - id
         - start_date
+        - video
         - white
       filter: {}
     role: anonymous
@@ -23,6 +24,7 @@ select_permissions:
         - end_date
         - id
         - start_date
+        - video
         - white
       filter: {}
     role: user

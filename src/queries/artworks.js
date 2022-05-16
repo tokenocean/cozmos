@@ -173,6 +173,7 @@ export const getFeatured = `query {
     end_date
     white
     background
+    video
     artwork {
       ${fields}
     }
@@ -185,6 +186,7 @@ export const getLastFeatured = `query {
      end_date
      white
      background
+     video
      artwork {
        ${fields}
      }

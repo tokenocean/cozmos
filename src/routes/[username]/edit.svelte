@@ -112,7 +112,7 @@
 <div class="px-4 container mx-auto py-5 md:py-20">
   {#if form}
     <div
-      class="mb-4 w-full sm:max-w-3xl box-shadow p-4 md:p-10 m-auto lg:flex-row bg-gray-100"
+      class="mb-4 w-full sm:max-w-3xl box-shadow-custom p-4 md:p-10 m-auto lg:flex-row md:bg-gray-100"
     >
       <a class="block text-black" href={`/${$user.username}`}>
         <div class="flex">
@@ -291,10 +291,6 @@
     position: relative;
   }
 
-  .box-shadow {
-    box-shadow: 6px 5px 12px 2px #ccc;
-  }
-
   h2 {
     font-family: "Zen Dots", cursive;
     font-size: 2em;
@@ -315,6 +311,12 @@
     border: 5px solid #fff;
     outline: 2px solid #000;
     background-color: #000;
+  }
+
+  @media only screen and (min-width: 640px) {
+    .box-shadow-custom {
+      box-shadow: 6px 5px 12px 2px #ccc;
+    }
   }
 
   @media only screen and (max-width: 1024px) {

@@ -58,6 +58,9 @@
   let displayedFeaturedBackground = featuredArtwork.length
     ? featuredArtwork[0].background
     : "/berta.jpg";
+  let displayedFeaturedVideo = featuredArtwork.length
+    ? featuredArtwork[0].video
+    : "/landing_video.mp4";
 
   $: filtersUpdated($fc, $sc);
   let filtersUpdated = () => {
@@ -120,7 +123,7 @@
       class="w-full h-[80vh] md:h-[100vh] backgroundImage splashBackground flex justify-center items-center"
     >
       <video
-        src={`/landing_video.mp4`}
+        src={displayedFeaturedVideo}
         preload
         autoplay
         loop
@@ -189,11 +192,6 @@
       class="featuredBackground feature block lg:flex items-center justify-center h-auto lg:h-[100vh]"
       style={`background-image: url(${displayedFeaturedBackground});`}
     >
-      <p class="block md:hidden text-center text-white pt-10">
-        FEATURED EXPERIENCE <span class="text-gray-400"
-          >&#11835;&#11835;&#11835;</span
-        >
-      </p>
       <div class="mx-auto flex lg:block justify-center w-9/12 lg:w-1/2">
         <div
           class="drop rounded-3xl mx-auto w-auto my-6 lg:my-0"
@@ -203,7 +201,7 @@
         </div>
       </div>
       <div
-        class="mx-auto w-full lg:w-1/2 background h-full flex justify-center items-center"
+        class="px-5 md:px-0 mx-auto w-full lg:w-1/2 background h-full flex justify-center items-center"
       >
         <div class="w-full md:w-[60%] mx-auto pt-6 lg:pt-6">
           <h2 class="mx-2 md:mx-0 pt-4 md:pt-0 text-3xl text-white text-left">
@@ -233,7 +231,7 @@
               height={"h-auto"}
             />
           </div>
-          <div class="border-b-[1px] border-gray-400 md:border-0 mx-2 md:mx-0">
+          <div class="mx-2 md:mx-0">
             <Card
               artwork={displayedFeaturedArtwork}
               showDetails={false}
@@ -258,7 +256,7 @@
         class="block md:flex justify-between m-10 p-0 md:p-4 md:border-b-[1px] border-gray-500"
       >
         <h2
-          class="text-white text-lg rounded-full md:border border-white w-48 px-10 text-center mx-auto md:mx-0 mb-2 md:mb-0 pt-10 md:pt-0"
+          class="text-white text-2xl md:text-xl rounded-full md:border border-white w-48 px-10 text-center mx-auto md:mx-0 mb-2 md:mb-0 pt-10 md:pt-0"
         >
           Market
         </h2>

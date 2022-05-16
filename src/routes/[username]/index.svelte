@@ -312,61 +312,65 @@
       </div>
 
       <div class="w-full xl:w-2/3 mb-10 md:mb-0">
-        <div class="flex justify-center text-center tabs flex-wrap mb-14">
-          {#if subject.is_artist}
+        <div class="flex justify-center items-center">
+          <div
+            class="block md:flex justify-center text-center tabs flex-wrap mb-14 space-y-4 md:space-y-0"
+          >
+            {#if subject.is_artist}
+              <div
+                class="cursor-pointer flex"
+                on:click={() => {
+                  tab = "creations";
+                  createdRadio.src = "/svg_icons/comet.svg";
+                  collectedRadio.src = "svg_icons/comet-02.svg";
+                  createdBold = "font-bold";
+                  collectedBold = "";
+                  createdOpacity = "";
+                  collectedOpacity = "opacity-60";
+                }}
+              >
+                <img
+                  src="/svg_icons/comet-02.svg"
+                  alt="comet icon"
+                  bind:this={createdRadio}
+                  class={createdOpacity}
+                />
+
+                <span
+                  class="cursor-pointer self-center ml-2 {createdBold} {createdOpacity}"
+                  >Created</span
+                >
+              </div>
+            {/if}
             <div
               class="cursor-pointer flex"
               on:click={() => {
-                tab = "creations";
-                createdRadio.src = "/svg_icons/comet.svg";
-                collectedRadio.src = "svg_icons/comet-02.svg";
-                createdBold = "font-bold";
-                collectedBold = "";
-                createdOpacity = "";
-                collectedOpacity = "opacity-60";
+                tab = "collection";
+                createdRadio.src = "/svg_icons/comet-02.svg";
+                collectedRadio.src = "svg_icons/comet.svg";
+                createdBold = "";
+                collectedBold = "font-bold";
+                createdOpacity = "opacity-60";
+                collectedOpacity = "";
               }}
             >
               <img
-                src="/svg_icons/comet-02.svg"
+                src="/svg_icons/comet.svg"
                 alt="comet icon"
-                bind:this={createdRadio}
-                class={createdOpacity}
+                bind:this={collectedRadio}
+                class={collectedOpacity}
               />
 
               <span
-                class="cursor-pointer self-center ml-2 {createdBold} {createdOpacity}"
-                >Created</span
+                class="cursor-pointer self-center ml-2 {collectedBold} {collectedOpacity}"
+                >Collected</span
               >
             </div>
-          {/if}
-          <div
-            class="cursor-pointer flex"
-            on:click={() => {
-              tab = "collection";
-              createdRadio.src = "/svg_icons/comet-02.svg";
-              collectedRadio.src = "svg_icons/comet.svg";
-              createdBold = "";
-              collectedBold = "font-bold";
-              createdOpacity = "opacity-60";
-              collectedOpacity = "";
-            }}
-          >
-            <img
-              src="/svg_icons/comet.svg"
-              alt="comet icon"
-              bind:this={collectedRadio}
-              class={collectedOpacity}
-            />
-
-            <span
-              class="cursor-pointer self-center ml-2 {collectedBold} {collectedOpacity}"
-              >Collected</span
-            >
           </div>
         </div>
         {#if tab === "creations"}
           <div class="w-full justify-center">
-            <div class="w-2/3 md:w-full max-w-sm mx-auto mb-12">
+            <div class="w-full max-w-sm mx-auto mb-12">
               {#if $user && $user.is_artist && $user.id === subject.id}
                 <a href="/a/create" class="primary-btn"
                   >Submit a new experience</a
@@ -431,14 +435,13 @@
   }
 
   #avatar-border {
-    width: 36%;
+    width: 108px;
   }
 
   #avatar {
     position: absolute;
-    top: 50%;
-    left: 18%;
-    transform: translate(-50%, -50%);
+    top: 14px;
+    left: 14px;
   }
   @media (min-width: 768px) {
     #avatar-border {
