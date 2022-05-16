@@ -190,7 +190,7 @@
           <div class="flex-1 mr-4">
             <div class={textSize0} class:text-gray-300={summary}>Buy now</div>
             <div class="text-base">
-              {#if list_price}
+              {#if list_price > 0}
                 <div class="{textSize1} font-bold" class:text-white={summary}>
                   {list_price}
                   {ticker}
@@ -198,7 +198,7 @@
               {/if}
 
               <div class="text-sm" class:text-gray-300={summary}>
-                {#if list_price}
+                {#if list_price > 0}
                   {currencyConversion(sats(list_price))}
                 {:else}
                   Price not set
