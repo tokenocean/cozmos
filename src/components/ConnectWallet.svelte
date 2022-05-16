@@ -8,7 +8,7 @@
 </script>
 
 <div
-  class="h-[100vh] md:h-auto container text-left md:text-center text-black md:p-10 z-100"
+  class="h-[100vh] md:h-auto container text-left md:text-center text-black md:p-10 z-100 px-4"
 >
   <h2 class="mb-6 text-5xl text-black">Create your wallet</h2>
   <p>
@@ -21,7 +21,7 @@
   <button
     type="button"
     name="button"
-    class="bg-black block mx-auto sm:w-full md:w-5/6 md:h-16 rounded-full text-white font-bold flex items-center md:text-xl mt-8 mb-4"
+    class="bg-black block mx-auto sm:w-full md:w-5/6 md:h-16 rounded-lg text-white font-bold flex items-center md:text-xl mt-8 mb-4"
     on:click={register}
     ><img
       src="/svg_icons/01-Isotype Cozmos.svg"
@@ -34,10 +34,12 @@
     type="button"
     name="button"
     disabled
-    class="bg-black block mx-auto sm:w-full md:w-5/6 md:h-16 rounded-full text-black font-bold marina flex items-center md:text-xl"
+    class="bg-black block mx-auto sm:w-full md:w-5/6 md:h-16 rounded-lg text-black font-bold marina flex items-center md:text-xl"
     ><img src="/Marina_black.png" alt="Marina icon" class="w-20 mr-4" />
     <div>
-      Marina<br /><span class="text-sm">Coming soon</span>
+      Marina Liquid - Wallet<br /><span class="text-sm font-light"
+        >&#11835; Coming soon</span
+      >
     </div></button
   >
 </div>
