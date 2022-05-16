@@ -61,15 +61,7 @@
 
   $: title = updateTitle(artwork.title, 41);
   $: titleMobile = updateTitle(artwork.title, 33);
-  $: list_price = val(
-    artwork.list_price +
-      Math.round(
-        artwork.royalty_recipients.reduce(
-          (a, b) => a + b.amount * artwork.list_price,
-          0
-        ) / 100
-      )
-  );
+  $: list_price = val(artwork.list_price);
 </script>
 
 {#if titleOnly}
