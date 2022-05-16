@@ -388,10 +388,10 @@
                 />
               {:else}
                 <input
-                  min="0.00001000"
+                  min="0.00000800"
                   type="number"
                   class="text-sm appearance-none h-12 rounded-md bg-gray-100 border border-gray-300 mt-2 w-full"
-                  step="0.00001"
+                  step="0.00000001"
                   bind:value={list_price}
                   placeholder="Price for NFT experience"
                   required
@@ -414,9 +414,9 @@
               />
             {:else}
               <input
-                min="0.00001000"
+                min="0.00000800"
                 type="number"
-                step="0.00001"
+                step="0.00000001"
                 bind:value={reserve_price}
                 placeholder="Minimum bid"
                 class="text-sm appearance-none h-12 rounded-md bg-gray-100 border border-gray-300 mt-2 w-full"
