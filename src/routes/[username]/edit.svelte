@@ -127,17 +127,12 @@
           on:submit|preventDefault={submit}
           autocomplete="off"
         >
-          <p class="font-bold">Enter your details*</p>
-          <div class="flex mb-4">
-            <input
-              id="name"
-              placeholder="Name"
-              bind:value={form.full_name}
-              class="mr-5"
-            />
-            <input placeholder="@username" bind:value={form.username} />
-          </div>
-
+          <p class="font-bold">Enter your username*</p>
+          <input
+            placeholder="@username"
+            class="mb-4"
+            bind:value={form.username}
+          />
           <div class="flex flex-col mb-4">
             <p class="font-bold">Enter your email*</p>
             <input placeholder="Email" bind:value={form.email} />
