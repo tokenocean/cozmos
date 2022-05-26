@@ -7,7 +7,7 @@ services:
       HASURA_GRAPHQL_ADMIN_SECRET: "${HASURA_GRAPHQL_ADMIN_SECRET}"
       HASURA_URL: "${HASURA_URL}"
       PROJECT_NAME: "tokenocean-cozmos"
-      ENV_NAME: "staging"
+      ENV_NAME: "production"
     restart: on-failure
   ui:
     depends_on:
