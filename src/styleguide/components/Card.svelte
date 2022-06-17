@@ -135,7 +135,7 @@
     {#if artwork.reserve_price}
       <a href={`/a/${artwork.slug}`} class="w-full">
         <div
-          class="auction-item-background-gradient {bottomHeight} p-4 flex justify-between"
+          class="bg-[#141414] text-[#FF00FF] {bottomHeight} p-4 flex justify-between"
           class:summary
         >
           <div class="flex-1 mr-2">
@@ -155,7 +155,7 @@
           </div>
 
           {#if artwork.auction_end}
-            <div class:text-secondary={summary}>
+            <div class="text-white" class:text-secondary={summary}>
               {#if end_counter}
                 <div class={textSize0}>Time left:</div>
 
@@ -182,8 +182,12 @@
     {:else}
       <a href={`/a/${artwork.slug}`} class="w-full">
         <div
-          class="bg-gradient-to-r from-cyan-300 via-purple-500 to-pink-600 {bottomHeight} p-4 px-6 flex justify-between items-center"
+          class="text-white bg-gradient-fixed {bottomHeight} p-4 px-6 flex justify-between items-center"
           class:summary
+          class:unlisted={list_price <= 0 ||
+            artwork.list_price <= 0 ||
+            !artwork.list_price ||
+            artwork.list_price === undefined}
         >
           <div class="flex-1 mr-4">
             <div class={textSize0} class:text-gray-300={summary}>Buy now</div>
@@ -229,6 +233,14 @@
     animation-name: slide;
   }
   @import "../theme";
+
+  .bg-gradient-fixed {
+    background-image: linear-gradient(90deg, darkorange, deeppink);
+  }
+
+  .unlisted {
+    background-image: linear-gradient(90deg, mediumblue, darkturquoise);
+  }
 
   .boxed {
     box-shadow: $card--box-shadow;

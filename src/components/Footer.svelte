@@ -1,6 +1,7 @@
 <script>
   import branding from "$lib/branding";
   import Fa from "svelte-fa";
+  import { goto } from "$lib/utils";
 
   let date = new Date();
   let year = date.getFullYear();
@@ -28,7 +29,7 @@
         type="button"
         name="button"
         class="border border-white rounded-xl font-medium text-white w-2/3 md:w-1/2 py-2"
-        >About Cozmos</button
+        on:click={() => goto("/about")}>About Cozmos</button
       >
     </div>
 
@@ -47,7 +48,7 @@
         </li>
         <li><a href="/privacy-policy">Privacy Policy</a></li>
         <li>
-          <a href="/terms-and-conditions">Terms of Service</a>
+          <a href="/terms-and-conditions">Terms and Conditions</a>
         </li>
       </ul>
     </div>

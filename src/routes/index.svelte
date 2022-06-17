@@ -132,47 +132,43 @@
       />
       <div class="z w-full md:w-1/2">
         <div>
-          <div class="my-auto h-auto">
-            <h2
-              class="text-sm mb-4 md:mb-0 md:text-lg text-gray-300 text-center tracking-widest"
-            >
-              WE ARE DISRUPTING<br /> THE NFT INDUSTRY.
-            </h2>
+          <div class="my-auto h-auto mt-10">
             <h1
-              class="text-white mb-6 md:mb-0 text-3xl md:text-4xl text-center"
+              class="mb-4 md:mb-0 text-3xl lg:text-4xl text-gradient text-center tracking-widest"
             >
-              The first marketplace for NFT experiences.
+              NFT-TICKETING MARKETPLACE
             </h1>
+            <h1
+              class="italic text-white mb-6 md:mb-0 text-2xl lg:text-3xl text-center"
+            >
+              FROM CREATORS TO EVERYONE
+            </h1>
+            <p class="text-center mt-5 text-white">
+              An NFT Marketplace with real-life <strong
+                >Events/Experiences based on the L-BTC blockchain.</strong
+              >
+            </p>
           </div>
           <img
-            src="/svg_icons/mouse.svg"
-            alt="mouse icon"
-            class="hidden md:block w-36 mx-auto text-white"
+            src="/svg_icons/mute.svg"
+            alt="mute icon"
+            class="hidden md:block w-36 mx-auto text-white cursor-pointer lg:mt-20"
+            bind:this={soundIcon}
+            on:click={() => {
+              if (muted === "muted") {
+                muted = "";
+                soundIcon.src = "/svg_icons/sound_on.svg";
+              } else {
+                muted = "muted";
+                soundIcon.src = "/svg_icons/mute.svg";
+              }
+            }}
           />
-          <p class="hidden md:block text-white text-center">E X P L O R E</p>
-          <div
-            class="hidden md:flex text-white justify-center cursor-pointer w-10 mx-auto"
-            on:click={() => animateScroll.scrollTo({ element: "#market" })}
-          >
-            <Fa icon={faChevronDown} />
-          </div>
         </div>
-        <img
-          src="/svg_icons/mute.svg"
-          alt="mute icon"
-          class="hidden md:block right-20 bottom-60 md:bottom-24 xl:bottom-20 absolute w-36 text-white cursor-pointer"
-          bind:this={soundIcon}
-          on:click={() => {
-            if (muted === "muted") {
-              muted = "";
-              soundIcon.src = "/svg_icons/sound_on.svg";
-            } else {
-              muted = "muted";
-              soundIcon.src = "/svg_icons/mute.svg";
-            }
-          }}
-        />
-        <div class="flex md:hidden justify-center space-x-4 items-center px-6">
+
+        <div
+          class="mt-5 flex md:hidden justify-center space-x-4 items-center px-6"
+        >
           <a href="/#market" class="w-full"
             ><Button primary rounded="rounded-full">Explore</Button></a
           >
@@ -283,7 +279,7 @@
           >
             <img src="/svg_icons/icons-28.svg" alt="low fees" class="w-full" />
             Forget about gas wars and astronomical fees, minting is free and transaction
-            fees are literally less than $0.5.
+            fees are literally less than $0.05.
           </div>
           <div
             class="w-[80%] md:w-[20%] text-center mx-auto md:mx-20 h-auto md:h-96"

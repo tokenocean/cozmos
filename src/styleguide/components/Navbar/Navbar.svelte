@@ -13,7 +13,7 @@
 
 <header
   class:mobileScreen
-  class="px-4 py-4 sm:h-14 lg:h-auto fixed top-0 w-full"
+  class="px-4 py-4 h-auto fixed top-0 w-full"
   bind:clientHeight={$headerHeight}
 >
   <div class="mx-auto flex container items-center justify-between">
