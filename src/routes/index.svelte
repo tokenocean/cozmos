@@ -275,14 +275,14 @@
 
         <div class="block md:flex justify-center items-center text-black">
           <div
-            class="w-[80%] md:w-[20%] text-center mx-auto md:mx-20 h-auto md:h-96"
+            class="w-[80%] md:w-[20%] text-center mx-auto lg:mx-20 h-auto md:h-96"
           >
             <img src="/svg_icons/icons-28.svg" alt="low fees" class="w-full" />
             Forget about gas wars and astronomical fees, minting is free and transaction
             fees are literally less than $0.05.
           </div>
           <div
-            class="w-[80%] md:w-[20%] text-center mx-auto md:mx-20 h-auto md:h-96"
+            class="w-[80%] md:w-[20%] text-center mx-auto lg:mx-20 h-auto md:h-96"
           >
             <img
               src="/svg_icons/icons-29.svg"
@@ -292,7 +292,7 @@
             Buy, sell and trade amazing life changing experiences.
           </div>
           <div
-            class="w-[80%] md:w-[20%] text-center mx-auto md:mx-20 h-auto md:h-96"
+            class="w-[80%] md:w-[20%] text-center mx-auto lg:mx-20 h-auto md:h-96"
           >
             <img
               src="/svg_icons/icons-30.svg"
