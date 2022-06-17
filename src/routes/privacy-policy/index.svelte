@@ -1,4 +1,4 @@
-<div class="background-gradient p-10 md:p-20 text-white">
+<div class="background-gradient p-10 md:p-32 text-white">
   <div class="w-full md:w-2/3 lg:w-1/2">
     <h1 class="text-white text-5xl mb-5 break-words">
       Privacy Policy for Cozmos Experiences
@@ -16,7 +16,7 @@
     </p>
   </div>
 </div>
-<div class="bg-black p-10 md:p-20 pb-10 text-white space-y-10">
+<div class="bg-black p-10 md:p-32 pb-10 text-white space-y-10">
   <div class="border-b-2 border-white pb-10">
     <h2 class="text-gradient py-5">Consent</h2>
     <p>
