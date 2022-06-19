@@ -1,17 +1,18 @@
 <div class="background-gradient p-10 md:p-32 text-white">
   <div class="w-full md:w-2/3 lg:w-1/2">
-    <h1 class="text-white text-5xl mb-5">About Cozmos</h1>
+    <h1 class="text-white text-4xl mb-5">About Cozmos</h1>
     <p>
       Whether it's a conference, festival, event, a facetime with your favourite
       singer, a day in the life of your dearest celebrity, or a collaboration
       with your favourite YouTuber.
     </p>
+    <img src="/static/svg_icons/ticket.svg" alt="ticket" class="w-96" />
   </div>
 </div>
 <div class="bg-black p-10 md:p-32 pb-10 text-white space-y-10">
-  <div class="border-b-2 border-white pb-10">
-    <h2 class="text-gradient">OUR GOAL...</h2>
-    <h3 class="text-white text-2xl py-5 italic">
+  <div class="border-b border-white pb-10">
+    <h2 class="text-gradient text-4xl">OUR GOAL...</h2>
+    <h3 class="text-white text-xl py-5 italic">
       "THE SECRET DOOR TO YOUR WILDEST DREAMS."
     </h3>
     <p>
@@ -20,8 +21,8 @@
       Events/Experiences.
     </p>
   </div>
-  <div class="border-b-2 border-white pb-10">
-    <h2 class="text-gradient py-5">WHY COZMOS?</h2>
+  <div class="border-b border-white pb-10">
+    <h2 class="text-gradient py-5 text-4xl">WHY COZMOS?</h2>
     <p>
       Cozmos.nft is a marketplace for amazing events/experiences.<br />
       Our main goal is to provide life changing experiences. Whether it is a collaboration
@@ -34,20 +35,20 @@
       <li>Personalized customer support/customer service.</li>
       <li>Developed on the bitcoin liquid network.</li>
     </ul>
-    <h3 class="text-white text-2xl italic">
+    <h3 class="text-white text-xl italic">
       We trully care and belive in our product.<br />
       We created a secret door to your wildest dreams.
     </h3>
   </div>
-  <div class="border-b-2 border-white pb-10">
-    <h2 class="text-gradient py-5">BEHIND COZMOS</h2>
-    <h3 class="text-white text-2xl pb-10">
+  <div class="border-b border-white pb-10">
+    <h2 class="text-gradient py-5 text-4xl">BEHIND COZMOS</h2>
+    <h3 class="text-white text-xl pb-10">
       We are fascinated by NFT technology.
     </h3>
     <div class="block md:flex justify-center md:space-x-20">
       <img
-        src="/static/Marina_black.png"
-        class="w-20 h-20 my-5 bg-white rounded-full border-2 border-white"
+        src="/static/svg_icons/avatar2.svg"
+        class="w-32 my-5 rounded-full"
         alt="serg"
       />
       <div>
@@ -72,8 +73,8 @@
     </div>
     <div class="block md:flex justify-center md:space-x-20">
       <img
-        src="/static/Marina_black.png"
-        class="w-20 h-20 my-5 bg-white rounded-full border-2 border-white"
+        src="/static/svg_icons/avatar1.svg"
+        class="w-32 my-5 rounded-full"
         alt="serg"
       />
       <div>
@@ -94,29 +95,29 @@
         </div>
       </div>
     </div>
-    <p class="italic mt-10 mb-5 text-2xl">
+    <p class="italic mt-10 mb-5 text-xl">
       Without NFTs we wouldn’t have founded Cozmos, literally.
     </p>
-    <p class="italic text-2xl">
+    <p class="italic text-xl">
       We want to change lives the same way ours changed when we got into this
       space. What’s a better way to make people happy than delivering them the
       best experiences of their lives?
     </p>
   </div>
-  <div class="border-b-2 border-white pb-10">
-    <h2 class="text-gradient py-5">OUR VISION...</h2>
+  <div class="border-b border-white pb-10">
+    <h2 class="text-gradient py-5 text-4xl">OUR VISION...</h2>
     <p>
       Our vision is to get NFT’S mainstream and show the world that they are not
       just “art” , “jpgs” or “photography “, (we love those btw).
     </p>
-    <h3 class="text-white mt-5 text-2xl italic">
+    <h3 class="text-white mt-5 text-xl italic">
       There is so much more that can be attached to those smart contracts. The
       possibilities are inﬁnite, we want you to have life changing experiences
       that will stay with you forever.
     </h3>
   </div>
-  <div class="border-b-2 border-white pb-10">
-    <h2 class="text-gradient py-5">HOW IT WORKS...</h2>
+  <div class="border-b border-white pb-10">
+    <h2 class="text-gradient py-5 text-4xl">HOW IT WORKS...</h2>
     <p>
       We use the bitcoin liquid network, it’s super fast and secure, transaction
       fees are really low and minting is extremely cheap. Just create a wallet
@@ -127,7 +128,7 @@
       1-to-1 by bitcoin and provide for fast and private transactions using a
       Liquid wallet.
     </p>
-    <h3 class="text-white italic text-2xl mt-5 mb-10">
+    <h3 class="text-white italic text-xl mt-5 mb-10">
       NEVER SHARE YOUR SEED PHRASE!! WE WILL NEVER ASK FOR IT AND YOU SHOULD
       NEVER GIVE IT TO ANYONE!!!
     </h3>
@@ -144,5 +145,17 @@
       #0063ea 77%,
       #00eaaf 100%
     );
+  }
+
+  .text-gradient {
+    background-image: linear-gradient(
+      90deg,
+      #fa7900 0%,
+      #df36b4 7%,
+      #0063ea 14%,
+      #00eaaf 21%
+    );
+    background-clip: text;
+    color: transparent;
   }
 </style>

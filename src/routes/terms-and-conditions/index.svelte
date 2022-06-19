@@ -1,6 +1,6 @@
 <div class="background-gradient p-10 md:p-32 text-white">
   <div class="w-full md:w-2/3 lg:w-1/2">
-    <h1 class="text-white text-5xl mb-5 break-words">
+    <h1 class="text-white text-4xl mb-5 break-words">
       Basic Terms and Conditions
     </h1>
     <p>
@@ -17,8 +17,8 @@
   </div>
 </div>
 <div class="bg-black p-10 md:p-32 pb-10 text-white space-y-10">
-  <div class="border-b-2 border-white pb-10">
-    <h2 class="text-gradient py-5">Basic Terms and Conditions</h2>
+  <div class="border-b border-white pb-10">
+    <h2 class="text-gradient py-5 text-4xl">Basic Terms and Conditions</h2>
     <p>
       Because the Terms & Conditions document is essentially a legally binding
       agreement; it is, therefore, not only important to have one in place, but
@@ -63,5 +63,17 @@
       #0063ea 77%,
       #00eaaf 100%
     );
+  }
+
+  .text-gradient {
+    background-image: linear-gradient(
+      90deg,
+      #fa7900 0%,
+      #df36b4 10%,
+      #0063ea 20%,
+      #00eaaf 30%
+    );
+    background-clip: text;
+    color: transparent;
   }
 </style>

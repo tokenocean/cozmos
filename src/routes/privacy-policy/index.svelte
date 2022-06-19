@@ -1,6 +1,6 @@
 <div class="background-gradient p-10 md:p-32 text-white">
   <div class="w-full md:w-2/3 lg:w-1/2">
-    <h1 class="text-white text-5xl mb-5 break-words">
+    <h1 class="text-white text-4xl mb-5 break-words">
       Privacy Policy for Cozmos Experiences
     </h1>
     <p>
@@ -17,15 +17,15 @@
   </div>
 </div>
 <div class="bg-black p-10 md:p-32 pb-10 text-white space-y-10">
-  <div class="border-b-2 border-white pb-10">
-    <h2 class="text-gradient py-5">Consent</h2>
+  <div class="border-b border-white pb-10">
+    <h2 class="text-gradient py-5 text-4xl">Consent</h2>
     <p>
       By using our website, you hereby consent to our Privacy Policy and agree
       to its terms.
     </p>
   </div>
-  <div class="border-b-2 border-white pb-10">
-    <h2 class="text-gradient py-5">Information we collect</h2>
+  <div class="border-b border-white pb-10">
+    <h2 class="text-gradient py-5 text-4xl">Information we collect</h2>
     <p>
       The personal information that you are asked to provide, and the reasons
       why you are asked to provide it, will be made clear to you at the point we
@@ -39,8 +39,8 @@
       address, and telephone number.
     </p>
   </div>
-  <div class="border-b-2 border-white pb-10">
-    <h2 class="text-gradient py-5">How we use your information</h2>
+  <div class="border-b border-white pb-10">
+    <h2 class="text-gradient py-5 text-4xl">How we use your information</h2>
     <p>We use the information we collect in various ways, including to:</p>
     <ul class="ml-5 my-5 list-disc">
       <li>Provide, operate, and maintain our website</li>
@@ -57,8 +57,8 @@
       <li>Find and prevent fraud</li>
     </ul>
   </div>
-  <div class="border-b-2 border-white pb-10">
-    <h2 class="text-gradient py-5">Log Files</h2>
+  <div class="border-b border-white pb-10">
+    <h2 class="text-gradient py-5 text-4xl">Log Files</h2>
     <p>
       Cozmos Experiences follows a standard procedure of using log ﬁles. These
       ﬁles log visitors when they visit websites. All hosting companies do this
@@ -71,8 +71,8 @@
       website, and gathering demographic information.
     </p>
   </div>
-  <div class="border-b-2 border-white pb-10">
-    <h2 class="text-gradient py-5">Cookies and Web Beacons</h2>
+  <div class="border-b border-white pb-10">
+    <h2 class="text-gradient py-5 text-4xl">Cookies and Web Beacons</h2>
     <p>
       Like any other website, Cosmos Experiences uses 'cookies'. These cookies
       are used to store information including visitors' preferences, and the
@@ -81,8 +81,8 @@
       content based on visitors' browser type and/or other information.
     </p>
   </div>
-  <div class="border-b-2 border-white pb-10">
-    <h2 class="text-gradient py-5">Google DoubleClick DART Cookie</h2>
+  <div class="border-b border-white pb-10 break-all">
+    <h2 class="text-gradient py-5 text-4xl">Google DoubleClick DART Cookie</h2>
     <p>
       Google is one of a third-party vendor on our site. It also uses cookies,
       known as DART cookies, to serve ads to our site visitors based upon their
@@ -92,8 +92,8 @@
       https://policies.google.com/technologies/ads
     </p>
   </div>
-  <div class="border-b-2 border-white pb-10">
-    <h2 class="text-gradient py-5">Our Advertising Partners</h2>
+  <div class="border-b border-white pb-10 break-all">
+    <h2 class="text-gradient py-5 text-4xl">Our Advertising Partners</h2>
     <p>
       Some of advertisers on our site may use cookies and web beacons. Our
       advertising partners are listed below. Each of our advertising partners
@@ -102,8 +102,10 @@
       https://policies.google.com/technologies/ads
     </p>
   </div>
-  <div class="border-b-2 border-white pb-10">
-    <h2 class="text-gradient py-5">Advertising Partners Privacy Policies</h2>
+  <div class="border-b border-white pb-10">
+    <h2 class="text-gradient py-5 text-4xl">
+      Advertising Partners Privacy Policies
+    </h2>
     <p>
       You may consult this list to ﬁnd the Privacy Policy for each of the
       advertising partners of Cozmos Experiences. Third-party ad servers or ad
@@ -117,8 +119,8 @@
       cookies that are used by third-party advertisers.
     </p>
   </div>
-  <div class="border-b-2 border-white pb-10">
-    <h2 class="text-gradient py-5">Third Party Privacy Policies</h2>
+  <div class="border-b border-white pb-10">
+    <h2 class="text-gradient py-5 text-4xl">Third Party Privacy Policies</h2>
     <p>
       Cozmos Experiences's Privacy Policy does not apply to other advertisers or
       websites. Thus, we are advising you to consult the respective Privacy
@@ -130,8 +132,8 @@
       websites.
     </p>
   </div>
-  <div class="border-b-2 border-white pb-10">
-    <h2 class="text-gradient py-5">
+  <div class="border-b border-white pb-10">
+    <h2 class="text-gradient py-5 text-4xl w-full md:w-1/2">
       CCPA Privacy Rights (Do Not Sell My Personal Information)
     </h2>
     <p>
@@ -146,8 +148,8 @@
       contact us.
     </p>
   </div>
-  <div class="border-b-2 border-white pb-10">
-    <h2 class="text-gradient py-5">GDPR Data Protection Rights</h2>
+  <div class="border-b border-white pb-10">
+    <h2 class="text-gradient py-5 text-4xl">GDPR Data Protection Rights</h2>
     <p>
       We would like to make sure you are fully aware of all of your data
       protection rights. Every user is entitled to the following: The right to
@@ -168,8 +170,8 @@
       these rights, please contact us.
     </p>
   </div>
-  <div class="border-b-2 border-white pb-10">
-    <h2 class="text-gradient py-5">Children's Information</h2>
+  <div class="border-b border-white pb-10">
+    <h2 class="text-gradient py-5 text-4xl">Children's Information</h2>
     <p>
       Another part of our priority is adding protection for children while using
       the internet. We encourage parents and guardians to observe, participate
@@ -192,5 +194,17 @@
       #0063ea 77%,
       #00eaaf 100%
     );
+  }
+
+  .text-gradient {
+    background-image: linear-gradient(
+      90deg,
+      #fa7900 0%,
+      #df36b4 15%,
+      #0063ea 30%,
+      #00eaaf 45%
+    );
+    background-clip: text;
+    color: transparent;
   }
 </style>
