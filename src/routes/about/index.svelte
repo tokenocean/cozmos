@@ -6,7 +6,7 @@
       singer, a day in the life of your dearest celebrity, or a collaboration
       with your favourite YouTuber.
     </p>
-    <img src="/static/svg_icons/ticket.svg" alt="ticket" class="w-96" />
+    <img src="/svg_icons/ticket.svg" alt="ticket" class="w-96" />
   </div>
 </div>
 <div class="bg-black p-10 md:p-32 pb-10 text-white space-y-10">
@@ -47,7 +47,7 @@
     </h3>
     <div class="block md:flex justify-center md:space-x-20">
       <img
-        src="/static/svg_icons/avatar2.svg"
+        src="/svg_icons/avatar2.svg"
         class="w-32 my-5 rounded-full"
         alt="serg"
       />
@@ -63,17 +63,17 @@
         </p>
         <div class="flex">
           <a href="">
-            <img src="/static/Twitter-02.svg" class="w-20" alt="twitter" />
+            <img src="/Twitter-02.svg" class="w-20" alt="twitter" />
           </a>
           <a href="">
-            <img src="/static/Instagram-02.svg" class="w-20" alt="instagram" />
+            <img src="/Instagram-02.svg" class="w-20" alt="instagram" />
           </a>
         </div>
       </div>
     </div>
     <div class="block md:flex justify-center md:space-x-20">
       <img
-        src="/static/svg_icons/avatar1.svg"
+        src="/svg_icons/avatar1.svg"
         class="w-32 my-5 rounded-full"
         alt="serg"
       />
@@ -87,10 +87,10 @@
         </p>
         <div class="flex">
           <a href="">
-            <img src="/static/Twitter-02.svg" class="w-20" alt="twitter" />
+            <img src="/Twitter-02.svg" class="w-20" alt="twitter" />
           </a>
           <a href="">
-            <img src="/static/Instagram-02.svg" class="w-20" alt="instagram" />
+            <img src="/Instagram-02.svg" class="w-20" alt="instagram" />
           </a>
         </div>
       </div>
