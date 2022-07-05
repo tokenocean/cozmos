@@ -4,7 +4,7 @@ services:
     depends_on:
       - hbp
     container_name: lapp
-    image: asoltys/lnft-server
+    image: gcr.io/coinos-326717/github.com/tokenocean/raretoshi-server:prod
     restart: on-failure
     command: ["pnpm", "dev"]
     environment:
@@ -52,7 +52,7 @@ services:
         max-size: "50k"
         max-file: "3"
     container_name: hasura
-    image: hasura/graphql-engine:v2.0.9.cli-migrations-v3
+    image: hasura/graphql-engine:v2.8.3
     ports:
       - "8080:8080"
     depends_on:
@@ -83,7 +83,7 @@ services:
       HASURA_GRAPHQL_ADMIN_SECRET: "${HASURA_GRAPHQL_ADMIN_SECRET}"
       JWT_ALGORITHM: "${JWT_ALGORITHM}"
       JWT_KEY: "${JWT_KEY}"
-      AUTO_MIGRATE: "true"
+      AUTO_MIGRATE: "false"
       AUTO_ACTIVATE_NEW_USERS: "true"
       STORAGE_ENABLE: "false"
       MAX_REQUESTS: 10000

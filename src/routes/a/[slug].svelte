@@ -593,7 +593,7 @@
         <!-- Description -->
         <div class="mt-12">
           <div class="text-2xl font-bold">Description</div>
-          <div class="mt-2">
+          <div class="mt-2 whitespace-pre-wrap">
             {@html linkify(artwork.description) ||
               "Description of this product is empty"}
           </div>
@@ -601,7 +601,7 @@
         <!-- Package content -->
         <div class="mt-12">
           <div class="text-2xl font-bold">Package content</div>
-          <div class="mt-2">
+          <div class="mt-2 whitespace-pre-wrap">
             {artwork.package_content ||
               "Package content of this product is empty"}
           </div>
