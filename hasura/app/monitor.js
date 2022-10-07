@@ -504,24 +504,3 @@ app.get("/balance", auth, async (req, res) => {
     res.code(500).send(e.message);
   }
 });
-
-app.get("/address/:address/utxo", async (req, res) => {
-  try {
-    let { address } = req.params;
-    await scanUtxos(address);
-    let { utxos } = await q(getUtxos, { address });
-    res.send(
-      utxos.map(({ vout, tx: { hash, hex, confirmed }, asset, value }) => ({
-        vout,
-        txid: hash,
-        hex,
-        asset,
-        value,
-        confirmed,
-      }))
-    );
-  } catch (e) {
-    console.log("problem getting utxos", e);
-    res.code(500).send(e.message);
-  }
-});

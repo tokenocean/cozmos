@@ -1,5 +1,7 @@
 import { mnemonicToSeedSync } from "bip39";
 import { fromSeed } from "bip32";
+import redis from "./redis.js";
+import { sleep, wait } from "./utils.js";
 
 import {
   address as Address,
@@ -12,7 +14,7 @@ import {
 
 import { ECPair } from "./ecc.js";
 
-import { electrs } from "./api.js";
+import { electrs, lq } from "./api.js";
 import reverse from "buffer-reverse";
 
 export const network =
@@ -75,7 +77,7 @@ export const broadcast = async (psbt) => {
   let tx = psbt.extractTransaction();
   let hex = tx.toHex();
 
-  return electrs.url("/tx").body(hex).post().text();
+  return lq.sendRawTransaction(hex);
 };
 
 export const parseVal = (v) => parseInt(v.slice(1).toString("hex"), 16);
@@ -112,4 +114,25 @@ export const parse = async (psbt) => {
   });
 
   return [tx.getId(), inputs, outputs];
+};
+
+export const blocktime = async (txid) => {
+  if (!txid) return;
+  let { blocktime } = await lq.getRawTransaction(txid, true);
+  return blocktime;
+};
+
+export const hex = async (txid) => {
+  let hex = await redis.get(txid);
+  if (!hex) {
+    try {
+      hex = await lq.getRawTransaction(txid);
+    } catch (e) {
+      sleep(5000);
+      hex = await lq.getRawTransaction(txid);
+    }
+  }
+
+  await redis.set(txid, hex);
+  return hex;
 };

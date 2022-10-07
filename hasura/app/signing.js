@@ -1,49 +1,10 @@
+import { q } from "./api.js";
 import { keypair, parse, sign } from "./wallet.js";
-import { hasura } from "./api.js";
 import { parseISO, isWithinInterval } from "date-fns";
 import { address as Address } from "liquidjs-lib";
-import wretch from "wretch";
-import fetch from "node-fetch";
-wretch().polyfills({ fetch });
-const { HASURA_URL } = process.env;
 import { app } from "./app.js";
 import { auth } from "./auth.js";
-
-const query = `
-  query($assets: [String!]) {
-    artworks(where: { asset: { _in: $assets }}) {
-      id 
-      asset
-      asking_asset
-      has_royalty
-      royalty_recipients {
-        id
-        asking_asset
-        amount
-        address
-        name
-      }
-      auction_start
-      auction_end
-      list_price
-      artist {
-        id
-        address
-        multisig
-      } 
-      owner {
-        id
-        address
-        multisig
-      } 
-    } 
-  }`;
-
-const allMultisig = `query {
-  users {
-    multisig
-  } 
-}`;
+import { getArtworks, allMultisig } from "./queries.js";
 
 app.get("/pubkey", async (req, res) => {
   const { pubkey } = keypair();
@@ -66,15 +27,11 @@ app.post("/sign", auth, async (req, res) => {
 export const check = async (psbt) => {
   const [txid, inputs, outputs] = await parse(psbt);
 
-  const multisig = (
-    await hasura.post({ query: allMultisig }).json().catch(console.log)
-  ).data.users.map((u) => u.multisig);
+  let multisig = (await q(allMultisig)).users.map((u) => u.multisig);
 
-  let variables = { assets: outputs.map((o) => o.asset) };
-
-  let {
-    data: { artworks },
-  } = await hasura.post({ query, variables }).json();
+  let { artworks } = await q(getArtworks, {
+    assets: outputs.map((o) => o.asset),
+  });
 
   artworks.map(
     ({

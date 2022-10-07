@@ -37,6 +37,11 @@ services:
       SMTP_USER: "${SMTP_USER}"
       SMTP_PASS: "${SMTP_PASS}"
       SMTP_SENDER: "${SMTP_SENDER}"
+      RPCHOST: "${RPCHOST}"
+      RPCPORT: "${RPCPORT}"
+      RPCUSER: "${RPCUSER}"
+      RPCPASS: "${RPCPASS}"
+      RPCWALLET: "${RPCWALLET}"
     volumes:
       - ./custom:/opt/src/hasura/app/custom
       - ${STORAGE_DIR}:/export
@@ -108,3 +113,15 @@ services:
     volumes:
       - ${IPFS_DATA}:/data/ipfs
       - ${STORAGE_DIR}:/export
+  redis:
+    container_name: redis
+    image: redis
+    volumes:
+      - ./redis:/data
+  liquid:
+    image: ghcr.io/vulpemventures/elements:0.21.0.2
+    container_name: liquid
+    volumes:
+      - ./liquidmainnet:/home/elements/.elements
+    restart: unless-stopped
+
