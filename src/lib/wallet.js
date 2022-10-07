@@ -658,7 +658,7 @@ export const requireSign = async () => {
   );
 };
 
-export const sign = async (sighash, prompt = true) => {
+export const sign = async (sighash, prompt = false) => {
   let p = get(psbt);
   const loggedUser = get(user);
 
@@ -886,7 +886,7 @@ export const signOver = async ({ asset }, tx) => {
   });
 
   psbt.set(p);
-  await sign(noneAnyoneCanPay);
+  await sign(noneAnyoneCanPay, false);
   return tx;
 };
 

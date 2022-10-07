@@ -138,25 +138,19 @@
     };
 
     try {
-      if (artwork.editions > 1) {
-        $prompt = Issuing;
-      }
       loading = true;
 
-      artwork.editions = 1;
+      let { artworks } = await core.createArtwork(artwork);
 
-      let { id, asset } = await core.createArtwork(artwork);
+      for (artwork of artworks) {
+        await core.listArtwork(artwork, null, files);
+      }
 
-      artwork.id = id;
-      artwork.asset = asset;
-
-      await core.listArtwork(artwork, null, files);
-
-      api.url("/asset/register").post({ asset }).json().catch(console.log);
+      // api.url("/asset/register").post({ asset }).json().catch(console.log);
 
       await api.url("/mail-artwork-minted").auth(`Bearer ${$token}`).post({
         userId: user.id,
-        artworkId: artwork.id,
+        artworkId: artworks[0].id,
       });
 
       showThanks();

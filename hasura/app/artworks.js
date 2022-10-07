@@ -269,14 +269,7 @@ app.post("/accept", auth, async (req, res) => {
   }
 });
 
-const issuances = {};
-const issue = async (
-  issuance,
-  ids,
-  { body: { artwork, transactions }, headers }
-) => {
-
-  issuances[issuance] = { length: transactions.length, i: 0 };
+const issue = async (ids, { body: { artwork, transactions }, headers }) => {
   let tries = 0;
   let i = 0;
   let contract, psbt;
@@ -292,6 +285,8 @@ const issue = async (
   artwork.artist_id = id;
   artwork.owner_id = id;
 
+  let artworks = [];
+
   while (i < transactions.length && tries < 60) {
     try {
       artwork.id = ids[i];
@@ -306,7 +301,7 @@ const issue = async (
       let p = Psbt.fromBase64(psbt);
 
       try {
-        console.log(await broadcast(p));
+        console.log("issued", await broadcast(p));
       } catch (e) {
         if (!e.message.includes("already")) throw e;
       }
@@ -358,62 +353,35 @@ const issue = async (
         },
         tags,
       });
-      console.log("CREATE");
 
       tries = 0;
-      issuances[issuance].i = ++i;
-      issuances[issuance].asset = artwork.asset;
 
-      console.log("issued", artwork.slug);
+      artworks.push({ ...artwork });
+      i++;
     } catch (e) {
-      console.log("failed issuance", e, artwork, psbt);
+      console.log("failed issuance", e);
       await sleep(5000);
       tries++;
     }
   }
 
-  try {
-    // await api
-    //   .url("/mail-artwork-minted")
-    //   .auth(`Bearer ${$session.jwt}`)
-    //   .post({
-    //     userId: $session.user.id,
-    //     artworkId: artwork.id,
-    //   });
-  } catch (e) {
-    console.log(e);
-  }
+  return artworks;
 };
 
 app.post("/issue", auth, async (req, res) => {
   let tries = 0;
   try {
     let { artwork, transactions } = req.body;
-    let issuance = v4();
     let ids = transactions.map((t) => v4());
-    issue(issuance, ids, req);
-    let slug = kebab(artwork.title || "untitled") + "-" + ids[0].substr(0, 5);
+    let artworks = await issue(ids, req);
     let { multisig } = await getUser(req);
 
     await wait(async () => {
-      if (++tries > 40) throw new Error("Issuance timed out");
-      //console.log(tries, issuances, address);
-      if (!(issuances[issuance].i > 0)) return false;
       let utxos = await lnft.url(`/address/${multisig}/utxo`).get().json();
-      //console.log(utxos, issuances[issuance].asset);
-      return utxos.find((tx) => tx.asset === issuances[issuance].asset);
+      return utxos.find((tx) => tx.asset === artworks[0].asset);
     });
 
-    res.send({ id: ids[0], asset: issuances[issuance].asset, issuance, slug });
-  } catch (e) {
-    console.log(e);
-    res.code(500).send(e.message);
-  }
-});
-
-app.get("/issuance", auth, async (req, res) => {
-  try {
-    res.send(issuance[req.body.issuance]);
+    res.send({ artworks });
   } catch (e) {
     console.log(e);
     res.code(500).send(e.message);
@@ -463,7 +431,8 @@ app.post("/redeem", auth, async (req, res) => {
   let { artworks_by_pk: artwork } = await q(getArtwork, { id: req.body.id });
 
   try {
-    if (user.id !== artwork.artist.id) throw new Error("only artist can redeem");
+    if (user.id !== artwork.artist.id)
+      throw new Error("only artist can redeem");
     let result = await q(redeemArtwork, req.body);
     res.send(result);
   } catch (e) {

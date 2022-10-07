@@ -117,7 +117,6 @@ export default class Core {
    * @returns {Promise<{filetype}|{filename}|*>}
    */
   async createArtwork(artwork) {
-
     let transactions = [];
     if (!dev) {
       if (!artwork.title) throw new Error("Please enter a title");
@@ -154,7 +153,7 @@ export default class Core {
 
         titles.set([...get(titles), { ...artwork, asset }]);
 
-        await sign(1, editionCount > 1 ? false : true);
+        await sign(1, false);
         await tick();
 
         tx = get(psbt).extractTransaction();
@@ -165,6 +164,7 @@ export default class Core {
         transactions.push({ contract, psbt: get(psbt).toBase64() });
 
         let hash = tx.getId();
+        console.log("HASH", tx.getId());
 
         return {
           asset,
@@ -184,7 +184,7 @@ export default class Core {
     if (total < required)
       throw { message: "Insufficient funds", required, btc, total };
 
-    let { id, asset, issuance, slug } = await api
+    return api
       .url("/issue")
       .auth(`Bearer ${this.token}`)
       .post({
@@ -192,12 +192,6 @@ export default class Core {
         transactions,
       })
       .json();
-
-    artwork.slug = slug;
-    artwork.id = id;
-    artwork.asset = asset;
-
-    return artwork;
   }
 
   async setupAuction(artwork, current) {

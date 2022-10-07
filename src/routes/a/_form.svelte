@@ -324,6 +324,12 @@
       </FormItem>
     </div>
 
+    <div class="py-2">
+      <FormItem title="Number of copies">
+        <Input bind:value={artwork.editions} placeholder="Copies" />
+      </FormItem>
+    </div>
+
     <div class="py-4 w-full lg:w-1/2">
       <FormItem title="Royalties">
         <RoyaltyRecipientList
