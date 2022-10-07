@@ -1,0 +1,12 @@
+https://{$DOMAIN} {
+  reverse_proxy /v1* hasura:8080
+  reverse_proxy /v2* hasura:8080
+  reverse_proxy /console* hasura:8080
+  reverse_proxy ui:3000
+
+  header /api/tx/* Cache-Control "public, max-age=604800, must-revalidate"
+
+  handle_path /api* {
+    reverse_proxy lapp:8091
+  }
+}
