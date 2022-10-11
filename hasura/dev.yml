@@ -38,37 +38,22 @@ services:
       - ./app:/app
       - ./custom:/opt/src/hasura/app/custom
       - ${STORAGE_DIR}:/export
-    ports:
-      - "8091:8091"
-  postgres:
-    container_name: postgres
-    image: postgres:12
-    restart: always
-    environment:
-      POSTGRES_PASSWORD: postgrespassword
-    volumes:
-      - ${DATA_DIR}:/var/lib/postgresql/data
-    ports:
-      - "5433:5432"
-    command: ["postgres", "-c", "log_min_duration_statement=1000"]
   hasura:
     logging:
       options:
         max-size: "50k"
         max-file: "3"
     container_name: hasura
-    image: hasura/graphql-engine:v2.8.3
+    image: hasura/graphql-engine:v2.13.0-beta.1
     ports:
       - "8080:8080"
-    depends_on:
-      - postgres
     restart: always
     volumes:
       - ./migrations:/hasura-migrations
       - ./metadata:/hasura-metadata
     environment:
       HASURA_GRAPHQL_ENABLED_LOG_TYPES: "startup, http-log, webhook-log, websocket-log"
-      HASURA_GRAPHQL_DATABASE_URL: postgres://postgres:postgrespassword@postgres:5432/postgres
+      HASURA_GRAPHQL_DATABASE_URL: postgres://postgres:postgrespassword@postgres:5432/cozmos
       HASURA_GRAPHQL_ADMIN_SECRET: "${HASURA_GRAPHQL_ADMIN_SECRET}"
       HASURA_GRAPHQL_JWT_SECRET: "${HASURA_GRAPHQL_JWT_SECRET}"
       HASURA_GRAPHQL_ENABLE_CONSOLE: "true"
@@ -80,8 +65,6 @@ services:
     image: nhost/hasura-backend-plus:v2.4.0
     depends_on:
       - hasura
-    ports:
-      - "3400:3000"
     environment:
       SERVER_URL: "${SERVER_URL}"
       HASURA_ENDPOINT: "${HASURA_URL}/v1/graphql"
@@ -102,25 +85,6 @@ services:
       VERIFY_EMAILS: "true"
     volumes:
       - ./custom:/app/custom
-  ipfs:
-    container_name: ipfs
-    image: ipfs/go-ipfs
-    ports:
-      - 8081:8080
-      - 4001:4001
-      - 5001:5001
-    volumes:
-      - ${IPFS_DATA}:/data/ipfs
-      - ${STORAGE_DIR}:/export
-  redis:
-    container_name: redis
-    image: redis
-    volumes:
-      - ./redis:/data
-    networks:
-      default:
-        ipv4_address: 172.18.0.17
-
 networks: 
   default: 
     name: net
