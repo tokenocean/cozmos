@@ -34,6 +34,8 @@ services:
       RPCUSER: "${RPCUSER}"
       RPCPASS: "${RPCPASS}"
       RPCWALLET: "${RPCWALLET}"
+    ports:
+      - "8091:8091"
     volumes:
       - ./app:/app
       - ./custom:/opt/src/hasura/app/custom
@@ -85,6 +87,8 @@ services:
       VERIFY_EMAILS: "true"
     volumes:
       - ./custom:/app/custom
+    ports:
+      - "3400:3000"
 networks: 
   default: 
     name: net

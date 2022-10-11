@@ -430,9 +430,6 @@ export const getArtwork = `query($id: uuid!) {
   artworks_by_pk(id: $id) {
     id
     artist_id
-    artist {
-      bitcoin_unit
-    } 
     owner {
       address
       multisig
