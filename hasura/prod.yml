@@ -1,29 +1,15 @@
 version: "3.6"
 services:
-  caddy:
-    container_name: caddy
-    image: caddy:2
-    ports:
-      - "8180:80"
-      - "443:443"
-    volumes:
-      - ./Caddyfile:/etc/caddy/Caddyfile
-      - ./caddy:/data
-    environment:
-      DOMAIN: "${DOMAIN}"
   ui:
     depends_on:
-      - lapp
-    container_name: ui
+      - app
+    container_name: cui
     image: gcr.io/coinos-326717/github.com/tokenocean/cozmos:staging
     restart: on-failure
-    ports:
-      - "3000:3000"
-      - "9229:9229"
-  lapp:
+  app:
     depends_on:
       - hbp
-    container_name: lapp
+    container_name: ca
     image: gcr.io/coinos-326717/github.com/tokenocean/cozmos-server:staging
     restart: on-failure
     environment:
@@ -57,44 +43,25 @@ services:
     volumes:
       - ./custom:/opt/src/hasura/app/custom
       - ${STORAGE_DIR}:/export
-    ports:
-      - "8091:8091"
-  postgres:
-    container_name: postgres
-    image: postgres:12
-    restart: always
-    environment:
-      POSTGRES_USER: "${POSTGRES_USER}"
-      POSTGRES_PASSWORD: "${POSTGRES_PASSWORD}"
-    volumes:
-      - ${DATA_DIR}:/var/lib/postgresql/data
-    ports:
-      - "5433:5432"
   hasura:
-    container_name: hasura
-    image: hasura/graphql-engine:v2.7.0
-    ports:
-      - "8080:8080"
-    depends_on:
-      - postgres
+    container_name: ch
+    image: hasura/graphql-engine:v2.13.0-beta.1
     restart: always
     volumes:
       - ./migrations:/hasura-migrations
       - ./metadata:/hasura-metadata
       - ./seeds:/hasura-seeds
     environment:
-      HASURA_GRAPHQL_DATABASE_URL: "postgres://${POSTGRES_USER}:${POSTGRES_PASSWORD}@postgres:5432/${POSTGRES_USER}"
+      HASURA_GRAPHQL_DATABASE_URL: "postgres://${POSTGRES_USER}:${POSTGRES_PASSWORD}@postgres:5432/cozmos"
       HASURA_GRAPHQL_ADMIN_SECRET: "${HASURA_GRAPHQL_ADMIN_SECRET}"
       HASURA_GRAPHQL_JWT_SECRET: "${HASURA_GRAPHQL_JWT_SECRET}"
       HASURA_GRAPHQL_ENABLE_CONSOLE: "true"
       HASURA_GRAPHQL_UNAUTHORIZED_ROLE: "anonymous"
   hbp:
-    container_name: hbp
+    container_name: chb
     image: nhost/hasura-backend-plus:v2.4.0
     depends_on:
       - hasura
-    ports:
-      - "3400:3000"
     environment:
       SERVER_URL: "${SERVER_URL}"
       HASURA_ENDPOINT: "${HASURA_URL}/v1/graphql"
@@ -115,25 +82,7 @@ services:
       VERIFY_EMAILS: "true"
     volumes:
       - ./custom:/app/custom
-  ipfs:
-    container_name: ipfs
-    image: ipfs/go-ipfs:v0.14.0
-    ports:
-      - 8081:8080
-      - 4001:4001
-      - 5001:5001
-    volumes:
-      - ${IPFS_DATA}:/data/ipfs
-      - ${STORAGE_DIR}:/export
-  redis:
-    container_name: redis
-    image: redis
-    volumes:
-      - ./redis:/data
-  liquid:
-    image: ghcr.io/vulpemventures/elements:0.21.0.2
-    container_name: liquid
-    volumes:
-      - ./liquidmainnet:/home/elements/.elements
-    restart: unless-stopped
-
+networks: 
+  default: 
+    name: coinos
+    external: true
